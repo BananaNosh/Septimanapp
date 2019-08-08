@@ -1,4 +1,4 @@
-package com.nobodysapps.septimanapp
+package com.nobodysapps.septimanapp.activity
 
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton

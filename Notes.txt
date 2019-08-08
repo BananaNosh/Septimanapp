@@ -3,5 +3,8 @@ Features:
 
 Issues:
 
+Other Todos:
+    README -> think about process of adding new features etc.
+    
 Comments:
-
+    
