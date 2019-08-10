@@ -32,6 +32,10 @@ public class HorariumView extends WeekView {
         setupWeekLoader();
     }
 
+    /**
+     * Set the date limit from startDate until the day accroding to the last possible day TODO change according to events
+     * @param startDate the start date of the view
+     */
     private void setupDateLimits(Calendar startDate) {
         startDate.set(Calendar.HOUR_OF_DAY, 0);
         startDate.set(Calendar.MINUTE, 0);
@@ -61,6 +65,11 @@ public class HorariumView extends WeekView {
         });
     }
 
+    /**
+     * Tell the view to adapt according to orientation
+     * Shows more days, when in landscape
+     * @param isLandscape if the orienation is landscape
+     */
     public void changeOrientation(boolean isLandscape) {
         if (isLandscape) {
             setNumberOfVisibleDays(NUMBER_OF_SHOWN_DAYS_LANDSCAPE);
@@ -74,6 +83,9 @@ public class HorariumView extends WeekView {
         setShownHoursAccordingToEvents();
     }
 
+    /**
+     * Limit shown hours to the earliest and latest occuring in events
+     */
     private void setShownHoursAccordingToEvents() {
         int earliestHour = 23;
         int latestHour = 0;
