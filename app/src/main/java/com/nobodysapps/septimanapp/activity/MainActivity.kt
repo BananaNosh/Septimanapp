@@ -50,8 +50,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Get a reference for the week view in the layout.
         weekView.changeOrientation(landscape)
         weekView.setEvents(listOf(
-            WeekViewEvent(0, "Ev1", 2019, 8, 10, 20, 0, 2019, 8, 10, 21, 0),
-            WeekViewEvent(1, "Ev2", 2019, 8, 10, 22, 0, 2019, 8, 10, 22, 30))
+            WeekViewEvent("ev1", "Ev1", 2019, 8, 13, 8, 0, 2019, 8, 13, 9, 0),
+            WeekViewEvent("ev2", "Ev2", 2019, 8, 14, 22, 0, 2019, 8, 14, 22, 30))
         )
 
         // Set an action when any event is clicked.
