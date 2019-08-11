@@ -3,13 +3,16 @@ package com.nobodysapps.septimanapp.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 import com.alamkanak.weekview.WeekViewLoader;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class HorariumView extends WeekView {
 
@@ -18,17 +21,29 @@ public class HorariumView extends WeekView {
     public static final String TAG = "WeekView";
 
     private List<WeekViewEvent> events = new ArrayList<>(80);
+    private DateTimeInterpreter weekViewDefaultDateTimeInterpreter;
 
     public HorariumView(Context context) {
         this(context, null);
     }
 
-    public HorariumView(Context context, AttributeSet attrs) {
+    public HorariumView(final Context context, AttributeSet attrs) {
         super(context, attrs);
 
         // set default start_date limit to today and end_date limit according to max shown days
         setupDateLimits(Calendar.getInstance());
+        weekViewDefaultDateTimeInterpreter = getDateTimeInterpreter();
+        setDateTimeInterpreter(new DateTimeInterpreter() {
+            @Override
+            public String interpretDate(Calendar date) {
+                return new SimpleDateFormat("EEE", Locale.getDefault()).format(date.getTime());
+            }
 
+            @Override
+            public String interpretTime(int hour, int minutes) {
+                return weekViewDefaultDateTimeInterpreter.interpretTime(hour, minutes);
+            }
+        });
         setupWeekLoader();
     }
 
