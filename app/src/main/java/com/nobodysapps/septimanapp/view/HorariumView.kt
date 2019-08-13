@@ -7,6 +7,7 @@ import com.alamkanak.weekview.DateTimeInterpreter
 import com.alamkanak.weekview.WeekView
 import com.alamkanak.weekview.WeekViewEvent
 import com.alamkanak.weekview.WeekViewLoader
+import com.nobodysapps.septimanapp.localization.dateFormatSymbolsForLatin
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,7 +33,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
     private fun setupDateTimeInterpreter() {
         dateTimeInterpreter = object : DateTimeInterpreter {
             override fun interpretDate(date: Calendar): String {
-                return SimpleDateFormat("EEE", Locale("de")).format(date.time)
+                return SimpleDateFormat("EEEE", dateFormatSymbolsForLatin()).format(date.time)
             }
 
             override fun interpretTime(hour: Int, minutes: Int): String {
