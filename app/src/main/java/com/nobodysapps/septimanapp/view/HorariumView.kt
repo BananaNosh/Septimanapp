@@ -16,8 +16,8 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
     private val weekViewDefaultDateTimeInterpreter: DateTimeInterpreter
 
     init {
-
         // set default start_date limit to today and end_date limit according to max shown days
+        setupDefaultFormat()
         setupDateLimits(Calendar.getInstance())
         weekViewDefaultDateTimeInterpreter = dateTimeInterpreter
         setupDateTimeInterpreter()
@@ -25,10 +25,14 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         Log.d(TAG, Locale.getAvailableLocales().toString())
     }
 
+    private fun setupDefaultFormat() {
+        todayBackgroundColor = dayBackgroundColor
+    }
+
     private fun setupDateTimeInterpreter() {
         dateTimeInterpreter = object : DateTimeInterpreter {
             override fun interpretDate(date: Calendar): String {
-                return SimpleDateFormat("EEE", Locale.getDefault()).format(date.time)
+                return SimpleDateFormat("EEE", Locale("de")).format(date.time)
             }
 
             override fun interpretTime(hour: Int, minutes: Int): String {
