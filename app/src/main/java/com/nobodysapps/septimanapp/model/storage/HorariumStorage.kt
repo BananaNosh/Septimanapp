@@ -4,8 +4,9 @@ import android.content.SharedPreferences
 import com.nobodysapps.septimanapp.model.Horarium
 
 import java.util.Calendar
+import javax.inject.Inject
 
-class HorariumStorage(private val prefs: SharedPreferences, private val jsonConverter: JsonConverter) {
+class HorariumStorage @Inject constructor(private val prefs: SharedPreferences, private val jsonConverter: JsonConverter) {
 
     fun saveHorarium(horarium: Horarium, startDate: Calendar) {
         val key = keyFromStartDate(startDate)

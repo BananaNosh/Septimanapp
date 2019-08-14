@@ -4,20 +4,16 @@ import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.Map;
 
+@Singleton
 public class JsonConverter {
-    private static JsonConverter instance;
     private Gson gson;
 
-    public static JsonConverter getInstance() {
-        if (instance == null) {
-            instance = new JsonConverter();
-        }
-        return instance;
-    }
-
-    private JsonConverter() {
+    @Inject
+    public JsonConverter() {
         gson = new GsonBuilder()
 //                .registerTypeAdapterFactory(RuntimeAdapterFactories.gameControllerFactory())
 //                .registerTypeAdapterFactory(RuntimeAdapterFactories.actionFactory())
@@ -27,6 +23,7 @@ public class JsonConverter {
     }
 
 
+    @NonNull
     public <T> String toJson(T obj) {
         return gson.toJson(obj);
     }
