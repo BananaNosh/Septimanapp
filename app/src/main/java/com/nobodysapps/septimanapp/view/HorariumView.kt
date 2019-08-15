@@ -19,7 +19,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
     init {
         // set default start_date limit to today and end_date limit according to max shown days
         setupDefaultFormat()
-        setupDateLimits(Calendar.getInstance())
+        setupDateLimits()
         weekViewDefaultDateTimeInterpreter = dateTimeInterpreter
         setupDateTimeInterpreter()
         setupWeekLoader()
@@ -43,18 +43,25 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     /**
-     * Set the date limit from startDate until the day accroding to the last possible day TODO change according to events
+     * Set the date limit from startDate to endDate but at least that NUMBER_OF_SHOWN_DAYS days can be shown TODO change according to events
      * @param startDate the start date of the view
+     * @param endDate the end date of the view
      */
-    private fun setupDateLimits(startDate: Calendar) {
+    private fun setupDateLimits(startDate: Calendar = Calendar.getInstance(), endDate: Calendar = Calendar.getInstance()
+    ) {
         startDate.set(Calendar.HOUR_OF_DAY, 0)
         startDate.set(Calendar.MINUTE, 0)
         startDate.set(Calendar.SECOND, 0)
         startDate.set(Calendar.MILLISECOND, 0)
-        val endDate = startDate.clone() as Calendar
-        endDate.add(Calendar.DAY_OF_YEAR, Math.max(NUMBER_OF_SHOWN_DAYS_PORTRAIT, NUMBER_OF_SHOWN_DAYS_LANDSCAPE) - 1)
+        val startEndDiffDays =
+            endDate.get(Calendar.DAY_OF_YEAR) - startDate.get(Calendar.DAY_OF_YEAR) // TODO does not work for change of year
+        val newEndDate = startDate.clone() as Calendar
+        newEndDate.add(
+            Calendar.DAY_OF_YEAR,
+            Math.max(Math.max(NUMBER_OF_SHOWN_DAYS_PORTRAIT, NUMBER_OF_SHOWN_DAYS_LANDSCAPE), startEndDiffDays) - 1
+        )
         minDate = startDate
-        maxDate = endDate
+        maxDate = newEndDate
     }
 
     /**
@@ -88,13 +95,15 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     fun setEvents(events: List<WeekViewEvent>) {
         this.events = events
-        setShownHoursAccordingToEvents()
+        setShownHoursAndDateLimitsAccordingToEvents()
     }
 
     /**
      * Limit shown hours to the earliest and latest occuring in events
      */
-    private fun setShownHoursAccordingToEvents() {
+    private fun setShownHoursAndDateLimitsAccordingToEvents() {
+        var earliestDate: Calendar? = null
+        var latestDate: Calendar? = null
         var earliestHour = 23
         var latestHour = 0
         for (event in events) {
@@ -106,8 +115,16 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
             if (eventEndHour > latestHour) {
                 latestHour = eventEndHour
             }
+            if (earliestDate == null || event.startTime < earliestDate) {
+                earliestDate = event.startTime
+            }
+            if (latestDate == null || event.endTime > latestDate) {
+                latestDate = event.endTime
+            }
         }
         setLimitTime(earliestHour, latestHour)
+        val today = Calendar.getInstance()
+        setupDateLimits(earliestDate ?: today, latestDate ?: today)
     }
 
     companion object {
