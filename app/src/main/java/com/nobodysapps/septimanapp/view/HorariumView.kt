@@ -88,6 +88,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
     fun changeOrientation(isLandscape: Boolean) {
         if (isLandscape) {
             numberOfVisibleDays = NUMBER_OF_SHOWN_DAYS_LANDSCAPE
+            hourHeight *= 2
         } else {
             numberOfVisibleDays = NUMBER_OF_SHOWN_DAYS_PORTRAIT
         }
