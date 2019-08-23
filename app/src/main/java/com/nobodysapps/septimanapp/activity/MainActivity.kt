@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.alamkanak.weekview.WeekViewEvent
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -20,6 +21,9 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 import javax.inject.Inject
+import android.R.attr.fragment
+import com.nobodysapps.septimanapp.fragments.HorariumFragment
+
 
 const val TAG = "MainActivity"
 
@@ -93,9 +97,11 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
+        var fragment: Fragment? = null
+        var fragmentClass: Class<*> = HorariumFragment::class.java
         when (item.itemId) {
             R.id.nav_home -> {
-                // Handle the camera action
+                fragmentClass = HorariumFragment::class.java
             }
             R.id.nav_gallery -> {
                 Toast.makeText(this, "Hallo ich bin gallery", Toast.LENGTH_LONG).show()
@@ -113,6 +119,13 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
 
             }
         }
+        try {
+            fragment = (fragmentClass.newInstance() as Fragment)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        if (fragment == null) return false
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_placeholder, fragment).commit()
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
