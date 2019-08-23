@@ -1,41 +1,65 @@
 package com.nobodysapps.septimanapp.activity
 
+
+import android.content.res.Configuration
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.core.view.GravityCompat
-import androidx.appcompat.app.ActionBarDrawerToggle
+import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import android.view.Menu
+import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
+import com.nobodysapps.septimanapp.model.storage.HorariumStorage
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import java.util.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    @Inject
+    lateinit var horariumStorage: HorariumStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val fab: FloatingActionButton = findViewById(R.id.fab)
+        getSeptimanappApplication().component.inject(this)
+
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
+        val drawerLayout: DrawerLayout = drawer_layout
+        val navView: NavigationView = nav_view
         val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this, drawerLayout, toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
+
+        val landscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+        setupHorariumView(landscape)
+    }
+
+    private fun setupHorariumView(landscape: Boolean) {
+        // Get a reference for the week view in the layout.
+        horariumView.changeOrientation(landscape)
+        val startDate = Calendar.getInstance()
+        startDate.set(Calendar.YEAR, 2018) //TODO
+        val horarium = horariumStorage.loadHorarium(startDate)
+        if (horarium != null) {
+            horariumView.setHorarium(horarium)
+        }
     }
 
     override fun onBackPressed() {
@@ -70,7 +94,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 // Handle the camera action
             }
             R.id.nav_gallery -> {
-
+                Toast.makeText(this, "Hallo ich bin gallery", Toast.LENGTH_LONG).show()
             }
             R.id.nav_slideshow -> {
 
@@ -85,11 +109,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
             R.id.nav_map -> {
-
+                startActivity(MapActivity.obtainIntent(this))
             }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+    companion object {
+        const val TAG = "MainActivity"
     }
 }
