@@ -3,7 +3,6 @@ package com.nobodysapps.septimanapp.activity
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -24,8 +23,6 @@ import javax.inject.Inject
 import android.R.attr.fragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 
-
-const val TAG = "MainActivity"
 
 class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -129,5 +126,8 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+    companion object {
+        const val TAG = "MainActivity"
     }
 }
