@@ -32,21 +32,6 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
             }
             field = value
         }
-    var editMode = false
-        set(value) {
-            field = value
-            if (value) {
-                setLimitTime(0, 24)
-                val today = Calendar.getInstance()
-                minDate = if (today.before(minDate)) today else minDate
-                maxDate = today
-                maxDate.add(Calendar.YEAR, 5)
-
-                setupEditMode()
-            } else {
-                setShownHoursAndDateLimitsAccordingToEvents()
-            }
-        }
 
     init {
         // set default start_date limit to today and end_date limit according to max shown days
@@ -56,35 +41,6 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         setupDateTimeInterpreter()
         setupWeekLoader()
         Log.d(TAG, Locale.getAvailableLocales().toString())
-    }
-
-    private fun setupEditMode() {
-        setEmptyViewClickListener clickViewListener@{ clickedTime: Calendar? ->
-            val endTime = (clickedTime?.clone() ?: return@clickViewListener) as Calendar
-            endTime.add(Calendar.HOUR, 1)
-
-            var startHour = clickedTime.get(Calendar.HOUR)
-            var startMinute = clickedTime.get(Calendar.MINUTE)
-            startMinute = ((startMinute + 15) / 30) * 30 // round to next half of an hour
-            if (startMinute == 60) {
-                startHour += 1
-                startMinute = 0
-            }
-            val timePickerDialog = TimePickerDialog(
-                context, this, startHour,
-                startMinute, DateFormat.is24HourFormat(context)
-            )
-            val titleTextView = TextView(context)
-            titleTextView.text = "TimePickerDialog Title";
-            titleTextView.setBackgroundColor(Color.parseColor("#EEE8AA"));
-            titleTextView.setPadding(5, 3, 5, 3);
-            titleTextView.gravity = Gravity.CENTER_HORIZONTAL;
-            timePickerDialog.show()
-
-        }
-        setOnEventClickListener { event, rect: RectF ->
-
-        }
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {

@@ -85,14 +85,6 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        if (item.itemId == R.id.action_edit_mode) { //TODO only when admin
-            item.setChecked(!item.isChecked)
-
-            Toast.makeText(this, "Edit mode is ${item.isChecked}", Toast.LENGTH_LONG).show()
-            horariumView.editMode = item.isChecked
-
-            return true
-        }
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
