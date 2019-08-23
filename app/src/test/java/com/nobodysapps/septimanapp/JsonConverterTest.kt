@@ -41,5 +41,6 @@ class JsonConverterTest {
 
         json = "{\"events\":[{\"mId\":\"id1\",\"mStartTime\":{\"year\":2019,\"month\":7,\"dayOfMonth\":15,\"hourOfDay\":15,\"minute\":15},\"mEndTime\":{\"year\":2019,\"month\":7,\"dayOfMonth\":15,\"hourOfDay\":15,\"minute\":45},\"mName\":\"ev1\",\"mColor\":0,\"mAllDay\":false}"
         loaded = jsonConverter.fromJson(json, Horarium::class.java)
+        assertEquals(horarium, loaded)
     }
 }

@@ -18,7 +18,10 @@ import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import java.util.*
 import javax.inject.Inject
+
+const val TAG = "MainActivity"
 
 class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,7 +34,6 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         setSupportActionBar(toolbar)
 
         getSeptimanappApplication().component.inject(this)
-        Log.d("MainActivity", horariumStorage.toString())
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -50,29 +52,18 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         navView.setNavigationItemSelectedListener(this)
 
         val landscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-        setupWeekView(landscape)
+        setupHorariumView(landscape)
     }
 
-    private fun setupWeekView(landscape: Boolean) {
+    private fun setupHorariumView(landscape: Boolean) {
         // Get a reference for the week view in the layout.
-        weekView.changeOrientation(landscape)
-        weekView.setEvents(listOf(
-            WeekViewEvent("ev1", "Ev1", 2019, 8, 13, 8, 0, 2019, 8, 13, 9, 0),
-            WeekViewEvent("ev2", "Ev2", 2019, 8, 14, 22, 0, 2019, 8, 14, 22, 30))
-        )
-
-        // Set an action when any event is clicked.
-        //        mWeekView.setOnEventClickListener(mEventClickListener);
-
-        // The week view has infinite scrolling horizontally. We have to provide the events of a
-        // month every time the month changes on the week view.
-//        mWeekView.setMonthChangeListener { newYear, newMonth ->
-//            print("New month $newYear, $newMonth")
-//            Collections.emptyList()
-//        }
-
-        // Set long press listener for events.
-        //        mWeekView.setEventLongPressListener(mEventLongPressListener);
+        horariumView.changeOrientation(landscape)
+        val startDate = Calendar.getInstance()
+        startDate.set(Calendar.YEAR, 2018) //TODO
+        val horarium = horariumStorage.loadHorarium(startDate)
+        if (horarium != null) {
+            horariumView.setHorarium(horarium)
+        }
     }
 
     override fun onBackPressed() {
@@ -94,6 +85,14 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        if (item.itemId == R.id.action_edit_mode) { //TODO only when admin
+            item.setChecked(!item.isChecked)
+
+            Toast.makeText(this, "Edit mode is ${item.isChecked}", Toast.LENGTH_LONG).show()
+            horariumView.editMode = item.isChecked
+
+            return true
+        }
         return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)

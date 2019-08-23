@@ -20,7 +20,7 @@
 
 
     <com.nobodysapps.septimanapp.view.HorariumView
-            android:id="@+id/weekView"
+            android:id="@+id/horariumView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:eventTextColor="@android:color/white"
@@ -28,7 +28,7 @@
             app:headerColumnPadding="8dp"
             app:headerColumnTextColor="#8f000000"
             app:headerRowPadding="12dp"
-            app:columnGap="0dp"
+            app:columnGap="2dp"
             app:headerRowBackgroundColor="#ffefefef"
             app:dayBackgroundColor="#05000000"
             app:headerColumnBackground="#ffffffff"/>

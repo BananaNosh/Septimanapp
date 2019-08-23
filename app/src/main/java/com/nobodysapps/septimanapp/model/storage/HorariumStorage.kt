@@ -20,11 +20,11 @@ class HorariumStorage @Inject constructor(private val prefs: SharedPreferences, 
         return jsonConverter.fromJson(json, Horarium::class.java)
     }
 
-    private fun keyFromStartDate(startDate: Calendar): String {
-        return String.format("%s_%s", HORARIUM_KEY, startDate.get(Calendar.YEAR))
-    }
-
     companion object {
         private const val HORARIUM_KEY = "horarium"
+
+        fun keyFromStartDate(startDate: Calendar): String {
+            return String.format("%s_%s", HORARIUM_KEY, startDate.get(Calendar.YEAR))
+        }
     }
 }
