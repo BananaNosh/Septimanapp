@@ -7,6 +7,7 @@ import com.nobodysapps.septimanapp.dependencyInjection.DaggerSeptimanappApplicat
 import com.nobodysapps.septimanapp.dependencyInjection.SeptimanappApplicationComponent
 import com.nobodysapps.septimanapp.dependencyInjection.SharedPreferencesModule
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
+import java.lang.NumberFormatException
 import java.util.*
 
 const val VERSION_ALREADY_RUN_ON = "run_version"
@@ -35,16 +36,33 @@ class SeptimanappApplication : Application() {
     }
 
     private fun doOnFirstStartOfVersion() {
-        Log.d("SeptimanappApplication", "First run")
+        Log.d(TAG, "First run")
         loadHoraria()
     }
 
     private fun loadHoraria() {
-        assets.open("horarium_2018.json").bufferedReader().use {
-            val horariumJson = it.readText()
-            val horariumDate = Calendar.getInstance()
-            horariumDate.set(2018, 1, 1)
-            sharedPreferences.edit().putString(HorariumStorage.keyFromStartDate(horariumDate), horariumJson).apply()
+        val fileList = assets.list("")
+        fileList?.forEach {
+            if (it.startsWith("horarium_") && it.endsWith(".json")) {
+                val yearString = it.substringAfter("_").substringBefore(".")
+                var year: Int
+                try {
+                    year = yearString.toInt()
+                } catch (e: NumberFormatException) {
+                    Log.d(TAG, "Wrong filename $it")
+                    year = 0
+                }
+                assets.open(it).bufferedReader().use {
+                    val horariumJson = it.readText()
+                    val horariumDate = Calendar.getInstance()
+                    horariumDate.set(year, 1, 1)
+                    sharedPreferences.edit().putString(HorariumStorage.keyFromStartDate(horariumDate), horariumJson).apply()
+                }
+            }
         }
+    }
+
+    companion object {
+        const val TAG = "SeptimanappApplication"
     }
 }
