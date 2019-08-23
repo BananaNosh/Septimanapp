@@ -1,14 +1,19 @@
 package com.nobodysapps.septimanapp.fragments
 
 import android.content.Context
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
 import com.nobodysapps.septimanapp.R
+import com.nobodysapps.septimanapp.activity.SeptimanappActivity
+import com.nobodysapps.septimanapp.model.storage.HorariumStorage
+import kotlinx.android.synthetic.main.fragment_horarium.*
+import java.util.*
+import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,6 +29,9 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class HorariumFragment : Fragment() {
+    @Inject
+    lateinit var horariumStorage: HorariumStorage
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -45,6 +53,23 @@ class HorariumFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_horarium, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val landscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+        setupHorariumView(landscape)
+    }
+
+    private fun setupHorariumView(landscape: Boolean) {
+        // Get a reference for the week view in the layout.
+        horariumView.changeOrientation(landscape)
+        val startDate = Calendar.getInstance()
+        startDate.set(Calendar.YEAR, 2018) //TODO
+        val horarium = horariumStorage.loadHorarium(startDate)
+        if (horarium != null) {
+            horariumView.setHorarium(horarium)
+        }
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     fun onButtonPressed(uri: Uri) {
 //        listener?.onFragmentInteraction(uri)
@@ -52,6 +77,7 @@ class HorariumFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        (context as SeptimanappActivity).getSeptimanappApplication().component.inject(this)
 //        if (context is OnFragmentInteractionListener) {
 //            listener = context
 //        } else {
