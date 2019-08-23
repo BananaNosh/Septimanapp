@@ -1,7 +1,6 @@
 package com.nobodysapps.septimanapp.activity
 
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,24 +9,17 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import com.alamkanak.weekview.WeekViewEvent
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.content_main.*
-import java.util.*
 import javax.inject.Inject
-import android.R.attr.fragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 
 
 class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    @Inject
-    lateinit var horariumStorage: HorariumStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +27,8 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         setSupportActionBar(toolbar)
 
         getSeptimanappApplication().component.inject(this)
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, HorariumFragment.newInstance("", "")).commit()
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -51,20 +45,6 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
-
-        val landscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-        setupHorariumView(landscape)
-    }
-
-    private fun setupHorariumView(landscape: Boolean) {
-        // Get a reference for the week view in the layout.
-        horariumView.changeOrientation(landscape)
-        val startDate = Calendar.getInstance()
-        startDate.set(Calendar.YEAR, 2018) //TODO
-        val horarium = horariumStorage.loadHorarium(startDate)
-        if (horarium != null) {
-            horariumView.setHorarium(horarium)
-        }
     }
 
     override fun onBackPressed() {
@@ -122,7 +102,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             e.printStackTrace()
         }
         if (fragment == null) return false
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_placeholder, fragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit()
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true

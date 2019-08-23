@@ -7,7 +7,7 @@
         <item
                 android:id="@+id/nav_home"
                 android:icon="@drawable/ic_menu_camera"
-                android:title="@string/menu_home"
+                android:title="@string/menu_horarium"
                 android:checked="true"/>
         <item
                 android:id="@+id/nav_gallery"

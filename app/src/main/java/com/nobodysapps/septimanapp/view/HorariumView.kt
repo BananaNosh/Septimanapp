@@ -162,6 +162,9 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         }
         val today = Calendar.getInstance()
         setupDateLimits(earliestDate ?: today, latestDate ?: today)
+        if (earliestDate != null) {
+            goToDate(earliestDate)
+        }
     }
 
 
