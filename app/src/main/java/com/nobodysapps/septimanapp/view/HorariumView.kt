@@ -1,20 +1,52 @@
 package com.nobodysapps.septimanapp.view
 
+import android.app.TimePickerDialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.RectF
+import android.text.format.DateFormat
 import android.util.AttributeSet
 import android.util.Log
+import android.view.Gravity
+import android.widget.TextView
+import android.widget.TimePicker
 import com.alamkanak.weekview.DateTimeInterpreter
 import com.alamkanak.weekview.WeekView
 import com.alamkanak.weekview.WeekViewEvent
 import com.alamkanak.weekview.WeekViewLoader
 import com.nobodysapps.septimanapp.localization.dateFormatSymbolsForLatin
+import com.nobodysapps.septimanapp.model.Horarium
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.max
 
-class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : WeekView(context, attrs) {
-
+class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : WeekView(context, attrs),
+    TimePickerDialog.OnTimeSetListener {
     private var events: List<WeekViewEvent> = ArrayList(80)
+
     private val weekViewDefaultDateTimeInterpreter: DateTimeInterpreter
+    var displayTimeInEvent = true
+        set(value) {
+            if (value != field) {
+                notifyDatasetChanged()
+            }
+            field = value
+        }
+    var editMode = false
+        set(value) {
+            field = value
+            if (value) {
+                setLimitTime(0, 24)
+                val today = Calendar.getInstance()
+                minDate = if (today.before(minDate)) today else minDate
+                maxDate = today
+                maxDate.add(Calendar.YEAR, 5)
+
+                setupEditMode()
+            } else {
+                setShownHoursAndDateLimitsAccordingToEvents()
+            }
+        }
 
     init {
         // set default start_date limit to today and end_date limit according to max shown days
@@ -24,6 +56,42 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         setupDateTimeInterpreter()
         setupWeekLoader()
         Log.d(TAG, Locale.getAvailableLocales().toString())
+    }
+
+    private fun setupEditMode() {
+        setEmptyViewClickListener clickViewListener@{ clickedTime: Calendar? ->
+            val endTime = (clickedTime?.clone() ?: return@clickViewListener) as Calendar
+            endTime.add(Calendar.HOUR, 1)
+
+            var startHour = clickedTime.get(Calendar.HOUR)
+            var startMinute = clickedTime.get(Calendar.MINUTE)
+            startMinute = ((startMinute + 15) / 30) * 30 // round to next half of an hour
+            if (startMinute == 60) {
+                startHour += 1
+                startMinute = 0
+            }
+            val timePickerDialog = TimePickerDialog(
+                context, this, startHour,
+                startMinute, DateFormat.is24HourFormat(context)
+            )
+            val titleTextView = TextView(context)
+            titleTextView.text = "TimePickerDialog Title";
+            titleTextView.setBackgroundColor(Color.parseColor("#EEE8AA"));
+            titleTextView.setPadding(5, 3, 5, 3);
+            titleTextView.gravity = Gravity.CENTER_HORIZONTAL;
+            timePickerDialog.show()
+
+        }
+        setOnEventClickListener { event, rect: RectF ->
+
+        }
+    }
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+//        val newEvents = events.toMutableList()
+//        newEvents.add(WeekViewEvent("ev${events.size}", "New Event", clickedTime, endTime))
+//        events = newEvents
+//        notifyDatasetChanged()
     }
 
     private fun setupDefaultFormat() {
@@ -47,7 +115,8 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
      * @param startDate the start date of the view
      * @param endDate the end date of the view
      */
-    private fun setupDateLimits(startDate: Calendar = Calendar.getInstance(), endDate: Calendar = Calendar.getInstance()
+    private fun setupDateLimits(
+        startDate: Calendar = Calendar.getInstance(), endDate: Calendar = Calendar.getInstance()
     ) {
         startDate.set(Calendar.HOUR_OF_DAY, 0)
         startDate.set(Calendar.MINUTE, 0)
@@ -58,14 +127,14 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         val newEndDate = startDate.clone() as Calendar
         newEndDate.add(
             Calendar.DAY_OF_YEAR,
-            Math.max(Math.max(NUMBER_OF_SHOWN_DAYS_PORTRAIT, NUMBER_OF_SHOWN_DAYS_LANDSCAPE), startEndDiffDays) - 1
+            max(max(NUMBER_OF_SHOWN_DAYS_PORTRAIT, NUMBER_OF_SHOWN_DAYS_LANDSCAPE), startEndDiffDays) - 1
         )
         minDate = startDate
         maxDate = newEndDate
     }
 
     /**
-     * Setup WeekViewLoader to always show the events specified with setEvents
+     * Setup WeekViewLoader to always show the events specified with setHorarium
      */
     private fun setupWeekLoader() {
         weekViewLoader = object : WeekViewLoader {
@@ -75,6 +144,14 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
 
             override fun onLoad(periodIndex: Int): List<WeekViewEvent> {
                 Log.d(TAG, events.toString())
+                events.forEach {
+                    it.endTime.add(Calendar.MINUTE, -1)  // to show a border between events
+                    if (displayTimeInEvent) {
+                        val startTimeString = dateTimeInterpreter
+                            .interpretTime(it.startTime.get(Calendar.HOUR_OF_DAY), it.startTime.get(Calendar.MINUTE))
+                        it.name = "$startTimeString \n${it.name}"
+                    }
+                }
                 return events
             }
         }
@@ -94,9 +171,10 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         }
     }
 
-    fun setEvents(events: List<WeekViewEvent>) {
-        this.events = events
+    fun setHorarium(horarium: Horarium) {
+        this.events = horarium.events
         setShownHoursAndDateLimitsAccordingToEvents()
+        notifyDatasetChanged()
     }
 
     /**
@@ -117,22 +195,25 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
                 latestHour = eventEndHour
             }
             if (earliestDate == null || event.startTime < earliestDate) {
-                earliestDate = event.startTime
+                earliestDate = event.startTime.clone() as Calendar?
             }
             if (latestDate == null || event.endTime > latestDate) {
-                latestDate = event.endTime
+                latestDate = event.endTime.clone() as Calendar?
             }
         }
-        setLimitTime(earliestHour, latestHour)
+        if (earliestHour < latestHour) {
+            setLimitTime(earliestHour, latestHour)
+        }
         val today = Calendar.getInstance()
         setupDateLimits(earliestDate ?: today, latestDate ?: today)
     }
+
 
     companion object {
 
         private const val NUMBER_OF_SHOWN_DAYS_PORTRAIT = 3
         private const val NUMBER_OF_SHOWN_DAYS_LANDSCAPE = 8
-        val TAG = "WeekView"
+        val TAG = "HorariumView"
     }
 
 }
