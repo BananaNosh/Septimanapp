@@ -13,6 +13,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
+import com.nobodysapps.septimanapp.fragments.MapFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -93,6 +94,9 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             R.id.nav_send -> {
 
             }
+            R.id.nav_map -> {
+                fragmentClass = MapFragment::class.java
+            }
         }
         try {
             fragment = (fragmentClass.newInstance() as Fragment)
@@ -100,7 +104,9 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             e.printStackTrace()
         }
         if (fragment == null) return false
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, fragment).commit()
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+            .replace(R.id.fragment_layout, fragment).commit()
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
