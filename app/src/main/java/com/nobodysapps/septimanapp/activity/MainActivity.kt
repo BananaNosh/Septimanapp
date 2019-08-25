@@ -12,11 +12,9 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
-import com.nobodysapps.septimanapp.model.storage.HorariumStorage
+import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import javax.inject.Inject
-import com.nobodysapps.septimanapp.fragments.HorariumFragment
 
 
 class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -28,7 +26,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
 
         getSeptimanappApplication().component.inject(this)
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, HorariumFragment.newInstance("", "")).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, HorariumFragment.newInstance()).commit()
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
