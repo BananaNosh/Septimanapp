@@ -2,19 +2,17 @@ package com.nobodysapps.septimanapp.fragments
 
 import android.content.Context
 import android.content.res.Configuration
-import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import kotlinx.android.synthetic.main.fragment_horarium.*
-import java.lang.RuntimeException
 import java.util.*
 import javax.inject.Inject
+
 
 /**
  * A simple [Fragment] subclass.
@@ -25,6 +23,13 @@ class HorariumFragment : Fragment() {
     @Inject
     lateinit var horariumStorage: HorariumStorage
 
+    var actionDayViewId = -1
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +56,34 @@ class HorariumFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        if (actionDayViewId < 0) {
+            var id = 1
+            while (menu?.findItem(id) != null) {
+                id++
+            }
+            actionDayViewId = id
+        }
+        val actionTitle = getToggleDayViewActionStringFromView()
+        val item = menu?.add(Menu.NONE, actionDayViewId, 10, actionTitle)
+        item?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun getToggleDayViewActionStringFromView() =
+        if (horariumView.daysToShowOnToggleDayView > 1) getString(R.string.action_multiple_days_view).format(
+            horariumView.daysToShowOnToggleDayView
+        )
+        else getString(R.string.action_day_view)
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == actionDayViewId) {
+            horariumView.toggleDayView()
+            item.title = getToggleDayViewActionStringFromView()
+            Log.d("HorariumFragment", "day clicked")
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

@@ -21,7 +21,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
     private val weekViewDefaultDateTimeInterpreter: DateTimeInterpreter
     private var numberOfDrawn = 0
 
-
+    var daysToShowOnToggleDayView = 1
     var displayTimeInEvent = true
         set(value) {
             if (value != field) {
@@ -124,9 +124,10 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
     fun changeOrientation(isLandscape: Boolean) {
         if (isLandscape) {
             numberOfVisibleDays = NUMBER_OF_SHOWN_DAYS_LANDSCAPE
-            hourHeight *= 2
+            daysToShowOnToggleDayView = NUMBER_OF_SHOWN_DAYS_LANDSCAPE_ZOOMED
         } else {
             numberOfVisibleDays = NUMBER_OF_SHOWN_DAYS_PORTRAIT
+            daysToShowOnToggleDayView = 1
         }
     }
 
@@ -192,11 +193,18 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         numberOfDrawn++
     }
 
+    fun toggleDayView() {
+        val newToggleDays = numberOfVisibleDays
+        numberOfVisibleDays = daysToShowOnToggleDayView
+        daysToShowOnToggleDayView = newToggleDays
+    }
+
 
     companion object {
 
-        private const val NUMBER_OF_SHOWN_DAYS_PORTRAIT = 3
-        private const val NUMBER_OF_SHOWN_DAYS_LANDSCAPE = 8
+        const val NUMBER_OF_SHOWN_DAYS_PORTRAIT = 3
+        const val NUMBER_OF_SHOWN_DAYS_LANDSCAPE = 8
+        const val NUMBER_OF_SHOWN_DAYS_LANDSCAPE_ZOOMED = 4
         val TAG = "HorariumView"
     }
 
