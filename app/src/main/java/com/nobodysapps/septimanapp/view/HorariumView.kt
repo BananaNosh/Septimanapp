@@ -1,5 +1,6 @@
 package com.nobodysapps.septimanapp.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
@@ -80,8 +81,14 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     private fun setupDateTimeInterpreter() {
         dateTimeInterpreter = object : DateTimeInterpreter {
+            @SuppressLint("SimpleDateFormat")
             override fun interpretDate(date: Calendar): String {
-                return SimpleDateFormat("EEEE", dateFormatSymbolsForLatin()).format(date.time)
+                val locale = Locale.getDefault()
+                val dateFormat = "EEEE"
+                return when (locale.displayLanguage) {
+                    "la" -> SimpleDateFormat(dateFormat, dateFormatSymbolsForLatin())
+                    else -> SimpleDateFormat(dateFormat, locale)
+                }.format(date.time)
             }
 
             override fun interpretTime(hour: Int, minutes: Int): String {

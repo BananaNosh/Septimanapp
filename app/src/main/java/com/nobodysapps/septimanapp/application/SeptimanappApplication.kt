@@ -8,9 +8,9 @@ import com.nobodysapps.septimanapp.dependencyInjection.SeptimanappApplicationCom
 import com.nobodysapps.septimanapp.dependencyInjection.SharedPreferencesModule
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import java.lang.NumberFormatException
-import java.util.*
 
 const val VERSION_ALREADY_RUN_ON = "run_version"
+val ALLOWED_HORARIUM_LOCALES = listOf("la", "de")
 
 class SeptimanappApplication : Application() {
     lateinit var component: SeptimanappApplicationComponent
@@ -44,19 +44,25 @@ class SeptimanappApplication : Application() {
         val fileList = assets.list("")
         fileList?.forEach {
             if (it.startsWith("horarium_") && it.endsWith(".json")) {
-                val yearString = it.substringAfter("_").substringBefore(".")
-                var year: Int
-                try {
-                    year = yearString.toInt()
-                } catch (e: NumberFormatException) {
-                    Log.d(TAG, "Wrong filename $it")
-                    year = 0
-                }
-                assets.open(it).bufferedReader().use {
-                    val horariumJson = it.readText()
-                    val horariumDate = Calendar.getInstance()
-                    horariumDate.set(year, 1, 1)
-                    sharedPreferences.edit().putString(HorariumStorage.keyFromStartDate(horariumDate), horariumJson).apply()
+                val yearAndLocaleString = it.substringAfter("_").substringBefore(".")
+                val yearString = yearAndLocaleString.substringBefore("_")
+                val locale = yearAndLocaleString.substringAfter("_")
+                if (locale in ALLOWED_HORARIUM_LOCALES) {
+                    Log.d(TAG, "locale is $locale")
+                    var year: Int
+                    try {
+                        year = yearString.toInt()
+                    } catch (e: NumberFormatException) {
+                        Log.d(TAG, "Wrong filename $it")
+                        year = 0
+                    }
+                    assets.open(it).bufferedReader().use {
+                        val horariumJson = it.readText()
+                        sharedPreferences.edit().putString(
+                            HorariumStorage.keyFromYearAndLocale(year, locale),
+                            horariumJson
+                        ).apply()
+                    }
                 }
             }
         }

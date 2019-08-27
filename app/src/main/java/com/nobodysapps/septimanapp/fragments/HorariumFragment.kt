@@ -48,9 +48,7 @@ class HorariumFragment : Fragment() {
     private fun setupHorariumView(landscape: Boolean) {
         // Get a reference for the week view in the layout.
         horariumView.changeOrientation(landscape)
-        val startDate = Calendar.getInstance()
-        startDate.set(Calendar.YEAR, 2018) //TODO
-        val horarium = horariumStorage.loadHorarium(startDate)
+        val horarium = horariumStorage.loadHorarium(2018, "la")//TODO
         if (horarium != null) {
             horariumView.setHorarium(horarium)
         }
