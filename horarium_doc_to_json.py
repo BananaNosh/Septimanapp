@@ -17,6 +17,8 @@ def read_args():
                       help='path to word file with the Horarium')
     opts.add_argument('date', metavar='FIRST_DAY', type=str,
                       help='First day of the septimana (DD.MM.YY)')
+    opts.add_argument('language', metavar='Language', choices=["de", "la"],
+                      help='First day of the septimana (DD.MM.YY)')
     args = opts.parse_args()
     return args
 
@@ -56,7 +58,19 @@ if __name__ == '__main__':
         exit(-1)
     document = Document(filename)
     table = document.tables[0]
-    start_date = datetime.date(2018, 7, 28)
+
+    try:
+        date = [int(d) for d in args.date.split(".")]
+        if date[2] < 1000:
+            date[2] += 2000
+    except ValueError:
+        print("WRONG date format, should be (DD.MM.YY)")
+        exit(-1)
+    # noinspection PyUnboundLocalVariable
+    start_date = datetime.date(*reversed(date))
+
+    locale = args.language
+
     time_pattern = re.compile(r"h\.[ \t]*(\d{1,2}):(\d{2})(-(\d{1,2}):(\d{2}))?\W*\n")
     for i, column in enumerate(table.columns):
         date = start_date + datetime.timedelta(i)
@@ -88,7 +102,9 @@ if __name__ == '__main__':
             events[-1][END_TIME_KEY] = time_dict_from_date_hour_and_minute(date, LATEST_END_HOUR, 0)
     horarium_dict = {"events": events}
     horarium_dump = json.dumps(horarium_dict)
-    with open(basename + ".json", "w+") as json_file:
+    json_filename = f"horarium_{date.year}_{locale}.json"
+    folder, _ = os.path.split(basename)
+    with open(os.path.join(folder, json_filename), "w+") as json_file:
         json_file.write(horarium_dump)
     for temp_file in temp_files:
         os.remove(temp_file)
