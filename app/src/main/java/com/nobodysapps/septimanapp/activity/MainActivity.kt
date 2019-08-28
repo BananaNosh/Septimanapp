@@ -27,7 +27,9 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
 
         getSeptimanappApplication().component.inject(this)
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, HorariumFragment.newInstance()).commit()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, HorariumFragment.newInstance()).commit()
+        }
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -50,6 +52,8 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
+        } else if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack()
         } else {
             super.onBackPressed()
         }
@@ -106,8 +110,11 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         }
         if (fragment == null) return false
         supportFragmentManager.beginTransaction()
-            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-            .replace(R.id.fragment_layout, fragment).commit()
+            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+                android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+            .replace(R.id.fragment_layout, fragment)
+            .addToBackStack(null)
+            .commit()
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
