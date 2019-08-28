@@ -1,10 +1,14 @@
 package com.nobodysapps.septimanapp.fragments
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.R
 import kotlinx.android.synthetic.main.fragment_map.*
+import org.osmdroid.config.Configuration
 import javax.inject.Inject
 
 
@@ -26,17 +30,15 @@ class MapFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val provider = Configuration.getInstance()
+        provider.setUserAgentValue(BuildConfig.APPLICATION_ID)
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        mapView.setBuiltInZoomControls(true);
-    }
-
     override fun onResume() {
         super.onResume()
+        // TODO get Berechtigung
         mapView.onResume()
     }
 
