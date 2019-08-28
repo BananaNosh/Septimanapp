@@ -14,6 +14,7 @@ import com.nobodysapps.septimanapp.activity.PermissionListener
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
 import kotlinx.android.synthetic.main.fragment_map.*
 import org.osmdroid.config.Configuration
+import org.osmdroid.util.GeoPoint
 import javax.inject.Inject
 
 
@@ -39,6 +40,13 @@ class MapFragment : Fragment() {
         provider.setUserAgentValue(BuildConfig.APPLICATION_ID)
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_map, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val mapController = mapView.controller
+        mapController.setZoom(10.0)
+        mapController.animateTo(GeoPoint(50.7940721, 8.9302902))
     }
 
     override fun onResume() {
