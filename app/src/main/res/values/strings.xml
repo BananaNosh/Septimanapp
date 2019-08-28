@@ -22,4 +22,5 @@
     <string name="menu_horarium">Timetable</string>
     <string name="action_day_view">1 day</string>
     <string name="action_multiple_days_view">%d days</string>
+    <string name="snackbar_map_permission">Map needs storage permission to cache the map!</string>
 </resources>

@@ -33,6 +33,9 @@ abstract class SeptimanappActivity: AppCompatActivity() {
     fun withPermission(permission: String, listener: PermissionListener) {
         if (ActivityCompat.checkSelfPermission(this, permission)
             != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+                listener.onPermissionDeniedBefore(permission)
+            }
             requestPermissionLambdas.put(Pair(requestCode, permission), listener)
             ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
             requestCode++
@@ -50,4 +53,5 @@ abstract class SeptimanappActivity: AppCompatActivity() {
 interface PermissionListener {
     fun onPermissionGranted(permission: String)
     fun onPermissionDenied(permission: String)
+    fun onPermissionDeniedBefore(permission: String) {}
 }
