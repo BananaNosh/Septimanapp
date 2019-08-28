@@ -94,6 +94,9 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             R.id.nav_send -> {
 
             }
+            R.id.nav_map -> {
+
+            }
         }
         try {
             fragment = (fragmentClass.newInstance() as Fragment)

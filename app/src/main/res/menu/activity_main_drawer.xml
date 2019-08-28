@@ -21,9 +21,12 @@
                 android:id="@+id/nav_tools"
                 android:icon="@drawable/ic_menu_manage"
                 android:title="@string/menu_tools"/>
+        <item
+            android:id="@+id/nav_map"
+            android:title="@string/menu_map" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/menu_communicate">
         <menu>
             <item
                     android:id="@+id/nav_share"
