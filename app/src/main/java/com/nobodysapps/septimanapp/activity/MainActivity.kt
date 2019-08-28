@@ -13,6 +13,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
+import com.nobodysapps.septimanapp.fragments.MapFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -95,7 +96,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
 
             }
             R.id.nav_map -> {
-
+                fragmentClass = MapFragment::class.java
             }
         }
         try {
