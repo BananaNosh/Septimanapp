@@ -9,6 +9,7 @@ import com.alamkanak.weekview.DateTimeInterpreter
 import com.alamkanak.weekview.WeekView
 import com.alamkanak.weekview.WeekViewEvent
 import com.alamkanak.weekview.WeekViewLoader
+import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.localization.dateFormatSymbolsForLatin
 import com.nobodysapps.septimanapp.model.Horarium
 import java.text.SimpleDateFormat
@@ -59,6 +60,13 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
                 }
                 copiedEvents.forEach {
                     it.endTime.add(Calendar.MINUTE, -1)  // to show a border between events
+
+                    val now = Calendar.getInstance()
+                    now.set(2018, 6, 30, 14, 30) // TODO remove
+                    if (now.after(it.startTime) && now.before(it.endTime)) { //is current event
+                        it.color = R.color.colorPrimary //TODO set other color
+                    }
+
                     if (displayTimeInEvent) {
                         val startTimeString = dateTimeInterpreter
                             .interpretTime(
