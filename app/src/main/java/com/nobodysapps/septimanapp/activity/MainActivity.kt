@@ -110,8 +110,10 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         }
         if (fragment == null) return false
         supportFragmentManager.beginTransaction()
-            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
-                android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+            .setCustomAnimations(
+                android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+                android.R.anim.slide_in_left, android.R.anim.slide_out_right
+            )
             .replace(R.id.fragment_layout, fragment)
             .addToBackStack(null)
             .commit()
@@ -119,6 +121,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
     companion object {
         const val TAG = "MainActivity"
     }
