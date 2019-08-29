@@ -10,7 +10,6 @@ import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import kotlinx.android.synthetic.main.fragment_horarium.*
-import java.util.*
 import javax.inject.Inject
 
 
@@ -54,16 +53,16 @@ class HorariumFragment : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         if (actionDayViewId < 0) {
             var id = 1
-            while (menu?.findItem(id) != null) {
+            while (menu.findItem(id) != null) {
                 id++
             }
             actionDayViewId = id
         }
         val actionTitle = getToggleDayViewActionStringFromView()
-        val item = menu?.add(Menu.NONE, actionDayViewId, 10, actionTitle)
+        val item = menu.add(Menu.NONE, actionDayViewId, 10, actionTitle)
         item?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -74,8 +73,8 @@ class HorariumFragment : Fragment() {
         )
         else getString(R.string.action_day_view)
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == actionDayViewId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == actionDayViewId) {
             horariumView.toggleDayView()
             item.title = getToggleDayViewActionStringFromView()
             Log.d("HorariumFragment", "day clicked")

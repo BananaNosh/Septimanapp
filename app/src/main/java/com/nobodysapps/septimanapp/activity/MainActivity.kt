@@ -1,6 +1,7 @@
 package com.nobodysapps.septimanapp.activity
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -28,7 +29,8 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         getSeptimanappApplication().component.inject(this)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_layout, HorariumFragment.newInstance()).commit()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_layout, HorariumFragment.newInstance()).commit()
         }
 
         fab.setOnClickListener { view ->
@@ -70,10 +72,12 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        if (item.itemId == R.id.action_settings) {
+            startActivity(Intent(this,  SettingsActivity::class.java))
+            return true
         }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
