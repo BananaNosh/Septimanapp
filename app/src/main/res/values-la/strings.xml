@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Septiman&#8203;app</string>
+    <plurals name="action_day_view">
+        <item quantity="other">%d dies</item>
+    </plurals>
+    <string name="menu_horarium">Horarium</string>
+    <string name="menu_map">Forma</string>
+    <string name="settings_title_language">Lingua</string>
+    <string name="settings_use_latin">Uti lingua Latina</string>
+    <string name="settings_summary_use_latin_off">App lingua instrumenti viditur</string> % should never be shown
+    <string name="settings_summary_use_latin_on">App lingua Latina viditur</string>
+
+</resources>
