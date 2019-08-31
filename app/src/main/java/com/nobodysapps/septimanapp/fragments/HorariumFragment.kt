@@ -68,10 +68,7 @@ class HorariumFragment : Fragment() {
     }
 
     private fun getToggleDayViewActionStringFromView() =
-        if (horariumView.daysToShowOnToggleDayView > 1) getString(R.string.action_multiple_days_view).format(
-            horariumView.daysToShowOnToggleDayView
-        )
-        else getString(R.string.action_day_view)
+        resources.getQuantityString(R.plurals.action_day_view, horariumView.daysToShowOnToggleDayView, horariumView.daysToShowOnToggleDayView)
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == actionDayViewId) {
