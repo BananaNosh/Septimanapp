@@ -15,6 +15,7 @@ import com.nobodysapps.septimanapp.activity.SeptimanappActivity
 import kotlinx.android.synthetic.main.fragment_map.*
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.overlay.CopyrightOverlay
 import javax.inject.Inject
 
 
@@ -47,6 +48,13 @@ class MapFragment : Fragment() {
         val mapController = mapView.controller
         mapController.setZoom(10.0)
         mapController.animateTo(GeoPoint(50.7940721, 8.9302902))
+
+        //Attribution
+        var attribution = CopyrightOverlay(context).apply {
+            setAlignRight(true)
+        }
+        mapView.getOverlays().add(attribution)
+
     }
 
     override fun onResume() {
