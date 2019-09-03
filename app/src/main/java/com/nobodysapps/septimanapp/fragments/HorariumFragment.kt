@@ -82,7 +82,7 @@ class HorariumFragment : Fragment() {
         val actionLanguageTitle = getToggleHorariumLanguageActionTitle()
         val itemLanguage =
             menu.add(Menu.NONE, actionToggleHorariumLanguageId, 11, actionLanguageTitle)
-        itemLanguage?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        itemLanguage?.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
 
         super.onCreateOptionsMenu(menu, inflater)
     }

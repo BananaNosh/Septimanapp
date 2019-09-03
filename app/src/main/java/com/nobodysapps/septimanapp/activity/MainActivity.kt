@@ -11,7 +11,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
@@ -33,10 +32,6 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
                 .replace(R.id.fragment_layout, HorariumFragment.newInstance()).commit()
         }
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
         val drawerLayout: DrawerLayout = drawer_layout
         val navView: NavigationView = nav_view
         val toggle = ActionBarDrawerToggle(
@@ -85,7 +80,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         var fragment: Fragment? = null
         var fragmentClass: Class<*> = HorariumFragment::class.java
         when (item.itemId) {
-            R.id.nav_home -> {
+            R.id.nav_horarium -> {
                 fragmentClass = HorariumFragment::class.java
             }
             R.id.nav_gallery -> {

@@ -5,7 +5,7 @@
 
     <group android:checkableBehavior="single">
         <item
-                android:id="@+id/nav_home"
+                android:id="@+id/nav_horarium"
                 android:checked="true"
                 android:icon="@mipmap/ic_calendar"
                 android:title="@string/menu_horarium" />
