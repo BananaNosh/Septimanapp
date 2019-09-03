@@ -1,0 +1,22 @@
+{
+  "locations": [
+    {
+      "id": "loc_1",
+      "coordinates": {
+        "mLongitude": 0.3,
+        "mLatitude": 0.5,
+        "mAltitude": 0.0
+      },
+      "description": "descr"
+    },
+    {
+      "id": "loc_2",
+      "coordinates": {
+        "mLongitude": 0.7,
+        "mLatitude": 0.5,
+        "mAltitude": 0.2
+      },
+      "description": "descr2"
+    }
+  ]
+}
