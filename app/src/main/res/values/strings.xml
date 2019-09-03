@@ -36,6 +36,7 @@
     <string name="settings_summary_use_latin_off">App displayed in default device language</string>
     <string name="settings_summary_use_latin_on">App displayed in Latin</string> % should never be shown
     <string name="action_horarium_language">Show timetable in %s</string>
+    <string name="snackbar_horarium_not_found">No horarium found in the specified language</string>
 
 
     <string name="language" tools:ignore="ExtraTranslation" />

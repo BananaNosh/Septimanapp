@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
 import com.nobodysapps.septimanapp.localization.localizedDisplayLanguage
@@ -55,12 +56,20 @@ class HorariumFragment : Fragment() {
         val horarium = loadHorariumInCorrectLanguage()
         if (horarium != null) {
             horariumView.setHorarium(horarium)
+        } else {
+            onNoHorariumFound()
         }
     }
 
     private fun loadHorariumInCorrectLanguage(): Horarium? {
         val horariumLanguage = if (horariumInLatin) "la" else "de"
         return horariumStorage.loadHorarium(2018, horariumLanguage)
+    }
+
+    private fun onNoHorariumFound() {
+        if (view != null) {
+            Snackbar.make(view!!, R.string.horarium_not_found, Snackbar.LENGTH_LONG).show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -114,6 +123,9 @@ class HorariumFragment : Fragment() {
                 val horarium = loadHorariumInCorrectLanguage()
                 if (horarium != null) {
                     horariumView.setHorarium(horarium)
+                } else {  // change back as horarium could not be loaded in other language
+                    horariumInLatin = !horariumInLatin
+                    onNoHorariumFound()
                 }
                 item.title = getToggleHorariumLanguageActionTitle()
             }
