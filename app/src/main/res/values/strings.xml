@@ -39,7 +39,7 @@
     <string name="snackbar_horarium_not_found">No horarium found in the specified language</string>
 
 
-    <string name="language" tools:ignore="ExtraTranslation,MissingTranslation" />
+    <string name="language" tools:ignore="ExtraTranslation,MissingTranslation">language %s</string>
     <string name="language_latin" tools:ignore="ExtraTranslation,MissingTranslation" />
     <string name="language_english" tools:ignore="ExtraTranslation,MissingTranslation" />
     <string name="language_german" tools:ignore="ExtraTranslation,MissingTranslation" />

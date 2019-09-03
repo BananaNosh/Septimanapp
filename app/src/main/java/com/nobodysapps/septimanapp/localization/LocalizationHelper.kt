@@ -56,12 +56,14 @@ fun localizedDisplayLanguage(context: Context?, locale: Locale): String {
 
 private fun displayLanguageInLatin(context: Context, locale: Locale): String {
     return context.getString(
-        R.string.language, when (locale) {
-            Locale("la") -> "Latina"
-            Locale.GERMAN -> "Theodisca"
-            Locale.FRENCH -> "Francogallica"
-            Locale.ENGLISH -> "Anglica"
-            else -> "lingua ignota"
-        }
+        R.string.language, context.getString(
+            when (locale) {
+                Locale("la") -> R.string.language_latin
+                Locale.GERMAN -> R.string.language_german
+                Locale.FRENCH -> R.string.language_french
+                Locale.ENGLISH -> R.string.language_english
+                else -> R.string.language_unknown
+            }
+        )
     )
 }
