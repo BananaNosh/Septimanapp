@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <plurals name="action_day_view">
         <item quantity="other">%d dies</item>
     </plurals>
@@ -9,5 +9,13 @@
     <string name="settings_use_latin">Uti lingua Latina</string>
     <string name="settings_summary_use_latin_off">App lingua instrumenti viditur</string> % should never be shown
     <string name="settings_summary_use_latin_on">App lingua Latina viditur</string>
+    <string name="action_horarium_language">Videatur horarium in %s</string>
+
+    <string name="language" tools:ignore="ExtraTranslation">lingua %s</string>
+    <string name="language_latin" tools:ignore="ExtraTranslation">Latina</string>
+    <string name="language_english" tools:ignore="ExtraTranslation">Anglica</string>
+    <string name="language_german" tools:ignore="ExtraTranslation">Theodisca</string>
+    <string name="language_french" tools:ignore="ExtraTranslation">Francogallica</string>
+    <string name="language_unknown" tools:ignore="ExtraTranslation">ignota</string>
 
 </resources>
