@@ -50,10 +50,10 @@ class MapFragment : Fragment() {
         mapController.animateTo(GeoPoint(50.7940721, 8.9302902))
 
         //Attribution
-        var attribution = CopyrightOverlay(context).apply {
+        val attribution = CopyrightOverlay(context).apply {
             setAlignRight(true)
         }
-        mapView.getOverlays().add(attribution)
+        mapView.overlays.add(attribution)
 
     }
 
