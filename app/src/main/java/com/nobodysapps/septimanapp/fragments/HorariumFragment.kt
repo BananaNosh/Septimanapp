@@ -68,7 +68,7 @@ class HorariumFragment : Fragment() {
 
     private fun onNoHorariumFound() {
         if (view != null) {
-            Snackbar.make(view!!, R.string.horarium_not_found, Snackbar.LENGTH_LONG).show()
+            Snackbar.make(view!!, R.string.snackbar_horarium_not_found, Snackbar.LENGTH_LONG).show()
         }
     }
 
