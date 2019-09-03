@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">Septiman&#8203;app</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
+    <string name="navigation_drawer_close">Navigationsleiste schließen</string>
+<!--    <string name="nav_header_title">Android Studio</string>-->
+    <string name="nav_header_subtitle">android.studio@android.com</string> <!--TODO -->
     <string name="nav_header_desc">Navigation header</string>
     <string name="settings">Settings</string>
 
