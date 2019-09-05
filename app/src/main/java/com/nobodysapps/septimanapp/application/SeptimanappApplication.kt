@@ -17,8 +17,6 @@ class SeptimanappApplication : Application() {
 
     lateinit var sharedPreferences: SharedPreferences
 
-    var firstRun = false
-
     override fun onCreate() {
         super.onCreate()
         val sharedPreferencesModule = SharedPreferencesModule(applicationContext)
@@ -39,7 +37,6 @@ class SeptimanappApplication : Application() {
 
     private fun doOnFirstStartOfVersion() {
         Log.d(TAG, "First run")
-        firstRun = true
         loadHoraria()
     }
 

@@ -26,6 +26,7 @@ class ChooseLanguageDialogFragment : DialogFragment() {
                     Locale("la").displayLanguage
                 ) { _, _ ->
                     saveLanguageUse(true)
+                    dismiss()
                     activity?.recreate()
                 }
                 .setNegativeButton(
@@ -33,6 +34,7 @@ class ChooseLanguageDialogFragment : DialogFragment() {
                 ) { _, _ ->
                     // User cancelled the dialog
                     saveLanguageUse(false)
+                    dismiss()
                 }
             // Create the AlertDialog object and return it
             builder.create()

@@ -68,7 +68,10 @@ abstract class SeptimanappActivity: AppCompatActivity() {
         if (initialLocale != null && initialLocale != LocaleHelper.getPersistedLocale(this)) {
             recreate()
         }
-        if (getSeptimanappApplication().firstRun) {
+        val preferences = getSeptimanappApplication().sharedPreferences
+        if (!preferences.getBoolean(
+                KEY_CHOOSE_LANGUAGE_DIALOG_SHOWN, false)) {
+            preferences.edit().putBoolean(KEY_CHOOSE_LANGUAGE_DIALOG_SHOWN, true).apply()
             ChooseLanguageDialogFragment().show(supportFragmentManager, "")
         }
     }
@@ -76,6 +79,10 @@ abstract class SeptimanappActivity: AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         requestPermissionLambdas.clear()
+    }
+
+    companion object {
+        private const val KEY_CHOOSE_LANGUAGE_DIALOG_SHOWN = "language_dialog_shown"
     }
 }
 
