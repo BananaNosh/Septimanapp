@@ -63,7 +63,8 @@ class HorariumFragment : Fragment() {
 
     private fun loadHorariumInCorrectLanguage(): Horarium? {
         val horariumLanguage = if (horariumInLatin) "la" else "de"
-        return horariumStorage.loadHorarium(2018, horariumLanguage)
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        return horariumStorage.loadHorarium(currentYear, horariumLanguage)
     }
 
     private fun onNoHorariumFound() {
