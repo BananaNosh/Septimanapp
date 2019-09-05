@@ -5,6 +5,7 @@ import argparse
 import datetime
 import re
 import json
+import tabula
 
 LATEST_END_HOUR = 23
 END_TIME_KEY = "mEndTime"
@@ -18,14 +19,12 @@ def read_args():
     opts.add_argument('date', metavar='FIRST_DAY', type=str,
                       help='First day of the septimana (DD.MM.YY)')
     opts.add_argument('language', metavar='Language', choices=["de", "la"],
-                      help='First day of the septimana (DD.MM.YY)')
+                      help='The language the Horarium is in')
     args = opts.parse_args()
     return args
 
 
 def create_event(id, text, date, start_hour, start_minute, end_hour, end_minute):
-    #"{\"events\":[{\"mId\":\"id1\",\"mStartTime\":{\"year\":2019,\"month\":7,\"dayOfMonth\":15,\"hourOfDay\":15,\"minute\":15},
-    # \"mEndTime\":{\"year\":2019,\"month\":7,\"dayOfMonth\":15,\"hourOfDay\":15,\"minute\":45},\"mName\":\"ev1\",\"mColor\":0,\"mAllDay\":false}"
     return {
         "mId": id,
         "mStartTime": time_dict_from_date_hour_and_minute(date, start_hour, start_minute),
@@ -48,16 +47,21 @@ if __name__ == '__main__':
     filename = args.wordfile.name
     basename, ext = os.path.splitext(filename)
     temp_files = []
-    if ext == ".doc":
-        os.system(f"soffice --convert-to docx {filename}")
-        filename = os.path.split(filename)[1] + "x"
-        temp_files.append(filename)
-        # TODO convert to docx
-    elif ext != ".docx":
-        print("WRONG fileformat must be docx") # TODO change to doc
-        exit(-1)
-    document = Document(filename)
-    table = document.tables[0]
+    if ext == ".pdf":
+        df = tabula.read_pdf(filename)
+        text_table = [[text.replace("\r","\n") if type(text) is str else "" for text in column] for column in df.transpose().values]
+        print(text_table)
+    else:
+        if ext == ".doc":
+            os.system(f"soffice --convert-to docx {filename}")
+            filename = os.path.split(filename)[1] + "x"
+            temp_files.append(filename)
+        elif ext != ".docx":
+            print("WRONG fileformat must be docx, doc or pdf")
+            exit(-1)
+        document = Document(filename)
+        table = document.tables[0]
+        text_table = [[cell.text for cell in column.cells] for column in table.columns]
 
     try:
         date = [int(d) for d in args.date.split(".")]
@@ -71,26 +75,30 @@ if __name__ == '__main__':
 
     locale = args.language
 
-    time_pattern = re.compile(r"h\.[ \t]*(\d{1,2}):(\d{2})(-(\d{1,2}):(\d{2}))?\W*\n")
-    for i, column in enumerate(table.columns):
+    time_pattern = re.compile(r"(?:h\.[ \t]*(\d{1,2}):(\d{2})(-(\d{1,2}):(\d{2}))?\W*\n)"
+                              r"|(?:[ \t]*(\d{1,2}):(\d{2})(-(\d{1,2}):(\d{2}))? [Uu]hr\W*\n)")
+    for i, column in enumerate(text_table):
         date = start_date + datetime.timedelta(i)
         cell_content = ""
-        for cell in column.cells:
-            if cell.text == cell_content:
+        for cell in column:
+            if cell == cell_content:
                 continue
-            cell_content = cell.text
-            match = re.search(time_pattern, cell.text.strip())
+            cell_content = cell
+            match = re.search(time_pattern, cell.strip())
             if match is not None:
-                start_hour = int(match.group(1))
-                start_minute = int(match.group(2))
-                end_hour = match.group(4)
-                end_minute = match.group(5)
+                group_index_shift = 0
+                if match.group(1) is None:
+                    group_index_shift = 5
+                start_hour = int(match.group(1 + group_index_shift))
+                start_minute = int(match.group(2 + group_index_shift))
+                end_hour = match.group(4 + group_index_shift)
+                end_minute = match.group(5 + group_index_shift)
                 try:
                     end_hour = int(end_hour)
                     end_minute = int(end_minute)
                 except TypeError:
                     pass
-                event_content = cell.text[match.span()[1]:]  # everything after time
+                event_content = cell[match.span()[1]:]  # everything after time
                 print(event_content + "\n")
                 event = create_event(f"ev_{len(events)}", event_content, date, start_hour, start_minute, end_hour,
                                      end_minute)
