@@ -7,6 +7,7 @@ import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.nobodysapps.septimanapp.application.SeptimanappApplication
+import com.nobodysapps.septimanapp.dialog.ChooseLanguageDialogFragment
 import com.nobodysapps.septimanapp.localization.LocaleHelper
 
 
@@ -66,6 +67,9 @@ abstract class SeptimanappActivity: AppCompatActivity() {
         super.onResume()
         if (initialLocale != null && initialLocale != LocaleHelper.getPersistedLocale(this)) {
             recreate()
+        }
+        if (getSeptimanappApplication().firstRun) {
+            ChooseLanguageDialogFragment().show(supportFragmentManager, "")
         }
     }
 

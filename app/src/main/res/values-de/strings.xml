@@ -11,4 +11,10 @@
     <string name="settings_use_latin">Auf Latein</string>
     <string name="snackbar_horarium_not_found">Kein Programm für die ausgewählte Sprache gefunden</string>
     <string name="snackbar_map_permission">Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte</string>
+
+
+    <plurals name="action_day_view">
+        <item quantity="one">%d Tag</item>
+        <item quantity="other">%d Tage</item>
+    </plurals>
 </resources>

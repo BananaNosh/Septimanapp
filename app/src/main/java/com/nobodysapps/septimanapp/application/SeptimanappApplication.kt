@@ -17,6 +17,8 @@ class SeptimanappApplication : Application() {
 
     lateinit var sharedPreferences: SharedPreferences
 
+    var firstRun = false
+
     override fun onCreate() {
         super.onCreate()
         val sharedPreferencesModule = SharedPreferencesModule(applicationContext)
@@ -28,8 +30,8 @@ class SeptimanappApplication : Application() {
         val appVersion = packageManager.getPackageInfo(packageName, 0).versionName
         Log.d("SeptimanappApplication", "version $appVersion")
         // true if first time run for current app version
-        val isFirstRunForVersion = sharedPreferences.getString(VERSION_ALREADY_RUN_ON, "") == appVersion
-        if (true || isFirstRunForVersion) { //TODO
+        val isFirstRunForVersion = sharedPreferences.getString(VERSION_ALREADY_RUN_ON, "") != appVersion
+        if (isFirstRunForVersion) {
             sharedPreferences.edit().putString(VERSION_ALREADY_RUN_ON, appVersion).apply()
             doOnFirstStartOfVersion()
         }
@@ -37,6 +39,7 @@ class SeptimanappApplication : Application() {
 
     private fun doOnFirstStartOfVersion() {
         Log.d(TAG, "First run")
+        firstRun = true
         loadHoraria()
     }
 

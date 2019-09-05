@@ -5,8 +5,8 @@
     <string name="menu_horarium">Horaire</string>
 
     <plurals name="action_day_view">
-        <item quantity="one">%d day</item>
-        <item quantity="other">%d days</item>
+        <item quantity="one">%d jour</item>
+        <item quantity="other">%d jours</item>
     </plurals>
     <string name="snackbar_map_permission">Map needs storage permission to cache the map!</string>
 
