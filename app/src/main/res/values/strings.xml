@@ -13,15 +13,15 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
-    <string name="menu_map">Map</string>
+    <string name="menu_map">Karte</string>
     <string name="menu_communicate">Communicate</string>
-    <string name="menu_horarium">Timetable</string>
+    <string name="menu_horarium">Programm</string>
 
     <plurals name="action_day_view">
         <item quantity="one">%d day</item>
         <item quantity="other">%d days</item>
     </plurals>
-    <string name="snackbar_map_permission">Map needs storage permission to cache the map!</string>
+    <string name="snackbar_map_permission">Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -31,12 +31,12 @@
     <string name="signature_title">Your signature</string>
     <string name="reply_title">Default reply action</string>
 
-    <string name="settings_title_language">Language</string>
-    <string name="settings_use_latin">Use Latin</string>
-    <string name="settings_summary_use_latin_off">App displayed in default device language</string>
+    <string name="settings_title_language">Sprache</string>
+    <string name="settings_use_latin">Auf Latein</string>
+    <string name="settings_summary_use_latin_off">App wird in der Gerätesprache angezeigt</string>
     <string name="settings_summary_use_latin_on">App displayed in Latin</string> % should never be shown
     <string name="action_horarium_language">Show timetable in %s</string>
-    <string name="snackbar_horarium_not_found">No horarium found in the specified language</string>
+    <string name="snackbar_horarium_not_found">Kein Programm für die ausgewählte Sprache gefunden</string>
 
 
     <string name="language" tools:ignore="ExtraTranslation,MissingTranslation">language %s</string>
@@ -45,4 +45,5 @@
     <string name="language_german" tools:ignore="ExtraTranslation,MissingTranslation" />
     <string name="language_french" tools:ignore="ExtraTranslation,MissingTranslation" />
     <string name="language_unknown" tools:ignore="ExtraTranslation,MissingTranslation" />
+    <string name="dialog_choose_language">Should Septimanapp be displayed in Latin or German?%s</string>
 </resources>

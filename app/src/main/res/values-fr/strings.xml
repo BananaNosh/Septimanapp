@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>  <!-- TODO translate-->
+
+    <string name="menu_map">Map</string>
+    <string name="menu_horarium">Horaire</string>
+
+    <plurals name="action_day_view">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+    <string name="snackbar_map_permission">Map needs storage permission to cache the map!</string>
+
+    <!-- Preference Titles -->
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+
+    <string name="settings_title_language">Langue</string>
+    <string name="settings_use_latin">Utiliser latin</string>
+    <string name="settings_summary_use_latin_on">App displayed in Latin</string>% should never be shown
+    <string name="action_horarium_language">Horaire en %s</string>
+    <string name="dialog_choose_language">Est-ce que vous voulez regarder Septimanapp en latin ou français?</string>
+    <string name="snackbar_horarium_not_found">Aucun horaire trouvé</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dialog_choose_language">Soll die Septimanapp in Latein angezeigt werden oder auf Deutsch?</string>
+    <string name="action_horarium_language">Programm auf %s</string>
+    <string name="menu_map">Karte</string>
+    <string name="menu_horarium">Programm</string>
+    <string name="navigation_drawer_close">Navigationsleiste schließen</string>
+    <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
+    <string name="settings_summary_use_latin_off">App wird in der Gerätesprache angezeigt</string>
+    <string name="settings_title_language">Sprache</string>
+    <string name="settings_use_latin">Auf Latein</string>
+    <string name="snackbar_horarium_not_found">Kein Programm für die ausgewählte Sprache gefunden</string>
+    <string name="snackbar_map_permission">Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte</string>
+</resources>

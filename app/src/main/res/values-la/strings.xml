@@ -18,4 +18,6 @@
     <string name="language_french" tools:ignore="ExtraTranslation">Francogallica</string>
     <string name="language_unknown" tools:ignore="ExtraTranslation">ignota</string>
 
+
+    <string name="dialog_choose_language" />
 </resources>
