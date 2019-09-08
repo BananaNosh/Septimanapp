@@ -14,6 +14,7 @@ import com.nobodysapps.septimanapp.localization.dateFormatSymbolsForLatin
 import com.nobodysapps.septimanapp.model.Horarium
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.max
 
 class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
@@ -55,31 +56,45 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
             }
 
             override fun onLoad(periodIndex: Int): List<WeekViewEvent> {
-                val copiedEvents = events.map {
-                    it.clone()
+                val eventsWithBreakAfterwardsIndices = ArrayList<Int>()
+                var lastEndTime: Calendar? = null
+                val copiedEvents = events.mapIndexed { index, ev ->
+                    val isSameDay =
+                        ev.startTime.get(Calendar.DATE) == lastEndTime?.get(Calendar.DATE)
+                    if (lastEndTime != null && isSameDay && ev.startTime != lastEndTime) {
+                        eventsWithBreakAfterwardsIndices.add(index - 1)
+                    }
+                    lastEndTime = ev.endTime
+                    ev.clone()
                 }
-                copiedEvents.forEach {
-                    it.endTime.add(Calendar.MINUTE, -1)  // to show a border between events
+                copiedEvents.forEachIndexed { index, ev ->
+                    ev.endTime.add(Calendar.MINUTE, -1)  // to show a border between events
 
                     val now = Calendar.getInstance()
-                    now.set(2018, 6, 30, 14, 30) // TODO remove
-                    if (now.after(it.startTime) && now.before(it.endTime)) { //is current event
-                        it.color = R.color.colorPrimary //TODO set other color
+                    // TODO remove next 2 lines
+                    now.set(2019, 6, 30)
+                    if (now.after(ev.startTime) && now.before(ev.endTime)) { //is current event
+                        ev.color = R.color.colorPrimary //TODO set other color
                     }
 
                     if (displayTimeInEvent) {
-                        val startTimeString = dateTimeInterpreter
-                            .interpretTime(
-                                it.startTime.get(Calendar.HOUR_OF_DAY),
-                                it.startTime.get(Calendar.MINUTE)
-                            )
-                        val showTimeInSameLine = it.duration() <= 30
-                        it.name =
-                            "$startTimeString ${if (showTimeInSameLine) "" else "\n"}${it.name}"
+                        val startTimeString =
+                            timeStringForTime(ev.startTime) + if (index in eventsWithBreakAfterwardsIndices) "-${timeStringForTime(
+                                events[index].endTime
+                            )}" else ""
+                        val showTimeInSameLine = ev.duration() <= 30
+                        ev.name =
+                            "$startTimeString ${if (showTimeInSameLine) "" else "\n"}${ev.name}"
                     }
                 }
                 return copiedEvents
             }
+
+            private fun timeStringForTime(time: Calendar) =
+                dateTimeInterpreter.interpretTime(
+                    time.get(Calendar.HOUR_OF_DAY),
+                    time.get(Calendar.MINUTE)
+                )
         }
     }
 
@@ -106,7 +121,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     /**
-     * Set the date limit from startDate to endDate but at least that NUMBER_OF_SHOWN_DAYS days can be shown TODO change according to events
+     * Set the date limit from startDate to endDate but at least that NUMBER_OF_SHOWN_DAYS days can be shown
      * @param startDate the start date of the view
      * @param endDate the end date of the view
      */
@@ -118,7 +133,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         startDate.set(Calendar.SECOND, 0)
         startDate.set(Calendar.MILLISECOND, 0)
         val startEndDiffDays =
-            endDate.get(Calendar.DAY_OF_YEAR) - startDate.get(Calendar.DAY_OF_YEAR) // TODO does not work for change of year
+            endDate.get(Calendar.DAY_OF_YEAR) - startDate.get(Calendar.DAY_OF_YEAR) // !!! does not work for change of year
         val newEndDate = startDate.clone() as Calendar
         newEndDate.add(
             Calendar.DAY_OF_YEAR,
@@ -134,7 +149,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
     /**
      * Tell the view to adapt according to orientation
      * Shows more days, when in landscape
-     * @param isLandscape if the orienation is landscape
+     * @param isLandscape if the orientation is landscape
      */
     fun changeOrientation(isLandscape: Boolean) {
         if (isLandscape) {
@@ -164,7 +179,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     /**
-     * Limit shown hours to the earliest and latest occuring in events
+     * Limit shown hours to the earliest and latest occurring in events
      */
     private fun setShownHoursAndDateLimitsAccordingToEvents() {
         var earliestDate: Calendar? = null
@@ -220,7 +235,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         const val NUMBER_OF_SHOWN_DAYS_PORTRAIT = 3
         const val NUMBER_OF_SHOWN_DAYS_LANDSCAPE = 8
         const val NUMBER_OF_SHOWN_DAYS_LANDSCAPE_ZOOMED = 4
-        val TAG = "HorariumView"
+        const val TAG = "HorariumView"
     }
 
 }
