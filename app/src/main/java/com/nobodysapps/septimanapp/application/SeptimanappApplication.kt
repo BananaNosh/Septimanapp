@@ -2,6 +2,7 @@ package com.nobodysapps.septimanapp.application
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.os.Build
 import android.util.Log
 import com.nobodysapps.septimanapp.dependencyInjection.DaggerSeptimanappApplicationComponent
 import com.nobodysapps.septimanapp.dependencyInjection.SeptimanappApplicationComponent
@@ -25,12 +26,16 @@ class SeptimanappApplication : Application() {
             .build()
 
         sharedPreferences = sharedPreferencesModule.provideSharedPreferences()
-        val appVersion = packageManager.getPackageInfo(packageName, 0).versionName
+        @Suppress("DEPRECATION") val appVersion = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            packageManager.getPackageInfo(packageName, 0).longVersionCode
+        } else {
+            packageManager.getPackageInfo(packageName, 0).versionCode.toLong()
+        }
         Log.d("SeptimanappApplication", "version $appVersion")
         // true if first time run for current app version
-        val isFirstRunForVersion = sharedPreferences.getString(VERSION_ALREADY_RUN_ON, "") != appVersion
+        val isFirstRunForVersion = sharedPreferences.getLong(VERSION_ALREADY_RUN_ON, 0) != appVersion
         if (isFirstRunForVersion) {
-            sharedPreferences.edit().putString(VERSION_ALREADY_RUN_ON, appVersion).apply()
+            sharedPreferences.edit().putLong(VERSION_ALREADY_RUN_ON, appVersion).apply()
             doOnFirstStartOfVersion()
         }
     }
