@@ -6,6 +6,7 @@ import datetime
 import re
 import json
 import tabula
+import numpy as np
 
 LATEST_END_HOUR = 23
 END_TIME_KEY = "mEndTime"
@@ -36,21 +37,31 @@ def create_event(id, text, date, start_hour, start_minute, end_hour, end_minute)
 
 
 def time_dict_from_date_hour_and_minute(date, hour, minute):
-    return {"year": date.year, "month": date.month-1, "dayOfMonth": date.day, "hourOfDay": hour, "minute": minute}
+    return {"year": date.year, "month": date.month - 1, "dayOfMonth": date.day, "hourOfDay": hour, "minute": minute}
+
+
+def combine_items_for_same_time(column):
+    time_regex = re.compile(r"(h[:.][ \t]*(\d{1,2}:\d{2} ?-? ?){1,2})" \
+                            r"|([ \t]*(\d{1,2}:\d{2} ?(Uhr)? ?-? ?){1,2})[ \t]?Uhr")
+    indices_with_time = [i for i, txt in enumerate(column) if re.search(time_regex, txt)] + [len(column)]
+    column = ["\n".join(column[index:next_index]) for index, next_index in
+              zip(indices_with_time[:-1], indices_with_time[1:])]
+    return column
 
 
 if __name__ == '__main__':
+
     args = read_args()
 
     events = []
-
     filename = args.wordfile.name
     basename, ext = os.path.splitext(filename)
     temp_files = []
     if ext == ".pdf":
-        df = tabula.read_pdf(filename)
-        text_table = [[text.replace("\r","\n") if type(text) is str else "" for text in column] for column in df.transpose().values]
-        print(text_table)
+        # noinspection PyTypeChecker
+        df = tabula.read_pdf(filename, stream=True).replace("\r", "\n").replace(np.nan, "")
+        text_table = [combine_items_for_same_time([text for text in column if len(text) > 0])
+                      for column in df.transpose().values]
     else:
         if ext == ".doc":
             os.system(f"soffice --convert-to docx {filename}")
@@ -75,7 +86,7 @@ if __name__ == '__main__':
 
     locale = args.language
 
-    time_pattern = re.compile(r"(?:h\.[ \t]*(\d{1,2}):(\d{2})(-(\d{1,2}):(\d{2}))?\W*\n)"
+    time_pattern = re.compile(r"(?:h[.:][ \t]*(\d{1,2}):(\d{2})(-(\d{1,2}):(\d{2}))?\W*\n)"
                               r"|(?:[ \t]*(\d{1,2}):(\d{2})(-(\d{1,2}):(\d{2}))? [Uu]hr\W*\n)")
     for i, column in enumerate(text_table):
         date = start_date + datetime.timedelta(i)
