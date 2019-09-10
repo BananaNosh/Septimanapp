@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.nobodysapps.septimanapp.R
+import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -47,12 +48,10 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
 
     override fun onBackPressed() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else if (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStack()
-        } else {
-            super.onBackPressed()
+        when {
+            drawerLayout.isDrawerOpen(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)
+            supportFragmentManager.backStackEntryCount > 0 -> supportFragmentManager.popBackStack()
+            else -> super.onBackPressed()
         }
     }
 
@@ -100,6 +99,9 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             }
             R.id.nav_map -> {
                 fragmentClass = MapFragment::class.java
+            }
+            R.id.nav_enrol -> {
+                fragmentClass = EnrolmentFragment::class.java
             }
         }
         try {

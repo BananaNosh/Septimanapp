@@ -46,4 +46,5 @@
     <string name="language_french" tools:ignore="ExtraTranslation,MissingTranslation" />
     <string name="language_unknown" tools:ignore="ExtraTranslation,MissingTranslation" />
     <string name="dialog_choose_language">Should Septimanapp be displayed in Latin or German?%s</string>
+    <string name="menu_enrol">Anmelden</string>
 </resources>

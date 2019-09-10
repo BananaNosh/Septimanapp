@@ -28,7 +28,11 @@
     </group>
 
     <item android:title="@string/menu_communicate">
-        <menu>
+        <menu><!-- TODO-->
+            <item
+                android:id="@+id/nav_enrol"
+                android:icon="@mipmap/ic_assignment"
+                android:title="@string/menu_enrol"/>
             <item
                     android:id="@+id/nav_share"
                     android:icon="@drawable/ic_menu_share"
