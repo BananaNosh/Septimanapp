@@ -41,7 +41,7 @@ def time_dict_from_date_hour_and_minute(date, hour, minute):
 
 
 def combine_items_for_same_time(column):
-    time_regex = re.compile(r"(h[:.][ \t]*(\d{1,2}:\d{2} ?-? ?){1,2})" \
+    time_regex = re.compile(r"(h[:.][ \t]*(\d{1,2}:\d{2} ?-? ?){1,2})"
                             r"|([ \t]*(\d{1,2}:\d{2} ?(Uhr)? ?-? ?){1,2})[ \t]?Uhr")
     indices_with_time = [i for i, txt in enumerate(column) if re.search(time_regex, txt)] + [len(column)]
     column = ["\n".join(column[index:next_index]) for index, next_index in

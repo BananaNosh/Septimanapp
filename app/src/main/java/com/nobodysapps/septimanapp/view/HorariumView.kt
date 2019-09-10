@@ -82,7 +82,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
                             timeStringForTime(ev.startTime) + if (index in eventsWithBreakAfterwardsIndices) "-${timeStringForTime(
                                 events[index].endTime
                             )}" else ""
-                        val showTimeInSameLine = ev.duration() <= 30
+                        val showTimeInSameLine = ev.duration() <= MAX_MINUTES_FOR_EVENT_TITLE_IN_FIRST_ROW
                         ev.name =
                             "$startTimeString ${if (showTimeInSameLine) "" else "\n"}${ev.name}"
                     }
@@ -100,6 +100,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     private fun setupDefaultFormat() {
         todayBackgroundColor = dayBackgroundColor
+        maxHourHeight *= 2
     }
 
     private fun setupDateTimeInterpreter() {
@@ -236,6 +237,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         const val NUMBER_OF_SHOWN_DAYS_LANDSCAPE = 8
         const val NUMBER_OF_SHOWN_DAYS_LANDSCAPE_ZOOMED = 4
         const val TAG = "HorariumView"
+        private const val MAX_MINUTES_FOR_EVENT_TITLE_IN_FIRST_ROW = 45
     }
 
 }
