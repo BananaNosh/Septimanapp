@@ -16,6 +16,7 @@
     <string name="menu_map">Karte</string>
     <string name="menu_communicate">Communicate</string>
     <string name="menu_horarium">Programm</string>
+    <string name="menu_enrol">Anmelden</string>
 
     <plurals name="action_day_view">
         <item quantity="one">%d Tag</item>
@@ -35,10 +36,11 @@
     <string name="settings_use_latin">Auf Latein</string>
     <string name="settings_summary_use_latin_off">App wird in der Gerätesprache angezeigt</string>
     <string name="settings_summary_use_latin_on">App displayed in Latin</string> % should never be shown
+
     <string name="action_horarium_language">Show timetable in %s</string>
     <string name="snackbar_horarium_not_found">Kein Programm für die ausgewählte Sprache gefunden</string>
 
-
+    <!-- Language stuff-->
     <string name="language" tools:ignore="ExtraTranslation,MissingTranslation">language %s</string>
     <string name="language_latin" tools:ignore="ExtraTranslation,MissingTranslation" />
     <string name="language_english" tools:ignore="ExtraTranslation,MissingTranslation" />
@@ -46,5 +48,9 @@
     <string name="language_french" tools:ignore="ExtraTranslation,MissingTranslation" />
     <string name="language_unknown" tools:ignore="ExtraTranslation,MissingTranslation" />
     <string name="dialog_choose_language">Should Septimanapp be displayed in Latin or German?%s</string>
-    <string name="menu_enrol">Anmelden</string>
+
+    <!-- Notifications-->
+    <string name="action_notify_enrol_reminder">com.nobodysapps.septimanapp.action.ENROL_REMINDER</string>
+    <string name="notification_enrol_title">Anmeldung zur Lateinwoche</string>
+    <string name="notification_enrol_text">Hast du dich schon für die Lateinwoche angemeldet?</string>
 </resources>

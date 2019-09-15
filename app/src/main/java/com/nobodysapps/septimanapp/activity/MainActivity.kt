@@ -15,11 +15,16 @@ import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
+import com.nobodysapps.septimanapp.notifications.NotificationHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import javax.inject.Inject
 
 
 class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    @Inject
+    lateinit var notificationHelper: NotificationHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +34,12 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         getSeptimanappApplication().component.inject(this)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_layout, HorariumFragment.newInstance()).commit()
+            replaceFragment(HorariumFragment::class.java)
+        }
+
+        val fragmentToGo: Class<*>? = intent.getSerializableExtra(FRAGMENT_TO_LOAD_KEY) as Class<*>?
+        if (fragmentToGo != null) {
+            replaceFragment(fragmentToGo)
         }
 
         val drawerLayout: DrawerLayout = drawer_layout
@@ -61,22 +70,21 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         return super.onCreateOptionsMenu(menu)
     }
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         if (item.itemId == R.id.action_settings) {
-            startActivity(Intent(this,  SettingsActivity::class.java))
+            startActivity(Intent(this, SettingsActivity::class.java))
             return true
         }
 
         return super.onOptionsItemSelected(item)
     }
 
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        var fragment: Fragment? = null
         var fragmentClass: Class<*> = HorariumFragment::class.java
         when (item.itemId) {
             R.id.nav_horarium -> {
@@ -104,6 +112,18 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
                 fragmentClass = EnrolmentFragment::class.java
             }
         }
+        if (!goToFragment(fragmentClass)) return false
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    private fun replaceFragment(fragmentToGo: Class<*>) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_layout, fragmentToGo.newInstance() as Fragment).commit()
+    }
+
+    private fun goToFragment(fragmentClass: Class<*>): Boolean {
+        var fragment: Fragment? = null
         try {
             fragment = (fragmentClass.newInstance() as Fragment)
         } catch (e: Exception) {
@@ -118,12 +138,12 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             .replace(R.id.fragment_layout, fragment)
             .addToBackStack(null)
             .commit()
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
     companion object {
         const val TAG = "MainActivity"
+
+        const val FRAGMENT_TO_LOAD_KEY = "fragmentToLoad"
     }
 }
