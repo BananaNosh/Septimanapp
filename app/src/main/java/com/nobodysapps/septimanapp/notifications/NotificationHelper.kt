@@ -5,7 +5,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -54,11 +53,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
 
     /**
      * Creates a notification to remind to enrol
-     *
-     * @param context      current application context
-     * @param reminderData ReminderData for this notification
      */
-
     fun createNotificationEnrolReminder() {
 
 //        // create a group notification
@@ -67,13 +62,16 @@ class NotificationHelper @Inject constructor(private val context: Context) {
         // create the pet notification
         val notificationBuilder = buildNotificationEnrolReminder()
 
-//        // add an action to the pet notification
-//        val administerPendingIntent = createPendingIntentForAction(context, reminderData)
-//        notificationBuilder.addAction(
-//            R.drawable.baseline_done_black_24,
-//            context.getString(R.string.administer),
-//            administerPendingIntent
-//        )
+        // add an action to set "already enrolled" to the notification
+        val alreadyEnrolledIntent = createPendingIntent(
+            context.getString(R.string.action_mark_already_enrolled),
+            NotificationActionReceiver::class.java
+        )
+        notificationBuilder.addAction(
+            R.mipmap.ic_assignment,
+            "Schon passiert",
+            alreadyEnrolledIntent
+        )
 
         // call notify for both the group and the pet notification
         val notificationManager = NotificationManagerCompat.from(context)
@@ -82,14 +80,9 @@ class NotificationHelper @Inject constructor(private val context: Context) {
     }
 
     /**
-     * Builds and returns the NotificationCompat.Builder for the enrol reminder notification.
-     *
-     * @param context current application context
-     * @param reminderData ReminderData for this notification
+     * Builds and returns the NotificationCompat.Builder for the enrol reminder notification
      */
     private fun buildNotificationEnrolReminder(): NotificationCompat.Builder {
-
-
         val channelId = channelIdForName(context.getString(R.string.app_name))
 
         return NotificationCompat.Builder(context, channelId).apply {
@@ -99,23 +92,28 @@ class NotificationHelper @Inject constructor(private val context: Context) {
 //            setLargeIcon(BitmapFactory.decodeResource(context.resources, drawable))
             setContentText(context.getString(R.string.notification_enrol_text))
 
-            // Launches the app to open the reminder edit screen when tapping the whole notification
+            // Launches the app to open the MainActivity with EnrolFragment
             val intent = Intent(context, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK  // TODO check flags
+                flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK  // TODO check flags
                 putExtra(MainActivity.FRAGMENT_TO_LOAD_KEY, EnrolmentFragment::class.java)
             }
 
-            val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val pendingIntent =
+                PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
             setContentIntent(pendingIntent)
         }
     }
 
     fun pendingIntentForEnrolReminder(): PendingIntent? {
-        return createPendingIntent(context.getString(R.string.action_notify_enrol_reminder))
+        return createPendingIntent(
+            context.getString(R.string.action_notify_enrol_reminder),
+            AlarmReceiver::class.java
+        )
     }
 
-    private fun createPendingIntent(action: String): PendingIntent? {
-        val intent = Intent(context.applicationContext, AlarmReceiver::class.java).apply {
+    private fun createPendingIntent(action: String, receiverClass: Class<*>): PendingIntent? {
+        val intent = Intent(context.applicationContext, receiverClass).apply {
             this.action = action
         }
         return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)

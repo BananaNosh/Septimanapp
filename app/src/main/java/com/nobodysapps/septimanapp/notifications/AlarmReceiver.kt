@@ -9,7 +9,7 @@ import com.nobodysapps.septimanapp.application.SeptimanappApplication
 
 class AlarmReceiver : BroadcastReceiver() {
 
-    lateinit var notificationHelper: NotificationHelper
+    private lateinit var notificationHelper: NotificationHelper
 
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.d(TAG, "onReceive() called with: context = [$context], intent = [$intent]")

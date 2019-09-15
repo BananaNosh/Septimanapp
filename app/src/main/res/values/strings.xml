@@ -50,7 +50,8 @@
     <string name="dialog_choose_language">Should Septimanapp be displayed in Latin or German?%s</string>
 
     <!-- Notifications-->
-    <string name="action_notify_enrol_reminder">com.nobodysapps.septimanapp.action.ENROL_REMINDER</string>
+    <string name="action_notify_enrol_reminder" translatable="false">com.nobodysapps.septimanapp.action.ENROL_REMINDER</string>
+    <string name="action_mark_already_enrolled" translatable="false">com.nobodysapps.septimanapp.action.ALREADY_ENROLLED</string>
     <string name="notification_enrol_title">Anmeldung zur Lateinwoche</string>
     <string name="notification_enrol_text">Hast du dich schon für die Lateinwoche angemeldet?</string>
 </resources>
