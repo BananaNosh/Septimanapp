@@ -29,6 +29,14 @@ class EnrolmentFragment : Fragment() {
 
 
     companion object {
+
+        const val ENROLLED_STATE_KEY = "enrolled_state"
+
+        const val ENROLLED_STATE_REMIND = 0
+        const val ENROLLED_STATE_ENROLLED = 1
+        const val ENROLLED_STATE_IN_PROGRESS = 2
+        const val ENROLLED_STATE_NOT_ASK_AGAIN = 3
+
         /**
          * Use this factory method to create a new instance of
          * this fragment.

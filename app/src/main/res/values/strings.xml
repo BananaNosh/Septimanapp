@@ -52,6 +52,9 @@
     <!-- Notifications-->
     <string name="action_notify_enrol_reminder" translatable="false">com.nobodysapps.septimanapp.action.ENROL_REMINDER</string>
     <string name="action_mark_already_enrolled" translatable="false">com.nobodysapps.septimanapp.action.ALREADY_ENROLLED</string>
+    <string name="action_remind_later" translatable="false">com.nobodysapps.septimanapp.action.REMIND_LATER</string>
+    <string name="action_do_not_ask_again" translatable="false">com.nobodysapps.septimanapp.action.NOT_ASK_AGAIN</string>
     <string name="notification_enrol_title">Anmeldung zur Lateinwoche</string>
     <string name="notification_enrol_text">Hast du dich schon für die Lateinwoche angemeldet?</string>
+    <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
 </resources>

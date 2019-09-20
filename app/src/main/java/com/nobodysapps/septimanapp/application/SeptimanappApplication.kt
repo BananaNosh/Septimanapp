@@ -13,7 +13,6 @@ import com.nobodysapps.septimanapp.dependencyInjection.SharedPreferencesModule
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
-import java.lang.NumberFormatException
 import java.util.*
 import javax.inject.Inject
 
@@ -47,8 +46,28 @@ class SeptimanappApplication : Application() {
             getString(R.string.app_name), "App notification channel."
         )
 
-        alarmScheduler.scheduleAlarm(Calendar.getInstance().apply { set(Calendar.MINUTE, 41) },
-            notificationHelper.pendingIntentForEnrolReminder())
+        setupReminder()
+    }
+
+    private fun setupReminder() {
+        val today =
+            Calendar.getInstance().apply { set(Calendar.HOUR_OF_DAY, 0); set(Calendar.MINUTE, 0) }
+        val reminderDates = NotificationHelper.ENROL_REMINDER_DATES
+        reminderDates.forEachIndexed { i, it ->
+            val reminderDate = (today.clone() as Calendar).apply {
+                set(Calendar.DAY_OF_MONTH, it.first)
+                set(Calendar.MONTH, it.second)
+            }
+            if (reminderDate.after(today) || i == reminderDates.size - 1) {
+                alarmScheduler.scheduleAlarm(
+                    reminderDate, notificationHelper.pendingIntentForEnrolReminder()
+                )
+            }
+        }
+        alarmScheduler.scheduleAlarm(  // TODO remove
+            Calendar.getInstance().apply { set(Calendar.MINUTE, 48) },
+            notificationHelper.pendingIntentForEnrolReminder()
+        )
     }
 
     private fun checkForFirstStart() {
@@ -82,15 +101,14 @@ class SeptimanappApplication : Application() {
                 val locale = yearAndLocaleString.substringAfter("_")
                 if (locale in ALLOWED_HORARIUM_LOCALES) {
                     Log.d(TAG, "locale is $locale")
-                    var year: Int
-                    try {
-                        year = yearString.toInt()
+                    val year: Int = try {
+                        yearString.toInt()
                     } catch (e: NumberFormatException) {
                         Log.d(TAG, "Wrong filename $it")
-                        year = 0
+                        0
                     }
-                    assets.open(it).bufferedReader().use {
-                        val horariumJson = it.readText()
+                    assets.open(it).bufferedReader().use { reader ->
+                        val horariumJson = reader.readText()
                         sharedPreferences.edit().putString(
                             HorariumStorage.keyFromYearAndLocale(year, locale),
                             horariumJson
