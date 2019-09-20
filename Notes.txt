@@ -2,6 +2,7 @@ Features:
     Horarium
 
 Issues:
+    Horarium times wrong for pm/am time scheme
 
 Other Todos:
     README -> think about process of adding new features etc.

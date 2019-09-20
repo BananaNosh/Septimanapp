@@ -80,9 +80,9 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             NotificationActionReceiver::class.java
         )
         notificationBuilder
-            .addAction(R.drawable.ic_clear, "Nicht fragen", doNotAskAgainIntent)
-            .addAction(R.drawable.ic_check, "Schon passiert", alreadyEnrolledIntent)
-            .addAction(R.drawable.ic_clock, "Später", remindLaterIntent)
+            .addAction(R.drawable.ic_clear, context.getString(R.string.notification_action_title_do_not_ask_again), doNotAskAgainIntent)
+            .addAction(R.drawable.ic_check, context.getString(R.string.notification_action_title_already_enrolled), alreadyEnrolledIntent)
+            .addAction(R.drawable.ic_clock, context.getString(R.string.notification_action_title_remind_later), remindLaterIntent)
 
         // call notify for both the group and the pet notification
 //        notificationManager.notify(reminderData.type.ordinal, groupBuilder.build())
