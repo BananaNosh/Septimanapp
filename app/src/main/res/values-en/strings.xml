@@ -15,7 +15,6 @@
     <!-- Preference Titles -->
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
 
     <string name="settings_title_language">Language</string>
     <string name="settings_use_latin">Use Latin</string>

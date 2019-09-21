@@ -20,4 +20,6 @@
 
 
     <string name="dialog_choose_language" />
+    <string name="notification_action_title_remind_later">serius</string>
+    <string name="notification_action_title_already_enrolled">iam confectum</string>
 </resources>

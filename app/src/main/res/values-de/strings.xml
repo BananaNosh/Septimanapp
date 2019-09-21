@@ -17,4 +17,10 @@
         <item quantity="one">%d Tag</item>
         <item quantity="other">%d Tage</item>
     </plurals>
+    <string name="notification_action_title_already_enrolled">Schon passiert</string>
+    <string name="notification_action_title_do_not_ask_again">Nicht erneut fragen</string>
+    <string name="notification_action_title_remind_later">Später</string>
+    <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
+    <string name="notification_enrol_text">Hast du dich schon für die Lateinwoche angemeldet?</string>
+    <string name="notification_enrol_title">Anmeldung zur Lateinwoche</string>
 </resources>
