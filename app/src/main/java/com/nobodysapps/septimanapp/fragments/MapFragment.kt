@@ -17,9 +17,9 @@ import kotlinx.android.synthetic.main.fragment_map.*
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.CopyrightOverlay
-import org.osmdroid.views.overlay.OverlayItem
 import org.osmdroid.views.overlay.ItemizedIconOverlay
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus
+import org.osmdroid.views.overlay.OverlayItem
 import java.util.*
 import javax.inject.Inject
 
@@ -54,6 +54,7 @@ class MapFragment : Fragment() {
         val mapController = mapView.controller
         mapController.setZoom(10.0)
         mapController.animateTo(GeoPoint(50.7940721, 8.9302902))
+        mapView.setMultiTouchControls(true)
 
         //Attribution
         val attribution = CopyrightOverlay(context).apply {
