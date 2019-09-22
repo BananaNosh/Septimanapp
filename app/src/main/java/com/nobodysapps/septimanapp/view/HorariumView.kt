@@ -3,6 +3,7 @@ package com.nobodysapps.septimanapp.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
+import android.text.format.DateFormat
 import android.util.AttributeSet
 import android.util.Log
 import com.alamkanak.weekview.DateTimeInterpreter
@@ -91,10 +92,14 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
             }
 
             private fun timeStringForTime(time: Calendar) =
-                dateTimeInterpreter.interpretTime(
-                    time.get(Calendar.HOUR_OF_DAY),
-                    time.get(Calendar.MINUTE)
-                )
+                if (!DateFormat.is24HourFormat(context)) {
+                    SimpleDateFormat("hh:mm a", Locale.getDefault()).format(time.time)
+                } else {
+                    dateTimeInterpreter.interpretTime(
+                        time.get(Calendar.HOUR_OF_DAY),
+                        time.get(Calendar.MINUTE)
+                    )
+                }
         }
     }
 

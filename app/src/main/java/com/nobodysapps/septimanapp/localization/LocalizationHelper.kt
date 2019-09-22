@@ -1,7 +1,6 @@
 package com.nobodysapps.septimanapp.localization
 
 import android.content.Context
-import android.util.Log
 import com.nobodysapps.septimanapp.R
 import java.text.DateFormatSymbols
 import java.util.*
@@ -33,7 +32,6 @@ fun dateFormatSymbolsForLatin(alternativeWeekDays: Boolean = false): DateFormatS
     latinDFS.weekdays = days
     latinDFS.shortWeekdays = shortDays
     // TODO add months (days)
-    Log.d("LatinDateFormatSymbols", latinDFS.shortWeekdays.toString())
     return latinDFS
 }
 
@@ -44,6 +42,7 @@ fun dateFormatSymbolsForLatin(alternativeWeekDays: Boolean = false): DateFormatS
  * @param locale the locale whose name is returned
  */
 fun localizedDisplayLanguage(context: Context?, locale: Locale): String {
+    @Suppress("MoveVariableDeclarationIntoWhen")
     val appLocale = Locale.getDefault()
     return when (appLocale) {
         Locale("la") -> {
