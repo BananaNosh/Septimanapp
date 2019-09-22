@@ -1,6 +1,7 @@
 package com.nobodysapps.septimanapp.fragments
 
 import android.Manifest
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.PermissionListener
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
+import com.nobodysapps.septimanapp.model.storage.LocationStorage
 import kotlinx.android.synthetic.main.fragment_map.*
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
@@ -18,6 +20,8 @@ import org.osmdroid.views.overlay.CopyrightOverlay
 import org.osmdroid.views.overlay.OverlayItem
 import org.osmdroid.views.overlay.ItemizedIconOverlay
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus
+import java.util.*
+import javax.inject.Inject
 
 
 /**
@@ -26,6 +30,9 @@ import org.osmdroid.views.overlay.ItemizedOverlayWithFocus
  * create an instance of this fragment.
  */
 class MapFragment : Fragment() {
+
+    @Inject
+    lateinit var locationStorage: LocationStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,15 +62,12 @@ class MapFragment : Fragment() {
         mapView.overlays.add(attribution)
 
         //your items
-        val items = ArrayList<OverlayItem>()
-        items.add(
-            OverlayItem(
-                "Title",
-                "Description",
-                GeoPoint(50.7940721, 8.9302902)            )
-        ) // Lat/Lon decimal degrees
+        val locations = locationStorage.loadLocations("test")
+        val items = locations?.map {
+            OverlayItem(it.description, it.description, it.coordinates)
+        } ?: Collections.emptyList()
 
-//the overlay
+        //the overlay
         val mOverlay = ItemizedOverlayWithFocus<OverlayItem>(context, items,
             object : ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
                 override fun onItemSingleTapUp(index: Int, item: OverlayItem): Boolean {
@@ -78,6 +82,14 @@ class MapFragment : Fragment() {
         mOverlay.setFocusItemsOnTap(true)
 
         mapView.getOverlays().add(mOverlay)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (!(context is SeptimanappActivity)) {
+            throw RuntimeException("$context must inherit from SeptimanappActivity")
+        }
+        context.getSeptimanappApplication().component.inject(this)
     }
 
     override fun onResume() {

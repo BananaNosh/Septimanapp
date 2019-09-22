@@ -2,6 +2,7 @@ Features:
     Horarium
 
 Issues:
+       Map -> permission asking again after denial -> snackbar not really well seen
 
 Other Todos:
     README -> think about process of adding new features etc.

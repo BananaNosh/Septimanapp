@@ -7,9 +7,13 @@ import javax.inject.Inject
 class LocationStorage @Inject constructor(private val prefs: SharedPreferences, private val jsonConverter: JsonConverter) {
 
     fun saveLocations(locations: List<Location>, overallLocation: String = "") {
-        val key = keyForLocation(overallLocation)
         val json = jsonConverter.toJson(LocationWrap(locations))
-        prefs.edit().putString(key, json).apply()
+        saveLocations(json, overallLocation)
+    }
+
+    fun saveLocations(locationsJson: String, overallLocation: String = "") {
+        val key = keyForLocation(overallLocation)
+        prefs.edit().putString(key, locationsJson).apply()
     }
 
     fun loadLocations(overallLocation: String=""): List<Location>? {
@@ -18,12 +22,12 @@ class LocationStorage @Inject constructor(private val prefs: SharedPreferences, 
         return jsonConverter.fromJson(json, LocationWrap::class.java).locations
     }
 
+    private fun keyForLocation(overallLocation: String): String {
+        return "${LOCATIONS_KEY}_${overallLocation}"
+    }
+
     companion object {
         private const val LOCATIONS_KEY = "locations"
-
-        fun keyForLocation(overallLocation: String): String {
-            return "${LOCATIONS_KEY}_${overallLocation}"
-        }
     }
 
     private data class LocationWrap(val locations: List<Location>)

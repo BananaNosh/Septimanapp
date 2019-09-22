@@ -11,6 +11,7 @@ import com.nobodysapps.septimanapp.dependencyInjection.DaggerSeptimanappApplicat
 import com.nobodysapps.septimanapp.dependencyInjection.SeptimanappApplicationComponent
 import com.nobodysapps.septimanapp.dependencyInjection.SharedPreferencesModule
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
+import com.nobodysapps.septimanapp.model.storage.LocationStorage
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
 import java.util.*
@@ -28,6 +29,10 @@ class SeptimanappApplication : Application() {
     lateinit var notificationHelper: NotificationHelper
     @Inject
     lateinit var alarmScheduler: AlarmScheduler
+    @Inject
+    lateinit var horariumStorage: HorariumStorage
+    @Inject
+    lateinit var locationStorage: LocationStorage
 
     override fun onCreate() {
         super.onCreate()
@@ -39,6 +44,7 @@ class SeptimanappApplication : Application() {
             .build()
 
         component.inject(this)
+
         checkForFirstStart()
 
         notificationHelper.createNotificationChannel(
@@ -65,7 +71,7 @@ class SeptimanappApplication : Application() {
             }
         }
         alarmScheduler.scheduleAlarm(  // TODO remove
-            Calendar.getInstance().apply { set(Calendar.MINUTE, 48) },
+            Calendar.getInstance().apply { set(Calendar.MINUTE, 25) },
             notificationHelper.pendingIntentForEnrolReminder()
         )
     }
@@ -90,6 +96,7 @@ class SeptimanappApplication : Application() {
     private fun doOnFirstStartOfVersion() {
         Log.d(TAG, "First run")
         loadHoraria()
+        loadLocations()
     }
 
     private fun loadHoraria() {
@@ -100,7 +107,6 @@ class SeptimanappApplication : Application() {
                 val yearString = yearAndLocaleString.substringBefore("_")
                 val locale = yearAndLocaleString.substringAfter("_")
                 if (locale in ALLOWED_HORARIUM_LOCALES) {
-                    Log.d(TAG, "locale is $locale")
                     val year: Int = try {
                         yearString.toInt()
                     } catch (e: NumberFormatException) {
@@ -109,11 +115,22 @@ class SeptimanappApplication : Application() {
                     }
                     assets.open(it).bufferedReader().use { reader ->
                         val horariumJson = reader.readText()
-                        sharedPreferences.edit().putString(
-                            HorariumStorage.keyFromYearAndLocale(year, locale),
-                            horariumJson
-                        ).apply()
+                        horariumStorage.saveHorarium(horariumJson, year, locale)
                     }
+                }
+            }
+        }
+    }
+
+    private fun loadLocations() {
+        val fileList = assets.list("")
+        fileList?.forEach {
+            if (it.startsWith("locations") && it.endsWith(".json")) {
+                val overallLocation = it.substringAfter("_").substringBefore(".")
+                Log.d(TAG, "overallLocation is $overallLocation")
+                assets.open(it).bufferedReader().use { reader ->
+                    val locationJson = reader.readText()
+                    locationStorage.saveLocations(locationJson, overallLocation)
                 }
             }
         }

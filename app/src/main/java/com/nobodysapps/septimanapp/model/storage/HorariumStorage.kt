@@ -9,9 +9,13 @@ import javax.inject.Inject
 class HorariumStorage @Inject constructor(private val prefs: SharedPreferences, private val jsonConverter: JsonConverter) {
 
     fun saveHorarium(horarium: Horarium, year: Int, locale: String) {
-        val key = keyFromYearAndLocale(year, locale)
         val json = jsonConverter.toJson(horarium)
-        prefs.edit().putString(key, json).apply()
+        saveHorarium(json, year, locale)
+    }
+
+    fun saveHorarium(horariumJson: String, year: Int, locale: String) {
+        val key = keyFromYearAndLocale(year, locale)
+        prefs.edit().putString(key, horariumJson).apply()
     }
 
     fun loadHorarium(year: Int, locale: String): Horarium? {
@@ -20,11 +24,11 @@ class HorariumStorage @Inject constructor(private val prefs: SharedPreferences, 
         return jsonConverter.fromJson(json, Horarium::class.java)
     }
 
+    private fun keyFromYearAndLocale(year: Int, locale: String): String {
+        return "${HORARIUM_KEY}_${year}_$locale"
+    }
+
     companion object {
         private const val HORARIUM_KEY = "horarium"
-
-        fun keyFromYearAndLocale(year: Int, locale: String): String {
-            return "${HORARIUM_KEY}_${year}_$locale"
-        }
     }
 }
