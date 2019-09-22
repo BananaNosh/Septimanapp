@@ -15,6 +15,9 @@ import kotlinx.android.synthetic.main.fragment_map.*
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.CopyrightOverlay
+import org.osmdroid.views.overlay.OverlayItem
+import org.osmdroid.views.overlay.ItemizedIconOverlay
+import org.osmdroid.views.overlay.ItemizedOverlayWithFocus
 
 
 /**
@@ -51,6 +54,30 @@ class MapFragment : Fragment() {
         }
         mapView.overlays.add(attribution)
 
+        //your items
+        val items = ArrayList<OverlayItem>()
+        items.add(
+            OverlayItem(
+                "Title",
+                "Description",
+                GeoPoint(50.7940721, 8.9302902)            )
+        ) // Lat/Lon decimal degrees
+
+//the overlay
+        val mOverlay = ItemizedOverlayWithFocus<OverlayItem>(context, items,
+            object : ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
+                override fun onItemSingleTapUp(index: Int, item: OverlayItem): Boolean {
+                    //do something
+                    return true
+                }
+
+                override fun onItemLongPress(index: Int, item: OverlayItem): Boolean {
+                    return false
+                }
+            })
+        mOverlay.setFocusItemsOnTap(true)
+
+        mapView.getOverlays().add(mOverlay)
     }
 
     override fun onResume() {
