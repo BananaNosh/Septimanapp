@@ -63,9 +63,9 @@ class MapFragment : Fragment() {
         mapView.overlays.add(attribution)
 
         //your items
-        val locations = locationStorage.loadLocations("test")
+        val locations = locationStorage.loadLocations("amoeneburg")
         val items = locations?.map {
-            OverlayItem(it.description, it.description, it.coordinates)
+           OverlayItem(it.title, it.description, it.coordinates)
         } ?: Collections.emptyList()
 
         //the overlay
@@ -113,7 +113,6 @@ class MapFragment : Fragment() {
                     ).show()
                 }
             }
-
         }
         (activity as SeptimanappActivity).withPermission(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,

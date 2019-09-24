@@ -2,21 +2,35 @@
   "locations": [
     {
       "id": "loc_1",
+      "titleMap": {
+        "la": "Locus 1",
+        "de": "Testort 1"
+      },
       "coordinates": {
-        "mLongitude": 0.3,
-        "mLatitude": 0.5,
+        "mLongitude": 8.3,
+        "mLatitude": 50.5,
         "mAltitude": 0.0
       },
-      "description": "descr"
+      "descriptionMap": {
+        "la": "descriptio",
+        "de": "Beschreibung"
+      }
     },
     {
       "id": "loc_2",
+      "titleMap": {
+        "la": "Locus 2",
+        "de": "Testort 2"
+      },
       "coordinates": {
         "mLongitude": 8.9302902,
         "mLatitude": 50.7940721,
         "mAltitude": 0.2
       },
-      "description": "descr2"
+      "descriptionMap": {
+        "la": "descriptio2",
+        "de": "Beschreibung2"
+      }
     }
   ]
 }
