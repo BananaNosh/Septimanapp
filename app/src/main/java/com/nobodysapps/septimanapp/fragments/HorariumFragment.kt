@@ -77,6 +77,7 @@ class HorariumFragment : Fragment() {
         actionDayViewId = getActionId(menu, actionDayViewId)
         val actionDayTitle = getToggleDayViewActionStringFromView()
         val itemDay = menu.add(Menu.NONE, actionDayViewId, 10, actionDayTitle)
+        itemDay?.setIcon(getToggleDayViewActionIconResFromView())
         itemDay?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
 
         actionToggleHorariumLanguageId = getActionId(menu, actionToggleHorariumLanguageId)
@@ -113,11 +114,18 @@ class HorariumFragment : Fragment() {
             horariumView.daysToShowOnToggleDayView
         )
 
+    private fun getToggleDayViewActionIconResFromView() =
+        when (horariumView.daysToShowOnToggleDayView) {
+            1 -> R.drawable.ic_view_day
+            else -> R.drawable.ic_view_multiple_days
+        }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             actionDayViewId -> {
                 horariumView.toggleDayView()
                 item.title = getToggleDayViewActionStringFromView()
+                item.setIcon(getToggleDayViewActionIconResFromView())
             }
             actionToggleHorariumLanguageId -> {
                 horariumInLatin = !horariumInLatin

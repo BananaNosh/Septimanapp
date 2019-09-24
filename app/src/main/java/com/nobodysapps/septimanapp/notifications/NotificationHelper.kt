@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -96,10 +97,10 @@ class NotificationHelper @Inject constructor(private val context: Context) {
         val channelId = channelIdForName(context.getString(R.string.app_name))
 
         return NotificationCompat.Builder(context, channelId).apply {
-            setSmallIcon(R.drawable.ic_notification_septimanapp)
+            setSmallIcon(R.drawable.ic_notification_septimanapp_bold)
             setContentTitle(context.getString(R.string.notification_enrol_title))
             setAutoCancel(true)
-//            setLargeIcon(BitmapFactory.decodeResource(context.resources, drawable))
+            setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_assignment))
             setContentText(context.getString(R.string.notification_enrol_text))
 
 
@@ -140,7 +141,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
         val channelId = channelIdForName(context.getString(R.string.app_name))
 
         return NotificationCompat.Builder(context, channelId).apply {
-            setSmallIcon(R.mipmap.ic_assignment)
+            setSmallIcon(R.drawable.ic_notification_septimanapp_bold)
             setContentTitle(context.getString(R.string.notification_enrol_title))
             setAutoCancel(true)
 //            setLargeIcon(BitmapFactory.decodeResource(context.resources, drawable))
