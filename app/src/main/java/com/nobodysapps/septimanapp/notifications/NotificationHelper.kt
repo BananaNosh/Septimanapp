@@ -96,7 +96,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
         val channelId = channelIdForName(context.getString(R.string.app_name))
 
         return NotificationCompat.Builder(context, channelId).apply {
-            setSmallIcon(R.mipmap.ic_assignment)
+            setSmallIcon(R.drawable.ic_notification_septimanapp)
             setContentTitle(context.getString(R.string.notification_enrol_title))
             setAutoCancel(true)
 //            setLargeIcon(BitmapFactory.decodeResource(context.resources, drawable))
