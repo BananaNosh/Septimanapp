@@ -20,7 +20,8 @@
         <activity
                 android:name=".activity.SettingsActivity"
                 android:label="@string/settings"
-                android:parentActivityName=".activity.MainActivity">
+                android:parentActivityName=".activity.MainActivity"
+                tools:targetApi="jelly_bean">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.nobodysapps.septimanapp.activity.MainActivity" />
