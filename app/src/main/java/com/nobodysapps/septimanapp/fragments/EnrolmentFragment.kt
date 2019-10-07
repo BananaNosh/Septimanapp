@@ -1,15 +1,13 @@
 package com.nobodysapps.septimanapp.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
@@ -42,9 +40,6 @@ class EnrolmentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fabEnrolSend.setOnClickListener {
-
-        }
         loadForm()
         setupListeners()
     }
@@ -58,22 +53,12 @@ class EnrolmentFragment : Fragment() {
     private fun setupListeners() {
         val nameEditTextListener = EditTextListener(FIELD_NAME)
         enrollNameEdit.addTextChangedListener(nameEditTextListener)
-        enrollNameEdit.setOnEditorActionListener(nameEditTextListener)
         val firstnameEditTextListener = EditTextListener(FIELD_FIRSTNAME)
         enrollFirstameEdit.addTextChangedListener(firstnameEditTextListener)
-        enrollFirstameEdit.setOnEditorActionListener(firstnameEditTextListener)
-        //        enrollNameEdit.addTextChangedListener(object: TextWatcher {
-        //            override fun afterTextChanged(s: Editable?) {
-        //                informationStorage.saveName(s.toString())
-        //            }
-        //
-        //            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        //            }
-        //
-        //            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        //            }
-        //
-        //        })
+
+        fabEnrolSend.setOnClickListener {
+            sendEnrolment()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -84,6 +69,23 @@ class EnrolmentFragment : Fragment() {
         context.getSeptimanappApplication().component.inject(this)
     }
 
+    private fun sendEnrolment() {
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        val aEmailList = arrayOf("user@fakehost.com", "user2@fakehost.com")
+        val aEmailCCList = arrayOf("user3@fakehost.com", "user4@fakehost.com")
+        val aEmailBCCList = arrayOf("user5@fakehost.com")
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, aEmailList)
+        emailIntent.putExtra(Intent.EXTRA_CC, aEmailCCList)
+        emailIntent.putExtra(Intent.EXTRA_BCC, aEmailBCCList)
+
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "My subject")
+
+        emailIntent.type = "plain/text"
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "My message body.")
+
+        startActivity(emailIntent)
+    }
 
     companion object {
         const val TAG = "EnrolmentFragment"
@@ -108,31 +110,13 @@ class EnrolmentFragment : Fragment() {
         fun newInstance() = EnrolmentFragment()
     }
 
-    private inner class EditTextListener(private val fieldKey: String) : TextWatcher, TextView.OnEditorActionListener {
-        private fun saveText(text: String, saveFunction: (String)-> Unit, savedText: String) {
-            if (!(text in savedText)) {
-                saveFunction(text)
-            }
-        }
-
-        override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
-                val text = v?.text.toString() ?: ""
-                when (fieldKey) {
-                    FIELD_NAME -> informationStorage.saveName(text)
-                    FIELD_FIRSTNAME -> informationStorage.saveFirstame(text)
-                }
-                return false;
-            }
-            return false;
-        }
+    private inner class EditTextListener(private val fieldKey: String) : TextWatcher {
 
         override fun afterTextChanged(s: Editable?) {
-            val (name, firstname) = informationStorage.loadEnrolInformation()
             val inputText = s.toString()
             when (fieldKey) {
-                FIELD_NAME -> saveText(inputText, informationStorage::saveName, name)
-                FIELD_FIRSTNAME -> saveText(inputText, informationStorage::saveFirstame, firstname)
+                FIELD_NAME -> informationStorage.saveName(inputText)
+                FIELD_FIRSTNAME -> informationStorage.saveFirstame(inputText)
             }
         }
 
