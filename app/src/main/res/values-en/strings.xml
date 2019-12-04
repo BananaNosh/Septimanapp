@@ -23,4 +23,10 @@
     <string name="action_horarium_language">Show timetable in %s</string>
     <string name="dialog_choose_language">Should Septimanapp be displayed in Latin or English?</string>
     <string name="snackbar_horarium_not_found">No horarium found in the specified language</string>
+    <string name="language">-</string>
+    <string name="language_english">-</string>
+    <string name="language_french">-</string>
+    <string name="language_german">-</string>
+    <string name="language_latin">-</string>
+    <string name="language_unknown">-</string>
 </resources>

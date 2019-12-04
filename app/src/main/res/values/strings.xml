@@ -45,11 +45,11 @@
 
     <!-- Language stuff-->
     <string name="language" tools:ignore="ExtraTranslation,MissingTranslation">language %s</string>
-    <string name="language_latin" tools:ignore="ExtraTranslation,MissingTranslation" />
-    <string name="language_english" tools:ignore="ExtraTranslation,MissingTranslation" />
-    <string name="language_german" tools:ignore="ExtraTranslation,MissingTranslation" />
-    <string name="language_french" tools:ignore="ExtraTranslation,MissingTranslation" />
-    <string name="language_unknown" tools:ignore="ExtraTranslation,MissingTranslation" />
+    <string name="language_latin" tools:ignore="ExtraTranslation,MissingTranslation" >-</string>
+    <string name="language_english" tools:ignore="ExtraTranslation,MissingTranslation" >-</string>
+    <string name="language_german" tools:ignore="ExtraTranslation,MissingTranslation" >-</string>
+    <string name="language_french" tools:ignore="ExtraTranslation,MissingTranslation" >-</string>
+    <string name="language_unknown" tools:ignore="ExtraTranslation,MissingTranslation" >-</string>
     <string name="dialog_choose_language">Should Septimanapp be displayed in Latin or German?%s</string>
 
     <!-- Notifications-->
@@ -63,4 +63,11 @@
     <string name="notification_action_title_already_enrolled">Schon passiert</string>
     <string name="notification_action_title_remind_later">Später</string>
     <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
+    <string name="enrol_checkbox_johannes_haus">Ich möchte im Johanneshaus wohnen.</string>
+    <string name="enrol_street_hint">Straße u. Hausnummer</string>
+    <string name="enrol_postal_code_hint">Postleitzahl</string>
+    <string name="enrol_city_hint">Wohnort</string>
+    <string name="enrol_country_hint">Land</string>
+    <string name="enrol_phone_hint">Telephonnummer</string>
+    <string name="enrol_mail_hint">Email</string>
 </resources>

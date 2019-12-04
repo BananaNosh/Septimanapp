@@ -14,7 +14,7 @@
             android:id="@+id/enrollNameEdit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="name"
+            android:autofillHints="personFamilyName"
             android:hint="@string/enrol_last_name_hint"
             android:inputType="textPersonName"
             android:imeOptions="actionNext"
@@ -23,11 +23,66 @@
             android:id="@+id/enrollFirstameEdit"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="firstname"
+            android:autofillHints="personGivenName"
             android:hint="@string/enrol_first_name_hint"
             android:inputType="textPersonName"
             android:imeOptions="actionNext"
             tools:ignore="UnusedAttribute" />
+        <EditText
+            android:id="@+id/enrollStreetEdit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="streetAddress"
+            android:hint="@string/enrol_street_hint"
+            android:inputType="textPostalAddress"
+            android:imeOptions="actionNext"
+            tools:ignore="UnusedAttribute" />
+        <EditText
+            android:id="@+id/enrollPostalEdit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="postalCode"
+            android:hint="@string/enrol_postal_code_hint"
+            android:inputType="number"
+            android:imeOptions="actionNext"
+            tools:ignore="UnusedAttribute" />
+        <EditText
+            android:id="@+id/enrollCityEdit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="postalCode"
+            android:hint="@string/enrol_city_hint"
+            android:inputType="textPostalAddress"
+            android:imeOptions="actionNext"
+            tools:ignore="UnusedAttribute" />
+        <Spinner
+            android:id="@+id/enrollCountrySpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <EditText
+            android:id="@+id/enrollPhoneEdit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="phoneNumber"
+            android:hint="@string/enrol_phone_hint"
+            android:inputType="phone"
+            android:imeOptions="actionNext"
+            tools:ignore="UnusedAttribute" />
+        <EditText
+            android:id="@+id/enrollMailEdit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="phoneNumber"
+            android:hint="@string/enrol_mail_hint"
+            android:inputType="phone"
+            android:imeOptions="actionNext"
+            tools:ignore="UnusedAttribute" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_gap"
+            android:text="@string/enrol_checkbox_johannes_haus"/>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

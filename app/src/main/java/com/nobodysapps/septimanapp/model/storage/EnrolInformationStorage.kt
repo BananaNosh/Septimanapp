@@ -18,7 +18,12 @@ class EnrolInformationStorage @Inject constructor(private val prefs: SharedPrefe
     fun loadEnrolInformation() : EnrolInformation {
         val name = prefs.getString(NAME_KEY, null) ?: ""
         val firstname = prefs.getString(FIRSTNAME_KEY, null) ?: ""
-        return EnrolInformation(name, firstname)
+        val street = prefs.getString(STREET_KEY, null) ?: ""
+        return EnrolInformation(name, firstname, street)
+    }
+
+    fun saveStreet(street: String) {
+        prefs.edit().putString(STREET_KEY, street).apply()
     }
 //
 //    private fun keyForLocation(overallLocation: String): String {
@@ -28,5 +33,6 @@ class EnrolInformationStorage @Inject constructor(private val prefs: SharedPrefe
     companion object {
         private const val NAME_KEY = "name"
         private const val FIRSTNAME_KEY = "firstname"
+        private const val STREET_KEY = "street"
     }
 }
