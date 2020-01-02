@@ -31,6 +31,8 @@ class HorariumFragment : Fragment() {
     private var actionDayViewId = -1
     private var actionToggleHorariumLanguageId = -1
 
+    private var snackbar: Snackbar? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,20 +73,20 @@ class HorariumFragment : Fragment() {
     @SuppressLint("WrongConstant")
     private fun onNoHorariumFound() {
         if (view != null) {
-            val snackbar = Snackbar.make(view!!, R.string.snackbar_horarium_not_found, Snackbar.LENGTH_LONG)
+            snackbar = Snackbar.make(view!!, R.string.snackbar_horarium_not_found, Snackbar.LENGTH_LONG)
             val previousYear = Calendar.getInstance().get(Calendar.YEAR) - 1
             val previousHorarium = loadHorariumInCorrectLanguage(previousYear)
             if (previousHorarium != null) {
-                snackbar.setAction(getString(R.string.snackbar_previous_horarium)) {
+                snackbar?.setAction(getString(R.string.snackbar_previous_horarium)) {
                     horariumView.setHorarium(previousHorarium)
                 }
                 if (!horariumView.hasHorarium()) {
-                    snackbar.duration = Snackbar.LENGTH_INDEFINITE
+                    snackbar?.duration = Snackbar.LENGTH_INDEFINITE
                 } else {
                     horariumInLatin = !horariumInLatin  // Change back to previous language
                 }
             }
-            snackbar.show()
+            snackbar?.show()
         }
     }
 
@@ -164,6 +166,15 @@ class HorariumFragment : Fragment() {
         context.getSeptimanappApplication().component.inject(this)
     }
 
+    override fun onPause() {
+        super.onPause()
+        snackbar?.dismiss()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        snackbar?.show()
+    }
 
     companion object {
         /**

@@ -9,8 +9,8 @@ Other Todos:
     
 Comments:
     
-enrolment -> + frage ob jeden 2. tag vegetarisch
+    enrolment -> + frage ob jeden 2. tag vegetarisch
         verbindlichkeitsfrage
 
-Horarium:
-    Jahreshinweis (wenn nicht aktuell)
+    Horarium:
+        Jahreshinweis (wenn nicht aktuell) -> snackbar (automatically if long way to go until next septimana)
