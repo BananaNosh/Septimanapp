@@ -176,6 +176,10 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         notifyDatasetChanged()
     }
 
+    fun hasHorarium() : Boolean {
+        return events.isNotEmpty()
+    }
+
     private fun setHourHeightAccordingToShortestEvent(events: List<WeekViewEvent>) {
         if (events.isEmpty()) return
         Log.d(TAG, "$hourHeight hour height, text size $textSize")

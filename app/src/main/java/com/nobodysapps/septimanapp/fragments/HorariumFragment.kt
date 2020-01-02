@@ -1,5 +1,6 @@
 package com.nobodysapps.septimanapp.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
@@ -61,15 +62,29 @@ class HorariumFragment : Fragment() {
         }
     }
 
-    private fun loadHorariumInCorrectLanguage(): Horarium? {
+    private fun loadHorariumInCorrectLanguage(year: Int? = null): Horarium? {
         val horariumLanguage = if (horariumInLatin) "la" else "de"
-        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        val currentYear = year ?: Calendar.getInstance().get(Calendar.YEAR)
         return horariumStorage.loadHorarium(currentYear, horariumLanguage)
     }
 
+    @SuppressLint("WrongConstant")
     private fun onNoHorariumFound() {
         if (view != null) {
-            Snackbar.make(view!!, R.string.snackbar_horarium_not_found, Snackbar.LENGTH_LONG).show()
+            val snackbar = Snackbar.make(view!!, R.string.snackbar_horarium_not_found, Snackbar.LENGTH_LONG)
+            val previousYear = Calendar.getInstance().get(Calendar.YEAR) - 1
+            val previousHorarium = loadHorariumInCorrectLanguage(previousYear)
+            if (previousHorarium != null) {
+                snackbar.setAction(getString(R.string.snackbar_previous_horarium)) {
+                    horariumView.setHorarium(previousHorarium)
+                }
+                if (!horariumView.hasHorarium()) {
+                    snackbar.duration = Snackbar.LENGTH_INDEFINITE
+                } else {
+                    horariumInLatin = !horariumInLatin  // Change back to previous language
+                }
+            }
+            snackbar.show()
         }
     }
 
@@ -133,7 +148,6 @@ class HorariumFragment : Fragment() {
                 if (horarium != null) {
                     horariumView.setHorarium(horarium)
                 } else {  // change back as horarium could not be loaded in other language
-                    horariumInLatin = !horariumInLatin
                     onNoHorariumFound()
                 }
                 item.title = getToggleHorariumLanguageActionTitle()
