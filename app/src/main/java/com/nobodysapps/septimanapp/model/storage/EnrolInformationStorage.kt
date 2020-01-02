@@ -15,15 +15,45 @@ class EnrolInformationStorage @Inject constructor(private val prefs: SharedPrefe
         prefs.edit().putString(FIRSTNAME_KEY, firstname).apply()
     }
 
+    fun saveStreet(street: String) {
+        prefs.edit().putString(STREET_KEY, street).apply()
+    }
+
+    fun savePostal(postal: String) {
+        prefs.edit().putString(POSTAL_KEY, postal).apply()
+    }
+
+    fun saveCity(city: String) {
+        prefs.edit().putString(CITY_KEY, city).apply()
+    }
+
+    fun saveCountry(country: String) {
+        prefs.edit().putString(COUNTRY_KEY, country).apply()
+    }
+
+    fun savePhone(phone: String) {
+        prefs.edit().putString(PHONE_KEY, phone).apply()
+    }
+
+    fun saveMail(mail: String) {
+        prefs.edit().putString(MAIL_KEY, mail).apply()
+    }
+
+    fun saveYearsOfLatin(yearsOfLatin: Float) {
+        prefs.edit().putFloat(YEARS_LATIN_KEY, yearsOfLatin).apply()
+    }
+
     fun loadEnrolInformation() : EnrolInformation {
         val name = prefs.getString(NAME_KEY, null) ?: ""
         val firstname = prefs.getString(FIRSTNAME_KEY, null) ?: ""
         val street = prefs.getString(STREET_KEY, null) ?: ""
-        return EnrolInformation(name, firstname, street)
-    }
-
-    fun saveStreet(street: String) {
-        prefs.edit().putString(STREET_KEY, street).apply()
+        val postal = prefs.getString(POSTAL_KEY, null) ?: ""
+        val city = prefs.getString(CITY_KEY, null) ?: ""
+        val country = prefs.getString(COUNTRY_KEY, null) ?: ""
+        val phone = prefs.getString(PHONE_KEY, null) ?: ""
+        val mail = prefs.getString(MAIL_KEY, null) ?: ""
+        val yearsOfLatin = prefs.getFloat(YEARS_LATIN_KEY, 0f)
+        return EnrolInformation(name, firstname, street, postal, city, country, phone, mail, yearsOfLatin)
     }
 //
 //    private fun keyForLocation(overallLocation: String): String {
@@ -34,5 +64,11 @@ class EnrolInformationStorage @Inject constructor(private val prefs: SharedPrefe
         private const val NAME_KEY = "name"
         private const val FIRSTNAME_KEY = "firstname"
         private const val STREET_KEY = "street"
+        private const val POSTAL_KEY = "postal"
+        private const val CITY_KEY = "city"
+        private const val COUNTRY_KEY = "country"
+        private const val PHONE_KEY = "phone"
+        private const val MAIL_KEY = "mail"
+        private const val YEARS_LATIN_KEY = "years_latin"
     }
 }

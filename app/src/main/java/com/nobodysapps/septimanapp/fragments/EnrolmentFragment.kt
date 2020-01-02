@@ -1,6 +1,7 @@
 package com.nobodysapps.septimanapp.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -8,6 +9,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
@@ -72,10 +74,21 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun loadForm() {
-        val (name, firstname, street) = informationStorage.loadEnrolInformation()
+        val (name, firstname, street, postal, city, country, phone, mail, yearsOfLatin) = informationStorage.loadEnrolInformation()
         enrollNameEdit.setText(name)
         enrollFirstameEdit.setText(firstname)
         enrollStreetEdit.setText(street)
+        enrollPostalEdit.setText(postal)
+        enrollCityEdit.setText(city)
+        enrollPhoneEdit.setText(phone)
+        enrollMailEdit.setText(mail)
+        enrollYearsLatinEdit.setText(yearsOfLatin.toString())
+
+        @Suppress("UNCHECKED_CAST") val adapter = enrollCountrySpinner.adapter as? ArrayAdapter<String>
+        if (adapter != null) {
+            val selectedCountry = if (country.isEmpty()) Locale.GERMANY.displayCountry else country
+            enrollCountrySpinner.setSelection(adapter.getPosition(selectedCountry))
+        }
     }
 
     private fun setupListeners() {
@@ -85,6 +98,29 @@ class EnrolmentFragment : Fragment() {
         enrollFirstameEdit.addTextChangedListener(firstnameEditTextListener)
         val streetAddressEditTextListener = EditTextListener(FIELD_STREET_ADDRESS)
         enrollStreetEdit.addTextChangedListener(streetAddressEditTextListener)
+        val postalEditTextListener = EditTextListener(FIELD_POSTAL)
+        enrollPostalEdit.addTextChangedListener(postalEditTextListener)
+        val cityEditTextListener = EditTextListener(FIELD_CITY)
+        enrollCityEdit.addTextChangedListener(cityEditTextListener)
+        val phoneEditTextListener = EditTextListener(FIELD_PHONE)
+        enrollPhoneEdit.addTextChangedListener(phoneEditTextListener)
+        val mailEditTextListener = EditTextListener(FIELD_MAIL)
+        enrollMailEdit.addTextChangedListener(mailEditTextListener)
+        val yearsOfLatinEditTextListener = EditTextListener(FIELD_YEARS_LATIN)
+        enrollYearsLatinEdit.addTextChangedListener(yearsOfLatinEditTextListener)
+
+        enrollCountrySpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val item = parent?.getItemAtPosition(position)
+                val country = item.toString()
+                informationStorage.saveCountry(country)
+            }
+
+        }
 
         fabEnrolSend.setOnClickListener {
             sendEnrolment()
@@ -130,6 +166,11 @@ class EnrolmentFragment : Fragment() {
         private const val FIELD_NAME = "name"
         private const val FIELD_FIRSTNAME = "firstname"
         private const val FIELD_STREET_ADDRESS = "street"
+        private const val FIELD_POSTAL = "postal"
+        private const val FIELD_CITY = "city"
+        private const val FIELD_PHONE = "phone"
+        private const val FIELD_MAIL = "mail"
+        private const val FIELD_YEARS_LATIN = "years_latin"
 
         /**
          * Use this factory method to create a new instance of
@@ -149,6 +190,11 @@ class EnrolmentFragment : Fragment() {
                 FIELD_NAME -> informationStorage.saveName(inputText)
                 FIELD_FIRSTNAME -> informationStorage.saveFirstame(inputText)
                 FIELD_STREET_ADDRESS -> informationStorage.saveStreet(inputText)
+                FIELD_POSTAL -> informationStorage.savePostal(inputText)
+                FIELD_CITY -> informationStorage.saveCity(inputText)
+                FIELD_PHONE -> informationStorage.savePhone(inputText)
+                FIELD_MAIL -> informationStorage.saveMail(inputText)
+                FIELD_YEARS_LATIN -> informationStorage.saveYearsOfLatin(if (inputText.isDigitsOnly()) inputText.toFloat() else 0f)
             }
             if (inputText.isNotEmpty()) {
                 sharedPreferences.edit().putInt(ENROLLED_STATE_KEY, ENROLLED_STATE_IN_PROGRESS).apply()

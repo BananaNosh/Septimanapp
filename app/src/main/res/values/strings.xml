@@ -26,6 +26,19 @@
 
     <string name="enrol_last_name_hint">Nachname</string>
     <string name="enrol_first_name_hint">Vorname</string>
+    <string name="enrol_checkbox_johannes_haus">Ich möchte im Johanneshaus wohnen.</string>
+    <string name="enrol_street_hint">Straße u. Hausnummer</string>
+    <string name="enrol_postal_code_hint">Postleitzahl</string>
+    <string name="enrol_city_hint">Wohnort</string>
+    <string name="enrol_country_hint">Land</string>
+    <string name="enrol_phone_hint">Telephonnummer</string>
+    <string name="enrol_mail_hint">Email</string>
+    <string name="enrol_years_of_latin_hint">0</string>
+    <string name="enrol_years_of_latin_front">Ich habe</string>
+    <plurals name="enrol_years_of_latin_back">
+        <item quantity="other">Jahre Latein gelernt.</item>
+        <item quantity="one">Jahr Latein gelernt.</item>
+    </plurals>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -42,6 +55,7 @@
 
     <string name="action_horarium_language">Show timetable in %s</string>
     <string name="snackbar_horarium_not_found">Kein Programm für die ausgewählte Sprache gefunden</string>
+    <string name="snackbar_previous_horarium">vergangenen</string>
 
     <!-- Language stuff-->
     <string name="language" tools:ignore="ExtraTranslation,MissingTranslation">language %s</string>
@@ -63,12 +77,4 @@
     <string name="notification_action_title_already_enrolled">Schon passiert</string>
     <string name="notification_action_title_remind_later">Später</string>
     <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
-    <string name="enrol_checkbox_johannes_haus">Ich möchte im Johanneshaus wohnen.</string>
-    <string name="enrol_street_hint">Straße u. Hausnummer</string>
-    <string name="enrol_postal_code_hint">Postleitzahl</string>
-    <string name="enrol_city_hint">Wohnort</string>
-    <string name="enrol_country_hint">Land</string>
-    <string name="enrol_phone_hint">Telephonnummer</string>
-    <string name="enrol_mail_hint">Email</string>
-    <string name="snackbar_previous_horarium">vergangenen</string>
 </resources>
