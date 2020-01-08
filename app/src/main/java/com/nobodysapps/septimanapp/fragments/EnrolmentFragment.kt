@@ -1,7 +1,6 @@
 package com.nobodysapps.septimanapp.fragments
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
@@ -17,6 +16,7 @@ import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage
 import kotlinx.android.synthetic.main.fragment_enrolment.*
+import java.lang.NumberFormatException
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -50,8 +50,8 @@ class EnrolmentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fillSpinner()
-        loadForm()
         setupListeners()
+        loadForm()
     }
 
     private fun fillSpinner() {
@@ -82,9 +82,13 @@ class EnrolmentFragment : Fragment() {
         enrollCityEdit.setText(city)
         enrollPhoneEdit.setText(phone)
         enrollMailEdit.setText(mail)
-        enrollYearsLatinEdit.setText(yearsOfLatin.toString())
 
-        @Suppress("UNCHECKED_CAST") val adapter = enrollCountrySpinner.adapter as? ArrayAdapter<String>
+        if (yearsOfLatin > 0) {
+            enrollYearsLatinEdit.setText(if (yearsOfLatin.toInt().toFloat() == yearsOfLatin) yearsOfLatin.toInt().toString() else yearsOfLatin.toString())
+        }
+
+        @Suppress("UNCHECKED_CAST") val adapter =
+            enrollCountrySpinner.adapter as? ArrayAdapter<String>
         if (adapter != null) {
             val selectedCountry = if (country.isEmpty()) Locale.GERMANY.displayCountry else country
             enrollCountrySpinner.setSelection(adapter.getPosition(selectedCountry))
@@ -109,7 +113,29 @@ class EnrolmentFragment : Fragment() {
         val yearsOfLatinEditTextListener = EditTextListener(FIELD_YEARS_LATIN)
         enrollYearsLatinEdit.addTextChangedListener(yearsOfLatinEditTextListener)
 
-        enrollCountrySpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+        enrollYearsLatinEdit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                var yearsBackString: String
+                try {
+                    val years = s.toString().toFloat()
+                    yearsBackString = resources.getQuantityString(
+                        R.plurals.enrol_years_of_latin_back,
+                        if (years == 1f) 1 else 2
+                    )
+                } catch (e: NumberFormatException) {
+                    yearsBackString =
+                        resources.getQuantityString(R.plurals.enrol_years_of_latin_back, 0)
+                }
+                yearsLatinBackTV.text = yearsBackString
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+        })
+
+        enrollCountrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -151,6 +177,7 @@ class EnrolmentFragment : Fragment() {
 //        emailIntent.putExtra(Intent.EXTRA_TEXT, "My message body.")
 //
 //        startActivity(emailIntent)
+        //TODO remove continue notification
     }
 
     companion object {
@@ -194,19 +221,24 @@ class EnrolmentFragment : Fragment() {
                 FIELD_CITY -> informationStorage.saveCity(inputText)
                 FIELD_PHONE -> informationStorage.savePhone(inputText)
                 FIELD_MAIL -> informationStorage.saveMail(inputText)
-                FIELD_YEARS_LATIN -> informationStorage.saveYearsOfLatin(if (inputText.isDigitsOnly()) inputText.toFloat() else 0f)
+                FIELD_YEARS_LATIN -> {
+                    try {
+                        val years = inputText.toFloat()
+                        informationStorage.saveYearsOfLatin(years)
+                    } catch (e: NumberFormatException) {
+                    }
+                }
             }
             if (inputText.isNotEmpty()) {
-                sharedPreferences.edit().putInt(ENROLLED_STATE_KEY, ENROLLED_STATE_IN_PROGRESS).apply()
+                sharedPreferences.edit().putInt(ENROLLED_STATE_KEY, ENROLLED_STATE_IN_PROGRESS)
+                    .apply()
                 // TODO check how to set notification for continue
             }
         }
 
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        }
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
     }
 }
