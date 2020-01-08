@@ -18,9 +18,11 @@
     <string name="menu_horarium">Programm</string>
     <string name="menu_enrol">Anmelden</string>
 
+    <string name="action_day_view_day">%d Tag</string>
+    <string name="action_day_view_days">%d Tage</string>
     <plurals name="action_day_view">
-        <item quantity="one">%d Tag</item>
-        <item quantity="other">%d Tage</item>
+        <item quantity="one">@string/action_day_view_day</item>
+        <item quantity="other">@string/action_day_view_days</item>
     </plurals>
     <string name="snackbar_map_permission">Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte</string>
 
@@ -35,9 +37,11 @@
     <string name="enrol_mail_hint">Email</string>
     <string name="enrol_years_of_latin_hint">0</string>
     <string name="enrol_years_of_latin_front">Ich habe</string>
+    <string name="enrol_years_of_latin_back_sg">Jahr Latein gelernt.</string>
+    <string name="enrol_years_of_latin_back_pl">Jahre Latein gelernt.</string>
     <plurals name="enrol_years_of_latin_back">
-        <item quantity="other">Jahre Latein gelernt.</item>
-        <item quantity="one">Jahr Latein gelernt.</item>
+        <item quantity="one">@string/enrol_years_of_latin_back_sg</item>
+        <item quantity="other">@string/enrol_years_of_latin_back_pl</item>
     </plurals>
 
     <!-- Preference Titles -->
@@ -68,6 +72,7 @@
 
     <!-- Notifications-->
     <string name="action_notify_enrol_reminder" translatable="false">com.nobodysapps.septimanapp.action.ENROL_REMINDER</string>
+    <string name="action_notify_continue_enrol_reminder" translatable="false">com.nobodysapps.septimanapp.action.CONTINUE_ENROL_REMINDER</string>
     <string name="action_mark_already_enrolled" translatable="false">com.nobodysapps.septimanapp.action.ALREADY_ENROLLED</string>
     <string name="action_remind_later" translatable="false">com.nobodysapps.septimanapp.action.REMIND_LATER</string>
     <string name="action_do_not_ask_again" translatable="false">com.nobodysapps.septimanapp.action.NOT_ASK_AGAIN</string>

@@ -6,10 +6,6 @@
     <string name="menu_map">Map</string>
     <string name="menu_horarium">Timetable</string>
 
-    <plurals name="action_day_view">
-        <item quantity="one">%d day</item>
-        <item quantity="other">%d days</item>
-    </plurals>
     <string name="snackbar_map_permission">Map needs storage permission to cache the map!</string>
 
     <!-- Preference Titles -->
@@ -29,4 +25,6 @@
     <string name="language_german">-</string>
     <string name="language_latin">-</string>
     <string name="language_unknown">-</string>
+    <string name="action_day_view_day">%d day</string>
+    <string name="action_day_view_days">%d days</string>
 </resources>

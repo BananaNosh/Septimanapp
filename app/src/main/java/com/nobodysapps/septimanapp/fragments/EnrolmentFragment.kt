@@ -115,16 +115,14 @@ class EnrolmentFragment : Fragment() {
 
         enrollYearsLatinEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                var yearsBackString: String
-                try {
-                    val years = s.toString().toFloat()
-                    yearsBackString = resources.getQuantityString(
+                val yearsBackString = try {
+                    val yearsOfLatin = s.toString().toFloat()
+                    resources.getQuantityString(
                         R.plurals.enrol_years_of_latin_back,
-                        if (years == 1f) 1 else 2
+                        if (yearsOfLatin == 1f) 1 else 2
                     )
                 } catch (e: NumberFormatException) {
-                    yearsBackString =
-                        resources.getQuantityString(R.plurals.enrol_years_of_latin_back, 0)
+                    resources.getQuantityString(R.plurals.enrol_years_of_latin_back, 0)
                 }
                 yearsLatinBackTV.text = yearsBackString
             }

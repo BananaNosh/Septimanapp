@@ -4,11 +4,6 @@
     <string name="menu_map">Map</string>
     <string name="menu_horarium">Horaire</string>
 
-    <plurals name="action_day_view">
-        <item quantity="one">%d jour</item>
-        <item quantity="other">%d jours</item>
-    </plurals>
-
     <!-- Preference Titles -->
 
     <!-- Messages Preferences -->
@@ -25,4 +20,6 @@
     <string name="language_german">-</string>
     <string name="language_latin">-</string>
     <string name="language_unknown">-</string>
+    <string name="action_day_view_day">%d jour</string>
+    <string name="action_day_view_days">%d jours</string>
 </resources>
