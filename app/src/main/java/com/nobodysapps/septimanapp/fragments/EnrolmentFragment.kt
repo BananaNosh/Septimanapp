@@ -15,8 +15,9 @@ import androidx.fragment.app.Fragment
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage
+import com.nobodysapps.septimanapp.notifications.AlarmScheduler
+import com.nobodysapps.septimanapp.notifications.NotificationHelper
 import kotlinx.android.synthetic.main.fragment_enrolment.*
-import java.lang.NumberFormatException
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -32,6 +33,10 @@ class EnrolmentFragment : Fragment() {
     lateinit var informationStorage: EnrolInformationStorage
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+    @Inject
+    lateinit var notificationHelper: NotificationHelper
+    @Inject
+    lateinit var alarmScheduler: AlarmScheduler
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -228,9 +233,20 @@ class EnrolmentFragment : Fragment() {
                 }
             }
             if (inputText.isNotEmpty()) {
-                sharedPreferences.edit().putInt(ENROLLED_STATE_KEY, ENROLLED_STATE_IN_PROGRESS)
+                val currentState = sharedPreferences.getInt(ENROLLED_STATE_KEY, -1)
+                sharedPreferences.edit().putInt(ENROLLED_STATE_KEY, ENROLLED_STATE_REMIND)
                     .apply()
-                // TODO check how to set notification for continue
+                if (currentState != ENROLLED_STATE_IN_PROGRESS) {
+                    sharedPreferences.edit().putInt(ENROLLED_STATE_KEY, ENROLLED_STATE_IN_PROGRESS)
+                        .apply()
+                    if (currentState != ENROLLED_STATE_NOT_ASK_AGAIN) {
+                        alarmScheduler.scheduleAlarm(Calendar.getInstance().apply {
+                            add(Calendar.DAY_OF_MONTH, NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.first)
+                            add(Calendar.HOUR_OF_DAY, NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.second)
+                            add(Calendar.MINUTE, NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.third)
+                        }, notificationHelper.pendingIntentForContinueEnrolReminder())
+                    }
+                }
             }
         }
 

@@ -5,12 +5,14 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.icu.util.DateInterval
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.MainActivity
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -144,7 +146,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             setSmallIcon(R.drawable.ic_notification_septimanapp_bold)
             setContentTitle(context.getString(R.string.notification_enrol_title))
             setAutoCancel(true)
-//            setLargeIcon(BitmapFactory.decodeResource(context.resources, drawable))
+            setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_assignment))
             setContentText(context.getString(R.string.notification_continue_enrol_text))
 
             // Launches the app to open the MainActivity with EnrolFragment
@@ -172,6 +174,13 @@ class NotificationHelper @Inject constructor(private val context: Context) {
         )
     }
 
+    fun pendingIntentForContinueEnrolReminder(): PendingIntent? {
+        return createPendingIntent(
+            context.getString(R.string.action_notify_continue_enrol_reminder),
+            AlarmReceiver::class.java
+        )
+    }
+
     private fun createPendingIntent(action: String, receiverClass: Class<*>): PendingIntent? {
         val intent = Intent(context.applicationContext, receiverClass).apply {
             this.action = action
@@ -183,6 +192,13 @@ class NotificationHelper @Inject constructor(private val context: Context) {
         const val ENROL_REMINDER_NOTIFICATION_ID = 1
         const val CONTINUE_ENROL_REMINDER_NOTIFICATION_ID = 2
 
+        /*
+        The dates to send notification (month, day)
+         */
         val ENROL_REMINDER_DATES = listOf(Pair(6, 1), Pair(7, 1), Pair(8, 1))
+        /*
+        The offset between last enrol action and notification (days, hours, minutes)
+         */
+        val ENROL_CONTINUE_REMINDER_OFFSET = Triple(1, 0, 0)
     }
 }

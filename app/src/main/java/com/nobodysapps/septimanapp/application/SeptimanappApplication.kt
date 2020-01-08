@@ -53,6 +53,8 @@ class SeptimanappApplication : Application() {
         )
 
         setupReminder()
+
+        // TODO reset Enrol state after septimana
     }
 
     private fun setupReminder() {

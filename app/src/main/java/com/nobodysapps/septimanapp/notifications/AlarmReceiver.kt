@@ -9,6 +9,9 @@ import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.application.SeptimanappApplication
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 
+/**
+ * Called on alarm, creates and shows the notification
+ */
 class AlarmReceiver : BroadcastReceiver() {
 
     private lateinit var sharedPreferences: SharedPreferences
@@ -20,17 +23,28 @@ class AlarmReceiver : BroadcastReceiver() {
             val septimanappApplication = context.applicationContext as SeptimanappApplication
             notificationHelper = septimanappApplication.notificationHelper  // TODO inject
             sharedPreferences = septimanappApplication.sharedPreferences // TODO inject
+            val enrolState = sharedPreferences.getInt(
+                EnrolmentFragment.ENROLLED_STATE_KEY,
+                EnrolmentFragment.ENROLLED_STATE_REMIND
+            )
             if (intent.action!!.equals(
                     context.getString(R.string.action_notify_enrol_reminder),
                     ignoreCase = true
                 )
             ) {
-                val enrolState = sharedPreferences.getInt(
-                    EnrolmentFragment.ENROLLED_STATE_KEY,
-                    EnrolmentFragment.ENROLLED_STATE_REMIND
-                )
+                Log.d(TAG, "enrollState: $enrolState")
                 if (enrolState == EnrolmentFragment.ENROLLED_STATE_REMIND) {
-                    notificationHelper.createNotificationEnrolReminder()
+                    notificationHelper.createNotificationEnrolReminder()    // sends EnrolReminder
+                } else if (enrolState == EnrolmentFragment.ENROLLED_STATE_IN_PROGRESS) { // TODO check if should be removed
+                    notificationHelper.createNotificationContinueEnrolReminder()    // sends ContinueEnrolReminder because enrollment allready started
+                }
+            } else if (intent.action!!.equals(
+                    context.getString(R.string.action_notify_continue_enrol_reminder),
+                    ignoreCase = true
+                )
+            ) {
+                if (enrolState == EnrolmentFragment.ENROLLED_STATE_IN_PROGRESS) {
+                    notificationHelper.createNotificationContinueEnrolReminder()   // sends ContinueEnrolReminder
                 }
             }
         }
