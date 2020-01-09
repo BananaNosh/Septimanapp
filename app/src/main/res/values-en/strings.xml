@@ -27,4 +27,6 @@
     <string name="language_unknown">-</string>
     <string name="action_day_view_day">%d day</string>
     <string name="action_day_view_days">%d days</string>
+    <string name="enrol_instrument_hint">Musikinstrument</string>
+    <string name="enrol_checkbox_johannes_haus">I want to stay in the Johanneshaus.</string>
 </resources>

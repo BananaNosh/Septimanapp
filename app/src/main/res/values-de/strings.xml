@@ -38,4 +38,8 @@
     <string name="enrol_country_hint">Land</string>
     <string name="enrol_phone_hint">Telephonnummer</string>
     <string name="enrol_mail_hint">Email</string>
+    <string name="enrol_instrument_back_1">"mit. "</string>
+    <string name="enrol_instrument_back_2">(falls möglich)</string>
+    <string name="action_day_view_day">%d Tag</string>
+    <string name="action_day_view_days">%d Tage</string>
 </resources>
