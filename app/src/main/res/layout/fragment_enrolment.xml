@@ -1,114 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/enrollNameEdit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="personFamilyName"
-            android:hint="@string/enrol_last_name_hint"
-            android:inputType="textPersonName"
-            android:imeOptions="actionNext"
-            tools:ignore="UnusedAttribute" />
-        <EditText
-            android:id="@+id/enrollFirstameEdit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="personGivenName"
-            android:hint="@string/enrol_first_name_hint"
-            android:inputType="textPersonName"
-            android:imeOptions="actionNext"
-            tools:ignore="UnusedAttribute" />
-        <EditText
-            android:id="@+id/enrollStreetEdit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="streetAddress"
-            android:hint="@string/enrol_street_hint"
-            android:inputType="textPostalAddress"
-            android:imeOptions="actionNext"
-            tools:ignore="UnusedAttribute" />
-        <EditText
-            android:id="@+id/enrollPostalEdit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="postalCode"
-            android:hint="@string/enrol_postal_code_hint"
-            android:inputType="number"
-            android:imeOptions="actionNext"
-            tools:ignore="UnusedAttribute" />
-        <EditText
-            android:id="@+id/enrollCityEdit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="postalCode"
-            android:hint="@string/enrol_city_hint"
-            android:inputType="textPostalAddress"
-            android:imeOptions="actionNext"
-            tools:ignore="UnusedAttribute" />
-        <Spinner
-            android:id="@+id/enrollCountrySpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <EditText
-            android:id="@+id/enrollPhoneEdit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="phoneNumber"
-            android:hint="@string/enrol_phone_hint"
-            android:inputType="phone"
-            android:imeOptions="actionNext"
-            tools:ignore="UnusedAttribute" />
-        <EditText
-            android:id="@+id/enrollMailEdit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="phoneNumber"
-            android:hint="@string/enrol_mail_hint"
-            android:inputType="textEmailAddress"
-            android:imeOptions="actionNext"
-            tools:ignore="UnusedAttribute" />
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_gap"
-            android:text="@string/enrol_checkbox_johannes_haus"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/enrolNameEdit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="personFamilyName"
+                android:hint="@string/enrol_last_name_hint"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                tools:ignore="UnusedAttribute" />
+
+            <EditText
+                android:id="@+id/enrolFirstameEdit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="personGivenName"
+                android:hint="@string/enrol_first_name_hint"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName"
+                tools:ignore="UnusedAttribute" />
+
+            <EditText
+                android:id="@+id/enrolStreetEdit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="streetAddress"
+                android:hint="@string/enrol_street_hint"
+                android:imeOptions="actionNext"
+                android:inputType="textPostalAddress"
+                tools:ignore="UnusedAttribute" />
+
+            <EditText
+                android:id="@+id/enrolPostalEdit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="postalCode"
+                android:hint="@string/enrol_postal_code_hint"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                tools:ignore="UnusedAttribute" />
+
+            <EditText
+                android:id="@+id/enrolCityEdit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="postalCode"
+                android:hint="@string/enrol_city_hint"
+                android:imeOptions="actionNext"
+                android:inputType="textPostalAddress"
+                tools:ignore="UnusedAttribute" />
+
+            <Spinner
+                android:id="@+id/enrolCountrySpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/enrolPhoneEdit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="phoneNumber"
+                android:hint="@string/enrol_phone_hint"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                tools:ignore="UnusedAttribute" />
+
+            <EditText
+                android:id="@+id/enrolMailEdit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="phoneNumber"
+                android:hint="@string/enrol_mail_hint"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                tools:ignore="UnusedAttribute" />
+
+            <CheckBox
+                android:id="@+id/enrolJohanneshausCB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_gap"
+                android:layout_marginBottom="@dimen/small_gap"
+                android:text="@string/enrol_checkbox_johannes_haus" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/small_margin_text"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="@string/enrol_years_of_latin_front" />
+
+                <EditText
+                    android:id="@+id/enrolYearsLatinEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:hint="@string/enrol_years_of_latin_hint"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:id="@+id/enrolYearsLatinBackTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/enrol_years_of_latin_back_pl" />
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/enrolEatingHabitRadGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/small_margin_text"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="@string/enrol_eating_habit_front" />
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:flexWrap="wrap"
+                    app:alignItems="flex_start"
+                    app:alignContent="center">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enrol_eating_habit_vegan" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enrol_eating_habit_vegetarian" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enrol_eating_habit_glutenfree" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enrol_eating_habit_everything" />
+
+                </com.google.android.flexbox.FlexboxLayout>
+            </RadioGroup>
+
+            <CheckBox
+                android:id="@+id/veggiedayCB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_gap"
+                android:layout_marginBottom="@dimen/small_gap"
+                android:text="@string/enrol_veggieday" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_margin_text"
                 android:layout_marginLeft="5dp"
-                android:text="@string/enrol_years_of_latin_front" />
-            <EditText
-                android:id="@+id/enrollYearsLatinEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:hint="@string/enrol_years_of_latin_hint"
-                android:inputType="numberDecimal"
-                android:imeOptions="actionNext"
-                android:importantForAutofill="no" />
-            <TextView
-                android:id="@+id/yearsLatinBackTV"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/enrol_years_of_latin_back_pl"/>
+                app:flexWrap="wrap"
+                app:alignItems="center"
+                app:alignContent="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/enrol_instrument_front" />
+
+                <EditText
+                    android:id="@+id/enrolInstrumentEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:hint="@string/enrol_instrument_hint"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="textAutoComplete" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/enrol_instrument_back_1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/enrol_instrument_back_2" />
+            </com.google.android.flexbox.FlexboxLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabEnrolSend"
