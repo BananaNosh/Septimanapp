@@ -72,53 +72,53 @@ class EnrolmentFragment : Fragment() {
                 // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 // Apply the adapter to the spinner
-                enrollCountrySpinner.adapter = adapter
-                enrollCountrySpinner.setSelection(adapter.getPosition(Locale.GERMANY.displayCountry))
+                enrolCountrySpinner.adapter = adapter
+                enrolCountrySpinner.setSelection(adapter.getPosition(Locale.GERMANY.displayCountry))
             }
         }
     }
 
     private fun loadForm() {
         val (name, firstname, street, postal, city, country, phone, mail, yearsOfLatin) = informationStorage.loadEnrolInformation()
-        enrollNameEdit.setText(name)
-        enrollFirstameEdit.setText(firstname)
-        enrollStreetEdit.setText(street)
-        enrollPostalEdit.setText(postal)
-        enrollCityEdit.setText(city)
-        enrollPhoneEdit.setText(phone)
-        enrollMailEdit.setText(mail)
+        enrolNameEdit.setText(name)
+        enrolFirstameEdit.setText(firstname)
+        enrolStreetEdit.setText(street)
+        enrolPostalEdit.setText(postal)
+        enrolCityEdit.setText(city)
+        enrolPhoneEdit.setText(phone)
+        enrolMailEdit.setText(mail)
 
         if (yearsOfLatin > 0) {
-            enrollYearsLatinEdit.setText(if (yearsOfLatin.toInt().toFloat() == yearsOfLatin) yearsOfLatin.toInt().toString() else yearsOfLatin.toString())
+            enrolYearsLatinEdit.setText(if (yearsOfLatin.toInt().toFloat() == yearsOfLatin) yearsOfLatin.toInt().toString() else yearsOfLatin.toString())
         }
 
         @Suppress("UNCHECKED_CAST") val adapter =
-            enrollCountrySpinner.adapter as? ArrayAdapter<String>
+            enrolCountrySpinner.adapter as? ArrayAdapter<String>
         if (adapter != null) {
             val selectedCountry = if (country.isEmpty()) Locale.GERMANY.displayCountry else country
-            enrollCountrySpinner.setSelection(adapter.getPosition(selectedCountry))
+            enrolCountrySpinner.setSelection(adapter.getPosition(selectedCountry))
         }
     }
 
     private fun setupListeners() {
         val nameEditTextListener = EditTextListener(FIELD_NAME)
-        enrollNameEdit.addTextChangedListener(nameEditTextListener)
+        enrolNameEdit.addTextChangedListener(nameEditTextListener)
         val firstnameEditTextListener = EditTextListener(FIELD_FIRSTNAME)
-        enrollFirstameEdit.addTextChangedListener(firstnameEditTextListener)
+        enrolFirstameEdit.addTextChangedListener(firstnameEditTextListener)
         val streetAddressEditTextListener = EditTextListener(FIELD_STREET_ADDRESS)
-        enrollStreetEdit.addTextChangedListener(streetAddressEditTextListener)
+        enrolStreetEdit.addTextChangedListener(streetAddressEditTextListener)
         val postalEditTextListener = EditTextListener(FIELD_POSTAL)
-        enrollPostalEdit.addTextChangedListener(postalEditTextListener)
+        enrolPostalEdit.addTextChangedListener(postalEditTextListener)
         val cityEditTextListener = EditTextListener(FIELD_CITY)
-        enrollCityEdit.addTextChangedListener(cityEditTextListener)
+        enrolCityEdit.addTextChangedListener(cityEditTextListener)
         val phoneEditTextListener = EditTextListener(FIELD_PHONE)
-        enrollPhoneEdit.addTextChangedListener(phoneEditTextListener)
+        enrolPhoneEdit.addTextChangedListener(phoneEditTextListener)
         val mailEditTextListener = EditTextListener(FIELD_MAIL)
-        enrollMailEdit.addTextChangedListener(mailEditTextListener)
+        enrolMailEdit.addTextChangedListener(mailEditTextListener)
         val yearsOfLatinEditTextListener = EditTextListener(FIELD_YEARS_LATIN)
-        enrollYearsLatinEdit.addTextChangedListener(yearsOfLatinEditTextListener)
+        enrolYearsLatinEdit.addTextChangedListener(yearsOfLatinEditTextListener)
 
-        enrollYearsLatinEdit.addTextChangedListener(object : TextWatcher {
+        enrolYearsLatinEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val yearsBackString = try {
                     val yearsOfLatin = s.toString().toFloat()
@@ -129,7 +129,7 @@ class EnrolmentFragment : Fragment() {
                 } catch (e: NumberFormatException) {
                     resources.getQuantityString(R.plurals.enrol_years_of_latin_back, 0)
                 }
-                yearsLatinBackTV.text = yearsBackString
+                enrolYearsLatinBackTV.text = yearsBackString
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -138,7 +138,7 @@ class EnrolmentFragment : Fragment() {
 
         })
 
-        enrollCountrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        enrolCountrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
