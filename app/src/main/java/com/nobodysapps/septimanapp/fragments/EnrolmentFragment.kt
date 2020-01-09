@@ -5,11 +5,13 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.CompoundButton
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import com.nobodysapps.septimanapp.R
@@ -138,6 +140,9 @@ class EnrolmentFragment : Fragment() {
 
         })
 
+        val instrumentEditTextListener = EditTextListener(FIELD_INSTRUMENT)
+        enrolInstrumentEdit.addTextChangedListener(instrumentEditTextListener)
+
         enrolCountrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -151,9 +156,46 @@ class EnrolmentFragment : Fragment() {
 
         }
 
+        setupEatingHabitListeners()
+
         fabEnrolSend.setOnClickListener {
             sendEnrolment()
         }
+    }
+
+    private fun setupEatingHabitListeners() {
+        val onEatingHabitChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, isChecked ->
+            Log.d(TAG, "cb btn $btn $isChecked ${btn.id == R.id.enrolEverythingCB}")
+            val allBtns = listOf<CompoundButton>(
+                enrolEverythingCB,
+                enrolGlutenfreeCB,
+                enrolVegetarianCB,
+                enrolVeganCB
+            )
+            if (isChecked) {
+                when (btn.id) {
+                    R.id.enrolEverythingCB -> {
+                        for (b in allBtns) {
+                            if (b != btn) {
+                                b.isChecked = false
+                            }
+                        }
+                    }
+                    R.id.enrolVeganCB -> {
+                        enrolEverythingCB.isChecked = false
+                        enrolVegetarianCB.isChecked = true
+                    }
+                    R.id.enrolVegetarianCB -> enrolEverythingCB.isChecked = false
+                    R.id.enrolGlutenfreeCB -> enrolEverythingCB.isChecked = false
+                }
+            } else if (btn.id == R.id.enrolVegetarianCB) {
+                enrolVeganCB.isChecked = false
+            }
+        }
+        enrolVeganCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
+        enrolVegetarianCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
+        enrolGlutenfreeCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
+        enrolEverythingCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
     }
 
     override fun onAttach(context: Context) {
@@ -201,6 +243,7 @@ class EnrolmentFragment : Fragment() {
         private const val FIELD_PHONE = "phone"
         private const val FIELD_MAIL = "mail"
         private const val FIELD_YEARS_LATIN = "years_latin"
+        private const val FIELD_INSTRUMENT = "instrument"
 
         /**
          * Use this factory method to create a new instance of

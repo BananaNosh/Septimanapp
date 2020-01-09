@@ -126,8 +126,7 @@
                     android:text="@string/enrol_years_of_latin_back_pl" />
             </LinearLayout>
 
-            <RadioGroup
-                android:id="@+id/enrolEatingHabitRadGroup"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -147,28 +146,32 @@
                     app:alignItems="flex_start"
                     app:alignContent="center">
 
-                    <RadioButton
+                    <CheckBox
+                        android:id="@+id/enrolVeganCB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/enrol_eating_habit_vegan" />
 
-                    <RadioButton
+                    <CheckBox
+                        android:id="@+id/enrolVegetarianCB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/enrol_eating_habit_vegetarian" />
 
-                    <RadioButton
+                    <CheckBox
+                        android:id="@+id/enrolGlutenfreeCB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/enrol_eating_habit_glutenfree" />
 
-                    <RadioButton
+                    <CheckBox
+                        android:id="@+id/enrolEverythingCB"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/enrol_eating_habit_everything" />
 
                 </com.google.android.flexbox.FlexboxLayout>
-            </RadioGroup>
+            </LinearLayout>
 
             <CheckBox
                 android:id="@+id/veggiedayCB"
