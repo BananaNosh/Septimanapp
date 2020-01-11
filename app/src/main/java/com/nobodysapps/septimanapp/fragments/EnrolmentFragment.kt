@@ -16,6 +16,10 @@ import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
+import com.nobodysapps.septimanapp.model.EatingHabit
+import com.nobodysapps.septimanapp.model.Vegan
+import com.nobodysapps.septimanapp.model.Vegetarian
+import com.nobodysapps.septimanapp.model.create
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
@@ -81,7 +85,7 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun loadForm() {
-        val (name, firstname, street, postal, city, country, phone, mail, yearsOfLatin) = informationStorage.loadEnrolInformation()
+        val (name, firstname, street, postal, city, country, phone, mail, yearsOfLatin, eatingHabit) = informationStorage.loadEnrolInformation()
         enrolNameEdit.setText(name)
         enrolFirstameEdit.setText(firstname)
         enrolStreetEdit.setText(street)
@@ -99,6 +103,23 @@ class EnrolmentFragment : Fragment() {
         if (adapter != null) {
             val selectedCountry = if (country.isEmpty()) Locale.GERMANY.displayCountry else country
             enrolCountrySpinner.setSelection(adapter.getPosition(selectedCountry))
+        }
+
+        if (eatingHabit != null && context != null) {
+            if (eatingHabit is Vegan) {
+                enrolVeganCB.isChecked = true
+            }
+            if (eatingHabit is Vegetarian) {
+                enrolVegetarianCB.isChecked = true
+            }
+            val allergens = eatingHabit.allergens.toMutableList()
+            val glutenStr = context!!.getString(R.string.eating_habit_gluten)
+            if (glutenStr in allergens) {
+                enrolGlutenfreeCB.isChecked = true
+                allergens.remove(glutenStr)
+            }
+            enrolAllergensEdit.setText(allergens.joinToString { it })
+            enrolAllergensCB.isChecked = allergens.isNotEmpty()
         }
     }
 
@@ -148,7 +169,12 @@ class EnrolmentFragment : Fragment() {
 
             }
 
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val item = parent?.getItemAtPosition(position)
                 val country = item.toString()
                 informationStorage.saveCountry(country)
@@ -191,16 +217,31 @@ class EnrolmentFragment : Fragment() {
             } else if (btn.id == R.id.enrolVegetarianCB) {
                 enrolVeganCB.isChecked = false
             }
+            val allergens = ArrayList<String>()
+            if (enrolGlutenfreeCB.isChecked && context != null) {
+                allergens.add(context!!.getString(R.string.eating_habit_gluten))
+            }
+            if (enrolAllergensCB.isChecked) {
+                allergens.addAll(enrolAllergensEdit.text.split(" "))
+            }
+            informationStorage.saveEatingHabit(
+                EatingHabit.create(
+                    enrolVeganCB.isChecked,
+                    enrolVegetarianCB.isChecked,
+                    allergens
+                )
+            )
         }
         enrolVeganCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
         enrolVegetarianCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
         enrolGlutenfreeCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
         enrolEverythingCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
+        enrolAllergensCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (!(context is SeptimanappActivity)) {
+        if (context !is SeptimanappActivity) {
             throw RuntimeException("$context must inherit from SeptimanappActivity")
         }
         context.getSeptimanappApplication().component.inject(this)
@@ -274,6 +315,7 @@ class EnrolmentFragment : Fragment() {
                     } catch (e: NumberFormatException) {
                     }
                 }
+                FIELD_INSTRUMENT -> informationStorage.saveInstrument(inputText)
             }
             if (inputText.isNotEmpty()) {
                 val currentState = sharedPreferences.getInt(ENROLLED_STATE_KEY, -1)
@@ -284,9 +326,18 @@ class EnrolmentFragment : Fragment() {
                         .apply()
                     if (currentState != ENROLLED_STATE_NOT_ASK_AGAIN) {
                         alarmScheduler.scheduleAlarm(Calendar.getInstance().apply {
-                            add(Calendar.DAY_OF_MONTH, NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.first)
-                            add(Calendar.HOUR_OF_DAY, NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.second)
-                            add(Calendar.MINUTE, NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.third)
+                            add(
+                                Calendar.DAY_OF_MONTH,
+                                NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.first
+                            )
+                            add(
+                                Calendar.HOUR_OF_DAY,
+                                NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.second
+                            )
+                            add(
+                                Calendar.MINUTE,
+                                NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.third
+                            )
                         }, notificationHelper.pendingIntentForContinueEnrolReminder())
                     }
                 }

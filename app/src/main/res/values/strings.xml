@@ -48,6 +48,16 @@
     <string name="enrol_eating_habit_vegetarian">vegetarisch</string>
     <string name="enrol_eating_habit_glutenfree">glutenfrei</string>
     <string name="enrol_eating_habit_everything">alles.</string>
+    <string name="enrol_eating_habit_allergens">andere Allergene</string>
+    <string name="eating_habit_allergens">Allergene</string>
+    <string name="eating_habit_vegetarian">Vegetarier</string>
+    <string name="eating_habit_vegan">Veganer</string>
+    <string name="eating_habit_gluten" translatable="false">Gluten</string>
+    <string name="enrol_instrument_front">Ich bringe ein(e/en)</string>
+    <string name="enrol_instrument_hint">Musikinstrument</string>
+    <string name="enrol_instrument_back_1">mit. </string>
+    <string name="enrol_veggieday">Veggiedays sind klasse. Ich habe kein Problem, wenn es nur jeden zweiten Tag Fleisch gibt.</string>
+    <string name="enrol_instrument_back_2">(falls möglich)</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -87,9 +97,4 @@
     <string name="notification_action_title_already_enrolled">Schon passiert</string>
     <string name="notification_action_title_remind_later">Später</string>
     <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
-    <string name="enrol_instrument_front">Ich bringe ein(e/en)</string>
-    <string name="enrol_instrument_hint">Musikinstrument</string>
-    <string name="enrol_instrument_back_1">mit. </string>
-    <string name="enrol_veggieday">Veggiedays sind klasse. Ich habe kein Problem, wenn es nur jeden zweiten Tag Fleisch gibt.</string>
-    <string name="enrol_instrument_back_2">(falls möglich)</string>
 </resources>

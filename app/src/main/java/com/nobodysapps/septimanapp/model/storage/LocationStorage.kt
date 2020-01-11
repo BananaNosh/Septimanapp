@@ -19,7 +19,7 @@ class LocationStorage @Inject constructor(private val prefs: SharedPreferences, 
     fun loadLocations(overallLocation: String=""): List<Location>? {
         val key = keyForLocation(overallLocation)
         val json = prefs.getString(key, null) ?: return null
-        return jsonConverter.fromJson(json, LocationWrap::class.java).locations
+        return jsonConverter.fromJson<LocationWrap>(json, LocationWrap::class.java).locations
     }
 
     private fun keyForLocation(overallLocation: String): String {

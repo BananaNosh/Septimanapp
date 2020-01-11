@@ -32,9 +32,9 @@ class JsonConverterTest {
 //            json
 //        )
 
-        val location = Location("loc_1", GeoPoint(0.5, 0.3), "descr")
+        val location = Location("loc_1", mapOf(Pair("de", "titel")), GeoPoint(0.5, 0.3), mapOf(Pair("de", "beschr")))
         json = jsonConverter.toJson(location)
-        assertEquals("{\"id\":\"loc_1\",\"coordinates\":{\"mLongitude\":0.3,\"mLatitude\":0.5,\"mAltitude\":0.0},\"description\":\"descr\"}", json)
+        assertEquals("{\"id\":\"loc_1\",\"titleMap\":{\"de\":\"titel\"},\"coordinates\":{\"mLongitude\":0.3,\"mLatitude\":0.5,\"mAltitude\":0.0},\"descriptionMap\":{\"de\":\"beschr\"}}", json)
     }
 
     @Test
@@ -48,7 +48,7 @@ class JsonConverterTest {
         loaded = jsonConverter.fromJson(json, Horarium::class.java)
         assertEquals(horarium, loaded)
 
-        val location = Location("loc_1", GeoPoint(0.5, 0.3), "descr")
+        val location = Location("loc_1", mapOf(Pair("de", "titel")), GeoPoint(0.5, 0.3), mapOf(Pair("de", "beschr")))
         json = jsonConverter.toJson(location)
         val loadedLocation = jsonConverter.fromJson(json, Location::class.java)
         assertEquals(location, loadedLocation)

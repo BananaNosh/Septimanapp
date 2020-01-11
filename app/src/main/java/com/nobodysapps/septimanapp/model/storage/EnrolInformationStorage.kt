@@ -1,11 +1,18 @@
 package com.nobodysapps.septimanapp.model.storage
 
 import android.content.SharedPreferences
+import com.google.gson.reflect.TypeToken
+import com.nobodysapps.septimanapp.model.EatingHabit
 import com.nobodysapps.septimanapp.model.EnrolInformation
+import com.nobodysapps.septimanapp.model.fromSerializablePair
+import com.nobodysapps.septimanapp.model.toSerializablePair
 import javax.inject.Inject
 
 
-class EnrolInformationStorage @Inject constructor(private val prefs: SharedPreferences, private val jsonConverter: JsonConverter) {
+class EnrolInformationStorage @Inject constructor(
+    private val prefs: SharedPreferences,
+    private val jsonConverter: JsonConverter
+) {
 
     fun saveName(name: String) {
         prefs.edit().putString(NAME_KEY, name).apply()
@@ -43,7 +50,16 @@ class EnrolInformationStorage @Inject constructor(private val prefs: SharedPrefe
         prefs.edit().putFloat(YEARS_LATIN_KEY, yearsOfLatin).apply()
     }
 
-    fun loadEnrolInformation() : EnrolInformation {
+    fun saveInstrument(instrument: String) {
+
+    }
+
+    fun saveEatingHabit(eatingHabit: EatingHabit) {
+        val json = jsonConverter.toJson(eatingHabit.toSerializablePair())
+        prefs.edit().putString(EATING_HABIT_KEY, json).apply()
+    }
+
+    fun loadEnrolInformation(): EnrolInformation {
         val name = prefs.getString(NAME_KEY, null) ?: ""
         val firstname = prefs.getString(FIRSTNAME_KEY, null) ?: ""
         val street = prefs.getString(STREET_KEY, null) ?: ""
@@ -53,7 +69,23 @@ class EnrolInformationStorage @Inject constructor(private val prefs: SharedPrefe
         val phone = prefs.getString(PHONE_KEY, null) ?: ""
         val mail = prefs.getString(MAIL_KEY, null) ?: ""
         val yearsOfLatin = prefs.getFloat(YEARS_LATIN_KEY, 0f)
-        return EnrolInformation(name, firstname, street, postal, city, country, phone, mail, yearsOfLatin)
+        val eatingHabitJson = prefs.getString(EATING_HABIT_KEY, null)
+        val eatingHabitPair = jsonConverter.fromJson<Pair<Int, List<String>>?>(
+            eatingHabitJson,
+            object : TypeToken<Pair<Int, List<String>>>() {}.type
+        )
+        return EnrolInformation(
+            name,
+            firstname,
+            street,
+            postal,
+            city,
+            country,
+            phone,
+            mail,
+            yearsOfLatin,
+            if (eatingHabitPair != null) EatingHabit.fromSerializablePair(eatingHabitPair) else null
+        )
     }
 //
 //    private fun keyForLocation(overallLocation: String): String {
@@ -70,5 +102,6 @@ class EnrolInformationStorage @Inject constructor(private val prefs: SharedPrefe
         private const val PHONE_KEY = "phone"
         private const val MAIL_KEY = "mail"
         private const val YEARS_LATIN_KEY = "years_latin"
+        private const val EATING_HABIT_KEY = "eating_habit"
     }
 }

@@ -169,6 +169,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/enrol_eating_habit_everything" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:id="@+id/enrolAllergensCB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                        <EditText
+                            android:id="@+id/enrolAllergensEdit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:importantForAutofill="no"
+                            android:hint="@string/enrol_eating_habit_allergens"
+                            android:inputType="text" />
+                    </LinearLayout>
 
                 </com.google.android.flexbox.FlexboxLayout>
             </LinearLayout>

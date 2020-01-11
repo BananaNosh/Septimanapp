@@ -27,12 +27,6 @@
     <string name="enrol_last_name_hint">Nachname</string>
     <string name="enrol_first_name_hint">Vorname</string>
     <string name="enrol_checkbox_johannes_haus">Ich möchte im Johanneshaus wohnen.</string>
-    <string name="language">-</string>
-    <string name="language_english">-</string>
-    <string name="language_french">-</string>
-    <string name="language_german">-</string>
-    <string name="language_latin">-</string>
-    <string name="language_unknown">-</string>
     <string name="enrol_postal_code_hint">Postleitzahl</string>
     <string name="enrol_city_hint">Wohnort</string>
     <string name="enrol_country_hint">Land</string>
