@@ -85,7 +85,7 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun loadForm() {
-        val (name, firstname, street, postal, city, country, phone, mail, yearsOfLatin, eatingHabit) = informationStorage.loadEnrolInformation()
+        val (name, firstname, street, postal, city, country, phone, mail, stayInJohannesHaus, yearsOfLatin, eatingHabit, instrument, veggieDay) = informationStorage.loadEnrolInformation()
         enrolNameEdit.setText(name)
         enrolFirstameEdit.setText(firstname)
         enrolStreetEdit.setText(street)
@@ -93,6 +93,10 @@ class EnrolmentFragment : Fragment() {
         enrolCityEdit.setText(city)
         enrolPhoneEdit.setText(phone)
         enrolMailEdit.setText(mail)
+        enrolInstrumentEdit.setText(instrument)
+
+        enrolJohanneshausCB.isChecked = stayInJohannesHaus
+        enrolVeggiedayCB.isChecked = veggieDay
 
         if (yearsOfLatin > 0) {
             enrolYearsLatinEdit.setText(if (yearsOfLatin.toInt().toFloat() == yearsOfLatin) yearsOfLatin.toInt().toString() else yearsOfLatin.toString())
@@ -105,6 +109,10 @@ class EnrolmentFragment : Fragment() {
             enrolCountrySpinner.setSelection(adapter.getPosition(selectedCountry))
         }
 
+        fillCheckboxesFromEatingHabit(eatingHabit)
+    }
+
+    private fun fillCheckboxesFromEatingHabit(eatingHabit: EatingHabit?) {
         if (eatingHabit != null && context != null) {
             if (eatingHabit is Vegan) {
                 enrolVeganCB.isChecked = true
@@ -140,6 +148,8 @@ class EnrolmentFragment : Fragment() {
         enrolMailEdit.addTextChangedListener(mailEditTextListener)
         val yearsOfLatinEditTextListener = EditTextListener(FIELD_YEARS_LATIN)
         enrolYearsLatinEdit.addTextChangedListener(yearsOfLatinEditTextListener)
+        val instrumentEditTextListener = EditTextListener(FIELD_INSTRUMENT)
+        enrolInstrumentEdit.addTextChangedListener(instrumentEditTextListener)
 
         enrolYearsLatinEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -161,8 +171,6 @@ class EnrolmentFragment : Fragment() {
 
         })
 
-        val instrumentEditTextListener = EditTextListener(FIELD_INSTRUMENT)
-        enrolInstrumentEdit.addTextChangedListener(instrumentEditTextListener)
 
         enrolCountrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -182,6 +190,12 @@ class EnrolmentFragment : Fragment() {
 
         }
 
+        enrolJohanneshausCB.setOnCheckedChangeListener { _, isChecked ->
+            informationStorage.saveStayInJohanneshaus(isChecked)
+        }
+        enrolVeggiedayCB.setOnCheckedChangeListener { _, isChecked ->
+            informationStorage.saveVeggieDay(isChecked)
+        }
         setupEatingHabitListeners()
 
         fabEnrolSend.setOnClickListener {
@@ -191,12 +205,12 @@ class EnrolmentFragment : Fragment() {
 
     private fun setupEatingHabitListeners() {
         val onEatingHabitChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, isChecked ->
-            Log.d(TAG, "cb btn $btn $isChecked ${btn.id == R.id.enrolEverythingCB}")
             val allBtns = listOf<CompoundButton>(
                 enrolEverythingCB,
                 enrolGlutenfreeCB,
                 enrolVegetarianCB,
-                enrolVeganCB
+                enrolVeganCB,
+                enrolAllergensCB
             )
             if (isChecked) {
                 when (btn.id) {
@@ -213,6 +227,7 @@ class EnrolmentFragment : Fragment() {
                     }
                     R.id.enrolVegetarianCB -> enrolEverythingCB.isChecked = false
                     R.id.enrolGlutenfreeCB -> enrolEverythingCB.isChecked = false
+                    R.id.enrolAllergensCB -> enrolEverythingCB.isChecked = false
                 }
             } else if (btn.id == R.id.enrolVegetarianCB) {
                 enrolVeganCB.isChecked = false
@@ -237,6 +252,15 @@ class EnrolmentFragment : Fragment() {
         enrolGlutenfreeCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
         enrolEverythingCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
         enrolAllergensCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
+        enrolAllergensEdit.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                onEatingHabitChangedLambda(enrolAllergensCB, true)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 
     override fun onAttach(context: Context) {

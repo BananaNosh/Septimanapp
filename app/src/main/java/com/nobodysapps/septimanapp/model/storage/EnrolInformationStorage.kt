@@ -46,17 +46,25 @@ class EnrolInformationStorage @Inject constructor(
         prefs.edit().putString(MAIL_KEY, mail).apply()
     }
 
-    fun saveYearsOfLatin(yearsOfLatin: Float) {
-        prefs.edit().putFloat(YEARS_LATIN_KEY, yearsOfLatin).apply()
+    fun saveStayInJohanneshaus(stay: Boolean) {
+        prefs.edit().putBoolean(JOHANNESHAUS_KEY, stay).apply()
     }
 
-    fun saveInstrument(instrument: String) {
-
+    fun saveYearsOfLatin(yearsOfLatin: Float) {
+        prefs.edit().putFloat(YEARS_LATIN_KEY, yearsOfLatin).apply()
     }
 
     fun saveEatingHabit(eatingHabit: EatingHabit) {
         val json = jsonConverter.toJson(eatingHabit.toSerializablePair())
         prefs.edit().putString(EATING_HABIT_KEY, json).apply()
+    }
+
+    fun saveInstrument(instrument: String) {
+        prefs.edit().putString(INSTRUMENT_KEY, instrument).apply()
+    }
+
+    fun saveVeggieDay(veggieDay: Boolean) {
+        prefs.edit().putBoolean(VEGGIE_DAY_KEY, veggieDay).apply()
     }
 
     fun loadEnrolInformation(): EnrolInformation {
@@ -68,12 +76,15 @@ class EnrolInformationStorage @Inject constructor(
         val country = prefs.getString(COUNTRY_KEY, null) ?: ""
         val phone = prefs.getString(PHONE_KEY, null) ?: ""
         val mail = prefs.getString(MAIL_KEY, null) ?: ""
+        val stayInJohanneshaus = prefs.getBoolean(JOHANNESHAUS_KEY, true)
         val yearsOfLatin = prefs.getFloat(YEARS_LATIN_KEY, 0f)
         val eatingHabitJson = prefs.getString(EATING_HABIT_KEY, null)
         val eatingHabitPair = jsonConverter.fromJson<Pair<Int, List<String>>?>(
             eatingHabitJson,
             object : TypeToken<Pair<Int, List<String>>>() {}.type
         )
+        val instrument = prefs.getString(INSTRUMENT_KEY, null) ?: ""
+        val veggieDay = prefs.getBoolean(VEGGIE_DAY_KEY, true)
         return EnrolInformation(
             name,
             firstname,
@@ -83,8 +94,11 @@ class EnrolInformationStorage @Inject constructor(
             country,
             phone,
             mail,
+            stayInJohanneshaus,
             yearsOfLatin,
-            if (eatingHabitPair != null) EatingHabit.fromSerializablePair(eatingHabitPair) else null
+            if (eatingHabitPair != null) EatingHabit.fromSerializablePair(eatingHabitPair) else null,
+            instrument,
+            veggieDay
         )
     }
 //
@@ -101,7 +115,10 @@ class EnrolInformationStorage @Inject constructor(
         private const val COUNTRY_KEY = "country"
         private const val PHONE_KEY = "phone"
         private const val MAIL_KEY = "mail"
+        private const val JOHANNESHAUS_KEY = "johanneshaus"
         private const val YEARS_LATIN_KEY = "years_latin"
         private const val EATING_HABIT_KEY = "eating_habit"
+        private const val INSTRUMENT_KEY = "instrument"
+        private const val VEGGIE_DAY_KEY = "veggie_day"
     }
 }
