@@ -58,6 +58,11 @@
     <string name="enrol_instrument_back_1">mit. </string>
     <string name="enrol_veggieday">Veggiedays sind klasse. Ich habe kein Problem, wenn es nur jeden zweiten Tag Fleisch gibt.</string>
     <string name="enrol_instrument_back_2">(falls möglich)</string>
+    <string name="enrol_send_email_address" translatable="false">thomas@septimanalatina.org</string>
+    <string name="enrol_send_email_subject" translatable="false">Anmeldung Lateinwoche - %s, %s</string>
+    <string name="enrol_send_email_template" translatable="false">%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm Johanneshaus wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s</string>
+    <string name="enrol_send_yes" translatable="false">Ja</string>
+    <string name="enrol_send_no" translatable="false">Nein</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

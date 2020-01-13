@@ -220,7 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:hint="@string/enrol_instrument_hint"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionSend"
                     android:importantForAutofill="no"
                     android:inputType="textAutoComplete" />
 

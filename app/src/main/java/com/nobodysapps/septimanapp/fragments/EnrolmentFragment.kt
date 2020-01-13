@@ -1,14 +1,15 @@
 package com.nobodysapps.septimanapp.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.CompoundButton
@@ -198,8 +199,15 @@ class EnrolmentFragment : Fragment() {
         }
         setupEatingHabitListeners()
 
+        enrolInstrumentEdit.setOnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                show_confirm_dialog()
+            }
+            true
+        }
+
         fabEnrolSend.setOnClickListener {
-            sendEnrolment()
+            show_confirm_dialog()
         }
     }
 
@@ -224,8 +232,12 @@ class EnrolmentFragment : Fragment() {
                     R.id.enrolVeganCB -> {
                         enrolEverythingCB.isChecked = false
                         enrolVegetarianCB.isChecked = true
+                        enrolVeggiedayCB.isChecked = true
                     }
-                    R.id.enrolVegetarianCB -> enrolEverythingCB.isChecked = false
+                    R.id.enrolVegetarianCB -> {
+                        enrolEverythingCB.isChecked = false
+                        enrolVeggiedayCB.isChecked = true
+                    }
                     R.id.enrolGlutenfreeCB -> enrolEverythingCB.isChecked = false
                     R.id.enrolAllergensCB -> enrolEverythingCB.isChecked = false
                 }
@@ -254,7 +266,8 @@ class EnrolmentFragment : Fragment() {
         enrolAllergensCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
         enrolAllergensEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                onEatingHabitChangedLambda(enrolAllergensCB, true)
+                enrolAllergensCB.isChecked = true
+                onEatingHabitChangedLambda(enrolAllergensCB, true)  // needed as otherwise only for the first letter the onCheckedChange is called
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -271,23 +284,46 @@ class EnrolmentFragment : Fragment() {
         context.getSeptimanappApplication().component.inject(this)
     }
 
+    private fun show_confirm_dialog() {
+        sendEnrolment()
+    }
+
     private fun sendEnrolment() {
-//        val emailIntent = Intent(Intent.ACTION_SEND)
-//        val aEmailList = arrayOf("user@fakehost.com", "user2@fakehost.com")
-//        val aEmailCCList = arrayOf("user3@fakehost.com", "user4@fakehost.com")
-//        val aEmailBCCList = arrayOf("user5@fakehost.com")
-//
-//        emailIntent.putExtra(Intent.EXTRA_EMAIL, aEmailList)
-//        emailIntent.putExtra(Intent.EXTRA_CC, aEmailCCList)
-//        emailIntent.putExtra(Intent.EXTRA_BCC, aEmailBCCList)
-//
-//        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "My subject")
-//
-//        emailIntent.type = "plain/text"
-//        emailIntent.putExtra(Intent.EXTRA_TEXT, "My message body.")
-//
-//        startActivity(emailIntent)
-        //TODO remove continue notification
+        val (name, firstname, street, postal, city, country, phone, mail, stayInJohanneshaus, yearsOfLatin, eatingHabit, instrument, veggieDay) = informationStorage.loadEnrolInformation()
+
+        val emailIntent = Intent(Intent.ACTION_SEND)
+        val aEmailList = arrayOf(getString(R.string.enrol_send_email_address))
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, aEmailList)
+
+        emailIntent.putExtra(
+            Intent.EXTRA_SUBJECT,
+            getString(R.string.enrol_send_email_subject, name, firstname)
+        ) // TODO add year
+
+        emailIntent.type = "plain/text"
+        if (context != null) {
+            val body = getString(
+                R.string.enrol_send_email_template,
+                firstname,
+                name,
+                street,
+                postal,
+                city,
+                country,
+                phone,
+                mail,
+                getString(if (stayInJohanneshaus) R.string.enrol_send_yes else R.string.enrol_send_no),
+                yearsOfLatin,
+                eatingHabit?.information(context!!),
+                instrument,
+                getString(if (veggieDay) R.string.enrol_send_yes else R.string.enrol_send_no)
+            )
+            emailIntent.putExtra(Intent.EXTRA_TEXT, body)
+
+            startActivity(emailIntent)
+            //TODO remove continue notification
+        }
     }
 
     companion object {
