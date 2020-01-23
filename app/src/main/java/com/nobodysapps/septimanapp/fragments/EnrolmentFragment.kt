@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -200,14 +201,15 @@ class EnrolmentFragment : Fragment() {
         setupEatingHabitListeners()
 
         enrolInstrumentEdit.setOnEditorActionListener { _, actionId, event ->
-            if (actionId == EditorInfo.IME_ACTION_SEND) {
-                show_confirm_dialog()
+            if (actionId == EditorInfo.IME_ACTION_SEND
+                || actionId == EditorInfo.IME_NULL && event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                showConfirmDialog()
             }
             true
         }
 
         fabEnrolSend.setOnClickListener {
-            show_confirm_dialog()
+            showConfirmDialog()
         }
     }
 
@@ -284,7 +286,7 @@ class EnrolmentFragment : Fragment() {
         context.getSeptimanappApplication().component.inject(this)
     }
 
-    private fun show_confirm_dialog() {
+    private fun showConfirmDialog() {
         sendEnrolment()
     }
 
