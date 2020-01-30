@@ -39,6 +39,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         setupDefaultFormat()
         setupDateLimits()
         weekViewDefaultDateTimeInterpreter = dateTimeInterpreter
+        additionalTimeInfo = ADDITIONAL_INFO_YEAR
         setupDateTimeInterpreter()
         setupWeekLoader()
         Log.d(TAG, Locale.getAvailableLocales().toString())
