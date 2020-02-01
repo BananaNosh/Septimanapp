@@ -1,1 +1,1 @@
-include ':app', ':week-view'
+include ':app'
