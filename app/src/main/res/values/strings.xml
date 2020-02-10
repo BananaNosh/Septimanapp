@@ -18,14 +18,22 @@
     <string name="menu_horarium">Programm</string>
     <string name="menu_enrol">Anmelden</string>
 
+
+    <!-- Horarium -->
     <string name="action_day_view_day">%d Tag</string>
     <string name="action_day_view_days">%d Tage</string>
     <plurals name="action_day_view">
         <item quantity="one">@string/action_day_view_day</item>
         <item quantity="other">@string/action_day_view_days</item>
     </plurals>
+    <string name="dialog_outdated_horarium">Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.</string>
+    <string name="dialog_do_not_show_again">Nicht mehr anzeigen</string>
+
+
+    <!-- Maps -->
     <string name="snackbar_map_permission">Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte</string>
 
+    <!-- Enrol -->
     <string name="enrol_last_name_hint">Nachname</string>
     <string name="enrol_first_name_hint">Vorname</string>
     <string name="enrol_checkbox_johannes_haus">Ich möchte im Johanneshaus wohnen.</string>
@@ -102,4 +110,6 @@
     <string name="notification_action_title_already_enrolled">Schon passiert</string>
     <string name="notification_action_title_remind_later">Später</string>
     <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
+    <string name="ok">Ok</string>
+    <string name="dialog_outdated_horarium_title">Kein Programm gefunden</string>
 </resources>

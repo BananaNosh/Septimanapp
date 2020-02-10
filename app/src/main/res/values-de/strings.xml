@@ -17,6 +17,8 @@
         <item quantity="one">%d Tag</item>
         <item quantity="other">%d Tage</item>
     </plurals>
+    <string name="dialog_outdated_horarium">Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.</string>
+
     <string name="notification_action_title_already_enrolled">Schon passiert</string>
     <string name="notification_action_title_do_not_ask_again">Nicht erneut fragen</string>
     <string name="notification_action_title_remind_later">Später</string>
@@ -36,4 +38,7 @@
     <string name="enrol_instrument_back_2">(falls möglich)</string>
     <string name="action_day_view_day">%d Tag</string>
     <string name="action_day_view_days">%d Tage</string>
+    <string name="ok">Ok</string>
+    <string name="dialog_do_not_show_again">Nicht mehr anzeigen</string>
+    <string name="dialog_outdated_horarium_title">Kein Programm gefunden</string>
 </resources>

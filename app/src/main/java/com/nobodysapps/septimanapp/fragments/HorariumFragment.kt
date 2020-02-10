@@ -2,6 +2,7 @@ package com.nobodysapps.septimanapp.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
+import com.nobodysapps.septimanapp.dialog.OutdatedHorariumDialogFragment
 import com.nobodysapps.septimanapp.localization.localizedDisplayLanguage
 import com.nobodysapps.septimanapp.model.Horarium
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
@@ -26,7 +28,10 @@ class HorariumFragment : Fragment() {
     @Inject
     lateinit var horariumStorage: HorariumStorage
 
-    var horariumInLatin: Boolean = Locale.getDefault().language != "de"
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
+
+    private var horariumInLatin: Boolean = Locale.getDefault().language != "de"
 
     private var actionDayViewId = -1
     private var actionToggleHorariumLanguageId = -1
@@ -72,22 +77,29 @@ class HorariumFragment : Fragment() {
 
     @SuppressLint("WrongConstant")
     private fun onNoHorariumFound() {
-        if (view != null) {
-            snackbar = Snackbar.make(view!!, R.string.snackbar_horarium_not_found, Snackbar.LENGTH_LONG)
-            val previousYear = Calendar.getInstance().get(Calendar.YEAR) - 1
-            val previousHorarium = loadHorariumInCorrectLanguage(previousYear)
-            if (previousHorarium != null) {
-                snackbar?.setAction(getString(R.string.snackbar_previous_horarium)) {
-                    horariumView.setHorarium(previousHorarium)
-                }
-                if (!horariumView.hasHorarium()) {
-                    snackbar?.duration = Snackbar.LENGTH_INDEFINITE
-                } else {
-                    horariumInLatin = !horariumInLatin  // Change back to previous language
+        view?.let {
+            val previousHorarium = loadPreviousHorarium()
+            previousHorarium?.let {
+                horariumView.setHorarium(it)
+                val shouldShowWarning = sharedPreferences.getBoolean(SHOW_AGAIN_KEY, true)
+                if (shouldShowWarning) {
+                    val dialog = OutdatedHorariumDialogFragment()
+                    dialog.listener = object : OutdatedHorariumDialogFragment.Listener {
+                        override fun onOkClicked(notShowAgain: Boolean) {
+                            sharedPreferences.edit().putBoolean(SHOW_AGAIN_KEY, !notShowAgain)
+                                .apply()
+                        }
+                    }
+                    dialog.setTargetFragment(this, 0)
+                    fragmentManager?.let { manager -> dialog.show(manager, "NoHorarium") }
                 }
             }
-            snackbar?.show()
         }
+    }
+
+    private fun loadPreviousHorarium(): Horarium? {
+        val previousYear = Calendar.getInstance().get(Calendar.YEAR) - 1
+        return loadHorariumInCorrectLanguage(previousYear)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -150,7 +162,12 @@ class HorariumFragment : Fragment() {
                 if (horarium != null) {
                     horariumView.setHorarium(horarium)
                 } else {  // change back as horarium could not be loaded in other language
-                    onNoHorariumFound()
+                    val previousHorarium = loadPreviousHorarium()
+                    if (previousHorarium == null) {
+                        onNoHorariumForSelectedLanguage()
+                    } else {
+                        onNoHorariumFound()
+                    }
                 }
                 item.title = getToggleHorariumLanguageActionTitle()
             }
@@ -158,9 +175,18 @@ class HorariumFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun onNoHorariumForSelectedLanguage() {
+        snackbar = Snackbar.make(
+            view!!,
+            R.string.snackbar_horarium_not_found,
+            Snackbar.LENGTH_LONG
+        )
+        snackbar?.show()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (!(context is SeptimanappActivity)) {
+        if (context !is SeptimanappActivity) {
             throw RuntimeException("$context must inherit from SeptimanappActivity")
         }
         context.getSeptimanappApplication().component.inject(this)
@@ -177,6 +203,9 @@ class HorariumFragment : Fragment() {
     }
 
     companion object {
+
+        const val SHOW_AGAIN_KEY = "show_again"
+
         /**
          * Use this factory method to create a new instance of
          * this fragment.

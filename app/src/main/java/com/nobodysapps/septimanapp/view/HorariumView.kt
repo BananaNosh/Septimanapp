@@ -72,19 +72,19 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
                 copiedEvents.forEachIndexed { index, ev ->
                     ev.endTime.add(Calendar.MINUTE, -1)  // to show a border between events
 
-                    val now = Calendar.getInstance()
-                    // TODO remove next 2 lines
-                    now.set(2019, 6, 30)
-                    if (now.after(ev.startTime) && now.before(ev.endTime)) { //is current event
-                        ev.color = R.color.colorPrimary //TODO set other color
-                    }
-
+//                    val now = Calendar.getInstance()
+//                    // TODO remove next 2 lines
+//                    now.set(2019, 6, 30)
+//                    if (now in ev.startTime..ev.endTime) { //is current event
+//                        ev.color = R.color.colorPrimary //TODO set other color
+//                    }
                     if (displayTimeInEvent) {
                         val startTimeString =
                             timeStringForTime(ev.startTime) + if (index in eventsWithBreakAfterwardsIndices) "-${timeStringForTime(
                                 events[index].endTime
                             )}" else ""
-                        val showTimeInSameLine = ev.duration() <= MAX_MINUTES_FOR_EVENT_TITLE_IN_FIRST_ROW
+                        val showTimeInSameLine =
+                            ev.duration() <= MAX_MINUTES_FOR_EVENT_TITLE_IN_FIRST_ROW
                         ev.name =
                             "$startTimeString ${if (showTimeInSameLine) "" else "\n"}${ev.name}"
                     }
@@ -107,6 +107,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
     private fun setupDefaultFormat() {
         todayBackgroundColor = dayBackgroundColor
         maxHourHeight *= 2
+        isShowNowLine = true
     }
 
     private fun setupDateTimeInterpreter() {
@@ -177,10 +178,6 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         notifyDatasetChanged()
     }
 
-    fun hasHorarium() : Boolean {
-        return events.isNotEmpty()
-    }
-
     private fun setHourHeightAccordingToShortestEvent(events: List<WeekViewEvent>) {
         if (events.isEmpty()) return
         Log.d(TAG, "$hourHeight hour height, text size $textSize")
@@ -229,7 +226,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
             0 -> // workaround as in WeekView in first draw the hourHeight is set
                 setHourHeightAccordingToShortestEvent(events)
             1 -> // also set hour after the second draw
-                goToHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY).toDouble())
+                if (isDuringEvents()) goToHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY).toDouble())
         }
         numberOfDrawn++
     }
@@ -238,6 +235,11 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         val newToggleDays = numberOfVisibleDays
         numberOfVisibleDays = daysToShowOnToggleDayView
         daysToShowOnToggleDayView = newToggleDays
+    }
+
+    private fun isDuringEvents(): Boolean {
+        val now = Calendar.getInstance()
+        return now in minDate..maxDate
     }
 
 
