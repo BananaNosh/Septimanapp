@@ -10,7 +10,6 @@ import com.alamkanak.weekview.DateTimeInterpreter
 import com.alamkanak.weekview.WeekView
 import com.alamkanak.weekview.WeekViewEvent
 import com.alamkanak.weekview.WeekViewLoader
-import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.localization.dateFormatSymbolsForLatin
 import com.nobodysapps.septimanapp.model.Horarium
 import java.text.SimpleDateFormat
@@ -150,6 +149,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
                 startEndDiffDays
             ) - 1
         )
+        maxDate = null
         minDate = startDate
         maxDate = newEndDate
     }
