@@ -34,6 +34,8 @@ class MapFragment : Fragment() {
     @Inject
     lateinit var locationStorage: LocationStorage
 
+    var locationsOverlay: ItemizedOverlayWithFocus<OverlayItem>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -52,8 +54,8 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapController = mapView.controller
-        mapController.setZoom(10.0)
-        mapController.animateTo(GeoPoint(50.7940721, 8.9302902))
+        mapController.setZoom(18.0)
+        mapController.animateTo(GeoPoint(50.79700, 8.92270))
         mapView.setMultiTouchControls(true)
 
         //Attribution
@@ -62,32 +64,38 @@ class MapFragment : Fragment() {
         }
         mapView.overlays.add(attribution)
 
+        addLocationOverlays()
+    }
+
+    private fun addLocationOverlays() {
         //your items
         val locations = locationStorage.loadLocations("amoeneburg")
         val items = locations?.map {
-           OverlayItem(it.title, it.description, it.coordinates)
+            OverlayItem(it.title, it.description, it.coordinates)
         } ?: Collections.emptyList()
 
         //the overlay
-        val mOverlay = ItemizedOverlayWithFocus<OverlayItem>(context, items,
+        locationsOverlay = ItemizedOverlayWithFocus<OverlayItem>(context, items,
             object : ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
                 override fun onItemSingleTapUp(index: Int, item: OverlayItem): Boolean {
-                    //do something
-                    return true
+//                    if (locationsOverlay?.focusedItem == item) {
+//                        locationsOverlay?.unSetFocusedItem()
+//                    }
+                    return false
                 }
 
                 override fun onItemLongPress(index: Int, item: OverlayItem): Boolean {
                     return false
                 }
             })
-        mOverlay.setFocusItemsOnTap(true)
+        locationsOverlay?.setFocusItemsOnTap(true)
 
-        mapView.getOverlays().add(mOverlay)
+        mapView.overlays.add(locationsOverlay)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (!(context is SeptimanappActivity)) {
+        if (context !is SeptimanappActivity) {
             throw RuntimeException("$context must inherit from SeptimanappActivity")
         }
         context.getSeptimanappApplication().component.inject(this)
