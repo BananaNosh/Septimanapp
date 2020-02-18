@@ -26,6 +26,19 @@
       },
       "descriptionMap": {
       }
+    },
+    {
+      "id": "rabanushaus",
+      "titleMap": {
+        "de": "Rabanushaus"
+      },
+      "coordinates": {
+        "mLongitude": 8.920760,
+        "mLatitude": 50.796704,
+        "mAltitude": 0.0
+      },
+      "descriptionMap": {
+      }
     }
   ]
 }
