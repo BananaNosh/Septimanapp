@@ -27,6 +27,7 @@
         <item quantity="other">@string/action_day_view_days</item>
     </plurals>
     <string name="dialog_outdated_horarium">Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.</string>
+    <string name="dialog_outdated_horarium_title">Kein Programm gefunden</string>
     <string name="dialog_do_not_show_again">Nicht mehr anzeigen</string>
 
 
@@ -66,6 +67,8 @@
     <string name="enrol_instrument_back_1">mit. </string>
     <string name="enrol_veggieday">Veggiedays sind klasse. Ich habe kein Problem, wenn es nur jeden zweiten Tag Fleisch gibt.</string>
     <string name="enrol_instrument_back_2">(falls möglich)</string>
+    <string name="dialog_confirm_enrolment_title">Verbindlich Anmelden</string>
+    <string name="dialog_confirm_enrolment">Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.</string>
     <string name="enrol_send_email_address" translatable="false">thomas@septimanalatina.org</string>
     <string name="enrol_send_email_subject" translatable="false">Anmeldung Lateinwoche - %s, %s</string>
     <string name="enrol_send_email_template" translatable="false">%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm Johanneshaus wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s</string>
@@ -110,6 +113,5 @@
     <string name="notification_action_title_already_enrolled">Schon passiert</string>
     <string name="notification_action_title_remind_later">Später</string>
     <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
-    <string name="ok">Ok</string>
-    <string name="dialog_outdated_horarium_title">Kein Programm gefunden</string>
+    <string name="ok">OK</string>
 </resources>

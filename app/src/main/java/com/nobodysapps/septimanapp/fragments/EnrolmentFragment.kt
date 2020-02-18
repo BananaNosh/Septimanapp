@@ -18,6 +18,7 @@ import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
+import com.nobodysapps.septimanapp.dialog.ConfirmEnrolmentDialogFragment
 import com.nobodysapps.septimanapp.model.EatingHabit
 import com.nobodysapps.septimanapp.model.Vegan
 import com.nobodysapps.septimanapp.model.Vegetarian
@@ -287,7 +288,10 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun showConfirmDialog() {
-        sendEnrolment()
+        fragmentManager?.let {
+            ConfirmEnrolmentDialogFragment().show(it, "Confirm")
+        }
+//        sendEnrolment()
     }
 
     private fun sendEnrolment() {

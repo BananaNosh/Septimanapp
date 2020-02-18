@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
+import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
 import com.nobodysapps.septimanapp.dialog.OutdatedHorariumDialogFragment
 import com.nobodysapps.septimanapp.localization.localizedDisplayLanguage
 import com.nobodysapps.septimanapp.model.Horarium
@@ -84,9 +85,9 @@ class HorariumFragment : Fragment() {
                 val shouldShowWarning = sharedPreferences.getBoolean(SHOW_AGAIN_KEY, true)
                 if (shouldShowWarning) {
                     val dialog = OutdatedHorariumDialogFragment()
-                    dialog.listener = object : OutdatedHorariumDialogFragment.Listener {
-                        override fun onOkClicked(notShowAgain: Boolean) {
-                            sharedPreferences.edit().putBoolean(SHOW_AGAIN_KEY, !notShowAgain)
+                    dialog.listener = object : MessageAndCheckboxDialogFragment.Listener {
+                        override fun onOkClicked(isChecked: Boolean) {
+                            sharedPreferences.edit().putBoolean(SHOW_AGAIN_KEY, !isChecked)
                                 .apply()
                         }
                     }
