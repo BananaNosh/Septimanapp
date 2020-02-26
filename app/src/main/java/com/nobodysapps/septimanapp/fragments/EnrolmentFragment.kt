@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
 import com.nobodysapps.septimanapp.dialog.ConfirmEnrolmentDialogFragment
+import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
 import com.nobodysapps.septimanapp.model.EatingHabit
 import com.nobodysapps.septimanapp.model.Vegan
 import com.nobodysapps.septimanapp.model.Vegetarian
@@ -203,7 +204,8 @@ class EnrolmentFragment : Fragment() {
 
         enrolInstrumentEdit.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEND
-                || actionId == EditorInfo.IME_NULL && event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                || actionId == EditorInfo.IME_NULL && event.keyCode == KeyEvent.KEYCODE_ENTER
+            ) {
                 showConfirmDialog()
             }
             true
@@ -270,7 +272,10 @@ class EnrolmentFragment : Fragment() {
         enrolAllergensEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 enrolAllergensCB.isChecked = true
-                onEatingHabitChangedLambda(enrolAllergensCB, true)  // needed as otherwise only for the first letter the onCheckedChange is called
+                onEatingHabitChangedLambda(
+                    enrolAllergensCB,
+                    true
+                )  // needed as otherwise only for the first letter the onCheckedChange is called
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -289,9 +294,15 @@ class EnrolmentFragment : Fragment() {
 
     private fun showConfirmDialog() {
         fragmentManager?.let {
-            ConfirmEnrolmentDialogFragment().show(it, "Confirm")
+            val confirmDialog = ConfirmEnrolmentDialogFragment()
+            confirmDialog.listener = object : MessageAndCheckboxDialogFragment.Listener {
+                override fun onOkClicked(isChecked: Boolean) {
+                    sendEnrolment()
+                }
+
+            }
+            confirmDialog.show(it, "Confirm")
         }
-//        sendEnrolment()
     }
 
     private fun sendEnrolment() {

@@ -12,6 +12,8 @@
     <string name="snackbar_horarium_not_found">Kein Programm für die ausgewählte Sprache gefunden</string>
     <string name="snackbar_map_permission">Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte</string>
 
+    <string name="ok">OK</string>
+    <string name="cancel">Abbrechen</string>
 
     <plurals name="action_day_view">
         <item quantity="one">%d Tag</item>
@@ -42,5 +44,4 @@
     <string name="dialog_confirm_enrolment">Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.</string>
     <string name="action_day_view_day">%d Tag</string>
     <string name="action_day_view_days">%d Tage</string>
-    <string name="ok">OK</string>
 </resources>
