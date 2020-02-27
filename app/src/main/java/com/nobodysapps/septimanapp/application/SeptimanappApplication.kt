@@ -12,6 +12,7 @@ import com.nobodysapps.septimanapp.dependencyInjection.SeptimanappApplicationCom
 import com.nobodysapps.septimanapp.dependencyInjection.SharedPreferencesModule
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import com.nobodysapps.septimanapp.model.storage.LocationStorage
+import com.nobodysapps.septimanapp.model.storage.TimeStorage
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
 import java.util.*
@@ -33,6 +34,8 @@ class SeptimanappApplication : Application() {
     lateinit var horariumStorage: HorariumStorage
     @Inject
     lateinit var locationStorage: LocationStorage
+    @Inject
+    lateinit var timeStorage: TimeStorage
 
     override fun onCreate() {
         super.onCreate()
@@ -99,6 +102,7 @@ class SeptimanappApplication : Application() {
         Log.d(TAG, "First run")
         loadHoraria()
         loadLocations()
+        loadSeptimanaStartEndTime()
     }
 
     private fun loadHoraria() {
@@ -136,6 +140,14 @@ class SeptimanappApplication : Application() {
                 }
             }
         }
+    }
+
+    private fun loadSeptimanaStartEndTime() {
+        val startTime = Calendar.getInstance()
+        startTime.set(2020, 6, 25, 16, 30)
+        val endTime = startTime.clone() as Calendar
+        endTime.set(2020, 7, 1, 14, 0)
+        timeStorage.saveSeptimanaStartEndTime(startTime, endTime)
     }
 
     companion object {

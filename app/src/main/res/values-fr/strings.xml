@@ -23,4 +23,5 @@
     <string name="action_day_view_day">%d jour</string>
     <string name="action_day_view_days">%d jours</string>
     <string name="enrol_checkbox_johannes_haus">Je veux loger à Johanneshaus.</string>
+    <string name="nav_drawer_count_down_pattern">%d j %d h %d min</string>
 </resources>

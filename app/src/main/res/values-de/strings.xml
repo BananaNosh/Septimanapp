@@ -44,4 +44,6 @@
     <string name="dialog_confirm_enrolment">Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.</string>
     <string name="action_day_view_day">%d Tag</string>
     <string name="action_day_view_days">%d Tage</string>
+    <string name="nav_drawer_count_down_pattern">%d T %d h %d min</string>
+    <string name="nav_header_count_down_subtext">bis zur Lateinwoche</string>
 </resources>

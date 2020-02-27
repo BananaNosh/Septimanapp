@@ -25,4 +25,5 @@
     <string name="action_day_view_day">%d dies</string>
     <string name="action_day_view_days">%d dies</string>
     <string name="enrol_checkbox_johannes_haus">Velim in Johanneshaus deversari.</string>
+    <string name="nav_drawer_count_down_pattern">%d d %d h %d min</string>
 </resources>

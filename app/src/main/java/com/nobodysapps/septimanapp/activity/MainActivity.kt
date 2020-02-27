@@ -3,8 +3,10 @@ package com.nobodysapps.septimanapp.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -14,16 +16,20 @@ import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
-import com.nobodysapps.septimanapp.notifications.NotificationHelper
+import com.nobodysapps.septimanapp.model.storage.TimeStorage
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
+import java.util.*
 import javax.inject.Inject
 
 
 class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+//    @Inject
+//    lateinit var notificationHelper: NotificationHelper
     @Inject
-    lateinit var notificationHelper: NotificationHelper
+    lateinit var timeStorage: TimeStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +55,33 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             R.string.navigation_drawer_close
         )
         drawerLayout.addDrawerListener(toggle)
+        setupDrawerListenerForCountDown(drawerLayout)
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
+    }
+
+    private fun setupDrawerListenerForCountDown(drawerLayout: DrawerLayout) {
+        drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
+            override fun onDrawerStateChanged(newState: Int) {}
+
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                Log.d(TAG, "offset drawer: $slideOffset")
+                if (!countDownTV.started) {
+                    val (septimanaStartTime, _) = timeStorage.loadSeptimanaStartEndTime() ?: Pair(
+                        Calendar.getInstance(), null)
+                    countDownTV.setEndTime(septimanaStartTime)
+                    countDownTV.startTimer()
+                }
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                countDownTV.stopTimer()
+            }
+
+            override fun onDrawerOpened(drawerView: View) {}
+
+        })
     }
 
     override fun onBackPressed() {

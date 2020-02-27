@@ -116,4 +116,6 @@
     <string name="notification_action_title_already_enrolled">Schon passiert</string>
     <string name="notification_action_title_remind_later">Später</string>
     <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
+    <string name="nav_drawer_count_down_pattern">%d T %d h %d min</string>
+    <string name="nav_header_count_down_subtext">bis zur Lateinwoche</string>
 </resources>

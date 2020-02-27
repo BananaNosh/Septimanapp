@@ -8,4 +8,5 @@
     <dimen name="small_gap">10dp</dimen>
     <dimen name="small_margin_text">5dp</dimen>
     <dimen name="small_text_size">12sp</dimen>
+    <dimen name="big_text_size">20sp</dimen>
 </resources>
