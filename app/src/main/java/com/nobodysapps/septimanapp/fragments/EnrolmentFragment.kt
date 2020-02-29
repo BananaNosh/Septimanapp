@@ -339,8 +339,12 @@ class EnrolmentFragment : Fragment() {
             emailIntent.putExtra(Intent.EXTRA_TEXT, body)
 
             startActivity(emailIntent)
-            //TODO remove continue notification
+            resetReminderNotifications()
         }
+    }
+
+    private fun resetReminderNotifications() {
+        sharedPreferences.edit().putInt(ENROLLED_STATE_KEY, ENROLLED_STATE_ENROLLED).apply()
     }
 
     companion object {
@@ -350,7 +354,7 @@ class EnrolmentFragment : Fragment() {
 
         const val ENROLLED_STATE_REMIND = 0
         const val ENROLLED_STATE_ENROLLED = 1
-        const val ENROLLED_STATE_IN_PROGRESS = 2  // TODO send notifications if enrollment paused
+        const val ENROLLED_STATE_IN_PROGRESS = 2
         const val ENROLLED_STATE_NOT_ASK_AGAIN = 3
 
         private const val FIELD_NAME = "name"

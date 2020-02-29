@@ -5,14 +5,12 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.icu.util.DateInterval
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.MainActivity
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -193,9 +191,9 @@ class NotificationHelper @Inject constructor(private val context: Context) {
         const val CONTINUE_ENROL_REMINDER_NOTIFICATION_ID = 2
 
         /*
-        The dates to send notification (month, day)
+        The points in time to send notification in (month, day) before the start of the Septimana
          */
-        val ENROL_REMINDER_DATES = listOf(Pair(6, 1), Pair(7, 1), Pair(8, 1))
+        val ENROL_REMINDER_TIMES = listOf(Pair(3, 0), Pair(2, 0), Pair(1, 0), Pair(0, 7)) //listOf(Pair(0, 147))
         /*
         The offset between last enrol action and notification (days, hours, minutes)
          */

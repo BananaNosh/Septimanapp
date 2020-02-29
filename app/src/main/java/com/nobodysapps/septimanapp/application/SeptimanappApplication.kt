@@ -63,22 +63,23 @@ class SeptimanappApplication : Application() {
     private fun setupReminder() {
         val today =
             Calendar.getInstance().apply { set(Calendar.HOUR_OF_DAY, 0); set(Calendar.MINUTE, 0) }
-        val reminderDates = NotificationHelper.ENROL_REMINDER_DATES
-        reminderDates.forEachIndexed { i, it ->
-            val reminderDate = (today.clone() as Calendar).apply {
-                set(Calendar.DAY_OF_MONTH, it.first)
-                set(Calendar.MONTH, it.second)
-            }
-            if (reminderDate.after(today) || i == reminderDates.size - 1) {
-                alarmScheduler.scheduleAlarm(
-                    reminderDate, notificationHelper.pendingIntentForEnrolReminder()
-                )
+        val septimanaStartTime = timeStorage.loadSeptimanaStartEndTime()?.first
+        septimanaStartTime?.let { startTime ->
+            val reminderTimes = NotificationHelper.ENROL_REMINDER_TIMES
+            reminderTimes.forEachIndexed { i, reminderTime ->
+                val reminderDate = (startTime.clone() as Calendar).apply {
+                    add(Calendar.DAY_OF_MONTH, -reminderTime.second)
+                    add(Calendar.MONTH, -reminderTime.first)
+                    set(Calendar.HOUR_OF_DAY, 18)
+                    set(Calendar.MINUTE, 30)
+                }
+                if (reminderDate.after(today) || i == reminderTimes.size - 1) { // if in past only send one reminder
+                    alarmScheduler.scheduleAlarm(
+                        reminderDate, notificationHelper.pendingIntentForEnrolReminder()
+                    )
+                }
             }
         }
-        alarmScheduler.scheduleAlarm(  // TODO remove
-            Calendar.getInstance().apply { set(Calendar.MINUTE, 25) },
-            notificationHelper.pendingIntentForEnrolReminder()
-        )
     }
 
     private fun checkForFirstStart() {
