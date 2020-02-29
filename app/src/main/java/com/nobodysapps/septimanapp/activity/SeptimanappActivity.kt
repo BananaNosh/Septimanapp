@@ -19,8 +19,8 @@ abstract class SeptimanappActivity: AppCompatActivity() {
     private val requestPermissionLambdas: MutableMap<Pair<Int, String>, PermissionListener> = HashMap()
 
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         initialLocale = LocaleHelper.getPersistedLocale(this)
     }
 

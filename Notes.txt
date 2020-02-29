@@ -3,6 +3,9 @@ Features:
 
 Issues:
        Map -> permission asking again after denial -> snackbar not really well seen
+       Latin language on some devices (apo 24) (S5 for selecting Latin at appstart)
+
+       Countdown on Pixel2 -> check dimens in general for different screens
 
 Other Todos:
     README -> think about process of adding new features etc.

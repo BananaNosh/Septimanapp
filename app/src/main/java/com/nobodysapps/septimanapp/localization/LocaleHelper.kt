@@ -35,16 +35,15 @@ object LocaleHelper {
      */
     @Suppress("DEPRECATION")
     fun setLocale(context: Context, localeSpec: String): Context {
-        val locale: Locale
-        if (localeSpec == "system") {
+        val locale: Locale = if (localeSpec == "system") {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                locale = Resources.getSystem().configuration.locales.get(0)
+                Resources.getSystem().configuration.locales.get(0)
             } else {
 
-                locale = Resources.getSystem().configuration.locale
+                Resources.getSystem().configuration.locale
             }
         } else {
-            locale = Locale(localeSpec)
+            Locale(localeSpec)
         }
         Locale.setDefault(locale)
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

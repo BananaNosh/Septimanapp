@@ -7,6 +7,7 @@ import android.preference.PreferenceManager
 import androidx.fragment.app.DialogFragment
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SettingsActivity
+import com.nobodysapps.septimanapp.localization.LocaleHelper
 import java.util.*
 
 class ChooseLanguageDialogFragment : DialogFragment() {
@@ -47,5 +48,10 @@ class ChooseLanguageDialogFragment : DialogFragment() {
             .putBoolean(SettingsActivity.SettingsFragment.KEY_USE_LATIN, useLatin)
             .putString(SettingsActivity.SettingsFragment.KEY_PREF_LANGUAGE, if (useLatin) "la" else "system")
             .apply()
+        if (useLatin) {
+            context?.let {
+                LocaleHelper.setLocale(it, "la")
+            }
+        }
     }
 }
