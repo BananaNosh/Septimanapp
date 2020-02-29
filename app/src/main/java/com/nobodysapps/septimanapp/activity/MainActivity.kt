@@ -69,9 +69,15 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
                 Log.d(TAG, "offset drawer: $slideOffset")
                 if (!countDownTV.started) {
                     val (septimanaStartTime, _) = timeStorage.loadSeptimanaStartEndTime() ?: Pair(
-                        Calendar.getInstance(), null)
-                    countDownTV.setEndTime(septimanaStartTime)
-                    countDownTV.startTimer()
+                        null, null)
+                    if (septimanaStartTime == null || septimanaStartTime.before(Calendar.getInstance())) {
+                        countDownTV.visibility = View.GONE
+                        countDownSubTV.visibility = View.GONE
+
+                    } else {
+                        countDownTV.setEndTime(septimanaStartTime)
+                        countDownTV.startTimer()
+                    }
                 }
             }
 
