@@ -406,16 +406,16 @@ class EnrolmentFragment : Fragment() {
                     sharedPreferences.edit().putInt(ENROLLED_STATE_KEY, ENROLLED_STATE_IN_PROGRESS)
                         .apply()
                     if (currentState != ENROLLED_STATE_NOT_ASK_AGAIN) {
-                        alarmScheduler.scheduleAlarm(Calendar.getInstance().apply {
-                            add(
+                        alarmScheduler.scheduleAlarm(Calendar.getInstance().also {
+                            it.add(
                                 Calendar.DAY_OF_MONTH,
                                 NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.first
                             )
-                            add(
+                            it.add(
                                 Calendar.HOUR_OF_DAY,
                                 NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.second
                             )
-                            add(
+                            it.add(
                                 Calendar.MINUTE,
                                 NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.third
                             )
