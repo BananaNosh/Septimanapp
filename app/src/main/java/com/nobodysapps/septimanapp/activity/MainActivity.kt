@@ -17,6 +17,7 @@ import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
 import com.nobodysapps.septimanapp.model.storage.TimeStorage
+import com.nobodysapps.septimanapp.view.CountDownView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
@@ -66,16 +67,22 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             override fun onDrawerStateChanged(newState: Int) {}
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-                Log.d(TAG, "offset drawer: $slideOffset")
                 if (!countDownTV.started) {
                     val (septimanaStartTime, _) = timeStorage.loadSeptimanaStartEndTime() ?: Pair(
                         null, null)
                     if (septimanaStartTime == null || septimanaStartTime.before(Calendar.getInstance())) {
                         countDownTV.visibility = View.GONE
                         countDownSubTV.visibility = View.GONE
-
                     } else {
-                        countDownTV.setEndTime(septimanaStartTime)
+                        countDownTV.visibility = View.VISIBLE
+                        countDownSubTV.visibility = View.VISIBLE
+                        countDownTV.setEndTime(septimanaStartTime, object: CountDownView.Listener{
+                            override fun onFinished() {
+                                countDownTV.visibility = View.GONE
+                                countDownSubTV.visibility = View.GONE
+                            }
+
+                        })
                         countDownTV.startTimer()
                     }
                 }
