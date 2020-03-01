@@ -70,8 +70,6 @@ class SeptimanappApplication : Application() {
                 val reminderDate = (startTime.clone() as Calendar).apply {
                     add(Calendar.DAY_OF_MONTH, -reminderTime.second)
                     add(Calendar.MONTH, -reminderTime.first)
-                    set(Calendar.HOUR_OF_DAY, 18)
-                    set(Calendar.MINUTE, 30)
                 }
                 if (reminderDate.after(today) || i == reminderTimes.size - 1) { // if in past only send one reminder
                     alarmScheduler.scheduleAlarm(
