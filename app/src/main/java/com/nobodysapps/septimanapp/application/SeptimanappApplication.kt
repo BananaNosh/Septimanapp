@@ -15,6 +15,7 @@ import com.nobodysapps.septimanapp.model.storage.LocationStorage
 import com.nobodysapps.septimanapp.model.storage.TimeStorage
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
+import com.testfairy.TestFairy
 import java.util.*
 import javax.inject.Inject
 
@@ -39,6 +40,9 @@ class SeptimanappApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        TestFairy.begin(this, "SDK-wiO2TKkT")
+
         val sharedPreferencesModule = SharedPreferencesModule()
         val contextModule = ContextModule(applicationContext)
         component = DaggerSeptimanappApplicationComponent.builder()
