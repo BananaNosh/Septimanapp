@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="action_day_view">
+        <item quantity="one">@string/action_day_view_day</item>
+        <item quantity="other">@string/action_day_view_days</item>
+    </plurals>
+    <plurals name="enrol_years_of_latin_back">
+        <item quantity="one">@string/enrol_years_of_latin_back_sg</item>
+        <item quantity="other">@string/enrol_years_of_latin_back_pl</item>
+    </plurals>
+</resources>

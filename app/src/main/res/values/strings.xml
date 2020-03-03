@@ -25,10 +25,6 @@
     <!-- Horarium -->
     <string name="action_day_view_day">%d Tag</string>
     <string name="action_day_view_days">%d Tage</string>
-    <plurals name="action_day_view">
-        <item quantity="one">@string/action_day_view_day</item>
-        <item quantity="other">@string/action_day_view_days</item>
-    </plurals>
     <string name="dialog_outdated_horarium">Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.</string>
     <string name="dialog_outdated_horarium_title">Kein Programm gefunden</string>
     <string name="dialog_do_not_show_again">Nicht mehr anzeigen</string>
@@ -51,10 +47,6 @@
     <string name="enrol_years_of_latin_front">Ich habe</string>
     <string name="enrol_years_of_latin_back_sg">Jahr Latein gelernt.</string>
     <string name="enrol_years_of_latin_back_pl">Jahre Latein gelernt.</string>
-    <plurals name="enrol_years_of_latin_back">
-        <item quantity="one">@string/enrol_years_of_latin_back_sg</item>
-        <item quantity="other">@string/enrol_years_of_latin_back_pl</item>
-    </plurals>
     <string name="enrol_eating_habit_front">Ich esse</string>
     <string name="enrol_eating_habit_vegan">vegan</string>
     <string name="enrol_eating_habit_vegetarian">vegetarisch</string>
