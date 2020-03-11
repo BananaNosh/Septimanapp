@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <plurals name="action_day_view">
-        <item quantity="other">%d dies</item>
-    </plurals>
-    <string name="menu_horarium">Horarium</string>
+<resources>
+    <string name="nav_drawer_count_down_pattern">%d d %d h %d min</string>
     <string name="menu_map">Forma</string>
+    <string name="menu_horarium">Horarium</string>
+
+    <!-- Horarium -->
+    <string name="action_day_view_day">%d dies</string>
+    <string name="action_day_view_days">%d dies</string>
+
+    <!-- Maps -->
+
+    <!-- Enrol -->
+    <string name="enrol_checkbox_johannes_haus">Velim in Johanneshaus deversari.</string>
+
+    <!-- Preference Titles -->
+
+    <!-- Messages Preferences -->
     <string name="settings_title_language">Lingua</string>
     <string name="settings_use_latin">Uti lingua Latina</string>
-    <string name="settings_summary_use_latin_off">App lingua instrumenti viditur</string> % should never be shown
+    <string name="settings_summary_use_latin_off">App lingua instrumenti viditur</string>
     <string name="settings_summary_use_latin_on">App lingua Latina viditur</string>
     <string name="action_horarium_language">Videatur horarium in %s</string>
 
-    <string name="language" tools:ignore="ExtraTranslation">lingua %s</string>
-    <string name="language_latin" tools:ignore="ExtraTranslation">Latina</string>
-    <string name="language_english" tools:ignore="ExtraTranslation">Anglica</string>
-    <string name="language_german" tools:ignore="ExtraTranslation">Theodisca</string>
-    <string name="language_french" tools:ignore="ExtraTranslation">Francogallica</string>
-    <string name="language_unknown" tools:ignore="ExtraTranslation">ignota</string>
+    <!-- Language stuff-->
+    <string name="language">lingua %s</string>
+    <string name="language_latin">Latina</string>
+    <string name="language_english">Anglica</string>
+    <string name="language_german">Theodisca</string>
+    <string name="language_french">Francogallica</string>
+    <string name="language_unknown">ignota</string>
 
-
-    <string name="dialog_choose_language" />
-    <string name="notification_action_title_remind_later">serius</string>
+    <!-- Notifications-->
     <string name="notification_action_title_already_enrolled">iam confectum</string>
-    <string name="action_day_view_day">%d dies</string>
-    <string name="action_day_view_days">%d dies</string>
-    <string name="enrol_checkbox_johannes_haus">Velim in Johanneshaus deversari.</string>
-    <string name="nav_drawer_count_down_pattern">%d d %d h %d min</string>
+    <string name="notification_action_title_remind_later">serius</string>
 </resources>

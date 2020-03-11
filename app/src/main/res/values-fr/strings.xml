@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>  <!-- TODO translate-->
-
+<resources>
+    <string name="nav_drawer_count_down_pattern">%d j %d h %d min</string>
     <string name="menu_map">Map</string>
     <string name="menu_horarium">Horaire</string>
+
+    <!-- Horarium -->
+    <string name="action_day_view_day">%d jour</string>
+    <string name="action_day_view_days">%d jours</string>
+
+    <!-- Maps -->
+
+    <!-- Enrol -->
+    <string name="enrol_checkbox_johannes_haus">Je veux loger à Johanneshaus.</string>
 
     <!-- Preference Titles -->
 
     <!-- Messages Preferences -->
-
     <string name="settings_title_language">Langue</string>
     <string name="settings_use_latin">Utiliser latin</string>
-    % should never be shown
     <string name="action_horarium_language">Horaire en %s</string>
-    <string name="dialog_choose_language">Est-ce que vous voulez regarder Septimanapp en latin ou français?</string>
     <string name="snackbar_horarium_not_found">Aucun horaire trouvé</string>
+
+    <!-- Language stuff-->
     <string name="language">-</string>
-    <string name="language_english">-</string>
-    <string name="language_french">-</string>
-    <string name="language_german">-</string>
     <string name="language_latin">-</string>
+    <string name="language_english">-</string>
+    <string name="language_german">-</string>
+    <string name="language_french">-</string>
     <string name="language_unknown">-</string>
-    <string name="action_day_view_day">%d jour</string>
-    <string name="action_day_view_days">%d jours</string>
-    <string name="enrol_checkbox_johannes_haus">Je veux loger à Johanneshaus.</string>
-    <string name="nav_drawer_count_down_pattern">%d j %d h %d min</string>
+    <string name="dialog_choose_language">Est-ce que vous voulez regarder Septimanapp en latin ou français?</string>
+
+    <!-- Notifications-->
 </resources>
