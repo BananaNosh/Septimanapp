@@ -31,7 +31,6 @@
     <string name="dialog_outdated_horarium_title">Kein Programm gefunden</string>
     <string name="dialog_do_not_show_again">Nicht mehr anzeigen</string>
 
-
     <!-- Maps -->
     <string name="snackbar_map_permission">Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte</string>
 
@@ -62,7 +61,7 @@
     <string name="enrol_instrument_front">Ich bringe ein(e/en)</string>
     <string name="enrol_instrument_hint">Musikinstrument</string>
     <string name="enrol_instrument_back_1">mit. </string>
-    <string name="enrol_veggieday">Veggiedays sind klasse. Ich habe kein Problem, wenn es nur jeden zweiten Tag Fleisch gibt.</string>
+    <string name="enrol_veggieday">Für mich ist es ok, wenn es nur jeden zweiten Tag Fleisch gibt.</string>
     <string name="enrol_instrument_back_2">(falls möglich)</string>
     <string name="dialog_confirm_enrolment_title">Verbindlich Anmelden</string>
     <string name="dialog_confirm_enrolment">Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.</string>
@@ -91,11 +90,11 @@
 
     <!-- Language stuff-->
     <string name="language" tools:ignore="ExtraTranslation,MissingTranslation">language %s</string>
-    <string name="language_latin" tools:ignore="ExtraTranslation,MissingTranslation" >-</string>
-    <string name="language_english" tools:ignore="ExtraTranslation,MissingTranslation" >-</string>
-    <string name="language_german" tools:ignore="ExtraTranslation,MissingTranslation" >-</string>
-    <string name="language_french" tools:ignore="ExtraTranslation,MissingTranslation" >-</string>
-    <string name="language_unknown" tools:ignore="ExtraTranslation,MissingTranslation" >-</string>
+    <string name="language_latin" tools:ignore="ExtraTranslation,MissingTranslation">-</string>
+    <string name="language_english" tools:ignore="ExtraTranslation,MissingTranslation">-</string>
+    <string name="language_german" tools:ignore="ExtraTranslation,MissingTranslation">-</string>
+    <string name="language_french" tools:ignore="ExtraTranslation,MissingTranslation">-</string>
+    <string name="language_unknown" tools:ignore="ExtraTranslation,MissingTranslation">-</string>
     <string name="dialog_choose_language">Should Septimanapp be displayed in Latin or German?%s</string>
 
     <!-- Notifications-->
