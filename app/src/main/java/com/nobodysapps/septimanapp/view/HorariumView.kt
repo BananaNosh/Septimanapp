@@ -70,13 +70,6 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
                 }
                 copiedEvents.forEachIndexed { index, ev ->
                     ev.endTime.add(Calendar.MINUTE, -1)  // to show a border between events
-
-//                    val now = Calendar.getInstance()
-//                    // TODO remove next 2 lines
-//                    now.set(2019, 6, 30)
-//                    if (now in ev.startTime..ev.endTime) { //is current event
-//                        ev.color = R.color.colorPrimary //TODO set other color
-//                    }
                     if (displayTimeInEvent) {
                         val startTimeString =
                             timeStringForTime(ev.startTime) + if (index in eventsWithBreakAfterwardsIndices) "-${timeStringForTime(

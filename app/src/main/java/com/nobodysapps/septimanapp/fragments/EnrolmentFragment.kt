@@ -25,9 +25,11 @@ import com.nobodysapps.septimanapp.model.Vegan
 import com.nobodysapps.septimanapp.model.Vegetarian
 import com.nobodysapps.septimanapp.model.create
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage
+import com.nobodysapps.septimanapp.model.storage.TimeStorage
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
 import kotlinx.android.synthetic.main.fragment_enrolment.*
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -47,6 +49,8 @@ class EnrolmentFragment : Fragment() {
     lateinit var notificationHelper: NotificationHelper
     @Inject
     lateinit var alarmScheduler: AlarmScheduler
+    @Inject
+    lateinit var timeStorage: TimeStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -313,10 +317,16 @@ class EnrolmentFragment : Fragment() {
 
         emailIntent.putExtra(Intent.EXTRA_EMAIL, aEmailList)
 
+        val year = timeStorage.loadSeptimanaStartEndTime()?.first?.let {
+            SimpleDateFormat(
+                "yyyy",
+                Locale.GERMAN
+            ).format(it.time)
+        } ?: ""
         emailIntent.putExtra(
             Intent.EXTRA_SUBJECT,
-            getString(R.string.enrol_send_email_subject, name, firstname)
-        ) // TODO add year
+            getString(R.string.enrol_send_email_subject, year, name, firstname)
+        )
 
         emailIntent.type = "plain/text"
         if (context != null) {
@@ -332,7 +342,7 @@ class EnrolmentFragment : Fragment() {
                 mail,
                 getString(if (stayInJohanneshaus) R.string.enrol_send_yes else R.string.enrol_send_no),
                 yearsOfLatin,
-                eatingHabit?.information(context!!),
+                (eatingHabit ?: EatingHabit.create(false, false, Collections.emptyList())).information(context!!),
                 instrument,
                 getString(if (veggieDay) R.string.enrol_send_yes else R.string.enrol_send_no)
             )
