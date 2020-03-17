@@ -1,7 +1,7 @@
 key	default	en	de	fr	la	extra_arguments
 app_name	Septiman\u200bapp	not-translatable	not-translatable	not-translatable	not-translatable	
-navigation_drawer_open	Navigationsleiste öffnen	Open navigation drawer	Navigationsleiste öffnen			
-navigation_drawer_close	Navigationsleiste schließen	Close navigation drawer	Navigationsleiste schließen			
+navigation_drawer_open	Navigationsleiste öffnen	Open navigation drawer	Navigationsleiste öffnen	Ouvrir tiroir de la navigation	Aperire regulam gubernationis	
+navigation_drawer_close	Navigationsleiste schließen	Close navigation drawer	Navigationsleiste schließen	Fermer tiroir de la navigation	Claudere regulam gubernationis	
 nav_header_subtitle	loos.jonathan.martin@gmail.com	not-translatable	not-translatable	not-translatable	not-translatable	
 nav_header_desc	Navigation header					
 settings	Settings					
@@ -19,18 +19,18 @@ menu_horarium	Programm	Timetable	Programm	Horaire	Horarium
 menu_enrol	Anmelden					
 ok	OK	Ok	OK			
 cancel	Abbrechen		Abbrechen			
-
-%% Horarium %%
+						
+%% Horarium %%						
 action_day_view_day	%d Tag	%d day	%d Tag	%d jour	%d dies	
 action_day_view_days	%d Tage	%d days	%d Tage	%d jours	%d dies	
 dialog_outdated_horarium	Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.		Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.			
 dialog_outdated_horarium_title	Kein Programm gefunden		Kein Programm gefunden			
 dialog_do_not_show_again	Nicht mehr anzeigen		Nicht mehr anzeigen			
-
-%% Maps %%
+						
+%% Maps %%						
 snackbar_map_permission	Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte	Map needs storage permission to cache the map!	Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte			
-
-%% Enrol %%
+						
+%% Enrol %%						
 enrol_last_name_hint	Nachname		Nachname			
 enrol_first_name_hint	Vorname		Vorname			
 enrol_checkbox_johannes_haus	Ich möchte im Johanneshaus wohnen.	I want to stay in the Johanneshaus.	Ich möchte im Johanneshaus wohnen.	Je veux loger à Johanneshaus.	Velim in Johanneshaus deversari.	
@@ -56,8 +56,8 @@ eating_habit_vegan	Veganer
 eating_habit_gluten	Gluten	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_instrument_front	Ich bringe ein(e/en)					
 enrol_instrument_hint	Musikinstrument	Musikinstrument				
-enrol_instrument_back_1	mit.		mit.			
-enrol_veggieday	Für mich ist es ok, wenn es nur jeden zweiten Tag Fleisch gibt.					
+enrol_instrument_back_1	mit.		mit. 			
+enrol_veggieday	Für mich ist es ok, wenn es nicht jeden Tag Fleisch gibt.					
 enrol_instrument_back_2	(falls möglich)		(falls möglich)			
 dialog_confirm_enrolment_title	Verbindlich Anmelden		Verbindlich Anmelden			
 dialog_confirm_enrolment	Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.		Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.			
@@ -66,12 +66,12 @@ enrol_send_email_subject	Anmeldung Lateinwoche - %s, %s	not-translatable	not-tra
 enrol_send_email_template	%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm Johanneshaus wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_yes	Ja	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_no	Nein	not-translatable	not-translatable	not-translatable	not-translatable	
-
-%% Preference Titles %%
+						
+%% Preference Titles %%						
 messages_header	Messages					
 sync_header	Sync					
-
-%% Messages Preferences %%
+						
+%% Messages Preferences %%						
 signature_title	Your signature					
 reply_title	Default reply action					
 settings_title_language	Sprache	Language	Sprache	Langue	Lingua	
@@ -81,8 +81,8 @@ settings_summary_use_latin_on	App displayed in Latin	App displayed in Latin			Ap
 action_horarium_language	Show timetable in %s	Show timetable in %s	Programm auf %s	Horaire en %s	Videatur horarium in %s	
 snackbar_horarium_not_found	Kein Programm für die ausgewählte Sprache gefunden	No horarium found in the specified language	Kein Programm für die ausgewählte Sprache gefunden	Aucun horaire trouvé		
 snackbar_previous_horarium	vergangenen					
-
-%% Language stuff%%
+						
+%% Language stuff%%						
 language	language %s	-		-	lingua %s	tools:ignore=ExtraTranslation,MissingTranslation
 language_latin	-	-		-	Latina	tools:ignore=ExtraTranslation,MissingTranslation
 language_english	-	-		-	Anglica	tools:ignore=ExtraTranslation,MissingTranslation
@@ -90,8 +90,8 @@ language_german	-	-		-	Theodisca	tools:ignore=ExtraTranslation,MissingTranslatio
 language_french	-	-		-	Francogallica	tools:ignore=ExtraTranslation,MissingTranslation
 language_unknown	-	-		-	ignota	tools:ignore=ExtraTranslation,MissingTranslation
 dialog_choose_language	Should Septimanapp be displayed in Latin or German?%s	Should Septimanapp be displayed in Latin or English?	Soll die Septimanapp in Latein angezeigt werden oder auf Deutsch?	Est-ce que vous voulez regarder Septimanapp en latin ou français?		
-
-%% Notifications%%
+						
+%% Notifications%%						
 action_notify_enrol_reminder	com.nobodysapps.septimanapp.action.ENROL_REMINDER	not-translatable	not-translatable	not-translatable	not-translatable	
 action_notify_continue_enrol_reminder	com.nobodysapps.septimanapp.action.CONTINUE_ENROL_REMINDER	not-translatable	not-translatable	not-translatable	not-translatable	
 action_mark_already_enrolled	com.nobodysapps.septimanapp.action.ALREADY_ENROLLED	not-translatable	not-translatable	not-translatable	not-translatable	

@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name" translatable="false">Septiman&#8203;app</string>
+    <string name="app_name" translatable="false">Septiman\u200bapp</string>
     <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
     <string name="navigation_drawer_close">Navigationsleiste schließen</string>
 <!--    <string name="nav_header_title">Android Studio</string>-->
@@ -61,7 +62,7 @@
     <string name="enrol_instrument_front">Ich bringe ein(e/en)</string>
     <string name="enrol_instrument_hint">Musikinstrument</string>
     <string name="enrol_instrument_back_1">mit. </string>
-    <string name="enrol_veggieday">Für mich ist es ok, wenn es nur jeden zweiten Tag Fleisch gibt.</string>
+    <string name="enrol_veggieday">Für mich ist es ok, wenn es nicht jeden Tag Fleisch gibt.</string>
     <string name="enrol_instrument_back_2">(falls möglich)</string>
     <string name="dialog_confirm_enrolment_title">Verbindlich Anmelden</string>
     <string name="dialog_confirm_enrolment">Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.</string>

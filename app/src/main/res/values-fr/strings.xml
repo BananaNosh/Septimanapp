@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="navigation_drawer_open">Ouvrir tiroir de la navigation</string>
+    <string name="navigation_drawer_close">Fermer tiroir de la navigation</string>
     <string name="nav_drawer_count_down_pattern">%d j %d h %d min</string>
     <string name="menu_map">Map</string>
     <string name="menu_horarium">Horaire</string>

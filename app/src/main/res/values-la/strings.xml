@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="navigation_drawer_open">Aperire regulam gubernationis</string>
+    <string name="navigation_drawer_close">Claudere regulam gubernationis</string>
     <string name="nav_drawer_count_down_pattern">%d d %d h %d min</string>
     <string name="menu_map">Forma</string>
     <string name="menu_horarium">Horarium</string>
