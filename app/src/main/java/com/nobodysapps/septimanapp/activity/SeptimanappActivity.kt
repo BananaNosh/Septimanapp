@@ -1,11 +1,13 @@
 package com.nobodysapps.septimanapp.activity
 
+import android.R
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.application.SeptimanappApplication
 import com.nobodysapps.septimanapp.dialog.ChooseLanguageDialogFragment
 import com.nobodysapps.septimanapp.localization.LocaleHelper
@@ -49,7 +51,7 @@ abstract class SeptimanappActivity: AppCompatActivity() {
     }
 
     // for requesting Permissions
-    fun withPermission(permission: String, listener: PermissionListener) {
+    fun withPermission(permission: String, listener: PermissionListener, explicationText: String? = null) {
         if (ActivityCompat.checkSelfPermission(this, permission)
             != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
@@ -61,6 +63,34 @@ abstract class SeptimanappActivity: AppCompatActivity() {
         } else {
             listener.onPermissionGranted(permission)
         }
+    }
+
+    private fun showExplicationText(
+        explicationText: String,
+        permission: String,
+        listener: PermissionListener
+    ) {
+        val explicationSnackbar = Snackbar.make(//TODO use dialog
+            findViewById(R.id.content),
+            explicationText,
+            Snackbar.LENGTH_INDEFINITE
+        )
+        explicationSnackbar.setAction(R.string.ok) {
+            requestPermission(permission, listener)
+        }
+        explicationSnackbar.setAction(R.string.cancel) {
+            listener.onPermissionDenied(permission)
+        }
+        explicationSnackbar.show()
+    }
+
+    private fun requestPermission(
+        permission: String,
+        listener: PermissionListener
+    ) {
+        requestPermissionLambdas.put(Pair(requestCode, permission), listener)
+        ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
+        requestCode++
     }
 
     override fun onResume() {
