@@ -95,9 +95,10 @@ class HorariumFragment : Fragment() {
                     fragmentManager?.let { manager ->
                         val dialogTag = "NoHorarium"
                         val prevDialog = manager.findFragmentByTag(dialogTag)
-                        if (!(prevDialog != null && (prevDialog as OutdatedHorariumDialogFragment).showsDialog)) {
-                            dialog.show(manager, dialogTag)
+                        if (prevDialog != null && (prevDialog as OutdatedHorariumDialogFragment).showsDialog) {
+                            prevDialog.dismiss()
                         }
+                        dialog.show(manager, dialogTag)
                     }
                 }
             }

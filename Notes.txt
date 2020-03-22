@@ -3,7 +3,6 @@ Features:
 
 Issues:
        Latin language on some devices (apo 24)
-       do not show again in horarium dialog not working if clicked directly after first start
        back button does change fragment but not highlighting in menu
 
 
