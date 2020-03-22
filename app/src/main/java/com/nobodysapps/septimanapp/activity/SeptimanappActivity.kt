@@ -1,13 +1,13 @@
 package com.nobodysapps.septimanapp.activity
 
-import android.R
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.google.android.material.snackbar.Snackbar
+import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.application.SeptimanappApplication
 import com.nobodysapps.septimanapp.dialog.ChooseLanguageDialogFragment
 import com.nobodysapps.septimanapp.localization.LocaleHelper
@@ -54,12 +54,11 @@ abstract class SeptimanappActivity: AppCompatActivity() {
     fun withPermission(permission: String, listener: PermissionListener, explicationText: String? = null) {
         if (ActivityCompat.checkSelfPermission(this, permission)
             != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
-                listener.onPermissionDeniedBefore(permission)
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission) && explicationText != null) {  // repeatedly denied
+                showExplicationText(explicationText, permission, listener)
+            } else {
+                requestPermission(permission, listener)  //TODO handling after "never ask again" was clicked
             }
-            requestPermissionLambdas.put(Pair(requestCode, permission), listener)
-            ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
-            requestCode++
         } else {
             listener.onPermissionGranted(permission)
         }
@@ -70,18 +69,14 @@ abstract class SeptimanappActivity: AppCompatActivity() {
         permission: String,
         listener: PermissionListener
     ) {
-        val explicationSnackbar = Snackbar.make(//TODO use dialog
-            findViewById(R.id.content),
-            explicationText,
-            Snackbar.LENGTH_INDEFINITE
-        )
-        explicationSnackbar.setAction(R.string.ok) {
-            requestPermission(permission, listener)
-        }
-        explicationSnackbar.setAction(R.string.cancel) {
-            listener.onPermissionDenied(permission)
-        }
-        explicationSnackbar.show()
+        AlertDialog.Builder(this).setMessage(explicationText)
+            .setNegativeButton(R.string.cancel) { _, _ ->
+                listener.onPermissionDenied(permission)
+            }
+            .setPositiveButton(R.string.ok) { _, _ ->
+                requestPermission(permission, listener)
+            }.setCancelable(false)
+            .create().show()
     }
 
     private fun requestPermission(
@@ -95,6 +90,9 @@ abstract class SeptimanappActivity: AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        Log.d(SeptimanappApplication.TAG,"dens: ${resources.displayMetrics.density}")
+        Log.d(SeptimanappApplication.TAG,"height: ${resources.displayMetrics.heightPixels}")
+        Log.d(SeptimanappApplication.TAG,"width: ${resources.displayMetrics.widthPixels}")
         if (initialLocale != null && initialLocale != LocaleHelper.getPersistedLocale(this)) {
             recreate()
         }
@@ -102,6 +100,7 @@ abstract class SeptimanappActivity: AppCompatActivity() {
         if (!preferences.getBoolean(
                 KEY_CHOOSE_LANGUAGE_DIALOG_SHOWN, false)) {
             preferences.edit().putBoolean(KEY_CHOOSE_LANGUAGE_DIALOG_SHOWN, true).apply()
+            Log.d("SeptimanappActivity", "wants to show chooseLanguage")
             ChooseLanguageDialogFragment().show(supportFragmentManager, "")
         }
     }
@@ -119,5 +118,4 @@ abstract class SeptimanappActivity: AppCompatActivity() {
 interface PermissionListener {
     fun onPermissionGranted(permission: String)
     fun onPermissionDenied(permission: String)
-    fun onPermissionDeniedBefore(permission: String) {}
 }
