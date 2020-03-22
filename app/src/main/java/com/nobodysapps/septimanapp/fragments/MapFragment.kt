@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.PermissionListener
@@ -17,10 +16,7 @@ import kotlinx.android.synthetic.main.fragment_map.*
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.CopyrightOverlay
-import org.osmdroid.views.overlay.ItemizedIconOverlay
-import org.osmdroid.views.overlay.ItemizedOverlayWithFocus
-import org.osmdroid.views.overlay.OverlayItem
-import java.util.*
+import org.osmdroid.views.overlay.Marker
 import javax.inject.Inject
 
 
@@ -34,8 +30,6 @@ class MapFragment : Fragment() {
     @Inject
     lateinit var locationStorage: LocationStorage
 
-    var locationsOverlay: ItemizedOverlayWithFocus<OverlayItem>? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -46,7 +40,7 @@ class MapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val provider = Configuration.getInstance()
-        provider.setUserAgentValue(BuildConfig.APPLICATION_ID)
+        provider.userAgentValue = BuildConfig.APPLICATION_ID
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
@@ -70,27 +64,16 @@ class MapFragment : Fragment() {
     private fun addLocationOverlays() {
         //your items
         val locations = locationStorage.loadLocations("amoeneburg")
-        val items = locations?.map {
-            OverlayItem(it.title, it.description, it.coordinates)
-        } ?: Collections.emptyList()
-
-        //the overlay
-        locationsOverlay = ItemizedOverlayWithFocus<OverlayItem>(context, items,
-            object : ItemizedIconOverlay.OnItemGestureListener<OverlayItem> {
-                override fun onItemSingleTapUp(index: Int, item: OverlayItem): Boolean {
-//                    if (locationsOverlay?.focusedItem == item) {
-//                        locationsOverlay?.unSetFocusedItem()
-//                    }
-                    return false
-                }
-
-                override fun onItemLongPress(index: Int, item: OverlayItem): Boolean {
-                    return false
-                }
-            })
-        locationsOverlay?.setFocusItemsOnTap(true)
-
-        mapView.overlays.add(locationsOverlay)
+        val markers = locations?.map {
+            Marker(mapView).apply {
+                position = it.coordinates
+                title = it.title
+                subDescription = it.description
+            }
+        }
+        markers?.forEach {
+            mapView.overlays.add(it)
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -115,7 +98,7 @@ class MapFragment : Fragment() {
         (activity as SeptimanappActivity).withPermission(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             listener,
-            getString(R.string.snackbar_map_permission)
+            getString(R.string.explication_map_permission)
         )
     }
 

@@ -12,7 +12,7 @@
     <string name="action_day_view_days">%d days</string>
 
     <!-- Maps -->
-    <string name="snackbar_map_permission">Map needs storage permission to cache the map!</string>
+    <string name="explication_map_permission">Map needs storage permission to cache the map!</string>
 
     <!-- Enrol -->
     <string name="enrol_checkbox_johannes_haus">I want to stay in the Johanneshaus.</string>
