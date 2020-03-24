@@ -3,7 +3,6 @@ package com.nobodysapps.septimanapp.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -101,7 +100,14 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         when {
             drawerLayout.isDrawerOpen(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)
-            supportFragmentManager.backStackEntryCount > 0 -> supportFragmentManager.popBackStack()
+            supportFragmentManager.backStackEntryCount > 0 -> {
+                val prevFragment =
+                    supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount - 1)
+                prevFragment.name?.let {
+                    nav_view.setCheckedItem(it.toInt())
+                }
+                supportFragmentManager.popBackStack()
+            }
             else -> super.onBackPressed()
         }
     }
@@ -137,10 +143,10 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
                 fragmentClass = HorariumFragment::class.java
             }
             R.id.nav_share -> {
-
+                return false
             }
             R.id.nav_send -> {
-
+                return false
             }
             R.id.nav_map -> {
                 fragmentClass = MapFragment::class.java
@@ -167,13 +173,14 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             e.printStackTrace()
         }
         if (fragment == null) return false
+        val currentNavItemId = nav_view.checkedItem?.itemId
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(
                 android.R.anim.slide_in_left, android.R.anim.slide_out_right,
                 android.R.anim.slide_in_left, android.R.anim.slide_out_right
             )
             .replace(R.id.fragment_layout, fragment)
-            .addToBackStack(null)
+            .addToBackStack(currentNavItemId?.toString())
             .commit()
         return true
     }
