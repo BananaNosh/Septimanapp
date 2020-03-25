@@ -137,7 +137,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             return true
         }
         // Handle navigation view item clicks here.
-        var fragmentClass: Class<*> = HorariumFragment::class.java
+        var fragmentClass: Class<*>? = null
         when (item.itemId) {
             R.id.nav_horarium -> {
                 fragmentClass = HorariumFragment::class.java
@@ -155,7 +155,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
                 fragmentClass = EnrolmentFragment::class.java
             }
         }
-        if (!goToFragment(fragmentClass)) return false
+        if (fragmentClass == null || !goToFragment(fragmentClass)) return false
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
