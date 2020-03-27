@@ -5,15 +5,10 @@
     <string name="navigation_drawer_close">Navigationsleiste schließen</string>
 <!--    <string name="nav_header_title">Android Studio</string>-->
     <string name="nav_header_subtitle" translatable="false">loos.jonathan.martin@gmail.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_desc">Navigationskopfleiste</string>
     <string name="settings">Settings</string>
     <string name="nav_drawer_count_down_pattern">%d T %d h %d min</string>
     <string name="nav_header_count_down_subtext">bis zur Lateinwoche</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="menu_map">Karte</string>
@@ -45,7 +40,7 @@
     <string name="enrol_country_hint">Land</string>
     <string name="enrol_phone_hint">Telephonnummer</string>
     <string name="enrol_mail_hint">Email</string>
-    <string name="enrol_years_of_latin_hint">0</string>
+    <string name="enrol_years_of_latin_hint" translatable="false">0</string>
     <string name="enrol_years_of_latin_front">Ich habe</string>
     <string name="enrol_years_of_latin_back_sg">Jahr Latein gelernt.</string>
     <string name="enrol_years_of_latin_back_pl">Jahre Latein gelernt.</string>
@@ -55,9 +50,9 @@
     <string name="enrol_eating_habit_glutenfree">glutenfrei</string>
     <string name="enrol_eating_habit_everything">alles.</string>
     <string name="enrol_eating_habit_allergens">andere Allergene</string>
-    <string name="eating_habit_allergens">Allergene</string>
-    <string name="eating_habit_vegetarian">Vegetarier</string>
-    <string name="eating_habit_vegan">Veganer</string>
+    <string name="eating_habit_allergens" translatable="false">Allergene</string>
+    <string name="eating_habit_vegetarian" translatable="false">Vegetarier</string>
+    <string name="eating_habit_vegan" translatable="false">Veganer</string>
     <string name="eating_habit_gluten" translatable="false">Gluten</string>
     <string name="enrol_instrument_front">Ich bringe ein(e/en)</string>
     <string name="enrol_instrument_hint">Musikinstrument</string>

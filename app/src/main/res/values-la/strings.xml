@@ -2,13 +2,16 @@
 <resources>
     <string name="navigation_drawer_open">Aperire regulam gubernationis</string>
     <string name="navigation_drawer_close">Claudere regulam gubernationis</string>
+    <string name="nav_header_desc">caput regulae gubernationis</string>
     <string name="settings">Accommodare</string>
     <string name="nav_drawer_count_down_pattern">%d d %d h %d min</string>
+    <string name="nav_header_count_down_subtext">usque ad Septimanam</string>
     <string name="menu_share">Distribuere</string>
     <string name="menu_send">Mittere</string>
     <string name="menu_map">Tabula geographica</string>
     <string name="menu_communicate">Communicare</string>
     <string name="menu_horarium">Horarium</string>
+    <string name="menu_enrol">Nomen dare</string>
     <string name="ok">Licet</string>
     <string name="cancel">Non licet</string>
 
@@ -35,9 +38,18 @@
     <string name="enrol_years_of_latin_front">Didici linguam Latinam</string>
     <string name="enrol_years_of_latin_back_sg">annum.</string>
     <string name="enrol_years_of_latin_back_pl">annos.</string>
+    <string name="enrol_eating_habit_front">Edo</string>
     <string name="enrol_eating_habit_vegan">Sum veganus</string>
     <string name="enrol_eating_habit_vegetarian">Sum vegetarius</string>
     <string name="enrol_eating_habit_glutenfree">Gluten mihi est vitandum</string>
+    <string name="enrol_eating_habit_everything">omnia.</string>
+    <string name="enrol_eating_habit_allergens">alliae allergiae</string>
+    <string name="enrol_instrument_front">Ferro</string>
+    <string name="enrol_instrument_hint">instrumentum musicum</string>
+    <string name="enrol_instrument_back_1">.</string>
+    <string name="enrol_veggieday">Mihi non est necesse comedere carnem cottidie.</string>
+    <string name="enrol_instrument_back_2">(si fieri potest)</string>
+    <string name="dialog_confirm_enrolment_title">Firme nomen do</string>
 
     <!-- Preference Titles -->
 
@@ -57,8 +69,10 @@
     <string name="language_unknown">ignota</string>
 
     <!-- Notifications-->
+    <string name="notification_enrol_title">Nomen dare Septimanae</string>
+    <string name="notification_enrol_text">Dedistine nomen Septimanae?</string>
+    <string name="notification_action_title_do_not_ask_again">ne rogaveris iterum</string>
     <string name="notification_action_title_already_enrolled">iam confectum</string>
     <string name="notification_action_title_remind_later">serius</string>
-    <string name="enrol_eating_habit_front">Edo</string>
-    <string name="enrol_eating_habit_everything">omnia.</string>
+    <string name="notification_continue_enrol_text">Nolli oblivisci finire nomen dare!</string>
 </resources>

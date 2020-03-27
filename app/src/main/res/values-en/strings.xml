@@ -2,21 +2,51 @@
 <resources>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
     <string name="nav_drawer_count_down_pattern">%d d %d h %d min</string>
+    <string name="nav_header_count_down_subtext">till the Latin Week</string>
     <string name="menu_map">Map</string>
+    <string name="menu_communicate">Communicate</string>
     <string name="menu_horarium">Timetable</string>
+    <string name="menu_enrol">Enrol</string>
     <string name="ok">Ok</string>
+    <string name="cancel">cancel</string>
 
     <!-- Horarium -->
     <string name="action_day_view_day">%d day</string>
     <string name="action_day_view_days">%d days</string>
+    <string name="dialog_outdated_horarium_title">No timetable found</string>
+    <string name="dialog_do_not_show_again">Do not show again</string>
 
     <!-- Maps -->
     <string name="explication_map_permission">Map needs storage permission to cache the map!</string>
 
     <!-- Enrol -->
+    <string name="enrol_last_name_hint">Surname</string>
+    <string name="enrol_first_name_hint">First name</string>
     <string name="enrol_checkbox_johannes_haus">I want to stay in the Johanneshaus.</string>
-    <string name="enrol_instrument_hint">Musikinstrument</string>
+    <string name="enrol_street_hint">Street address</string>
+    <string name="enrol_postal_code_hint">Postal code</string>
+    <string name="enrol_city_hint">City</string>
+    <string name="enrol_country_hint">Country</string>
+    <string name="enrol_phone_hint">Phone number</string>
+    <string name="enrol_mail_hint">Mail</string>
+    <string name="enrol_years_of_latin_front">I‘ve been learning Latin for</string>
+    <string name="enrol_years_of_latin_back_sg">year.</string>
+    <string name="enrol_years_of_latin_back_pl">years.</string>
+    <string name="enrol_eating_habit_front">I eat</string>
+    <string name="enrol_eating_habit_vegan">vegan</string>
+    <string name="enrol_eating_habit_vegetarian">vegetarian</string>
+    <string name="enrol_eating_habit_glutenfree">glutenfree</string>
+    <string name="enrol_eating_habit_everything">everything.</string>
+    <string name="enrol_eating_habit_allergens">other allergens</string>
+    <string name="enrol_instrument_front">I bring an</string>
+    <string name="enrol_instrument_hint">music instrument</string>
+    <string name="enrol_instrument_back_1">.</string>
+    <string name="enrol_veggieday">Im fine with not eating meat every day.</string>
+    <string name="enrol_instrument_back_2">(if possible)</string>
+    <string name="dialog_confirm_enrolment_title">Enrol bindingly</string>
+    <string name="dialog_confirm_enrolment">Hereby I confirm that I bindingly register for the latin week by sending the email created in the following and that I checked my data.</string>
 
     <!-- Preference Titles -->
 
@@ -38,4 +68,10 @@
     <string name="dialog_choose_language">Should Septimanapp be displayed in Latin or English?</string>
 
     <!-- Notifications-->
+    <string name="notification_enrol_title">Register for the latin week</string>
+    <string name="notification_enrol_text">Have you already registered for the latin week?</string>
+    <string name="notification_action_title_do_not_ask_again">do not ask again</string>
+    <string name="notification_action_title_already_enrolled">already done</string>
+    <string name="notification_action_title_remind_later">later</string>
+    <string name="notification_continue_enrol_text">Do‘nt forget to finish your registration!</string>
 </resources>
