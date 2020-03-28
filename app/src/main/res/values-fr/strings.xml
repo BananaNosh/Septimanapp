@@ -9,14 +9,22 @@
     <string name="menu_map">Carte</string>
     <string name="menu_horarium">Horaire</string>
     <string name="menu_enrol">S‘inscrire</string>
+
+    <!-- Impressum -->
+    <string name="menu_impressum">Empreinte</string>
+
+    <!-- General dialog -->
     <string name="ok">D‘accord</string>
     <string name="cancel">Annuler</string>
 
     <!-- Horarium -->
     <string name="action_day_view_day">%d jour</string>
     <string name="action_day_view_days">%d jours</string>
+    <string name="dialog_outdated_horarium">Il n‘y a pas encore l‘horaire actuel. Celui de l‘année dernière est affiché.</string>
     <string name="dialog_outdated_horarium_title">Aucun horaire trouvé</string>
     <string name="dialog_do_not_show_again">Ne montrer pas à nouveau</string>
+    <string name="snackbar_horarium_not_found">Aucun horaire trouvé pour la langue sélectionée</string>
+    <string name="snackbar_previous_horarium">dernière</string>
 
     <!-- Maps -->
     <string name="explication_map_permission">Autorisation á accéder aux fichiers nécesseaire pour montrer la carte!</string>
@@ -31,12 +39,13 @@
     <string name="enrol_country_hint">Pays</string>
     <string name="enrol_phone_hint">Numéro de téléphone</string>
     <string name="enrol_mail_hint">Mail</string>
-    <string name="enrol_years_of_latin_back_sg">J\'apprends le latin depuis</string>
-    <string name="enrol_years_of_latin_back_pl">ans.</string>
-    <string name="enrol_eating_habit_front">an.</string>
-    <string name="enrol_eating_habit_vegan">Je mange</string>
-    <string name="enrol_eating_habit_vegetarian">végétarien</string>
-    <string name="enrol_eating_habit_glutenfree">végétalien</string>
+    <string name="enrol_years_of_latin_front">J\'apprends le latin depuis</string>
+    <string name="enrol_years_of_latin_back_sg">ans.</string>
+    <string name="enrol_years_of_latin_back_pl">an.</string>
+    <string name="enrol_eating_habit_front">Je mange</string>
+    <string name="enrol_eating_habit_vegan">végétarien</string>
+    <string name="enrol_eating_habit_vegetarian">végétalien</string>
+    <string name="enrol_eating_habit_glutenfree">sans gluten</string>
     <string name="enrol_eating_habit_everything">tout.</string>
     <string name="enrol_eating_habit_allergens">autres allergénes</string>
     <string name="enrol_instrument_front">Je vais apporter un</string>
@@ -47,13 +56,12 @@
     <string name="dialog_confirm_enrolment_title">inscription contraignante</string>
     <string name="dialog_confirm_enrolment">Par les présentes je confirme que j\'ai vérifier mes données et que je contraignantement registre pour la semain latin en envoyant la mail crée dans ce qui suit.</string>
 
-    <!-- Preference Titles -->
-
-    <!-- Messages Preferences -->
+    <!-- Settings -->
     <string name="settings_title_language">Langue</string>
     <string name="settings_use_latin">Utiliser latin</string>
+    <string name="settings_summary_use_latin_off">Application affichée dans la langue de l‘appareil</string>
+    <string name="settings_summary_use_latin_on">-</string>
     <string name="action_horarium_language">Horaire en %s</string>
-    <string name="snackbar_horarium_not_found">Aucun horaire trouvé</string>
 
     <!-- Language stuff-->
     <string name="language">-</string>

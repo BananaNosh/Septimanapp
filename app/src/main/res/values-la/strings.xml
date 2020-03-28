@@ -12,6 +12,11 @@
     <string name="menu_communicate">Communicare</string>
     <string name="menu_horarium">Horarium</string>
     <string name="menu_enrol">Nomen dare</string>
+
+    <!-- Impressum -->
+    <string name="menu_impressum">Vestigium</string>
+
+    <!-- General dialog -->
     <string name="ok">Licet</string>
     <string name="cancel">Non licet</string>
 
@@ -21,6 +26,8 @@
     <string name="dialog_outdated_horarium">Nondum exstat horarium huius anni. Cuius loco monstratur horarium anni proximi.</string>
     <string name="dialog_outdated_horarium_title">Non invenitur horarium hornum</string>
     <string name="dialog_do_not_show_again">Ne monstraveris iterum</string>
+    <string name="snackbar_horarium_not_found">Non invenitur horarium in lingua selecta</string>
+    <string name="snackbar_previous_horarium">proximum</string>
 
     <!-- Maps -->
     <string name="explication_map_permission">Licetne Septimanapp uti huius instrumenti memoria ad monstrandam tabulam geographicam?</string>
@@ -51,9 +58,7 @@
     <string name="enrol_instrument_back_2">(si fieri potest)</string>
     <string name="dialog_confirm_enrolment_title">Firme nomen do</string>
 
-    <!-- Preference Titles -->
-
-    <!-- Messages Preferences -->
+    <!-- Settings -->
     <string name="settings_title_language">Lingua</string>
     <string name="settings_use_latin">Uti lingua Latina</string>
     <string name="settings_summary_use_latin_off">App lingua instrumenti viditur</string>
@@ -67,6 +72,7 @@
     <string name="language_german">Theodisca</string>
     <string name="language_french">Francogallica</string>
     <string name="language_unknown">ignota</string>
+    <string name="dialog_choose_language">-</string>
 
     <!-- Notifications-->
     <string name="notification_enrol_title">Nomen dare Septimanae</string>

@@ -3,11 +3,17 @@
     <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
     <string name="navigation_drawer_close">Navigationsleiste schließen</string>
     <string name="nav_header_desc">Navigationskopfleiste</string>
+    <string name="settings">Settings</string>
     <string name="nav_drawer_count_down_pattern">%d T %d h %d min</string>
     <string name="nav_header_count_down_subtext">bis zur Lateinwoche</string>
     <string name="menu_map">Karte</string>
     <string name="menu_horarium">Programm</string>
     <string name="menu_enrol">Anmelden</string>
+
+    <!-- Impressum -->
+    <string name="menu_impressum">Impressum</string>
+
+    <!-- General dialog -->
     <string name="ok">OK</string>
     <string name="cancel">Abbrechen</string>
 
@@ -17,6 +23,8 @@
     <string name="dialog_outdated_horarium">Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.</string>
     <string name="dialog_outdated_horarium_title">Kein Programm gefunden</string>
     <string name="dialog_do_not_show_again">Nicht mehr anzeigen</string>
+    <string name="snackbar_horarium_not_found">Kein Programm für die ausgewählte Sprache gefunden</string>
+    <string name="snackbar_previous_horarium">vergangenen</string>
 
     <!-- Maps -->
     <string name="explication_map_permission">Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte</string>
@@ -42,20 +50,18 @@
     <string name="enrol_eating_habit_allergens">andere Allergene</string>
     <string name="enrol_instrument_front">Ich bringe ein(e/en)</string>
     <string name="enrol_instrument_hint">Musikinstrument</string>
-    <string name="enrol_instrument_back_1">mit. </string>
+    <string name="enrol_instrument_back_1">mit.</string>
     <string name="enrol_veggieday">Für mich ist es ok, wenn es nicht jeden Tag Fleisch gibt.</string>
     <string name="enrol_instrument_back_2">(falls möglich)</string>
     <string name="dialog_confirm_enrolment_title">Verbindlich Anmelden</string>
     <string name="dialog_confirm_enrolment">Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.</string>
 
-    <!-- Preference Titles -->
-
-    <!-- Messages Preferences -->
+    <!-- Settings -->
     <string name="settings_title_language">Sprache</string>
     <string name="settings_use_latin">Auf Latein</string>
     <string name="settings_summary_use_latin_off">App wird in der Gerätesprache angezeigt</string>
+    <string name="settings_summary_use_latin_on">-</string>
     <string name="action_horarium_language">Programm auf %s</string>
-    <string name="snackbar_horarium_not_found">Kein Programm für die ausgewählte Sprache gefunden</string>
 
     <!-- Language stuff-->
     <string name="dialog_choose_language">Soll die Septimanapp in Latein angezeigt werden oder auf Deutsch?</string>

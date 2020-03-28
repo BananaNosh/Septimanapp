@@ -3,20 +3,29 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="settings">Settings</string>
     <string name="nav_drawer_count_down_pattern">%d d %d h %d min</string>
     <string name="nav_header_count_down_subtext">till the Latin Week</string>
     <string name="menu_map">Map</string>
     <string name="menu_communicate">Communicate</string>
     <string name="menu_horarium">Timetable</string>
     <string name="menu_enrol">Enrol</string>
-    <string name="ok">Ok</string>
-    <string name="cancel">cancel</string>
+
+    <!-- Impressum -->
+    <string name="menu_impressum">Imprint</string>
+
+    <!-- General dialog -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Horarium -->
     <string name="action_day_view_day">%d day</string>
     <string name="action_day_view_days">%d days</string>
+    <string name="dialog_outdated_horarium">There is no current timetable. The one of the last latin week is shown.</string>
     <string name="dialog_outdated_horarium_title">No timetable found</string>
     <string name="dialog_do_not_show_again">Do not show again</string>
+    <string name="snackbar_horarium_not_found">No horarium found in the specified language</string>
+    <string name="snackbar_previous_horarium">past</string>
 
     <!-- Maps -->
     <string name="explication_map_permission">Map needs storage permission to cache the map!</string>
@@ -48,15 +57,12 @@
     <string name="dialog_confirm_enrolment_title">Enrol bindingly</string>
     <string name="dialog_confirm_enrolment">Hereby I confirm that I bindingly register for the latin week by sending the email created in the following and that I checked my data.</string>
 
-    <!-- Preference Titles -->
-
-    <!-- Messages Preferences -->
+    <!-- Settings -->
     <string name="settings_title_language">Language</string>
     <string name="settings_use_latin">Use Latin</string>
     <string name="settings_summary_use_latin_off">App displayed in default device language</string>
-    <string name="settings_summary_use_latin_on">App displayed in Latin</string>
+    <string name="settings_summary_use_latin_on">-</string>
     <string name="action_horarium_language">Show timetable in %s</string>
-    <string name="snackbar_horarium_not_found">No horarium found in the specified language</string>
 
     <!-- Language stuff-->
     <string name="language">-</string>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+
+    <item tools:ignore="MenuTitle">
+    </item>
+    <item android:title="@string/menu_impressum">
+        <menu>
+            <item app:actionLayout="@layout/view_impressum"
+                tools:ignore="MenuTitle" />
+        </menu>
+    </item>
+</menu>
