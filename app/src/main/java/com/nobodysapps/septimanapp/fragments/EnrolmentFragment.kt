@@ -135,7 +135,7 @@ class EnrolmentFragment : Fragment() {
                 allergens.remove(glutenStr)
             }
             enrolAllergensEdit.setText(allergens.joinToString { it })
-            enrolAllergensCB.isChecked = allergens.isNotEmpty()
+            enrolAllergensCB.isChecked = allergens.any { it.isNotEmpty() }
         }
     }
 
@@ -342,7 +342,11 @@ class EnrolmentFragment : Fragment() {
                 mail,
                 getString(if (stayInJohanneshaus) R.string.enrol_send_yes else R.string.enrol_send_no),
                 yearsOfLatin,
-                (eatingHabit ?: EatingHabit.create(false, false, Collections.emptyList())).information(context!!),
+                (eatingHabit ?: EatingHabit.create(
+                    isVegan = false,
+                    isVegetarian = false,
+                    allergens = Collections.emptyList()
+                )).information(context!!),
                 instrument,
                 getString(if (veggieDay) R.string.enrol_send_yes else R.string.enrol_send_no)
             )
