@@ -1,5 +1,6 @@
 package com.nobodysapps.septimanapp.localization
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.nobodysapps.septimanapp.R
 import java.text.DateFormatSymbols
@@ -53,6 +54,7 @@ fun localizedDisplayLanguage(context: Context?, locale: Locale): String {
     }
 }
 
+@SuppressLint("StringFormatInvalid")
 private fun displayLanguageInLatin(context: Context, locale: Locale): String {
     return context.getString(
         R.string.language, context.getString(

@@ -108,7 +108,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
             override fun interpretDate(date: Calendar): String {
                 val locale = Locale.getDefault()
                 val dateFormat = "EEEE"
-                return when (locale.displayLanguage) {
+                return when (locale.language) {
                     "la" -> SimpleDateFormat(dateFormat, dateFormatSymbolsForLatin())
                     else -> SimpleDateFormat(dateFormat, locale)
                 }.format(date.time)
