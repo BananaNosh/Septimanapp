@@ -142,12 +142,6 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             R.id.nav_horarium -> {
                 fragmentClass = HorariumFragment::class.java
             }
-            R.id.nav_share -> {
-                return false
-            }
-            R.id.nav_send -> {
-                return false
-            }
             R.id.nav_map -> {
                 fragmentClass = MapFragment::class.java
             }

@@ -10,4 +10,6 @@
     <dimen name="small_text_size">12sp</dimen>
     <dimen name="big_text_size">20sp</dimen>
     <dimen name="nav_header_countdown_sub_text_gap">10dp</dimen>
+    <dimen name="text_size_small">10sp</dimen>
+    <dimen name="navigation_drawer_item_text_padding">52dp</dimen>
 </resources>
