@@ -2,16 +2,13 @@ Features:
     Horarium
 
 Issues:
-       Latin language on some devices (apo 24)
-       back button does change fragment but not highlighting in menu
+       Latin language on some devices (apo 24) (only emulator problem?)
+       back button from settings does not go to last seen fragment
 
 
-
-       Countdown on Pixel2 -> check dimens in general for different screens
+       check dimens in general for different screens
 
 Other Todos:
     README -> think about process of adding new features etc.
     
 Comments:
-    
-    enrolment -> + frage ob jeden 2. tag vegetarisch
