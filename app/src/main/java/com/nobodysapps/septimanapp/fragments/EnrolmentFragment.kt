@@ -74,9 +74,8 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun fillSpinner() {
-        if (context != null) {
-            @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-            ArrayAdapter<String>(context, android.R.layout.simple_spinner_item).also { adapter ->
+        context?.let {
+            ArrayAdapter<String>(it, android.R.layout.simple_spinner_item).also { adapter ->
                 val locales: Array<Locale> = Locale.getAvailableLocales()
                 val localCountries = ArrayList<String>()
                 for (l in locales) {

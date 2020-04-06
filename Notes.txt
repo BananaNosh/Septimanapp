@@ -10,5 +10,7 @@ Issues:
 
 Other Todos:
     README -> think about process of adding new features etc.
-    
+
+    Open Source Licenses
+
 Comments:
