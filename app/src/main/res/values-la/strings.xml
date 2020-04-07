@@ -63,6 +63,10 @@
     <string name="settings_use_latin">Uti lingua Latina</string>
     <string name="settings_summary_use_latin_off">App lingua instrumenti viditur</string>
     <string name="settings_summary_use_latin_on">App lingua Latina viditur</string>
+    <string name="settings_title_others">Alia</string>
+    <string name="settings_open_source">Open Source Licentiae</string>
+    <string name="settings_summary_open_source">Monstrat licentias programmaton usorum</string>
+    <string name="dialog_licenses_title">Open Source Licentiae</string>
     <string name="action_horarium_language">Videatur horarium in %s</string>
 
     <!-- Language stuff-->

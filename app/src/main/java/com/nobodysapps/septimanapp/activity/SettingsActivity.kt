@@ -1,15 +1,16 @@
 package com.nobodysapps.septimanapp.activity
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.webkit.WebView
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.localization.LocaleHelper
-import java.util.*
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
 class SettingsActivity : SeptimanappActivity() {
@@ -58,6 +59,22 @@ class SettingsActivity : SeptimanappActivity() {
             super.onResume()
             // documentation requires that a reference to the listener is kept as long as it may be called, which is the case as it can only be called from this Fragment
             preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+            preferenceScreen.findPreference<Preference>(KEY_LICENSES)?.setOnPreferenceClickListener {
+                displayLicensesAlertDialog()
+                true
+            }
+        }
+
+        @SuppressLint("InflateParams")
+        private fun displayLicensesAlertDialog() {
+            val view =
+                layoutInflater.inflate(R.layout.dialog_licenses, null) as WebView
+            view.loadUrl("file:///android_asset/open_source_licenses.html")
+            AlertDialog.Builder(context)
+                .setTitle(getString(R.string.dialog_licenses_title))
+                .setView(view)
+                .setPositiveButton(R.string.ok, null)
+                .show()
         }
 
         override fun onPause() {
@@ -68,6 +85,7 @@ class SettingsActivity : SeptimanappActivity() {
         companion object {
             const val KEY_USE_LATIN = "use_latin"
             const val KEY_PREF_LANGUAGE = "language"
+            const val KEY_LICENSES = "licenses"
         }
     }
 }

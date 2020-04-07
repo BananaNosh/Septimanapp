@@ -62,6 +62,10 @@
     <string name="settings_use_latin">Use Latin</string>
     <string name="settings_summary_use_latin_off">App displayed in default device language</string>
     <string name="settings_summary_use_latin_on">-</string>
+    <string name="settings_title_others">Others</string>
+    <string name="settings_open_source">Open Source Licences</string>
+    <string name="settings_summary_open_source">Shows the licences of used software</string>
+    <string name="dialog_licenses_title">Open Source Licences</string>
     <string name="action_horarium_language">Show timetable in %s</string>
 
     <!-- Language stuff-->

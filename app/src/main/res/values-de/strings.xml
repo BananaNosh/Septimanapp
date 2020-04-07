@@ -61,9 +61,19 @@
     <string name="settings_use_latin">Auf Latein</string>
     <string name="settings_summary_use_latin_off">App wird in der Gerätesprache angezeigt</string>
     <string name="settings_summary_use_latin_on">-</string>
+    <string name="settings_title_others">Sonstiges</string>
+    <string name="settings_open_source">Open Source Lizenzen</string>
+    <string name="settings_summary_open_source">Zeigt die Lizensen benutzter Software</string>
+    <string name="dialog_licenses_title">Open Source Linzenzen</string>
     <string name="action_horarium_language">Programm auf %s</string>
 
     <!-- Language stuff-->
+    <string name="language">-</string>
+    <string name="language_latin">-</string>
+    <string name="language_english">-</string>
+    <string name="language_german">-</string>
+    <string name="language_french">-</string>
+    <string name="language_unknown">-</string>
     <string name="dialog_choose_language">Soll die Septimanapp in Latein angezeigt werden oder auf Deutsch?</string>
 
     <!-- Notifications-->
