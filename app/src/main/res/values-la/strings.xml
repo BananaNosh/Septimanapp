@@ -57,6 +57,7 @@
     <string name="enrol_veggieday">Mihi non est necesse comedere carnem cottidie.</string>
     <string name="enrol_instrument_back_2">(si fieri potest)</string>
     <string name="dialog_confirm_enrolment_title">Firme nomen do</string>
+    <string name="dialog_confirm_enrolment">Confirmo me epistulam, quae erit creata, mittendo nomen Septimanae Latinae firme dare et me data diligenter probavisse.</string>
 
     <!-- Settings -->
     <string name="settings_title_language">Lingua</string>
