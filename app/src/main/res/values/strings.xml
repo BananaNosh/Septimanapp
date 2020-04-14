@@ -59,8 +59,8 @@
     <string name="enrol_eating_habit_everything">alles.</string>
     <string name="enrol_eating_habit_allergens">andere Allergene</string>
     <string name="eating_habit_allergens" translatable="false">Allergene</string>
-    <string name="eating_habit_vegetarian" translatable="false">Vegetarier</string>
-    <string name="eating_habit_vegan" translatable="false">Veganer</string>
+    <string name="eating_habit_vegetarian" translatable="false">Vegetarier/in</string>
+    <string name="eating_habit_vegan" translatable="false">Veganer/in</string>
     <string name="eating_habit_gluten" translatable="false">Gluten</string>
     <string name="enrol_instrument_front">Ich bringe ein(e/en)</string>
     <string name="enrol_instrument_hint">Musikinstrument</string>
