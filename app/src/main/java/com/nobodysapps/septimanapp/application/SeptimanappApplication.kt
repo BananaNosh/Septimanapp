@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationManagerCompat
+import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.dependencyInjection.ContextModule
 import com.nobodysapps.septimanapp.dependencyInjection.DaggerSeptimanappApplicationComponent
@@ -43,7 +44,9 @@ class SeptimanappApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        TestFairy.begin(this, "SDK-wiO2TKkT")
+        if (BuildConfig.DEBUG) {
+            TestFairy.begin(this, "SDK-wiO2TKkT")
+        }
 
         val sharedPreferencesModule = SharedPreferencesModule()
         val contextModule = ContextModule(applicationContext)
@@ -88,12 +91,6 @@ class SeptimanappApplication : Application() {
                     add(Calendar.DAY_OF_MONTH, -reminderTime.second)
                     add(Calendar.MONTH, -reminderTime.first)
                 }
-                Log.d(
-                    TAG,
-                    "reminderdate ${SimpleDateFormat("dd.MM HH:mm", Locale.GERMAN).format(
-                        reminderDate.time
-                    )}"
-                )
                 if (reminderDate.after(today) || i == reminderTimes.size - 1) { // if in past only send one reminder
                     alarmScheduler.scheduleAlarm(
                         reminderDate, notificationHelper.pendingIntentForEnrolReminder()
