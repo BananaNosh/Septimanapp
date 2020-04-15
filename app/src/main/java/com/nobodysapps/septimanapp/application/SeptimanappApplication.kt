@@ -10,6 +10,7 @@ import com.nobodysapps.septimanapp.dependencyInjection.ContextModule
 import com.nobodysapps.septimanapp.dependencyInjection.DaggerSeptimanappApplicationComponent
 import com.nobodysapps.septimanapp.dependencyInjection.SeptimanappApplicationComponent
 import com.nobodysapps.septimanapp.dependencyInjection.SharedPreferencesModule
+import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import com.nobodysapps.septimanapp.model.storage.LocationStorage
 import com.nobodysapps.septimanapp.model.storage.TimeStorage
@@ -61,7 +62,18 @@ class SeptimanappApplication : Application() {
 
         setupReminder()
 
-        // TODO reset Enrol state after septimana
+        resetAfterSeptimana()
+    }
+
+    private fun resetAfterSeptimana() {
+        val endTime = timeStorage.loadSeptimanaStartEndTime()?.second
+        val today = Calendar.getInstance()
+        if (today.after(endTime)) {
+            sharedPreferences.edit().putInt(
+                EnrolmentFragment.ENROLLED_STATE_KEY,
+                EnrolmentFragment.ENROLLED_STATE_REMIND
+            ).apply()
+        }
     }
 
     private fun setupReminder() {
@@ -105,7 +117,7 @@ class SeptimanappApplication : Application() {
         Log.d(TAG, "First run")
         loadHoraria()
         loadLocations()
-        loadSeptimanaStartEndTime()
+        storeSeptimanaStartEndTime()
     }
 
     private fun loadHoraria() {
@@ -145,7 +157,7 @@ class SeptimanappApplication : Application() {
         }
     }
 
-    private fun loadSeptimanaStartEndTime() {
+    private fun storeSeptimanaStartEndTime() {
         val startTime = Calendar.getInstance()
         startTime.set(2020, 6, 25, 16, 30)
         val endTime = startTime.clone() as Calendar
