@@ -17,6 +17,7 @@ import com.nobodysapps.septimanapp.model.storage.TimeStorage
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
 import com.testfairy.TestFairy
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -87,6 +88,12 @@ class SeptimanappApplication : Application() {
                     add(Calendar.DAY_OF_MONTH, -reminderTime.second)
                     add(Calendar.MONTH, -reminderTime.first)
                 }
+                Log.d(
+                    TAG,
+                    "reminderdate ${SimpleDateFormat("dd.MM HH:mm", Locale.GERMAN).format(
+                        reminderDate.time
+                    )}"
+                )
                 if (reminderDate.after(today) || i == reminderTimes.size - 1) { // if in past only send one reminder
                     alarmScheduler.scheduleAlarm(
                         reminderDate, notificationHelper.pendingIntentForEnrolReminder()
