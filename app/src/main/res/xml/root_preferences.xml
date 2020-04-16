@@ -1,0 +1,18 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/settings_title_language">
+        <SwitchPreferenceCompat
+                app:key="use_latin"
+                app:title="@string/settings_use_latin"
+                app:summaryOff="@string/settings_summary_use_latin_off"
+                app:summaryOn="@string/settings_summary_use_latin_on"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/settings_title_others">
+        <Preference
+            app:key="licenses"
+            app:title="@string/settings_open_source"
+            app:summary="@string/settings_summary_open_source"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

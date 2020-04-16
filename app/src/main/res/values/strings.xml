@@ -1,16 +1,112 @@
-<resources>
-    <string name="app_name">Septiman&#8203;app</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">Septiman\u200bapp</string>
+    <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
+    <string name="navigation_drawer_close">Navigationsleiste schließen</string>
+<!--    <string name="nav_header_title">Android Studio</string>-->
+    <string name="nav_header_subtitle" translatable="false">github.com/BananaNosh/Septimanapp</string>
+    <string name="nav_header_desc">Navigationskopfleiste</string>
+    <string name="settings">Settings</string>
+    <string name="nav_drawer_count_down_pattern">%d T %d h %d min</string>
+    <string name="nav_header_count_down_subtext">bis zur Lateinwoche</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="menu_map">Karte</string>
+    <string name="menu_communicate">Communicate</string>
+    <string name="menu_horarium">Programm</string>
+    <string name="menu_enrol">Anmelden</string>
+
+    <!-- Impressum -->
+    <string name="menu_impressum">Impressum</string>
+    <string name="impressum_name" translatable="false">Jonathan Loos</string>
+    <string name="impressum_address" translatable="false">Mefferdatisstraße 8\n52062 Aachen</string>
+    <string name="impressum_mail" translatable="false">loos.jonathan.martin@gmail.com</string>
+
+    <!-- General dialog -->
+    <string name="ok">OK</string>
+    <string name="cancel">Abbrechen</string>
+
+    <!-- Horarium -->
+    <string name="action_day_view_day">%d Tag</string>
+    <string name="action_day_view_days">%d Tage</string>
+    <string name="dialog_outdated_horarium">Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.</string>
+    <string name="dialog_outdated_horarium_title">Kein Programm gefunden</string>
+    <string name="dialog_do_not_show_again">Nicht mehr anzeigen</string>
+    <string name="snackbar_horarium_not_found">Kein Programm für die ausgewählte Sprache gefunden</string>
+    <string name="snackbar_previous_horarium">vergangenen</string>
+
+    <!-- Maps -->
+    <string name="explication_map_permission">Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte</string>
+
+    <!-- Enrol -->
+    <string name="enrol_last_name_hint">Nachname</string>
+    <string name="enrol_first_name_hint">Vorname</string>
+    <string name="enrol_checkbox_johannes_haus">Ich möchte im Johanneshaus wohnen.</string>
+    <string name="enrol_street_hint">Straße u. Hausnummer</string>
+    <string name="enrol_postal_code_hint">Postleitzahl</string>
+    <string name="enrol_city_hint">Wohnort</string>
+    <string name="enrol_country_hint">Land</string>
+    <string name="enrol_phone_hint">Telephonnummer</string>
+    <string name="enrol_mail_hint">Email</string>
+    <string name="enrol_years_of_latin_hint" translatable="false">0</string>
+    <string name="enrol_years_of_latin_front">Ich habe</string>
+    <string name="enrol_years_of_latin_back_sg">Jahr Latein gelernt.</string>
+    <string name="enrol_years_of_latin_back_pl">Jahre Latein gelernt.</string>
+    <string name="enrol_eating_habit_front">Ich esse</string>
+    <string name="enrol_eating_habit_vegan">vegan</string>
+    <string name="enrol_eating_habit_vegetarian">vegetarisch</string>
+    <string name="enrol_eating_habit_glutenfree">glutenfrei</string>
+    <string name="enrol_eating_habit_everything">alles.</string>
+    <string name="enrol_eating_habit_allergens">andere Allergene</string>
+    <string name="eating_habit_allergens" translatable="false">Allergene</string>
+    <string name="eating_habit_vegetarian" translatable="false">Vegetarier/in</string>
+    <string name="eating_habit_vegan" translatable="false">Veganer/in</string>
+    <string name="eating_habit_gluten" translatable="false">Gluten</string>
+    <string name="enrol_instrument_front">Ich bringe ein(e/en)</string>
+    <string name="enrol_instrument_hint">Musikinstrument</string>
+    <string name="enrol_instrument_back_1">mit. </string>
+    <string name="enrol_veggieday" tools:ignore="Typos">Für mich ist es ok, wenn es nicht jeden Tag Fleisch gibt.</string>
+    <string name="enrol_instrument_back_2">(falls möglich)</string>
+    <string name="dialog_confirm_enrolment_title">Verbindlich Anmelden</string>
+    <string name="dialog_confirm_enrolment">Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.</string>
+    <string name="enrol_send_email_address" translatable="false">thomas@septimanalatina.org</string>
+    <string name="enrol_send_email_subject" translatable="false">Anmeldung Lateinwoche %s - %s, %s</string>
+    <string name="enrol_send_email_template" translatable="false">%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm Johanneshaus wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s</string>
+    <string name="enrol_send_yes" translatable="false">Ja</string>
+    <string name="enrol_send_no" translatable="false">Nein</string>
+
+    <!-- Settings -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+    <string name="settings_title_language">Sprache</string>
+    <string name="settings_use_latin">Auf Latein</string>
+    <string name="settings_summary_use_latin_off">App wird in der Gerätesprache angezeigt</string>
+    <string name="settings_summary_use_latin_on">App displayed in Latin</string> % should never be shown
+    <string name="settings_title_others">Sonstiges</string>
+    <string name="settings_open_source">Open Source Lizenzen</string>
+    <string name="settings_summary_open_source">Zeigt die Lizenzen benutzter Software</string>
+    <string name="dialog_licenses_title">Open Source Lizenzen</string>
+    <string name="action_horarium_language">Show timetable in %s</string>
+
+    <!-- Language stuff-->
+    <string name="language" tools:ignore="ExtraTranslation,MissingTranslation">language %s</string>
+    <string name="language_latin" tools:ignore="ExtraTranslation,MissingTranslation">-</string>
+    <string name="language_english" tools:ignore="ExtraTranslation,MissingTranslation">-</string>
+    <string name="language_german" tools:ignore="ExtraTranslation,MissingTranslation">-</string>
+    <string name="language_french" tools:ignore="ExtraTranslation,MissingTranslation">-</string>
+    <string name="language_unknown" tools:ignore="ExtraTranslation,MissingTranslation">-</string>
+    <string name="dialog_choose_language">Should Septimanapp be displayed in Latin or German?%s</string>
+
+    <!-- Notifications-->
+    <string name="action_notify_enrol_reminder" translatable="false">com.nobodysapps.septimanapp.action.ENROL_REMINDER</string>
+    <string name="action_notify_continue_enrol_reminder" translatable="false">com.nobodysapps.septimanapp.action.CONTINUE_ENROL_REMINDER</string>
+    <string name="action_mark_already_enrolled" translatable="false">com.nobodysapps.septimanapp.action.ALREADY_ENROLLED</string>
+    <string name="action_remind_later" translatable="false">com.nobodysapps.septimanapp.action.REMIND_LATER</string>
+    <string name="action_do_not_ask_again" translatable="false">com.nobodysapps.septimanapp.action.NOT_ASK_AGAIN</string>
+    <string name="notification_enrol_title">Anmeldung zur Lateinwoche</string>
+    <string name="notification_enrol_text">Hast du dich schon für die Lateinwoche angemeldet?</string>
+    <string name="notification_action_title_do_not_ask_again">Nicht erneut fragen</string>
+    <string name="notification_action_title_already_enrolled">Schon passiert</string>
+    <string name="notification_action_title_remind_later">Später</string>
+    <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
 </resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="RtlSymmetry"
+    android:background="@color/light_grey"
+    android:paddingLeft="18dp"
+    android:paddingStart="18dp"
+    android:paddingTop="7dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_impressum"
+        android:textStyle="bold"
+        android:textSize="12sp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/navigation_drawer_item_text_padding"
+        android:paddingStart="@dimen/navigation_drawer_item_text_padding">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/impressum_name"
+            android:textSize="@dimen/text_size_small"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/impressum_address"
+            android:textSize="@dimen/text_size_small"
+            android:layout_marginTop="3dp"
+            tools:ignore="SmallSp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/impressum_mail"
+            android:textSize="@dimen/text_size_small"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="10dp"
+            tools:ignore="SmallSp" />
+    </LinearLayout>
+
+</LinearLayout>
