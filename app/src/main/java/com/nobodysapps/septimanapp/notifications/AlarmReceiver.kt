@@ -6,23 +6,24 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
 import com.nobodysapps.septimanapp.R
-import com.nobodysapps.septimanapp.application.SeptimanappApplication
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
+import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 /**
  * Called on alarm, creates and shows the notification
  */
-class AlarmReceiver : BroadcastReceiver() {
+class AlarmReceiver: BroadcastReceiver() {
 
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var notificationHelper: NotificationHelper
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
+    @Inject
+    lateinit var notificationHelper: NotificationHelper
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        AndroidInjection.inject(this, context)
         Log.d(TAG, "onReceive() called with: context = [$context], intent = [$intent]")
         if (context != null && intent != null && intent.action != null) {
-            val septimanappApplication = context.applicationContext as SeptimanappApplication
-            notificationHelper = septimanappApplication.notificationHelper  // TODO inject
-            sharedPreferences = septimanappApplication.sharedPreferences // TODO inject
             val enrolState = sharedPreferences.getInt(
                 EnrolmentFragment.ENROLLED_STATE_KEY,
                 EnrolmentFragment.ENROLLED_STATE_REMIND

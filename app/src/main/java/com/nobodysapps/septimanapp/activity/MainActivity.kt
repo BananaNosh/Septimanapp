@@ -17,6 +17,7 @@ import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
 import com.nobodysapps.septimanapp.model.storage.TimeStorage
 import com.nobodysapps.septimanapp.view.CountDownView
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
@@ -26,8 +27,6 @@ import javax.inject.Inject
 
 class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-//    @Inject
-//    lateinit var notificationHelper: NotificationHelper
     @Inject
     lateinit var timeStorage: TimeStorage
 
@@ -36,7 +35,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        getSeptimanappApplication().component.inject(this)
+        AndroidInjection.inject(this)
 
         if (savedInstanceState == null) {
             replaceFragment(HorariumFragment::class.java)

@@ -9,7 +9,6 @@ import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.dependencyInjection.ContextModule
 import com.nobodysapps.septimanapp.dependencyInjection.DaggerSeptimanappApplicationComponent
-import com.nobodysapps.septimanapp.dependencyInjection.SeptimanappApplicationComponent
 import com.nobodysapps.septimanapp.dependencyInjection.SharedPreferencesModule
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
@@ -18,15 +17,18 @@ import com.nobodysapps.septimanapp.model.storage.TimeStorage
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
 import com.testfairy.TestFairy
-import java.text.SimpleDateFormat
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import java.util.*
 import javax.inject.Inject
 
 const val VERSION_ALREADY_RUN_ON = "run_version"
 val ALLOWED_HORARIUM_LOCALES = listOf("la", "de")
 
-class SeptimanappApplication : Application() {
-    lateinit var component: SeptimanappApplicationComponent
+class SeptimanappApplication : Application(), HasAndroidInjector {
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -50,12 +52,10 @@ class SeptimanappApplication : Application() {
 
         val sharedPreferencesModule = SharedPreferencesModule()
         val contextModule = ContextModule(applicationContext)
-        component = DaggerSeptimanappApplicationComponent.builder()
+        DaggerSeptimanappApplicationComponent.builder()
             .contextModule(contextModule)
             .sharedPreferencesModule(sharedPreferencesModule)
-            .build()
-
-        component.inject(this)
+            .build().inject(this)
 
         checkForFirstStart()
 
@@ -67,6 +67,10 @@ class SeptimanappApplication : Application() {
         setupReminder()
 
         resetAfterSeptimana()
+    }
+
+    override fun androidInjector(): AndroidInjector<Any> {
+        return dispatchingAndroidInjector
     }
 
     private fun resetAfterSeptimana() {
