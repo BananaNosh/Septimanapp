@@ -12,6 +12,7 @@ import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.PermissionListener
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
 import com.nobodysapps.septimanapp.model.storage.LocationStorage
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_map.*
 import org.osmdroid.config.Configuration
 import org.osmdroid.util.GeoPoint
@@ -78,10 +79,7 @@ class MapFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context !is SeptimanappActivity) {
-            throw RuntimeException("$context must inherit from SeptimanappActivity")
-        }
-        context.getSeptimanappApplication().component.inject(this)
+        AndroidSupportInjection.inject(this)
     }
 
     override fun onResume() {

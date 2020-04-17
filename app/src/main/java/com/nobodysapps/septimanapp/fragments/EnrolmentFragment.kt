@@ -17,7 +17,6 @@ import android.widget.CompoundButton
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import com.nobodysapps.septimanapp.R
-import com.nobodysapps.septimanapp.activity.SeptimanappActivity
 import com.nobodysapps.septimanapp.dialog.ConfirmEnrolmentDialogFragment
 import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
 import com.nobodysapps.septimanapp.model.EatingHabit
@@ -28,6 +27,7 @@ import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage
 import com.nobodysapps.septimanapp.model.storage.TimeStorage
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_enrolment.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -74,8 +74,8 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun fillSpinner() {
-        context?.let {
-            ArrayAdapter<String>(it, android.R.layout.simple_spinner_item).also { adapter ->
+        context?.let { context ->
+            ArrayAdapter<String>(context, android.R.layout.simple_spinner_item).also { adapter ->
                 val locales: Array<Locale> = Locale.getAvailableLocales()
                 val localCountries = ArrayList<String>()
                 for (l in locales) {
@@ -128,7 +128,7 @@ class EnrolmentFragment : Fragment() {
                 enrolVegetarianCB.isChecked = true
             }
             val allergens = eatingHabit.allergens.toMutableList()
-            val glutenStr = context!!.getString(R.string.eating_habit_gluten)
+            val glutenStr = requireContext().getString(R.string.eating_habit_gluten)
             if (glutenStr in allergens) {
                 enrolGlutenfreeCB.isChecked = true
                 allergens.remove(glutenStr)
@@ -254,7 +254,7 @@ class EnrolmentFragment : Fragment() {
             }
             val allergens = ArrayList<String>()
             if (enrolGlutenfreeCB.isChecked && context != null) {
-                allergens.add(context!!.getString(R.string.eating_habit_gluten))
+                allergens.add(requireContext().getString(R.string.eating_habit_gluten))
             }
             if (enrolAllergensCB.isChecked) {
                 allergens.addAll(enrolAllergensEdit.text.split(" "))
@@ -289,14 +289,11 @@ class EnrolmentFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context !is SeptimanappActivity) {
-            throw RuntimeException("$context must inherit from SeptimanappActivity")
-        }
-        context.getSeptimanappApplication().component.inject(this)
+        AndroidSupportInjection.inject(this)
     }
 
     private fun showConfirmDialog() {
-        fragmentManager?.let {
+        activity?.supportFragmentManager?.let {
             val confirmDialog = ConfirmEnrolmentDialogFragment()
             confirmDialog.listener = object : MessageAndCheckboxDialogFragment.Listener {
                 override fun onOkClicked(isChecked: Boolean) {
@@ -345,7 +342,7 @@ class EnrolmentFragment : Fragment() {
                     isVegan = false,
                     isVegetarian = false,
                     allergens = Collections.emptyList()
-                )).information(context!!),
+                )).information(requireContext()),
                 instrument,
                 getString(if (veggieDay) R.string.enrol_send_yes else R.string.enrol_send_no)
             )

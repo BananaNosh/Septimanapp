@@ -9,12 +9,12 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
-import com.nobodysapps.septimanapp.activity.SeptimanappActivity
 import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
 import com.nobodysapps.septimanapp.dialog.OutdatedHorariumDialogFragment
 import com.nobodysapps.septimanapp.localization.localizedDisplayLanguage
 import com.nobodysapps.septimanapp.model.Horarium
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_horarium.*
 import java.util.*
 import javax.inject.Inject
@@ -92,7 +92,7 @@ class HorariumFragment : Fragment() {
                         }
                     }
                     dialog.setTargetFragment(this, 0)
-                    fragmentManager?.let { manager ->
+                    activity?.supportFragmentManager?.let { manager ->
                         val dialogTag = "NoHorarium"
                         val prevDialog = manager.findFragmentByTag(dialogTag)
                         if (prevDialog != null && (prevDialog as OutdatedHorariumDialogFragment).showsDialog) {
@@ -185,7 +185,7 @@ class HorariumFragment : Fragment() {
 
     private fun onNoHorariumForSelectedLanguage() {
         snackbar = Snackbar.make(
-            view!!,
+            requireView(),
             R.string.snackbar_horarium_not_found,
             Snackbar.LENGTH_LONG
         )
@@ -194,10 +194,7 @@ class HorariumFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context !is SeptimanappActivity) {
-            throw RuntimeException("$context must inherit from SeptimanappActivity")
-        }
-        context.getSeptimanappApplication().component.inject(this)
+        AndroidSupportInjection.inject(this)
     }
 
     override fun onPause() {
