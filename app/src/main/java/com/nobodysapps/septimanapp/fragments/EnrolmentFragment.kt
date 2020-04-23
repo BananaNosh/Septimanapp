@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.dialog.ConfirmEnrolmentDialogFragment
 import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
+import com.nobodysapps.septimanapp.localization.simpleDateFormat
 import com.nobodysapps.septimanapp.model.EatingHabit
 import com.nobodysapps.septimanapp.model.Vegan
 import com.nobodysapps.septimanapp.model.Vegetarian
@@ -70,7 +71,21 @@ class EnrolmentFragment : Fragment() {
 
         fillSpinner()
         setupListeners()
+        setupDates()
         loadForm()
+    }
+
+    private fun setupDates() {
+        timeStorage.loadSeptimanaStartEndTime()?.let {
+            val (startDate, endDate) = it
+            val format = "EEE dd MMM yyyy"
+            enrolStartDate.text = getString(
+                R.string.enrol_start_date,
+                simpleDateFormat(format, startDate))
+            enrolEndDate.text = getString(
+                R.string.enrol_end_date,
+                simpleDateFormat(format, endDate))
+        }
     }
 
     private fun fillSpinner() {

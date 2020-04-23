@@ -39,6 +39,8 @@
     <string name="explication_map_permission">Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte</string>
 
     <!-- Enrol -->
+    <string name="enrol_start_date">Start: %s</string>
+    <string name="enrol_end_date">Ende: %s</string>
     <string name="enrol_last_name_hint">Nachname</string>
     <string name="enrol_first_name_hint">Vorname</string>
     <string name="enrol_checkbox_johannes_haus">Ich möchte im Johanneshaus wohnen.</string>
