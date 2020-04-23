@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.nobodysapps.septimanapp.R
 import java.text.DateFormatSymbols
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -34,6 +35,14 @@ fun dateFormatSymbolsForLatin(alternativeWeekDays: Boolean = false): DateFormatS
     latinDFS.shortWeekdays = shortDays
     // TODO add months (days)
     return latinDFS
+}
+
+fun simpleDateFormat(dateFormat: String, date: Calendar): String {
+    val locale = Locale.getDefault()
+    return when (locale.language) {
+        "la" -> SimpleDateFormat(dateFormat, dateFormatSymbolsForLatin())
+        else -> SimpleDateFormat(dateFormat, locale)
+    }.format(date.time)
 }
 
 /**

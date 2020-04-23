@@ -11,6 +11,7 @@ import com.alamkanak.weekview.WeekView
 import com.alamkanak.weekview.WeekViewEvent
 import com.alamkanak.weekview.WeekViewLoader
 import com.nobodysapps.septimanapp.localization.dateFormatSymbolsForLatin
+import com.nobodysapps.septimanapp.localization.simpleDateFormat
 import com.nobodysapps.septimanapp.model.Horarium
 import java.text.SimpleDateFormat
 import java.util.*
@@ -106,12 +107,7 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         dateTimeInterpreter = object : DateTimeInterpreter {
             @SuppressLint("SimpleDateFormat")
             override fun interpretDate(date: Calendar): String {
-                val locale = Locale.getDefault()
-                val dateFormat = "EEEE"
-                return when (locale.language) {
-                    "la" -> SimpleDateFormat(dateFormat, dateFormatSymbolsForLatin())
-                    else -> SimpleDateFormat(dateFormat, locale)
-                }.format(date.time)
+                return simpleDateFormat("EEEE", date)
             }
 
             override fun interpretTime(hour: Int, minutes: Int): String {
