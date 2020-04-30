@@ -8,6 +8,7 @@
     <dimen name="small_gap">10dp</dimen>
     <dimen name="small_margin_text">5dp</dimen>
     <dimen name="small_text_size">12sp</dimen>
+    <dimen name="medium_text_size">16sp</dimen>
     <dimen name="big_text_size">20sp</dimen>
     <dimen name="nav_header_countdown_sub_text_gap">10dp</dimen>
     <dimen name="text_size_small">10sp</dimen>

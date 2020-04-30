@@ -14,17 +14,30 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/enrolStartDate"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:text="@string/enrol_start_date" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
 
-            <TextView
-                android:id="@+id/enrolEndDate"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:text="@string/enrol_end_date" />
+                <TextView
+                    android:id="@+id/enrolStartDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/medium_text_size"
+                    android:text="@string/enrol_start_date"
+                    tools:text="Start: Sat 27 Jul 2020" />
+
+                <TextView
+                    android:id="@+id/enrolEndDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="@dimen/medium_text_size"
+                    android:text="@string/enrol_end_date"
+                    tools:text="Ende: Sun 1 Aug 2020"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/enrolNameEdit"
