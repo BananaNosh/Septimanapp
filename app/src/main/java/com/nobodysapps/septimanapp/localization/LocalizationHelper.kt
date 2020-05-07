@@ -33,7 +33,36 @@ fun dateFormatSymbolsForLatin(alternativeWeekDays: Boolean = false): DateFormatS
     }.toTypedArray()
     latinDFS.weekdays = days
     latinDFS.shortWeekdays = shortDays
-    // TODO add months (days)
+    val months = arrayOf(
+        "Ianuarius",
+        "Februarius",
+        "Martius",
+        "Aprilis",
+        "Maius",
+        "Iunius",
+        "Iulius",
+        "Augustus",
+        "September",
+        "October",
+        "November",
+        "December"
+    )
+    val shortMonths = arrayOf(
+        "Ian.",
+        "Feb.",
+        "Mart.",
+        "Apr.",
+        "Mai.",
+        "Iun.",
+        "Iul.",
+        "Aug.",
+        "Sep.",
+        "Oct.",
+        "Nov.",
+        "Dec."
+    )
+    latinDFS.months = months
+    latinDFS.shortMonths = shortMonths
     return latinDFS
 }
 
