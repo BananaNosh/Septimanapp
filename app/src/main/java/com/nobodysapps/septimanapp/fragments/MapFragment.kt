@@ -78,8 +78,8 @@ class MapFragment : Fragment() {
     }
 
     override fun onAttach(context: Context) {
-        super.onAttach(context)
         AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     override fun onResume() {
