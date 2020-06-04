@@ -25,6 +25,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -50,4 +55,5 @@ dependencies {
     implementation 'com.google.dagger:dagger-android-support:2.26'
     implementation 'com.google.android:flexbox:2.0.0'
     implementation 'testfairy:testfairy-android-sdk:1.9.30@aar'
+    testImplementation 'org.robolectric:robolectric:4.3'
 }
