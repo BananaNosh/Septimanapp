@@ -3,8 +3,8 @@ package com.nobodysapps.septimanapp.dialog
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.preference.PreferenceManager
 import androidx.fragment.app.DialogFragment
+import androidx.preference.PreferenceManager
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.SettingsActivity
 import com.nobodysapps.septimanapp.localization.LocaleHelper

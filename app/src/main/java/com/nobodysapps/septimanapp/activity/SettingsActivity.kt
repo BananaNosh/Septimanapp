@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.webkit.WebView
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -46,7 +45,7 @@ class SettingsActivity : SeptimanappActivity() {
                 }
                 KEY_PREF_LANGUAGE -> {
                     LocaleHelper.setLocale(
-                        context!!,
+                        requireContext(),
                         PreferenceManager.getDefaultSharedPreferences(context).getString(key, "")
                             ?: ""
                     )

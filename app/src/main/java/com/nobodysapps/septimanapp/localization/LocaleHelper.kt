@@ -36,24 +36,23 @@ object LocaleHelper {
     @Suppress("DEPRECATION")
     fun setLocale(context: Context, localeSpec: String): Context {
         val locale: Locale = if (localeSpec == "system") {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Resources.getSystem().configuration.locales.get(0)
             } else {
-
                 Resources.getSystem().configuration.locale
             }
         } else {
             Locale(localeSpec)
         }
         Locale.setDefault(locale)
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             updateResources(context, locale)
         } else {
             updateResourcesLegacy(context, locale)
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.N)
+    @TargetApi(Build.VERSION_CODES.O)  // from api 26
     private fun updateResources(context: Context, locale: Locale): Context {
         val configuration = context.resources.configuration
         configuration.setLocale(locale)
