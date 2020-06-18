@@ -26,11 +26,11 @@ class EventInfoStorage @Inject constructor(private val prefs: SharedPreferences)
     }
 
     fun saveSeptimanaLocation(location: SeptimanaLocation) {
-        prefs.edit().putInt(LOCATION_KEY, location.id).apply()
+        prefs.edit().putString(LOCATION_KEY, location.key).apply()
     }
 
     fun loadSeptimanaLocation(): SeptimanaLocation {
-        return SeptimanaLocation.fromId(prefs.getInt(LOCATION_KEY, 0))
+        return SeptimanaLocation.fromKey(prefs.getString(LOCATION_KEY, null) ?: SeptimanaLocation.AMOENEBURG.key)
     }
 
     companion object {
@@ -40,16 +40,24 @@ class EventInfoStorage @Inject constructor(private val prefs: SharedPreferences)
     }
 }
 
-enum class SeptimanaLocation(val id: Int) {
-    AMOENEBURG(0),
-    BRAUNFELS(1);
+enum class SeptimanaLocation(val key: String) {
+    AMOENEBURG("amoeneburg"),
+    BRAUNFELS("braunfels");
 
     companion object {
-        fun fromId(id: Int): SeptimanaLocation {
-            for (location in values()) {
-                if (location.id == id) return location
+        fun fromKey(key: String): SeptimanaLocation {
+            val location = fromKeyOrNull(key)
+            location?.let {
+                return it
             }
             throw IllegalArgumentException("No such id")
+        }
+
+        fun fromKeyOrNull(key: String): SeptimanaLocation? {
+            for (location in values()) {
+                if (location.key == key) return location
+            }
+            return null
         }
     }
 }

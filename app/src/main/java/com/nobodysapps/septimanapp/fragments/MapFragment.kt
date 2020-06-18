@@ -11,6 +11,7 @@ import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.PermissionListener
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
+import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.model.storage.LocationStorage
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_map.*
@@ -31,6 +32,9 @@ class MapFragment : Fragment() {
     @Inject
     lateinit var locationStorage: LocationStorage
 
+    @Inject
+    lateinit var eventInfoStorage: EventInfoStorage
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -50,7 +54,7 @@ class MapFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val mapController = mapView.controller
         mapController.setZoom(18.0)
-        mapController.animateTo(GeoPoint(50.79700, 8.92270))
+        mapController.animateTo(GeoPoint(50.79700, 8.92270)) //TODO from septimanaLocation
         mapView.setMultiTouchControls(true)
 
         //Attribution
@@ -63,8 +67,7 @@ class MapFragment : Fragment() {
     }
 
     private fun addLocationOverlays() {
-        //your items
-        val locations = locationStorage.loadLocations("amoeneburg")
+        val locations = locationStorage.loadLocations(eventInfoStorage.loadSeptimanaLocation())
         val markers = locations?.map {
             Marker(mapView).apply {
                 position = it.coordinates

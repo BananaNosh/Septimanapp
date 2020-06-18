@@ -160,7 +160,10 @@ class SeptimanappApplication : Application(), HasAndroidInjector {
                 Log.d(TAG, "overallLocation is $overallLocation")
                 assets.open(it).bufferedReader().use { reader ->
                     val locationJson = reader.readText()
-                    locationStorage.saveLocations(locationJson, overallLocation)
+                    val septimanaLocation = SeptimanaLocation.fromKeyOrNull(overallLocation)
+                    septimanaLocation?.let {
+                        locationStorage.saveLocations(locationJson, septimanaLocation)
+                    }
                 }
             }
         }
