@@ -13,7 +13,6 @@ import javax.inject.Inject
 
 
 class JsonConverterTest {
-    //    @Inject lateinit
     val jsonConverter: JsonConverter = JsonConverter()
 
     private val events: List<WeekViewEvent> = listOf(
@@ -50,7 +49,7 @@ class JsonConverterTest {
 
         val location = Location("loc_1", mapOf(Pair("de", "titel")), GeoPoint(0.5, 0.3), mapOf(Pair("de", "beschr")))
         json = jsonConverter.toJson(location)
-        val loadedLocation = jsonConverter.fromJson(json, Location::class.java)
+        val loadedLocation = jsonConverter.fromJson<Location>(json, Location::class.java)
         assertEquals(location, loadedLocation)
     }
 }

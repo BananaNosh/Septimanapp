@@ -18,8 +18,8 @@ class EnrolInformationStorage @Inject constructor(
         prefs.edit().putString(NAME_KEY, name).apply()
     }
 
-    fun saveFirstame(firstname: String) {
-        prefs.edit().putString(FIRSTNAME_KEY, firstname).apply()
+    fun saveFirstName(firstName: String) {
+        prefs.edit().putString(FIRSTNAME_KEY, firstName).apply()
     }
 
     fun saveStreet(street: String) {

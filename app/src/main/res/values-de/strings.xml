@@ -33,6 +33,7 @@
     <string name="enrol_last_name_hint">Nachname</string>
     <string name="enrol_first_name_hint">Vorname</string>
     <string name="enrol_checkbox_johannes_haus">Ich möchte im Johanneshaus wohnen.</string>
+    <string name="enrol_checkbox_hoehenblick">Ich möchte im Haus Höhenblick wohnen.</string>
     <string name="enrol_street_hint">Straße u. Hausnummer</string>
     <string name="enrol_postal_code_hint">Postleitzahl</string>
     <string name="enrol_city_hint">Wohnort</string>

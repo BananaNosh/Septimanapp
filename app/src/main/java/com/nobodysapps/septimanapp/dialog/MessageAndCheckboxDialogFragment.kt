@@ -23,14 +23,12 @@ open class MessageAndCheckboxDialogFragment: DialogFragment() {
             checkBox = dialogView.findViewById(R.id.dialogCB)
             textView = dialogView.findViewById(R.id.dialogTV)
             builder
-                .setTitle(getString(R.string.dialog_outdated_horarium_title))
                 .setView(dialogView)
                 .setPositiveButton(
                     R.string.ok
                 ) { _, _ ->
                     listener?.onOkClicked(checkBox?.isChecked ?: false)
                 }
-            // Create the AlertDialog object and return inotShowAgaint
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }

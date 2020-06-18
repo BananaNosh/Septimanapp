@@ -24,7 +24,8 @@ import com.nobodysapps.septimanapp.model.Vegan
 import com.nobodysapps.septimanapp.model.Vegetarian
 import com.nobodysapps.septimanapp.model.create
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage
-import com.nobodysapps.septimanapp.model.storage.TimeStorage
+import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
+import com.nobodysapps.septimanapp.model.storage.SeptimanaLocation
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
 import dagger.android.support.AndroidSupportInjection
@@ -43,14 +44,18 @@ import kotlin.collections.ArrayList
 class EnrolmentFragment : Fragment() {
     @Inject
     lateinit var informationStorage: EnrolInformationStorage
+
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+
     @Inject
     lateinit var notificationHelper: NotificationHelper
+
     @Inject
     lateinit var alarmScheduler: AlarmScheduler
+
     @Inject
-    lateinit var timeStorage: TimeStorage
+    lateinit var eventInfoStorage: EventInfoStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +73,12 @@ class EnrolmentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        enrolJohanneshausCB.setText(
+            when (eventInfoStorage.loadSeptimanaLocation()) {
+                SeptimanaLocation.AMOENEBURG -> R.string.enrol_checkbox_johannes_haus
+                SeptimanaLocation.BRAUNFELS -> R.string.enrol_checkbox_hoehenblick
+            }
+        )
         fillSpinner()
         setupListeners()
         loadForm()
@@ -81,7 +92,10 @@ class EnrolmentFragment : Fragment() {
                 for (l in locales) {
                     localCountries.add(l.displayCountry)
                 }
-                adapter.addAll(localCountries.distinct().filter { it.isNotEmpty() && !it.isDigitsOnly() }.sorted())
+                adapter.addAll(
+                    localCountries.distinct().filter { it.isNotEmpty() && !it.isDigitsOnly() }
+                        .sorted()
+                )
                 // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 // Apply the adapter to the spinner
@@ -106,7 +120,10 @@ class EnrolmentFragment : Fragment() {
         enrolVeggiedayCB.isChecked = veggieDay
 
         if (yearsOfLatin > 0) {
-            enrolYearsLatinEdit.setText(if (yearsOfLatin.toInt().toFloat() == yearsOfLatin) yearsOfLatin.toInt().toString() else yearsOfLatin.toString())
+            enrolYearsLatinEdit.setText(
+                if (yearsOfLatin.toInt().toFloat() == yearsOfLatin) yearsOfLatin.toInt()
+                    .toString() else yearsOfLatin.toString()
+            )
         }
 
         @Suppress("UNCHECKED_CAST") val adapter =
@@ -313,7 +330,7 @@ class EnrolmentFragment : Fragment() {
 
         emailIntent.putExtra(Intent.EXTRA_EMAIL, aEmailList)
 
-        val year = timeStorage.loadSeptimanaStartEndTime()?.first?.let {
+        val year = eventInfoStorage.loadSeptimanaStartEndTime()?.first?.let {
             SimpleDateFormat(
                 "yyyy",
                 Locale.GERMAN
@@ -393,7 +410,7 @@ class EnrolmentFragment : Fragment() {
             val inputText = s.toString()
             when (fieldKey) {
                 FIELD_NAME -> informationStorage.saveName(inputText)
-                FIELD_FIRSTNAME -> informationStorage.saveFirstame(inputText)
+                FIELD_FIRSTNAME -> informationStorage.saveFirstName(inputText)
                 FIELD_STREET_ADDRESS -> informationStorage.saveStreet(inputText)
                 FIELD_POSTAL -> informationStorage.savePostal(inputText)
                 FIELD_CITY -> informationStorage.saveCity(inputText)

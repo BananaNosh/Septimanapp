@@ -13,7 +13,8 @@ import com.nobodysapps.septimanapp.dependencyInjection.SharedPreferencesModule
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import com.nobodysapps.septimanapp.model.storage.LocationStorage
-import com.nobodysapps.septimanapp.model.storage.TimeStorage
+import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
+import com.nobodysapps.septimanapp.model.storage.SeptimanaLocation
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
 import com.testfairy.TestFairy
@@ -41,7 +42,7 @@ class SeptimanappApplication : Application(), HasAndroidInjector {
     @Inject
     lateinit var locationStorage: LocationStorage
     @Inject
-    lateinit var timeStorage: TimeStorage
+    lateinit var eventInfoStorage: EventInfoStorage
 
     override fun onCreate() {
         super.onCreate()
@@ -74,7 +75,7 @@ class SeptimanappApplication : Application(), HasAndroidInjector {
     }
 
     private fun resetAfterSeptimana() {
-        val endTime = timeStorage.loadSeptimanaStartEndTime()?.second
+        val endTime = eventInfoStorage.loadSeptimanaStartEndTime()?.second
         val today = Calendar.getInstance()
         if (today.after(endTime)) {
             sharedPreferences.edit().putInt(
@@ -87,7 +88,7 @@ class SeptimanappApplication : Application(), HasAndroidInjector {
     private fun setupReminder() {
         val today =
             Calendar.getInstance().apply { set(Calendar.HOUR_OF_DAY, 0); set(Calendar.MINUTE, 0) }
-        val septimanaStartTime = timeStorage.loadSeptimanaStartEndTime()?.first
+        val septimanaStartTime = eventInfoStorage.loadSeptimanaStartEndTime()?.first
         septimanaStartTime?.let { startTime ->
             val reminderTimes = NotificationHelper.ENROL_REMINDER_TIMES
             reminderTimes.forEachIndexed { i, reminderTime ->
@@ -125,7 +126,7 @@ class SeptimanappApplication : Application(), HasAndroidInjector {
         Log.d(TAG, "First run")
         loadHoraria()
         loadLocations()
-        storeSeptimanaStartEndTime()
+        storeEventInfo()
     }
 
     private fun loadHoraria() {
@@ -165,12 +166,13 @@ class SeptimanappApplication : Application(), HasAndroidInjector {
         }
     }
 
-    private fun storeSeptimanaStartEndTime() {
+    private fun storeEventInfo() {
         val startTime = Calendar.getInstance()
         startTime.set(2020, 6, 25, 16, 30)
         val endTime = startTime.clone() as Calendar
         endTime.set(2020, 7, 1, 14, 0)
-        timeStorage.saveSeptimanaStartEndTime(startTime, endTime)
+        eventInfoStorage.saveSeptimanaStartEndTime(startTime, endTime)
+        eventInfoStorage.saveSeptimanaLocation(SeptimanaLocation.BRAUNFELS)
     }
 
     companion object {

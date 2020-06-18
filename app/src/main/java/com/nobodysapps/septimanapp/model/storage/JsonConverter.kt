@@ -8,11 +8,7 @@ import javax.inject.Singleton
 
 @Singleton
 class JsonConverter @Inject constructor() {
-    private val gson: Gson = GsonBuilder() //                .registerTypeAdapterFactory(RuntimeAdapterFactories.gameControllerFactory())
-//                .registerTypeAdapterFactory(RuntimeAdapterFactories.actionFactory())
-//                .registerTypeAdapterFactory(HanabiTypeAdapterFactory.create())
-//                .enableComplexMapKeySerialization()
-        .create()
+    private val gson: Gson = Gson()
 
     fun <T> toJson(obj: T): String {
         return gson.toJson(obj)

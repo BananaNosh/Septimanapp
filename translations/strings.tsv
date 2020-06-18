@@ -13,18 +13,18 @@ menu_map	Karte	Carte	Karte	Tabula geographica	Map
 menu_communicate	Communicate			Communicare	Communicate	
 menu_horarium	Programm	Horaire	Programm	Horarium	Timetable	
 menu_enrol	Anmelden	S‘inscrire	Anmelden	Nomen dare	Enrol	
-
-%% Impressum %%
+						
+%% Impressum %%						
 menu_impressum	Impressum	Empreinte	Impressum	Vestigium	Imprint	
 impressum_name	Jonathan Loos	not-translatable	not-translatable	not-translatable	not-translatable	
 impressum_address	Mefferdatisstraße 8\n52062 Aachen	not-translatable	not-translatable	not-translatable	not-translatable	
 impressum_mail	loos.jonathan.martin@gmail.com	not-translatable	not-translatable	not-translatable	not-translatable	
-
-%% General dialog %%
+						
+%% General dialog %%						
 ok	OK	D‘accord	OK	Licet	OK	
 cancel	Abbrechen	Annuler	Abbrechen	Non licet	Cancel	
-
-%% Horarium %%
+						
+%% Horarium %%						
 action_day_view_day	%d Tag	%d jour	%d Tag	%d dies	%d day	
 action_day_view_days	%d Tage	%d jours	%d Tage	%d dies	%d days	
 dialog_outdated_horarium	Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.	Il n‘y a pas encore l‘horaire actuel. Celui de l‘année dernière est affiché.	Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.	Nondum exstat horarium huius anni. Cuius loco monstratur horarium anni proximi.	There is no current timetable. The one of the last latin week is shown.	
@@ -32,14 +32,15 @@ dialog_outdated_horarium_title	Kein Programm gefunden	Aucun horaire trouvé	Kein
 dialog_do_not_show_again	Nicht mehr anzeigen	Ne montrer pas à nouveau	Nicht mehr anzeigen	Ne monstraveris iterum	Do not show again	
 snackbar_horarium_not_found	Kein Programm für die ausgewählte Sprache gefunden	Aucun horaire trouvé pour la langue sélectionée	Kein Programm für die ausgewählte Sprache gefunden	Non invenitur horarium in lingua selecta	No horarium found in the specified language	
 snackbar_previous_horarium	vergangenen	dernière	vergangenen	proximum	past	
-
-%% Maps %%
+						
+%% Maps %%						
 explication_map_permission	Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte	Autorisation á accéder aux fichiers nécesseaire pour montrer la carte!	Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte	Licetne Septimanapp uti huius instrumenti memoria ad monstrandam tabulam geographicam?	Map needs storage permission to cache the map!	
-
-%% Enrol %%
+						
+%% Enrol %%						
 enrol_last_name_hint	Nachname	Nom de famille	Nachname	Cognomen	Surname	
 enrol_first_name_hint	Vorname	Prénom	Vorname	Praenomen	First name	
 enrol_checkbox_johannes_haus	Ich möchte im Johanneshaus wohnen.	Je veux loger à Johanneshaus.	Ich möchte im Johanneshaus wohnen.	Velim in Johanneshaus deversari.	I want to stay in the Johanneshaus.	
+enrol_checkbox_hoehenblick	Ich möchte im Haus Höhenblick wohnen.	Je veux loger à maison Höhenblick.	Ich möchte im Haus Höhenblick wohnen.	Velim in domo Höhenblick deversari.	I want to stay in the house Höhenblick.	
 enrol_street_hint	Straße u. Hausnummer	Adresse de rue	Straße u. Hausnummer	Inscriptio cursualis: Via et numerus domicilii	Street address	
 enrol_postal_code_hint	Postleitzahl	Code postale	Postleitzahl	Numerus cursualis (PLZ)	Postal code	
 enrol_city_hint	Wohnort	Ville	Wohnort	Oppidum, in quo habito	City	
@@ -72,8 +73,8 @@ enrol_send_email_subject	Anmeldung Lateinwoche %s - %s, %s	not-translatable	not-
 enrol_send_email_template	%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm Johanneshaus wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_yes	Ja	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_no	Nein	not-translatable	not-translatable	not-translatable	not-translatable	
-
-%% Settings %%
+						
+%% Settings %%						
 signature_title	Your signature					
 reply_title	Default reply action					
 settings_title_language	Sprache	Langue	Sprache	Lingua	Language	
@@ -85,8 +86,8 @@ settings_open_source	Open Source Lizenzen	Open Source Licences	Open Source Lizen
 settings_summary_open_source	Zeigt die Lizenzen benutzter Software	Montre les licences des logiciels utilisés	Zeigt die Lizensen benutzter Software	Monstrat licentias programmaton usorum	Shows the licences of used software	
 dialog_licenses_title	Open Source Lizenzen	Open Source Licences	Open Source Linzenzen	Open Source Licentiae	Open Source Licences	
 action_horarium_language	Show timetable in %s	Horaire en %s	Programm auf %s	Videatur horarium in %s	Show timetable in %s	
-
-%% Language stuff%%
+						
+%% Language stuff%%						
 language	language %s	-	-	lingua %s	-	tools:ignore=ExtraTranslation,MissingTranslation
 language_latin	-	-	-	Latina	-	tools:ignore=ExtraTranslation,MissingTranslation
 language_english	-	-	-	Anglica	-	tools:ignore=ExtraTranslation,MissingTranslation
@@ -94,8 +95,8 @@ language_german	-	-	-	Theodisca	-	tools:ignore=ExtraTranslation,MissingTranslati
 language_french	-	-	-	Francogallica	-	tools:ignore=ExtraTranslation,MissingTranslation
 language_unknown	-	-	-	ignota	-	tools:ignore=ExtraTranslation,MissingTranslation
 dialog_choose_language	Should Septimanapp be displayed in Latin or German?%s	Est-ce que vous voulez regarder Septimanapp en latin ou français?	Soll die Septimanapp in Latein angezeigt werden oder auf Deutsch?	-	Should Septimanapp be displayed in Latin or English?	
-
-%% Notifications%%
+						
+%% Notifications%%						
 action_notify_enrol_reminder	com.nobodysapps.septimanapp.action.ENROL_REMINDER	not-translatable	not-translatable	not-translatable	not-translatable	
 action_notify_continue_enrol_reminder	com.nobodysapps.septimanapp.action.CONTINUE_ENROL_REMINDER	not-translatable	not-translatable	not-translatable	not-translatable	
 action_mark_already_enrolled	com.nobodysapps.septimanapp.action.ALREADY_ENROLLED	not-translatable	not-translatable	not-translatable	not-translatable	

@@ -15,7 +15,7 @@ import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
-import com.nobodysapps.septimanapp.model.storage.TimeStorage
+import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.view.CountDownView
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
@@ -28,7 +28,7 @@ import javax.inject.Inject
 class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     @Inject
-    lateinit var timeStorage: TimeStorage
+    lateinit var eventInfoStorage: EventInfoStorage
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +66,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 if (!countDownTV.started) {
-                    val (septimanaStartTime, _) = timeStorage.loadSeptimanaStartEndTime() ?: Pair(
+                    val (septimanaStartTime, _) = eventInfoStorage.loadSeptimanaStartEndTime() ?: Pair(
                         null, null)
                     if (septimanaStartTime == null || septimanaStartTime.before(Calendar.getInstance())) {
                         countDownTV.visibility = View.GONE

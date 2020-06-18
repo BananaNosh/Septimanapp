@@ -1,10 +1,11 @@
 package com.nobodysapps.septimanapp.model.storage
 
 import android.content.SharedPreferences
+import java.lang.IllegalArgumentException
 import java.util.*
 import javax.inject.Inject
 
-class TimeStorage @Inject constructor(private val prefs: SharedPreferences) {
+class EventInfoStorage @Inject constructor(private val prefs: SharedPreferences) {
     fun saveSeptimanaStartEndTime(start: Calendar, end: Calendar) {
         prefs.edit()
             .putLong(START_TIME_SEPTIMANA_KEY, start.timeInMillis)
@@ -24,8 +25,31 @@ class TimeStorage @Inject constructor(private val prefs: SharedPreferences) {
         return Pair(start, end)
     }
 
+    fun saveSeptimanaLocation(location: SeptimanaLocation) {
+        prefs.edit().putInt(LOCATION_KEY, location.id).apply()
+    }
+
+    fun loadSeptimanaLocation(): SeptimanaLocation {
+        return SeptimanaLocation.fromId(prefs.getInt(LOCATION_KEY, 0))
+    }
+
     companion object {
         private const val START_TIME_SEPTIMANA_KEY = "time_septimana_start"
         private const val END_TIME_SEPTIMANA_KEY = "time_septimana_end"
+        private const val LOCATION_KEY = "septimana_location"
+    }
+}
+
+enum class SeptimanaLocation(val id: Int) {
+    AMOENEBURG(0),
+    BRAUNFELS(1);
+
+    companion object {
+        fun fromId(id: Int): SeptimanaLocation {
+            for (location in values()) {
+                if (location.id == id) return location
+            }
+            throw IllegalArgumentException("No such id")
+        }
     }
 }
