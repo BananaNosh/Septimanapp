@@ -12,7 +12,8 @@
         "mAltitude": 0.0
       },
       "descriptionMap": {
-      }
+      },
+      "isMain": true
     },
     {
       "id": "busstation_ritterstraße",

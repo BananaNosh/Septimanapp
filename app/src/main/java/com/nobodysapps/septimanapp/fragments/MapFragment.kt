@@ -53,8 +53,7 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapController = mapView.controller
-        mapController.setZoom(18.0)
-        mapController.animateTo(GeoPoint(50.79700, 8.92270)) //TODO from septimanaLocation
+        mapController.setZoom(17.0)
         mapView.setMultiTouchControls(true)
 
         //Attribution
@@ -68,6 +67,10 @@ class MapFragment : Fragment() {
 
     private fun addLocationOverlays() {
         val locations = locationStorage.loadLocations(eventInfoStorage.loadSeptimanaLocation())
+        val mainLocation = locations?.firstOrNull { it.isMain }
+        mainLocation?.let {
+            mapView.controller.animateTo(it.coordinates)
+        }
         val markers = locations?.map {
             Marker(mapView).apply {
                 position = it.coordinates

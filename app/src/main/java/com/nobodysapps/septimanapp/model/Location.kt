@@ -7,7 +7,8 @@ data class Location(
     val id: String,
     private val titleMap: Map<String, String>,
     val coordinates: GeoPoint,
-    private val descriptionMap: Map<String, String>
+    private val descriptionMap: Map<String, String>,
+    val isMain: Boolean = false
 ) {
     val title: String
         get() = titleMap[Locale.getDefault().language] ?: titleMap.values.firstOrNull() ?: ""
