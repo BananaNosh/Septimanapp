@@ -37,6 +37,7 @@
 
     <!-- Maps -->
     <string name="explication_map_permission">Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte</string>
+    <string name="snackbar_to_septimana">Bring mich zur Septimana!</string>
 
     <!-- Enrol -->
     <string name="enrol_last_name_hint">Nachname</string>

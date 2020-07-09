@@ -3,6 +3,7 @@ package com.nobodysapps.septimanapp.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -10,25 +11,30 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
-import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.view.CountDownView
+import com.nobodysapps.septimanapp.viewModel.MainViewModel
+import com.nobodysapps.septimanapp.viewModel.ViewModelFactory
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import java.util.*
 import javax.inject.Inject
 
 
 class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelectedListener {
-
     @Inject
-    lateinit var eventInfoStorage: EventInfoStorage
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +42,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         setSupportActionBar(toolbar)
 
         AndroidInjection.inject(this)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
         if (savedInstanceState == null) {
             replaceFragment(HorariumFragment::class.java)
@@ -66,15 +73,14 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 if (!countDownTV.started) {
-                    val (septimanaStartTime, _) = eventInfoStorage.loadSeptimanaStartEndTime() ?: Pair(
-                        null, null)
-                    if (septimanaStartTime == null || septimanaStartTime.before(Calendar.getInstance())) {
+                    val septimanaStartTime = viewModel.septimanaStartTime
+                    if (septimanaStartTime == null) {
                         countDownTV.visibility = View.GONE
                         countDownSubTV.visibility = View.GONE
                     } else {
                         countDownTV.visibility = View.VISIBLE
                         countDownSubTV.visibility = View.VISIBLE
-                        countDownTV.setEndTime(septimanaStartTime, object: CountDownView.Listener{
+                        countDownTV.setEndTime(septimanaStartTime, object : CountDownView.Listener {
                             override fun onFinished() {
                                 countDownTV.visibility = View.GONE
                                 countDownSubTV.visibility = View.GONE
@@ -95,22 +101,6 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         })
     }
 
-    override fun onBackPressed() {
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        when {
-            drawerLayout.isDrawerOpen(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)
-            supportFragmentManager.backStackEntryCount > 0 -> {
-                val prevFragment =
-                    supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount - 1)
-                prevFragment.name?.let {
-                    nav_view.setCheckedItem(it.toInt())
-                }
-                supportFragmentManager.popBackStack()
-            }
-            else -> super.onBackPressed()
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
@@ -128,7 +118,6 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
 
         return super.onOptionsItemSelected(item)
     }
-
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         if (item.isChecked) {
@@ -151,6 +140,51 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         if (fragmentClass == null || !goToFragment(fragmentClass)) return false
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.shouldShowRouteHint) {
+            showRouteToLocationSnackbar()
+        }
+    }
+
+    private fun showRouteToLocationSnackbar() {
+        Handler().postDelayed(
+            {
+                val snackbar = Snackbar.make(
+                    main_layout,
+                    getString(R.string.snackbar_to_septimana),
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                snackbar
+                    .setAction(R.string.ok) {
+                        val gmmIntentUri = viewModel.septimanaLocationUri
+                        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                        mapIntent.resolveActivity(packageManager)?.let {
+                            startActivity(mapIntent)
+                        }
+                    }.show()
+            },
+            SNACKBAR_ROUTE_DELAY
+        )
+    }
+
+
+    override fun onBackPressed() {
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        when {
+            drawerLayout.isDrawerOpen(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)
+            supportFragmentManager.backStackEntryCount > 0 -> {
+                val prevFragment =
+                    supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount - 1)
+                prevFragment.name?.let {
+                    nav_view.setCheckedItem(it.toInt())
+                }
+                supportFragmentManager.popBackStack()
+            }
+            else -> super.onBackPressed()
+        }
     }
 
     private fun replaceFragment(fragmentToGo: Class<*>) {
@@ -182,5 +216,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         const val TAG = "MainActivity"
 
         const val FRAGMENT_TO_LOAD_KEY = "fragmentToLoad"
+
+        const val SNACKBAR_ROUTE_DELAY: Long = 1000
     }
 }

@@ -11,8 +11,11 @@ data class Location(
     val isMain: Boolean = false
 ) {
     val title: String
-        get() = titleMap[Locale.getDefault().language] ?: titleMap.values.firstOrNull() ?: ""
+        get() = titleForLocale(Locale.getDefault())
+
+    fun titleForLocale(locale: Locale): String = titleMap[locale.language] ?: titleMap.values.firstOrNull() ?: ""
 
     val description: String
-        get() = descriptionMap[Locale.getDefault().language] ?: descriptionMap.values.firstOrNull() ?: ""
+        get() = descriptionMap[Locale.getDefault().language] ?: descriptionMap.values.firstOrNull()
+        ?: ""
 }

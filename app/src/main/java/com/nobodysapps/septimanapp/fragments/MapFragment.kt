@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.PermissionListener
@@ -34,6 +35,11 @@ class MapFragment : Fragment() {
 
     @Inject
     lateinit var eventInfoStorage: EventInfoStorage
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        AndroidSupportInjection.inject(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,11 +87,6 @@ class MapFragment : Fragment() {
         markers?.forEach {
             mapView.overlays.add(it)
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        AndroidSupportInjection.inject(this)
     }
 
     override fun onResume() {

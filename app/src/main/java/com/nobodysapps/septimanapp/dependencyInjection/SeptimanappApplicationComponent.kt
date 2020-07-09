@@ -7,6 +7,7 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [AndroidInjectionModule::class,
+    ViewModelModule::class,
     MainActivityModule::class,
     HorariumFragmentModule::class,
     EnrolFragmentModule::class,
