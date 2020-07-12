@@ -28,6 +28,7 @@
 
     <!-- Maps -->
     <string name="explication_map_permission">Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte</string>
+    <string name="snackbar_to_septimana">Bring mich zur Septimana!</string>
 
     <!-- Enrol -->
     <string name="enrol_last_name_hint">Nachname</string>
@@ -84,5 +85,4 @@
     <string name="notification_action_title_already_enrolled">Schon passiert</string>
     <string name="notification_action_title_remind_later">Später</string>
     <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
-    <string name="snackbar_to_septimana">Bring mich zur Septimana!</string>
 </resources>

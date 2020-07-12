@@ -29,6 +29,7 @@
 
     <!-- Maps -->
     <string name="explication_map_permission">Map needs storage permission to cache the map!</string>
+    <string name="snackbar_to_septimana">Take me to the Septimana!</string>
 
     <!-- Enrol -->
     <string name="enrol_last_name_hint">Surname</string>

@@ -35,6 +35,7 @@ snackbar_previous_horarium	vergangenen	dernière	vergangenen	proximum	past
 						
 %% Maps %%						
 explication_map_permission	Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte	Autorisation á accéder aux fichiers nécesseaire pour montrer la carte!	Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte	Licetne Septimanapp uti huius instrumenti memoria ad monstrandam tabulam geographicam?	Map needs storage permission to cache the map!	
+snackbar_to_septimana	Bring mich zur Septimana!	Emmène-moi à la Septimana!	Bring mich zur Septimana!	Adducas me ad Septimanam!	Take me to the Septimana!	
 						
 %% Enrol %%						
 enrol_last_name_hint	Nachname	Nom de famille	Nachname	Cognomen	Surname	

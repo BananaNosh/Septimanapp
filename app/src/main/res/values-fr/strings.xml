@@ -28,6 +28,7 @@
 
     <!-- Maps -->
     <string name="explication_map_permission">Autorisation á accéder aux fichiers nécesseaire pour montrer la carte!</string>
+    <string name="snackbar_to_septimana">Emmène-moi à la Septimana!</string>
 
     <!-- Enrol -->
     <string name="enrol_last_name_hint">Nom de famille</string>

@@ -31,6 +31,7 @@
 
     <!-- Maps -->
     <string name="explication_map_permission">Licetne Septimanapp uti huius instrumenti memoria ad monstrandam tabulam geographicam?</string>
+    <string name="snackbar_to_septimana">Adducas me ad Septimanam!</string>
 
     <!-- Enrol -->
     <string name="enrol_last_name_hint">Cognomen</string>
