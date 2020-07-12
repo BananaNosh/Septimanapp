@@ -85,8 +85,7 @@ if __name__ == '__main__':
     start_date = datetime.date(*reversed(date))
 
     locale = args.language
-
-    time_pattern = re.compile(r"(?:h[.:][ \t]*(\d{1,2}):(\d{2})(-(\d{1,2}):(\d{2}))?\W*\n)"
+    time_pattern = re.compile(r"(?:h[.:][ \t]*(\d{1,2}):(\d{2})[ ]*(-[ ]*(\d{1,2}):(\d{2}))?\W*\n)"
                               r"|(?:[ \t]*(\d{1,2}):(\d{2})(-(\d{1,2}):(\d{2}))? [Uu]hr\W*\n)")
     for i, column in enumerate(text_table):
         date = start_date + datetime.timedelta(i)
