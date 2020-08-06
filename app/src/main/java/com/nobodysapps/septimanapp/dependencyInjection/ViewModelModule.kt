@@ -1,9 +1,12 @@
 package com.nobodysapps.septimanapp.dependencyInjection
 
 import android.app.Application
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
+import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import com.nobodysapps.septimanapp.model.storage.LocationStorage
+import com.nobodysapps.septimanapp.viewModel.HorariumViewModel
 import com.nobodysapps.septimanapp.viewModel.MainViewModel
 import com.nobodysapps.septimanapp.viewModel.ViewModelFactory
 import dagger.MapKey
@@ -30,5 +33,12 @@ class ViewModelModule {
     @ViewModelKey(MainViewModel::class)
     fun provideMainViewModel(eventInfoStorage: EventInfoStorage, locationStorage: LocationStorage): ViewModel {
         return MainViewModel(eventInfoStorage, locationStorage)
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(HorariumViewModel::class)
+    fun provideHorariumViewModel(horariumStorage: HorariumStorage, sharedPreferences: SharedPreferences): ViewModel {
+        return HorariumViewModel(horariumStorage, sharedPreferences)
     }
 }

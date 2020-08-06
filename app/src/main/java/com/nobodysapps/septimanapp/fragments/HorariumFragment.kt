@@ -7,16 +7,15 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
+import androidx.lifecycle.ViewModelProvider
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
 import com.nobodysapps.septimanapp.dialog.OutdatedHorariumDialogFragment
 import com.nobodysapps.septimanapp.localization.localizedDisplayLanguage
-import com.nobodysapps.septimanapp.model.Horarium
-import com.nobodysapps.septimanapp.model.storage.HorariumStorage
+import com.nobodysapps.septimanapp.viewModel.HorariumViewModel
+import com.nobodysapps.septimanapp.viewModel.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_horarium.*
-import java.util.*
 import javax.inject.Inject
 
 
@@ -26,23 +25,28 @@ import javax.inject.Inject
  * create an instance of this fragment.
  */
 class HorariumFragment : Fragment() {
+
     @Inject
-    lateinit var horariumStorage: HorariumStorage
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private lateinit var viewModel: HorariumViewModel
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
-    private var horariumInLatin: Boolean = Locale.getDefault().language != "de"
-
     private var actionDayViewId = -1
     private var actionToggleHorariumLanguageId = -1
 
-    private var snackbar: Snackbar? = null
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        AndroidSupportInjection.inject(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(HorariumViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -62,33 +66,25 @@ class HorariumFragment : Fragment() {
     private fun setupHorariumView(landscape: Boolean) {
         // Get a reference for the week view in the layout.
         horariumView.changeOrientation(landscape)
-        val horarium = loadHorariumInCorrectLanguage()
-        if (horarium != null) {
-            horariumView.setHorarium(horarium)
-        } else {
-            onNoHorariumFound()
-        }
-    }
-
-    private fun loadHorariumInCorrectLanguage(year: Int? = null): Horarium? {
-        val horariumLanguage = if (horariumInLatin) "la" else "de"
-        val currentYear = year ?: Calendar.getInstance().get(Calendar.YEAR)
-        return horariumStorage.loadHorarium(currentYear, horariumLanguage)
+        viewModel.horarium.observe(viewLifecycleOwner, androidx.lifecycle.Observer { horarium ->
+            if (horarium != null) {
+                horariumView.setHorarium(horarium)
+            } else {
+                onNoHorariumFound()
+            }
+        })
     }
 
     @SuppressLint("WrongConstant")
     private fun onNoHorariumFound() {
         view?.let {
-            val previousHorarium = loadPreviousHorarium()
-            previousHorarium?.let {
-                horariumView.setHorarium(it)
-                val shouldShowWarning = sharedPreferences.getBoolean(SHOW_AGAIN_KEY, true)
-                if (shouldShowWarning) {
+            if (viewModel.hasPreviousHorarium()) {
+                viewModel.usePreviousHorarium()
+                if (viewModel.shouldShowWarning) {
                     val dialog = OutdatedHorariumDialogFragment()
                     dialog.listener = object : MessageAndCheckboxDialogFragment.Listener {
                         override fun onOkClicked(isChecked: Boolean) {
-                            sharedPreferences.edit().putBoolean(SHOW_AGAIN_KEY, !isChecked)
-                                .apply()
+                            viewModel.shouldShowWarning = !isChecked
                         }
                     }
                     dialog.setTargetFragment(this, 0)
@@ -103,11 +99,6 @@ class HorariumFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun loadPreviousHorarium(): Horarium? {
-        val previousYear = Calendar.getInstance().get(Calendar.YEAR) - 1
-        return loadHorariumInCorrectLanguage(previousYear)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -129,7 +120,7 @@ class HorariumFragment : Fragment() {
     private fun getToggleHorariumLanguageActionTitle(): String {
         return getString(
             R.string.action_horarium_language,
-            localizedDisplayLanguage(context, if (horariumInLatin) Locale.GERMAN else Locale("la"))
+            localizedDisplayLanguage(context, viewModel.toggledHorariumLocale())
         )
     }
 
@@ -165,46 +156,11 @@ class HorariumFragment : Fragment() {
                 item.setIcon(getToggleDayViewActionIconResFromView())
             }
             actionToggleHorariumLanguageId -> {
-                horariumInLatin = !horariumInLatin
-                val horarium = loadHorariumInCorrectLanguage()
-                if (horarium != null) {
-                    horariumView.setHorarium(horarium)
-                } else {  // change back as horarium could not be loaded in other language
-                    val previousHorarium = loadPreviousHorarium()
-                    if (previousHorarium == null) {
-                        onNoHorariumForSelectedLanguage()
-                    } else {
-                        onNoHorariumFound()
-                    }
-                }
+                viewModel.toggleHorariumLanguage()
                 item.title = getToggleHorariumLanguageActionTitle()
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun onNoHorariumForSelectedLanguage() {
-        snackbar = Snackbar.make(
-            requireView(),
-            R.string.snackbar_horarium_not_found,
-            Snackbar.LENGTH_LONG
-        )
-        snackbar?.show()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        AndroidSupportInjection.inject(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        snackbar?.dismiss()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        snackbar?.show()
     }
 
     companion object {
