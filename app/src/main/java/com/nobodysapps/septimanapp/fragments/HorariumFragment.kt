@@ -165,8 +165,6 @@ class HorariumFragment : Fragment() {
 
     companion object {
 
-        const val SHOW_AGAIN_KEY = "show_again"
-
         /**
          * Use this factory method to create a new instance of
          * this fragment.

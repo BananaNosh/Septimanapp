@@ -10,11 +10,7 @@ import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.dependencyInjection.ContextModule
 import com.nobodysapps.septimanapp.dependencyInjection.DaggerSeptimanappApplicationComponent
 import com.nobodysapps.septimanapp.dependencyInjection.SharedPreferencesModule
-import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
-import com.nobodysapps.septimanapp.model.storage.HorariumStorage
-import com.nobodysapps.septimanapp.model.storage.LocationStorage
-import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
-import com.nobodysapps.septimanapp.model.storage.SeptimanaLocation
+import com.nobodysapps.septimanapp.model.storage.*
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
 import com.testfairy.TestFairy
@@ -43,6 +39,8 @@ class SeptimanappApplication : Application(), HasAndroidInjector {
     lateinit var locationStorage: LocationStorage
     @Inject
     lateinit var eventInfoStorage: EventInfoStorage
+    @Inject
+    lateinit var storageManager: StorageManager
 
     override fun onCreate() {
         super.onCreate()
@@ -65,9 +63,8 @@ class SeptimanappApplication : Application(), HasAndroidInjector {
             getString(R.string.app_name), "App notification channel."
         )
 
-        setupReminder()
-
         resetAfterSeptimana()
+        setupReminder()
     }
 
     override fun androidInjector(): AndroidInjector<Any> {
@@ -75,14 +72,7 @@ class SeptimanappApplication : Application(), HasAndroidInjector {
     }
 
     private fun resetAfterSeptimana() {
-        val endTime = eventInfoStorage.loadSeptimanaStartEndTime()?.second
-        val today = Calendar.getInstance()
-        if (today.after(endTime)) {
-            sharedPreferences.edit().putInt(
-                EnrolmentFragment.ENROLLED_STATE_KEY,
-                EnrolmentFragment.ENROLLED_STATE_REMIND
-            ).apply()
-        }
+        storageManager.resetAfterSeptimana()
     }
 
     private fun setupReminder() {

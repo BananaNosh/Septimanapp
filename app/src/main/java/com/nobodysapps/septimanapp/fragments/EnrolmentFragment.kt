@@ -24,6 +24,10 @@ import com.nobodysapps.septimanapp.model.Vegan
 import com.nobodysapps.septimanapp.model.Vegetarian
 import com.nobodysapps.septimanapp.model.create
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage
+import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_ENROLLED
+import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_IN_PROGRESS
+import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_NOT_ASK_AGAIN
+import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_REMIND
 import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.model.storage.SeptimanaLocation
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
@@ -371,18 +375,11 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun resetReminderNotifications() {
-        sharedPreferences.edit().putInt(ENROLLED_STATE_KEY, ENROLLED_STATE_ENROLLED).apply()
+        informationStorage.saveEnrolState(ENROLLED_STATE_ENROLLED)
     }
 
     companion object {
         const val TAG = "EnrolmentFragment"
-
-        const val ENROLLED_STATE_KEY = "enrolled_state"
-
-        const val ENROLLED_STATE_REMIND = 0
-        const val ENROLLED_STATE_ENROLLED = 1
-        const val ENROLLED_STATE_IN_PROGRESS = 2
-        const val ENROLLED_STATE_NOT_ASK_AGAIN = 3
 
         private const val FIELD_NAME = "name"
         private const val FIELD_FIRSTNAME = "firstname"
@@ -426,12 +423,10 @@ class EnrolmentFragment : Fragment() {
                 FIELD_INSTRUMENT -> informationStorage.saveInstrument(inputText)
             }
             if (inputText.isNotEmpty()) {
-                val currentState = sharedPreferences.getInt(ENROLLED_STATE_KEY, -1)
-                sharedPreferences.edit().putInt(ENROLLED_STATE_KEY, ENROLLED_STATE_REMIND)
-                    .apply()
+                val currentState = informationStorage.loadEnrolState()
+                informationStorage.saveEnrolState(ENROLLED_STATE_REMIND)  // TODO why??
                 if (currentState != ENROLLED_STATE_IN_PROGRESS) {
-                    sharedPreferences.edit().putInt(ENROLLED_STATE_KEY, ENROLLED_STATE_IN_PROGRESS)
-                        .apply()
+                    informationStorage.saveEnrolState(ENROLLED_STATE_IN_PROGRESS)
                     if (currentState != ENROLLED_STATE_NOT_ASK_AGAIN) {
                         alarmScheduler.scheduleAlarm(Calendar.getInstance().also {
                             it.add(

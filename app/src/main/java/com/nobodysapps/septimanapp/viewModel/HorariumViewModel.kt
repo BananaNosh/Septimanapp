@@ -26,10 +26,10 @@ class HorariumViewModel(val horariumStorage: HorariumStorage, val sharedPreferen
 
     var shouldShowWarning: Boolean
         get() {
-            return sharedPreferences.getBoolean(HorariumFragment.SHOW_AGAIN_KEY, true)
+            return sharedPreferences.getBoolean(SHOW_AGAIN_KEY, true)
         }
         set(value) {
-            sharedPreferences.edit().putBoolean(HorariumFragment.SHOW_AGAIN_KEY, value)
+            sharedPreferences.edit().putBoolean(SHOW_AGAIN_KEY, value)
                 .apply()
         }
 
@@ -62,6 +62,10 @@ class HorariumViewModel(val horariumStorage: HorariumStorage, val sharedPreferen
     private fun loadHorariumInCorrectLanguage(year: Int? = null): Horarium? {
         val currentYear = year ?: Calendar.getInstance().get(Calendar.YEAR)
         return horariumStorage.loadHorarium(currentYear, horariumLanguage.language)
+    }
+
+    companion object {
+        const val SHOW_AGAIN_KEY = "show_again"
     }
 
 }

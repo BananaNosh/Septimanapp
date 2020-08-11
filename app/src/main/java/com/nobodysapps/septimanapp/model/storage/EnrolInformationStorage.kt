@@ -101,6 +101,18 @@ class EnrolInformationStorage @Inject constructor(
             veggieDay
         )
     }
+
+    fun saveEnrolState(state: Int) {
+        prefs.edit().putInt(ENROLLED_STATE_KEY, state).apply()
+    }
+
+    fun loadEnrolState(): Int {
+        val loaded = prefs.getInt(ENROLLED_STATE_KEY, -1)
+        return when(loaded) {
+            in 1..3 -> loaded
+            else -> ENROLLED_STATE_REMIND
+        }
+    }
 //
 //    private fun keyForLocation(overallLocation: String): String {
 //        return "${LOCATIONS_KEY}_${overallLocation}"
@@ -120,5 +132,12 @@ class EnrolInformationStorage @Inject constructor(
         private const val EATING_HABIT_KEY = "eating_habit"
         private const val INSTRUMENT_KEY = "instrument"
         private const val VEGGIE_DAY_KEY = "veggie_day"
+
+        private const val ENROLLED_STATE_KEY = "enrolled_state"
+
+        const val ENROLLED_STATE_REMIND = 0
+        const val ENROLLED_STATE_ENROLLED = 1
+        const val ENROLLED_STATE_IN_PROGRESS = 2
+        const val ENROLLED_STATE_NOT_ASK_AGAIN = 3
     }
 }
