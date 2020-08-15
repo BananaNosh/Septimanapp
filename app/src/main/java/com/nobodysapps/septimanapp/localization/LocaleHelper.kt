@@ -1,9 +1,9 @@
 package com.nobodysapps.septimanapp.localization
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.content.res.Resources
 import android.os.Build
+import android.util.DisplayMetrics
 import androidx.preference.PreferenceManager
 import com.nobodysapps.septimanapp.activity.SettingsActivity
 import java.util.*
@@ -36,7 +36,7 @@ object LocaleHelper {
     @Suppress("DEPRECATION")
     fun setLocale(context: Context, localeSpec: String): Context {
         val locale: Locale = if (localeSpec == "system") {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= 24) {
                 Resources.getSystem().configuration.locales.get(0)
             } else {
                 Resources.getSystem().configuration.locale
@@ -45,34 +45,27 @@ object LocaleHelper {
             Locale(localeSpec)
         }
         Locale.setDefault(locale)
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            updateResources(context, locale)
-        } else {
-            updateResourcesLegacy(context, locale)
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.O)  // from api 26
-    private fun updateResources(context: Context, locale: Locale): Context {
-        val configuration = context.resources.configuration
-        configuration.setLocale(locale)
-        configuration.setLayoutDirection(locale)
-
-        return context.createConfigurationContext(configuration)
+        return updateResources(context, locale)
     }
 
     @Suppress("DEPRECATION")
-    private fun updateResourcesLegacy(context: Context, locale: Locale): Context {
-        val resources = context.resources
-
-        val configuration = resources.configuration
-        configuration.locale = locale
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            configuration.setLayoutDirection(locale)
+    private fun updateResources(context: Context, locale: Locale): Context {
+        val configuration = context.resources.configuration
+        if (Build.VERSION.SDK_INT >= 24){
+            configuration.setLocale(locale)
+        } else{
+            configuration.locale=locale
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                configuration.setLayoutDirection(locale)
+            }
         }
 
-        resources.updateConfiguration(configuration, resources.displayMetrics)
-
-        return context
+        return if (Build.VERSION.SDK_INT >= 24){
+            context.createConfigurationContext(configuration)
+        } else {
+            val displayMetrics: DisplayMetrics = context.resources.displayMetrics
+            context.resources.updateConfiguration(configuration, displayMetrics)
+            context
+        }
     }
 }
