@@ -14,7 +14,7 @@ import com.nobodysapps.septimanapp.localization.LocaleHelper
 
 
 abstract class SeptimanappActivity: AppCompatActivity() {
-    fun getSeptimanappApplication() : SeptimanappApplication = (application as SeptimanappApplication)
+    fun getSeptimanappApplication(): SeptimanappApplication = (application as SeptimanappApplication)
 
     private var initialLocale: String? = null
     private var requestCode = 0
@@ -30,6 +30,14 @@ abstract class SeptimanappActivity: AppCompatActivity() {
         super.attachBaseContext(LocaleHelper.onAttach(base))
     }
 
+//    override fun applyOverrideConfiguration(overrideConfiguration: Configuration?) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1) {
+//            // update overrideConfiguration with your locale
+//            Log.d("SeptimanappActivity", "initial locale: $initialLocale")
+//        }
+//        super.applyOverrideConfiguration(overrideConfiguration)
+//    }
+
     // for requesting Permissions
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -39,7 +47,7 @@ abstract class SeptimanappActivity: AppCompatActivity() {
         if (permissions.size == 1) {
             val permission = permissions[0]
             val requestPermissionPair = Pair(requestCode, permission)
-            val lambda = requestPermissionLambdas.get(requestPermissionPair)
+            val lambda = requestPermissionLambdas[requestPermissionPair]
             if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 lambda?.onPermissionGranted(permission)
             } else {
@@ -83,22 +91,24 @@ abstract class SeptimanappActivity: AppCompatActivity() {
         permission: String,
         listener: PermissionListener
     ) {
-        requestPermissionLambdas.put(Pair(requestCode, permission), listener)
+        requestPermissionLambdas[Pair(requestCode, permission)] = listener
         ActivityCompat.requestPermissions(this, arrayOf(permission), requestCode)
         requestCode++
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d(SeptimanappApplication.TAG,"dens: ${resources.displayMetrics.density}")
-        Log.d(SeptimanappApplication.TAG,"height: ${resources.displayMetrics.heightPixels}")
-        Log.d(SeptimanappApplication.TAG,"width: ${resources.displayMetrics.widthPixels}")
+        Log.d(SeptimanappApplication.TAG, "dens: ${resources.displayMetrics.density}")
+        Log.d(SeptimanappApplication.TAG, "height: ${resources.displayMetrics.heightPixels}")
+        Log.d(SeptimanappApplication.TAG, "width: ${resources.displayMetrics.widthPixels}")
         if (initialLocale != null && initialLocale != LocaleHelper.getPersistedLocale(this)) {
             recreate()
         }
         val preferences = getSeptimanappApplication().sharedPreferences
         if (!preferences.getBoolean(
-                KEY_CHOOSE_LANGUAGE_DIALOG_SHOWN, false)) {
+                KEY_CHOOSE_LANGUAGE_DIALOG_SHOWN, false
+            )
+        ) {
             preferences.edit().putBoolean(KEY_CHOOSE_LANGUAGE_DIALOG_SHOWN, true).apply()
             Log.d("SeptimanappActivity", "wants to show chooseLanguage")
             ChooseLanguageDialogFragment().show(supportFragmentManager, "")

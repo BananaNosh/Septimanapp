@@ -2,7 +2,6 @@ package com.nobodysapps.septimanapp.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
@@ -30,9 +29,6 @@ class HorariumFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var viewModel: HorariumViewModel
-
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
 
     private var actionDayViewId = -1
     private var actionToggleHorariumLanguageId = -1
