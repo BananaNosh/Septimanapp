@@ -1,11 +1,11 @@
 package com.nobodysapps.septimanapp.dependencyInjection
 
-import android.app.Application
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import com.nobodysapps.septimanapp.model.storage.LocationStorage
+import com.nobodysapps.septimanapp.utils.CalendarUtils
 import com.nobodysapps.septimanapp.viewModel.HorariumViewModel
 import com.nobodysapps.septimanapp.viewModel.MainViewModel
 import com.nobodysapps.septimanapp.viewModel.ViewModelFactory
@@ -31,8 +31,8 @@ class ViewModelModule {
     @Provides
     @IntoMap
     @ViewModelKey(MainViewModel::class)
-    fun provideMainViewModel(eventInfoStorage: EventInfoStorage, locationStorage: LocationStorage): ViewModel {
-        return MainViewModel(eventInfoStorage, locationStorage)
+    fun provideMainViewModel(eventInfoStorage: EventInfoStorage, locationStorage: LocationStorage, calendarUtils: CalendarUtils): ViewModel {
+        return MainViewModel(eventInfoStorage, locationStorage, calendarUtils)
     }
 
     @Provides

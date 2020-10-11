@@ -55,6 +55,7 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'org.mockito:mockito-android:3.3.3'
+
 //    testImplementation 'org.powermock:powermock-api-mockito:1.6.2'
 //    testImplementation 'org.powermock:powermock-module-junit4-rule-agent:1.6.2'
 //    testImplementation 'org.powermock:powermock-module-junit4-rule:1.6.2'
@@ -63,6 +64,7 @@ dependencies {
     testImplementation 'androidx.test:core:1.2.0'
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.mockito:mockito-core:3.3.3'
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
     testImplementation 'org.robolectric:robolectric:4.3.1'
 
     implementation 'com.github.BananaNosh:Android-Week-View:2.3.4-2'

@@ -37,6 +37,7 @@ fun dateFormatSymbolsForLatin(alternativeWeekDays: Boolean = false): DateFormatS
     return latinDFS
 }
 
+@SuppressLint("SimpleDateFormat")
 fun simpleDateFormat(dateFormat: String, date: Calendar): String {
     val locale = Locale.getDefault()
     return when (locale.language) {

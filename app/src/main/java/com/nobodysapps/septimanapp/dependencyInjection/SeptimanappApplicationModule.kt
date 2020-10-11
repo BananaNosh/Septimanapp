@@ -7,6 +7,7 @@ import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
 import com.nobodysapps.septimanapp.notifications.AlarmReceiver
 import com.nobodysapps.septimanapp.notifications.NotificationActionReceiver
+import com.nobodysapps.septimanapp.utils.CalendarUtils
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -56,3 +57,11 @@ abstract class BroadcastReceiverModule {
     abstract fun contributeNotificationActionReceiverInjector(): NotificationActionReceiver
 }
 
+
+@Module
+class TimeUtilsModule {
+    @Provides
+    fun providesCalendarUtils(): CalendarUtils {
+        return CalendarUtils()
+    }
+}
