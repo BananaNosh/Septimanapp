@@ -12,7 +12,6 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -22,8 +21,8 @@ class MainViewModelTest {
     val eventInfoStorage: EventInfoStorage = Mockito.mock(EventInfoStorage::class.java)
     @Mock
     val locationStorage: LocationStorage = Mockito.mock(LocationStorage::class.java)
-    lateinit var calendarUtils: CalendarUtils
-    lateinit var mainViewModel: MainViewModel
+    private lateinit var calendarUtils: CalendarUtils
+    private lateinit var mainViewModel: MainViewModel
 
     @Before
     fun setup() {
@@ -54,6 +53,5 @@ class MainViewModelTest {
         assertTrue(mainViewModel.shouldShowRouteHint)
         now[2021, Calendar.JULY, 31, 16, 31] = 0
         assertFalse(mainViewModel.shouldShowRouteHint)
-        print(SimpleDateFormat("dd.MM.YY HH:mm").format(calendarUtils.calendar.time))
     }
 }
