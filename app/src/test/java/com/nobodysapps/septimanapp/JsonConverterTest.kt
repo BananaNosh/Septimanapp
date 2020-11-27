@@ -1,15 +1,12 @@
 package com.nobodysapps.septimanapp
 
 import com.alamkanak.weekview.WeekViewEvent
-import com.nobodysapps.septimanapp.dependencyInjection.TestComponent
 import com.nobodysapps.septimanapp.model.Horarium
 import com.nobodysapps.septimanapp.model.Location
 import com.nobodysapps.septimanapp.model.storage.JsonConverter
 import junit.framework.TestCase.assertEquals
-import org.junit.Before
 import org.junit.Test
 import org.osmdroid.util.GeoPoint
-import javax.inject.Inject
 
 
 class JsonConverterTest {
