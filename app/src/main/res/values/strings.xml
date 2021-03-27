@@ -71,9 +71,11 @@
     <string name="enrol_instrument_back_2">(falls möglich)</string>
     <string name="dialog_confirm_enrolment_title">Verbindlich Anmelden</string>
     <string name="dialog_confirm_enrolment">Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.</string>
+    <string name="enrol_send_email_hoehenblick" translatable="false">Haus Höhenblick</string>
+    <string name="enrol_send_email_johanneshaus" translatable="false">Johanneshaus</string>
     <string name="enrol_send_email_address" translatable="false">thomas@septimanalatina.org</string>
     <string name="enrol_send_email_subject" translatable="false">Anmeldung Lateinwoche %s - %s, %s</string>
-    <string name="enrol_send_email_template" translatable="false">%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm Johanneshaus wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s</string>
+    <string name="enrol_send_email_template" translatable="false">%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm %s wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s</string>
     <string name="enrol_send_yes" translatable="false">Ja</string>
     <string name="enrol_send_no" translatable="false">Nein</string>
 

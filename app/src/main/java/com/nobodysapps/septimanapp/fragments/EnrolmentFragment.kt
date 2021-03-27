@@ -327,7 +327,7 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun sendEnrolment() {
-        val (name, firstname, street, postal, city, country, phone, mail, stayInJohanneshaus, yearsOfLatin, eatingHabit, instrument, veggieDay) = informationStorage.loadEnrolInformation()
+        val (name, firstname, street, postal, city, country, phone, mail, stayInMainBuilding, yearsOfLatin, eatingHabit, instrument, veggieDay) = informationStorage.loadEnrolInformation()
 
         val emailIntent = Intent(Intent.ACTION_SEND)
         val aEmailList = arrayOf(getString(R.string.enrol_send_email_address))
@@ -345,6 +345,8 @@ class EnrolmentFragment : Fragment() {
             getString(R.string.enrol_send_email_subject, year, name, firstname)
         )
 
+        val septimanaLocation = eventInfoStorage.loadSeptimanaLocation()
+
         emailIntent.type = "plain/text"
         if (context != null) {
             val body = getString(
@@ -357,7 +359,8 @@ class EnrolmentFragment : Fragment() {
                 country,
                 phone,
                 mail,
-                getString(if (stayInJohanneshaus) R.string.enrol_send_yes else R.string.enrol_send_no),
+                getString(if (septimanaLocation == SeptimanaLocation.BRAUNFELS) R.string.enrol_send_email_hoehenblick else R.string.enrol_send_email_johanneshaus),
+                getString(if (stayInMainBuilding) R.string.enrol_send_yes else R.string.enrol_send_no),
                 yearsOfLatin,
                 (eatingHabit ?: EatingHabit.create(
                     isVegan = false,

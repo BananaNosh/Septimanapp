@@ -13,7 +13,7 @@ data class EnrolInformation(
     val country: String,
     val phone: String,
     val mail: String,
-    val stayInJohanneshaus: Boolean,
+    val stayInMainBuilding: Boolean,
     val yearsOfLatin: Float,
     val eatingHabit: EatingHabit?,
     val instrument: String,
