@@ -45,9 +45,9 @@ class SeptimanappApplication : Application(), HasAndroidInjector {
     override fun onCreate() {
         super.onCreate()
 
-//        if (BuildConfig.DEBUG) {
-//            TestFairy.begin(this, "SDK-wiO2TKkT")
-//        }
+        if (BuildConfig.DEBUG) {
+            TestFairy.begin(this, "SDK-wiO2TKkT")
+        }
 
         val sharedPreferencesModule = SharedPreferencesModule()
         val contextModule = ContextModule(applicationContext)
@@ -165,6 +165,7 @@ class SeptimanappApplication : Application(), HasAndroidInjector {
         val endTime = startTime.clone() as Calendar
         endTime.set(2021, 7, 7, 14, 0)
         eventInfoStorage.saveSeptimanaStartEndTime(startTime, endTime)
+        eventInfoStorage.saveSeptimanaLocation(SeptimanaLocation.BRAUNFELS)
     }
 
     companion object {
