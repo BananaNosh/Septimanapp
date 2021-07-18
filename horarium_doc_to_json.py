@@ -59,7 +59,7 @@ if __name__ == '__main__':
     temp_files = []
     if ext == ".pdf":
         # noinspection PyTypeChecker
-        df = tabula.read_pdf(filename, stream=True).replace("\r", "\n").replace(np.nan, "")
+        df = tabula.read_pdf(filename, stream=True)[0].replace("\r", "\n").replace(np.nan, "")
         text_table = [combine_items_for_same_time([text for text in column if len(text) > 0])
                       for column in df.transpose().values]
     else:
@@ -85,8 +85,8 @@ if __name__ == '__main__':
     start_date = datetime.date(*reversed(date))
 
     locale = args.language
-    time_pattern = re.compile(r"(?:h[.:][ \t]*(\d{1,2}):(\d{2})[ ]*(-[ ]*(\d{1,2}):(\d{2}))?\W*\n)"
-                              r"|(?:[ \t]*(\d{1,2}):(\d{2})(-(\d{1,2}):(\d{2}))? [Uu]hr\W*\n)")
+    time_pattern = re.compile(r"h[.:][ \t]*(\d{1,2}):(\d{2})[ ]*(-[ ]*(\d{1,2}):(\d{2}))?\W*\n"
+                              r"|[ \t]*(\d{1,2}):(\d{2})( ?[-–] ?(\d{1,2}):(\d{2}))? [Uu]hr\W*\n")
     for i, column in enumerate(text_table):
         date = start_date + datetime.timedelta(i)
         cell_content = ""
