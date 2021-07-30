@@ -48,8 +48,8 @@
     <string name="enrol_years_of_latin_back_sg">annum.</string>
     <string name="enrol_years_of_latin_back_pl">annos.</string>
     <string name="enrol_eating_habit_front">Edo</string>
-    <string name="enrol_eating_habit_vegan">Sum veganus</string>
-    <string name="enrol_eating_habit_vegetarian">Sum vegetarius</string>
+    <string name="enrol_eating_habit_vegan">Sum veganus/a</string>
+    <string name="enrol_eating_habit_vegetarian">Sum vegetarius/a</string>
     <string name="enrol_eating_habit_glutenfree">Gluten mihi est vitandum</string>
     <string name="enrol_eating_habit_everything">omnia.</string>
     <string name="enrol_eating_habit_allergens">alliae allergiae</string>
