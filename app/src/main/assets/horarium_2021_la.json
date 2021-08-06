@@ -1213,10 +1213,30 @@
         "year": 2021,
         "month": 7,
         "dayOfMonth": 6,
-        "hourOfDay": 16,
-        "minute": 30
+        "hourOfDay": 15,
+        "minute": 0
       },
       "mName": "prandium",
+      "mColor": 0,
+      "mAllDay": false
+    },
+    {
+      "mId": "ev_100",
+      "mStartTime": {
+        "year": 2021,
+        "month": 7,
+        "dayOfMonth": 6,
+        "hourOfDay": 15,
+        "minute": 0
+      },
+      "mEndTime": {
+        "year": 2021,
+        "month": 7,
+        "dayOfMonth": 6,
+        "hourOfDay": 16,
+        "minute": 15
+      },
+      "mName": "colloquia",
       "mColor": 0,
       "mAllDay": false
     },
