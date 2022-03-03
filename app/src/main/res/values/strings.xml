@@ -20,7 +20,7 @@
     <string name="menu_impressum">Impressum</string>
     <string name="impressum_name" translatable="false">Jonathan Loos</string>
     <string name="impressum_address" translatable="false">Mefferdatisstraße 8\n52062 Aachen</string>
-    <string name="impressum_mail" translatable="false">loos.jonathan.martin@gmail.com</string>
+    <string name="impressum_mail" translatable="false">noshsapps@gmail.com</string>
 
     <!-- General dialog -->
     <string name="ok">OK</string>

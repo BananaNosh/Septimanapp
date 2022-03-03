@@ -4,7 +4,7 @@
     <string name="navigation_drawer_close">Claudere regulam gubernationis</string>
     <string name="nav_header_desc">caput regulae gubernationis</string>
     <string name="settings">Accommodare</string>
-    <string name="nav_drawer_count_down_pattern">%d d %d h %d min</string>
+    <string name="nav_drawer_count_down_pattern">%1$s d %2$d h %3$d min</string>
     <string name="nav_header_count_down_subtext">usque ad Septimanam</string>
     <string name="menu_share">Distribuere</string>
     <string name="menu_send">Mittere</string>

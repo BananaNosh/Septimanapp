@@ -43,7 +43,7 @@ class ChooseLanguageDialogFragment : DialogFragment() {
     }
 
     private fun saveLanguageUse(useLatin: Boolean) {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         preferences.edit()
             .putBoolean(SettingsActivity.SettingsFragment.KEY_USE_LATIN, useLatin)
             .putString(SettingsActivity.SettingsFragment.KEY_PREF_LANGUAGE, if (useLatin) "la" else "system")

@@ -37,16 +37,16 @@ class SettingsActivity : SeptimanappActivity() {
             if (context == null) return
             when (key) {
                 KEY_USE_LATIN -> {
-                    val useLatin = PreferenceManager.getDefaultSharedPreferences(context)
+                    val useLatin = PreferenceManager.getDefaultSharedPreferences(requireContext())
                         .getBoolean(key, false)
-                    PreferenceManager.getDefaultSharedPreferences(context).edit().putString(
+                    PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString(
                         KEY_PREF_LANGUAGE, if (useLatin) "la" else "system"
                     ).apply()
                 }
                 KEY_PREF_LANGUAGE -> {
                     LocaleHelper.setLocale(
                         requireContext(),
-                        PreferenceManager.getDefaultSharedPreferences(context).getString(key, "")
+                        PreferenceManager.getDefaultSharedPreferences(requireContext()).getString(key, "")
                             ?: ""
                     )
                     activity?.recreate() // necessary here because this Activity is currently running and thus a recreate() in onResume() would be too late
@@ -57,7 +57,7 @@ class SettingsActivity : SeptimanappActivity() {
         override fun onResume() {
             super.onResume()
             // documentation requires that a reference to the listener is kept as long as it may be called, which is the case as it can only be called from this Fragment
-            preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+            preferenceScreen.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
             preferenceScreen.findPreference<Preference>(KEY_LICENSES)?.setOnPreferenceClickListener {
                 displayLicensesAlertDialog()
                 true
@@ -78,7 +78,7 @@ class SettingsActivity : SeptimanappActivity() {
 
         override fun onPause() {
             super.onPause()
-            preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+            preferenceScreen.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         }
 
         companion object {
