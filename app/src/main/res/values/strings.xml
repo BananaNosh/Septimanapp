@@ -67,13 +67,16 @@
     <string name="enrol_instrument_front">Ich bringe ein(e/en)</string>
     <string name="enrol_instrument_hint">Musikinstrument</string>
     <string name="enrol_instrument_back_1">mit.</string>
-    <string name="enrol_veggieday" tools:ignore="Typos">Für mich ist es ok, wenn es nicht jeden Tag Fleisch gibt.</string>
     <string name="enrol_instrument_back_2">(falls möglich)</string>
+    <string name="enrol_veggieday_yes" tools:ignore="Typos">Ich esse Fleisch, finde aber \"Veggietage\" (zwei Tage mit vegetarischem Mittagessen) richtig.</string>
+    <string name="enrol_veggieday_no">Ich esse Fleisch und finde es besser, wenn es keine \"Veggietage\" gibt.</string>
+    <string name="enrol_address_data_allow">Ich bin damit einverstanden, dass meine Adressdaten auf einer Teilnehmerliste erscheinen, die an die Teilnehmer verteilt wird.</string>
+    <string name="enrol_address_data_not_allow">Ich bin damit NICHT einverstanden.</string>
     <string name="dialog_confirm_enrolment_title">Verbindlich Anmelden</string>
-    <string name="dialog_confirm_enrolment">Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.</string>
+    <string name="dialog_confirm_enrolment">Hiermit bestätige ich, dass ich volljährig bin und mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde, sowie, dass ich meine Angaben überprüft habe.</string>
     <string name="enrol_send_email_hoehenblick" translatable="false">Haus Höhenblick</string>
     <string name="enrol_send_email_johanneshaus" translatable="false">Johanneshaus</string>
-    <string name="enrol_send_email_address" translatable="false">goelzhaeuserpost@hotmail.com</string>
+    <string name="enrol_send_email_address" translatable="false">thomas@septimanalatina.org</string>
     <string name="enrol_send_email_subject" translatable="false">Anmeldung Lateinwoche %s - %s, %s</string>
     <string name="enrol_send_email_template" translatable="false">%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm %s wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s</string>
     <string name="enrol_send_yes" translatable="false">Ja</string>

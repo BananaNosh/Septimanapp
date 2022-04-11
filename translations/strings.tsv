@@ -1,111 +1,116 @@
-key	default	fr	de	la	en	extra_arguments
+key	default	de	la	en	fr	extra_arguments
 app_name	Septiman\u200bapp	not-translatable	not-translatable	not-translatable	not-translatable	
-navigation_drawer_open	Navigationsleiste öffnen	Ouvrir tiroir de la navigation	Navigationsleiste öffnen	Aperire regulam gubernationis	Open navigation drawer	
-navigation_drawer_close	Navigationsleiste schließen	Fermer tiroir de la navigation	Navigationsleiste schließen	Claudere regulam gubernationis	Close navigation drawer	
+navigation_drawer_open	Navigationsleiste öffnen	Navigationsleiste öffnen	Aperire regulam gubernationis	Open navigation drawer	Ouvrir tiroir de la navigation	
+navigation_drawer_close	Navigationsleiste schließen	Navigationsleiste schließen	Claudere regulam gubernationis	Close navigation drawer	Fermer tiroir de la navigation	
 nav_header_subtitle	github.com/BananaNosh/Septimanapp	not-translatable	not-translatable	not-translatable	not-translatable	
-nav_header_desc	Navigationskopfleiste	tête de la navigation	Navigationskopfleiste	caput regulae gubernationis	Navigation header	
-settings	Settings	Paramètres	Settings	Accommodare	Settings	
-nav_drawer_count_down_pattern	%d T %d h %d min	%d j %d h %d min	%d T %d h %d min	%d d %d h %d min	%d d %d h %d min	
-nav_header_count_down_subtext	bis zur Lateinwoche	jusqu\'à la semaine latin	bis zur Lateinwoche	usque ad Septimanam	till the Latin Week	
-menu_share	Share			Distribuere		
-menu_send	Send			Mittere		
-menu_map	Karte	Carte	Karte	Tabula geographica	Map	
-menu_communicate	Communicate			Communicare	Communicate	
-menu_horarium	Programm	Horaire	Programm	Horarium	Timetable	
-menu_enrol	Anmelden	S‘inscrire	Anmelden	Nomen dare	Enrol	
-						
-%% Impressum %%						
-menu_impressum	Impressum	Empreinte	Impressum	Vestigium	Imprint	
+nav_header_desc	Navigationskopfleiste	Navigationskopfleiste	caput regulae gubernationis	Navigation header	tête de la navigation	
+settings	Settings	Settings	Accommodare	Settings	Paramètres	
+nav_drawer_count_down_pattern	%d T %d h %d min	%d T %d h %d min	%1$s d %2$d h %3$d min	%d d %d h %d min	%d j %d h %d min	
+nav_header_count_down_subtext	bis zur Lateinwoche	bis zur Lateinwoche	usque ad Septimanam	till the Latin Week	jusqu\'à la semaine latin	
+menu_share	Share		Distribuere			
+menu_send	Send		Mittere			
+menu_map	Karte	Karte	Tabula geographica	Map	Carte	
+menu_communicate	Communicate		Communicare	Communicate		
+menu_horarium	Programm	Programm	Horarium	Timetable	Horaire	
+menu_enrol	Anmelden	Anmelden	Nomen dare	Enrol	S‘inscrire	
+
+%% Impressum %%
+menu_impressum	Impressum	Impressum	Vestigium	Imprint	Empreinte	
 impressum_name	Jonathan Loos	not-translatable	not-translatable	not-translatable	not-translatable	
 impressum_address	Mefferdatisstraße 8\n52062 Aachen	not-translatable	not-translatable	not-translatable	not-translatable	
-impressum_mail	loos.jonathan.martin@gmail.com	not-translatable	not-translatable	not-translatable	not-translatable	
-						
-%% General dialog %%						
-ok	OK	D‘accord	OK	Licet	OK	
-cancel	Abbrechen	Annuler	Abbrechen	Non licet	Cancel	
-						
-%% Horarium %%						
-action_day_view_day	%d Tag	%d jour	%d Tag	%d dies	%d day	
-action_day_view_days	%d Tage	%d jours	%d Tage	%d dies	%d days	
-dialog_outdated_horarium	Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.	Il n‘y a pas encore l‘horaire actuel. Celui de l‘année dernière est affiché.	Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.	Nondum exstat horarium huius anni. Cuius loco monstratur horarium anni proximi.	There is no current timetable. The one of the last latin week is shown.	
-dialog_outdated_horarium_title	Kein Programm gefunden	Aucun horaire trouvé	Kein Programm gefunden	Non invenitur horarium hornum	No timetable found	
-dialog_do_not_show_again	Nicht mehr anzeigen	Ne montrer pas à nouveau	Nicht mehr anzeigen	Ne monstraveris iterum	Do not show again	
-snackbar_horarium_not_found	Kein Programm für die ausgewählte Sprache gefunden	Aucun horaire trouvé pour la langue sélectionée	Kein Programm für die ausgewählte Sprache gefunden	Non invenitur horarium in lingua selecta	No horarium found in the specified language	
-snackbar_previous_horarium	vergangenen	dernière	vergangenen	proximum	past	
-						
-%% Maps %%						
-explication_map_permission	Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte	Autorisation á accéder aux fichiers nécesseaire pour montrer la carte!	Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte	Licetne Septimanapp uti huius instrumenti memoria ad monstrandam tabulam geographicam?	Map needs storage permission to cache the map!	
-snackbar_to_septimana	Bring mich zur Septimana!	Emmène-moi à la Septimana!	Bring mich zur Septimana!	Adducas me ad Septimanam!	Take me to the Septimana!	
-						
-%% Enrol %%						
-enrol_last_name_hint	Nachname	Nom de famille	Nachname	Cognomen	Surname	
-enrol_first_name_hint	Vorname	Prénom	Vorname	Praenomen	First name	
-enrol_checkbox_johannes_haus	Ich möchte im Johanneshaus wohnen.	Je veux loger à Johanneshaus.	Ich möchte im Johanneshaus wohnen.	Velim in Johanneshaus deversari.	I want to stay in Johanneshaus.	
-enrol_checkbox_hoehenblick	Ich möchte im Haus Höhenblick wohnen.	Je veux loger à maison Höhenblick.	Ich möchte im Haus Höhenblick wohnen.	Velim in domo Höhenblick deversari.	I want to stay in house Höhenblick.	
-enrol_street_hint	Straße u. Hausnummer	Adresse de rue	Straße u. Hausnummer	Inscriptio cursualis: Via et numerus domicilii	Street address	
-enrol_postal_code_hint	Postleitzahl	Code postale	Postleitzahl	Numerus cursualis (PLZ)	Postal code	
-enrol_city_hint	Wohnort	Ville	Wohnort	Oppidum, in quo habito	City	
-enrol_country_hint	Land	Pays	Land	Civitas	Country	
-enrol_phone_hint	Telephonnummer	Numéro de téléphone	Telephonnummer	Telephonum	Phone number	
-enrol_mail_hint	Email	Mail	Email	Inscriptio electronica (E-Mail)	Mail	
+impressum_mail	noshsapps@gmail.com	not-translatable	not-translatable	not-translatable	not-translatable	
+
+%% General dialog %%
+ok	OK	OK	Licet	OK	D‘accord	
+cancel	Abbrechen	Abbrechen	Non licet	Cancel	Annuler	
+
+%% Horarium %%
+action_day_view_day	%d Tag	%d Tag	%d dies	%d day	%d jour	
+action_day_view_days	%d Tage	%d Tage	%d dies	%d days	%d jours	
+dialog_outdated_horarium	Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.	Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.	Nondum exstat horarium huius anni. Cuius loco monstratur horarium anni proximi.	There is no current timetable. The one of the last latin week is shown.	Il n‘y a pas encore l‘horaire actuel. Celui de l‘année dernière est affiché.	
+dialog_outdated_horarium_title	Kein Programm gefunden	Kein Programm gefunden	Non invenitur horarium hornum	No timetable found	Aucun horaire trouvé	
+dialog_do_not_show_again	Nicht mehr anzeigen	Nicht mehr anzeigen	Ne monstraveris iterum	Do not show again	Ne montrer pas à nouveau	
+snackbar_horarium_not_found	Kein Programm für die ausgewählte Sprache gefunden	Kein Programm für die ausgewählte Sprache gefunden	Non invenitur horarium in lingua selecta	No horarium found in the specified language	Aucun horaire trouvé pour la langue sélectionée	
+snackbar_previous_horarium	vergangenen	vergangenen	proximum	past	dernière	
+
+%% Maps %%
+explication_map_permission	Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte	Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte	Licetne Septimanapp uti huius instrumenti memoria ad monstrandam tabulam geographicam?	Map needs storage permission to cache the map!	Autorisation á accéder aux fichiers nécesseaire pour montrer la carte!	
+snackbar_to_septimana	Bring mich zur Septimana!	Bring mich zur Septimana!	Adducas me ad Septimanam!	Take me to the Septimana!	Emmène-moi à la Septimana!	
+
+%% Enrol %%
+enrol_last_name_hint	Nachname	Nachname	Cognomen	Surname	Nom de famille	
+enrol_first_name_hint	Vorname	Vorname	Praenomen	First name	Prénom	
+enrol_checkbox_johannes_haus	Ich möchte im Johanneshaus wohnen.	Ich möchte im Johanneshaus wohnen.	Velim in Johanneshaus deversari.	I want to stay in Johanneshaus.	Je veux loger à Johanneshaus.	
+enrol_checkbox_hoehenblick	Ich möchte im Haus Höhenblick wohnen.	Ich möchte im Haus Höhenblick wohnen.	Velim in domo Höhenblick deversari.	I want to stay in house Höhenblick.	Je veux loger à maison Höhenblick.	
+enrol_street_hint	Straße u. Hausnummer	Straße u. Hausnummer	Inscriptio cursualis: Via et numerus domicilii	Street address	Adresse de rue	
+enrol_postal_code_hint	Postleitzahl	Postleitzahl	Numerus cursualis (PLZ)	Postal code	Code postale	
+enrol_city_hint	Wohnort	Wohnort	Oppidum, in quo habito	City	Ville	
+enrol_country_hint	Land	Land	Civitas	Country	Pays	
+enrol_phone_hint	Telephonnummer	Telephonnummer	Telephonum	Phone number	Numéro de téléphone	
+enrol_mail_hint	Email	Email	Inscriptio electronica (E-Mail)	Mail	Mail	
 enrol_years_of_latin_hint	0	not-translatable	not-translatable	not-translatable	not-translatable	
-enrol_years_of_latin_front	Ich habe	J\'apprends le latin depuis	Ich habe	Didici linguam Latinam	I‘ve been learning Latin for	
-enrol_years_of_latin_back_sg	Jahr Latein gelernt.	ans.	Jahr Latein gelernt.	annum.	year.	
-enrol_years_of_latin_back_pl	Jahre Latein gelernt.	an.	Jahre Latein gelernt.	annos.	years.	
-enrol_eating_habit_front	Ich esse	Je mange	Ich esse	Edo	I eat	
-enrol_eating_habit_vegan	vegan	végétarien	vegan	Sum veganus/a	vegan	
-enrol_eating_habit_vegetarian	vegetarisch	végétalien	vegetarisch	Sum vegetarius/a	vegetarian	
-enrol_eating_habit_glutenfree	glutenfrei	sans gluten	glutenfrei	Gluten mihi est vitandum	glutenfree	
-enrol_eating_habit_everything	alles.	tout.	alles.	omnia.	everything.	
-enrol_eating_habit_allergens	andere Allergene	autres allergénes	andere Allergene	alliae allergiae	other allergens	
+enrol_years_of_latin_front	Ich habe	Ich habe	Didici linguam Latinam	I‘ve been learning Latin for	J\'apprends le latin depuis	
+enrol_years_of_latin_back_sg	Jahr Latein gelernt.	Jahr Latein gelernt.	annum.	year.	ans.	
+enrol_years_of_latin_back_pl	Jahre Latein gelernt.	Jahre Latein gelernt.	annos.	years.	an.	
+enrol_eating_habit_front	Ich esse	Ich esse	De cibibus:	I eat	Je mange	
+enrol_eating_habit_vegan	vegan	vegan	Sum veganus/a	vegan	végétarien	
+enrol_eating_habit_vegetarian	vegetarisch	vegetarisch	Sum vegetarius/a	vegetarian	végétalien	
+enrol_eating_habit_glutenfree	glutenfrei	glutenfrei	Gluten mihi est vitandum	glutenfree	sans gluten	
+enrol_eating_habit_everything	alles.	alles.	Edo omnia	everything.	tout.	
+enrol_eating_habit_allergens	andere Allergene	andere Allergene	alliae allergiae	other allergens	autres allergénes	
 eating_habit_allergens	Allergene	not-translatable	not-translatable	not-translatable	not-translatable	
 eating_habit_vegetarian	Vegetarier/in	not-translatable	not-translatable	not-translatable	not-translatable	
 eating_habit_vegan	Veganer/in	not-translatable	not-translatable	not-translatable	not-translatable	
 eating_habit_gluten	Gluten	not-translatable	not-translatable	not-translatable	not-translatable	
-enrol_instrument_front	Ich bringe ein(e/en)	Je vais apporter un	Ich bringe ein(e/en)	Ferro	I bring a(n)	
-enrol_instrument_hint	Musikinstrument	instrument de musique	Musikinstrument	instrumentum musicum	music instrument	
-enrol_instrument_back_1	mit.	.	mit.	.	.	
-enrol_veggieday	Für mich ist es ok, wenn es nicht jeden Tag Fleisch gibt.	Je suis d‘accord, s‘il n‘y a pas de la viande tous les jours.	Für mich ist es ok, wenn es nicht jeden Tag Fleisch gibt.	Mihi non est necesse comedere carnem cottidie.	Im fine with not eating meat every day.	tools:ignore=Typos
-enrol_instrument_back_2	(falls möglich)	(si possible)	(falls möglich)	(si fieri potest)	(if possible)	
-dialog_confirm_enrolment_title	Verbindlich Anmelden	inscription contraignante	Verbindlich Anmelden	Firme nomen do	Enrol bindingly	
-dialog_confirm_enrolment	Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.	Par les présentes je confirme que j\'ai vérifier mes données et que je contraignantement registre pour la semain latin en envoyant la mail crée dans ce qui suit.	Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.	Confirmo me epistulam, quae erit creata, mittendo nomen Septimanae Latinae firme dare et me data diligenter probavisse.	Hereby I confirm that I bindingly register for the latin week by sending the email created in the following and that I checked my data.	
+enrol_instrument_front	Ich bringe ein(e/en)	Ich bringe ein(e/en)	Ferro	I bring a(n)	Je vais apporter un	
+enrol_instrument_hint	Musikinstrument	Musikinstrument	instrumentum musicum	music instrument	instrument de musique	
+enrol_instrument_back_1	mit.	mit.	.	.	.	
+enrol_instrument_back_2	(falls möglich)	(falls möglich)	(si fieri potest)	(if possible)	(si possible)	
+enrol_veggieday_yes	Ich esse Fleisch, finde aber \"Veggietage\" (zwei Tage mit vegetarischem Mittagessen) richtig.	Ich esse Fleisch, finde aber \"Veggietage\" (zwei Tage mit vegetarischem Mittagessen) richtig.	Carnem edo, sed mihi placent \"Veggiedays\"(duo dies, quo non editur carnem).	I eat meat, but like \"Veggiedays\" (two days of vegetarian food).	Je mange de la viande, mais je suis en faveur de deux \"Veggiedays\" (jours vegetariens).	tools:ignore=Typos
+enrol_veggieday_no	Ich esse Fleisch und finde es besser, wenn es keine \"Veggietage\" gibt.	Ich esse Fleisch und finde es besser, wenn es keine \"Veggietage\" gibt.	Carnem comedo et nullos  \"Veggiedays\" esse praefero.	I eat meat and prefer to have no  \"Veggiedays\".	Je mange de la viande et prefere pas des \"Veggiedays\".	
+enrol_address_data_allow	Ich bin damit einverstanden, dass meine Adressdaten auf einer Teilnehmerliste erscheinen, die an die Teilnehmer verteilt wird.	Ich bin damit einverstanden, dass meine Adressdaten auf einer Teilnehmerliste erscheinen, die an die Teilnehmer verteilt wird.	Licet data inscriptionis cursualis scripta participantibus distribuere.	I agree, that my adress data appears on a list, which is going to be distributed to the participants.	Je suis d\'accord, que mes données d\'adresse paraissent sur une liste distribuée a tous les participants.	
+enrol_address_data_not_allow	Ich bin damit NICHT einverstanden.	Ich bin damit NICHT einverstanden.	Non licet.	I disagree.	Je refuse.	
+dialog_confirm_enrolment_title	Verbindlich Anmelden	Verbindlich Anmelden	Firme nomen do	Enrol bindingly	inscription contraignante	
+dialog_confirm_enrolment	Hiermit bestätige ich, dass ich volljährig bin und mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde, sowie, dass ich meine Angaben überprüft habe.	Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.	Confirmo me epistulam, quae erit creata, mittendo mei potentem esse et nomen Septimanae Latinae firme dare et me data diligenter probavisse.	Hereby I confirm that I am full-aged and that I am bindingly register for the latin week by sending the email created in the following as well as having checked my data.	Par les présentes je confirme que je suis majeur et que j\'ai vérifier mes données aussi que je contraignantement registre pour la semain latin en envoyant la mail crée dans ce qui suit.	
+enrol_send_email_hoehenblick	Haus Höhenblick	not-translatable	not-translatable	not-translatable	not-translatable	
+enrol_send_email_johanneshaus	Johanneshaus	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_email_address	thomas@septimanalatina.org	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_email_subject	Anmeldung Lateinwoche %s - %s, %s	not-translatable	not-translatable	not-translatable	not-translatable	
-enrol_send_email_template	%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm Johanneshaus wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s	not-translatable	not-translatable	not-translatable	not-translatable	
+enrol_send_email_template	%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm %s wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_yes	Ja	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_no	Nein	not-translatable	not-translatable	not-translatable	not-translatable	
-						
-%% Settings %%						
+
+%% Settings %%
 signature_title	Your signature					
 reply_title	Default reply action					
-settings_title_language	Sprache	Langue	Sprache	Lingua	Language	
-settings_use_latin	Auf Latein	Utiliser latin	Auf Latein	Uti lingua Latina	Use Latin	
-settings_summary_use_latin_off	App wird in der Gerätesprache angezeigt	Application affichée dans la langue de l‘appareil	App wird in der Gerätesprache angezeigt	App lingua instrumenti viditur	App displayed in default device language	
-settings_summary_use_latin_on	App displayed in Latin	-	-	App lingua Latina viditur	-	
-settings_title_others	Sonstiges	Autre	Sonstiges	Alia	Others	
-settings_open_source	Open Source Lizenzen	Open Source Licences	Open Source Lizenzen	Open Source Licentiae	Open Source Licences	
-settings_summary_open_source	Zeigt die Lizenzen benutzter Software	Montre les licences des logiciels utilisés	Zeigt die Lizensen benutzter Software	Monstrat licentias programmaton usorum	Shows the licences of used software	
-dialog_licenses_title	Open Source Lizenzen	Open Source Licences	Open Source Linzenzen	Open Source Licentiae	Open Source Licences	
-action_horarium_language	Show timetable in %s	Horaire en %s	Programm auf %s	Videatur horarium in %s	Show timetable in %s	
-						
-%% Language stuff%%						
-language	language %s	-	-	lingua %s	-	tools:ignore=ExtraTranslation,MissingTranslation
-language_latin	-	-	-	Latina	-	tools:ignore=ExtraTranslation,MissingTranslation
-language_english	-	-	-	Anglica	-	tools:ignore=ExtraTranslation,MissingTranslation
-language_german	-	-	-	Theodisca	-	tools:ignore=ExtraTranslation,MissingTranslation
-language_french	-	-	-	Francogallica	-	tools:ignore=ExtraTranslation,MissingTranslation
-language_unknown	-	-	-	ignota	-	tools:ignore=ExtraTranslation,MissingTranslation
-dialog_choose_language	Should Septimanapp be displayed in Latin or German?%s	Est-ce que vous voulez regarder Septimanapp en latin ou français?	Soll die Septimanapp in Latein angezeigt werden oder auf Deutsch?	-	Should Septimanapp be displayed in Latin or English?	
-						
-%% Notifications%%						
+settings_title_language	Sprache	Sprache	Lingua	Language	Langue	
+settings_use_latin	Auf Latein	Auf Latein	Uti lingua Latina	Use Latin	Utiliser latin	
+settings_summary_use_latin_off	App wird in der Gerätesprache angezeigt	App wird in der Gerätesprache angezeigt	App lingua instrumenti viditur	App displayed in default device language	Application affichée dans la langue de l‘appareil	
+settings_summary_use_latin_on	App displayed in Latin	-	App lingua Latina viditur	-	-	
+settings_title_others	Sonstiges	Sonstiges	Alia	Others	Autre	
+settings_open_source	Open Source Lizenzen	Open Source Lizenzen	Open Source Licentiae	Open Source Licences	Open Source Licences	
+settings_summary_open_source	Zeigt die Lizenzen benutzter Software	Zeigt die Lizensen benutzter Software	Monstrat licentias programmaton usorum	Shows the licences of used software	Montre les licences des logiciels utilisés	
+dialog_licenses_title	Open Source Lizenzen	Open Source Linzenzen	Open Source Licentiae	Open Source Licences	Open Source Licences	
+action_horarium_language	Show timetable in %s	Programm auf %s	Videatur horarium in %s	Show timetable in %s	Horaire en %s	
+
+%% Language stuff%%
+language	language %s	-	lingua %s	-	-	tools:ignore=ExtraTranslation,MissingTranslation
+language_latin	-	-	Latina	-	-	tools:ignore=ExtraTranslation,MissingTranslation
+language_english	-	-	Anglica	-	-	tools:ignore=ExtraTranslation,MissingTranslation
+language_german	-	-	Theodisca	-	-	tools:ignore=ExtraTranslation,MissingTranslation
+language_french	-	-	Francogallica	-	-	tools:ignore=ExtraTranslation,MissingTranslation
+language_unknown	-	-	ignota	-	-	tools:ignore=ExtraTranslation,MissingTranslation
+dialog_choose_language	Should Septimanapp be displayed in Latin or German?%s	Soll die Septimanapp in Latein angezeigt werden oder auf Deutsch?	-	Should Septimanapp be displayed in Latin or English?	Est-ce que vous voulez regarder Septimanapp en latin ou français?	
+
+%% Notifications%%
 action_notify_enrol_reminder	com.nobodysapps.septimanapp.action.ENROL_REMINDER	not-translatable	not-translatable	not-translatable	not-translatable	
 action_notify_continue_enrol_reminder	com.nobodysapps.septimanapp.action.CONTINUE_ENROL_REMINDER	not-translatable	not-translatable	not-translatable	not-translatable	
 action_mark_already_enrolled	com.nobodysapps.septimanapp.action.ALREADY_ENROLLED	not-translatable	not-translatable	not-translatable	not-translatable	
 action_remind_later	com.nobodysapps.septimanapp.action.REMIND_LATER	not-translatable	not-translatable	not-translatable	not-translatable	
 action_do_not_ask_again	com.nobodysapps.septimanapp.action.NOT_ASK_AGAIN	not-translatable	not-translatable	not-translatable	not-translatable	
-notification_enrol_title	Anmeldung zur Lateinwoche	Registrer pour la semain latin	Anmeldung zur Lateinwoche	Nomen dare Septimanae	Register for the latin week	
-notification_enrol_text	Hast du dich schon für die Lateinwoche angemeldet?	Vous êtes déjà inscrit pour la semain latin?	Hast du dich schon für die Lateinwoche angemeldet?	Dedistine nomen Septimanae?	Have you already registered for the latin week?	
-notification_action_title_do_not_ask_again	Nicht erneut fragen	ne plus demander	Nicht erneut fragen	ne rogaveris iterum	do not ask again	
-notification_action_title_already_enrolled	Schon passiert	effectué	Schon passiert	iam confectum	already done	
-notification_action_title_remind_later	Später	plus tard	Später	serius	later	
-notification_continue_enrol_text	Vergiss nicht deine Anmeldung abzuschließen.	N\'oubliez pas de terminer votre inscription!	Vergiss nicht deine Anmeldung abzuschließen.	Nolli oblivisci finire nomen dare!	Do‘nt forget to finish your registration!	
+notification_enrol_title	Anmeldung zur Lateinwoche	Anmeldung zur Lateinwoche	Nomen dare Septimanae	Register for the latin week	Registrer pour la semain latin	
+notification_enrol_text	Hast du dich schon für die Lateinwoche angemeldet?	Hast du dich schon für die Lateinwoche angemeldet?	Dedistine nomen Septimanae?	Have you already registered for the latin week?	Vous êtes déjà inscrit pour la semain latin?	
+notification_action_title_do_not_ask_again	Nicht erneut fragen	Nicht erneut fragen	ne rogaveris iterum	do not ask again	ne plus demander	
+notification_action_title_already_enrolled	Schon passiert	Schon passiert	iam confectum	already done	effectué	
+notification_action_title_remind_later	Später	Später	serius	later	plus tard	
+notification_continue_enrol_text	Vergiss nicht deine Anmeldung abzuschließen.	Vergiss nicht deine Anmeldung abzuschließen.	Nolli oblivisci finire nomen dare!	Do‘nt forget to finish your registration!	N\'oubliez pas de terminer votre inscription!	

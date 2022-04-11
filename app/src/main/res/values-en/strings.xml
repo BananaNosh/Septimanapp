@@ -54,10 +54,13 @@
     <string name="enrol_instrument_front">I bring a(n)</string>
     <string name="enrol_instrument_hint">music instrument</string>
     <string name="enrol_instrument_back_1">.</string>
-    <string name="enrol_veggieday">Im fine with not eating meat every day.</string>
     <string name="enrol_instrument_back_2">(if possible)</string>
+    <string name="enrol_veggieday_yes">I eat meat, but like \"Veggiedays\" (two days of vegetarian food).</string>
+    <string name="enrol_veggieday_no">I eat meat and prefer to have no  \"Veggiedays\".</string>
+    <string name="enrol_address_data_allow">I agree, that my adress data appears on a list, which is going to be distributed to the participants.</string>
+    <string name="enrol_address_data_not_allow">I disagree.</string>
     <string name="dialog_confirm_enrolment_title">Enrol bindingly</string>
-    <string name="dialog_confirm_enrolment">Hereby I confirm that I bindingly register for the latin week by sending the email created in the following and that I checked my data.</string>
+    <string name="dialog_confirm_enrolment">Hereby I confirm that I am full-aged and that I am bindingly register for the latin week by sending the email created in the following as well as having checked my data.</string>
 
     <!-- Settings -->
     <string name="settings_title_language">Language</string>

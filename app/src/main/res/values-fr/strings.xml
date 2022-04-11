@@ -53,10 +53,13 @@
     <string name="enrol_instrument_front">Je vais apporter un</string>
     <string name="enrol_instrument_hint">instrument de musique</string>
     <string name="enrol_instrument_back_1">.</string>
-    <string name="enrol_veggieday">Je suis d‘accord, s‘il n‘y a pas de la viande tous les jours.</string>
     <string name="enrol_instrument_back_2">(si possible)</string>
+    <string name="enrol_veggieday_yes">Je mange de la viande, mais je suis en faveur de deux \"Veggiedays\" (jours vegetariens).</string>
+    <string name="enrol_veggieday_no">Je mange de la viande et prefere pas des \"Veggiedays\".</string>
+    <string name="enrol_address_data_allow">Je suis d\'accord, que mes données d\'adresse paraissent sur une liste distribuée a tous les participants.</string>
+    <string name="enrol_address_data_not_allow">Je refuse.</string>
     <string name="dialog_confirm_enrolment_title">inscription contraignante</string>
-    <string name="dialog_confirm_enrolment">Par les présentes je confirme que j\'ai vérifier mes données et que je contraignantement registre pour la semain latin en envoyant la mail crée dans ce qui suit.</string>
+    <string name="dialog_confirm_enrolment">Par les présentes je confirme que je suis majeur et que j\'ai vérifier mes données aussi que je contraignantement registre pour la semain latin en envoyant la mail crée dans ce qui suit.</string>
 
     <!-- Settings -->
     <string name="settings_title_language">Langue</string>
