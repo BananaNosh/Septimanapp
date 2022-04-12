@@ -17,7 +17,7 @@ data class EnrolInformation(
     val yearsOfLatin: Float,
     val eatingHabit: EatingHabit?,
     val instrument: String,
-    val veggieDay: Boolean
+    val veggieDay: Int
 ) {
 
 }

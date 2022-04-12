@@ -1,7 +1,9 @@
 package com.nobodysapps.septimanapp.model.storage
 
 import android.content.SharedPreferences
+import android.os.Debug
 import com.google.gson.reflect.TypeToken
+import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.model.EatingHabit
 import com.nobodysapps.septimanapp.model.EnrolInformation
 import com.nobodysapps.septimanapp.model.fromSerializablePair
@@ -63,8 +65,17 @@ class EnrolInformationStorage @Inject constructor(
         prefs.edit().putString(INSTRUMENT_KEY, instrument).apply()
     }
 
-    fun saveVeggieDay(veggieDay: Boolean) {
-        prefs.edit().putBoolean(VEGGIE_DAY_KEY, veggieDay).apply()
+    fun saveVeggieDay(veggieDay: Int) {
+        when (veggieDay) {
+            in 0..2-> {
+                prefs.edit().putInt(VEGGIE_DAY_KEY, veggieDay).apply()
+            }
+            else -> {
+                if (BuildConfig.DEBUG) {
+                    throw IllegalArgumentException("Illegal veggieday")
+                }
+            }
+        }
     }
 
     fun loadEnrolInformation(): EnrolInformation {
@@ -84,7 +95,7 @@ class EnrolInformationStorage @Inject constructor(
             object : TypeToken<Pair<Int, List<String>>>() {}.type
         )
         val instrument = prefs.getString(INSTRUMENT_KEY, null) ?: ""
-        val veggieDay = prefs.getBoolean(VEGGIE_DAY_KEY, true)
+        val veggieDay = prefs.getInt(VEGGIE_DAY_KEY, VEGGIE_DAY_NONE)
         return EnrolInformation(
             name,
             firstname,
@@ -131,7 +142,7 @@ class EnrolInformationStorage @Inject constructor(
         private const val YEARS_LATIN_KEY = "years_latin"
         private const val EATING_HABIT_KEY = "eating_habit"
         private const val INSTRUMENT_KEY = "instrument"
-        private const val VEGGIE_DAY_KEY = "veggie_day"
+        private const val VEGGIE_DAY_KEY = "veggie_day_v2"
 
         private const val ENROLLED_STATE_KEY = "enrolled_state"
 
@@ -139,5 +150,9 @@ class EnrolInformationStorage @Inject constructor(
         const val ENROLLED_STATE_ENROLLED = 1
         const val ENROLLED_STATE_IN_PROGRESS = 2
         const val ENROLLED_STATE_NOT_ASK_AGAIN = 3
+
+        const val VEGGIE_DAY_NONE = 0
+        const val VEGGIE_DAY_YES = 1
+        const val VEGGIE_DAY_NO = 2
     }
 }

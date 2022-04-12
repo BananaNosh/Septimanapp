@@ -79,6 +79,7 @@
     <string name="enrol_send_email_address" translatable="false">thomas@septimanalatina.org</string>
     <string name="enrol_send_email_subject" translatable="false">Anmeldung Lateinwoche %s - %s, %s</string>
     <string name="enrol_send_email_template" translatable="false">%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm %s wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s</string>
+    <string name="enrol_send_eating_habit_no_meat" translatable="false">Nein, da Veganer*in oder Vegetarier*in</string>
     <string name="enrol_send_yes" translatable="false">Ja</string>
     <string name="enrol_send_no" translatable="false">Nein</string>
 

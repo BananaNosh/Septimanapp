@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,9 @@ import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Compani
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_IN_PROGRESS
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_NOT_ASK_AGAIN
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_REMIND
+import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.VEGGIE_DAY_NO
+import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.VEGGIE_DAY_NONE
+import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.VEGGIE_DAY_YES
 import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.model.storage.SeptimanaLocation
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
@@ -221,9 +225,25 @@ class EnrolmentFragment : Fragment() {
         enrolJohanneshausCB.setOnCheckedChangeListener { _, isChecked ->
             informationStorage.saveStayInJohanneshaus(isChecked)
         }
-        enrolVeggiedayCB.setOnCheckedChangeListener { _, isChecked ->
-            informationStorage.saveVeggieDay(isChecked)
+        val onVeggieDayChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, isChecked ->
+            if(btn.isPressed) {
+                if (isChecked) {
+                    val yes = btn == enrolVeggiedayYesCB
+                    if (yes) {
+                        enrolVeggiedayNoCB.isChecked = false
+                        informationStorage.saveVeggieDay(VEGGIE_DAY_YES)
+                    } else {
+                        enrolVeggiedayYesCB.isChecked = false
+                        informationStorage.saveVeggieDay(VEGGIE_DAY_NO)
+                    }
+                } else {
+                    informationStorage.saveVeggieDay(VEGGIE_DAY_NONE)
+                }
+            }
+
         }
+        enrolVeggiedayYesCB.setOnCheckedChangeListener(onVeggieDayChangedLambda)
+        enrolVeggiedayNoCB.setOnCheckedChangeListener(onVeggieDayChangedLambda)
         setupEatingHabitListeners()
 
         enrolInstrumentEdit.setOnEditorActionListener { _, actionId, event ->
@@ -368,7 +388,13 @@ class EnrolmentFragment : Fragment() {
                     allergens = Collections.emptyList()
                 )).information(requireContext()),
                 instrument,
-                getString(if (veggieDay) R.string.enrol_send_yes else R.string.enrol_send_no)
+                getString(
+                    when (veggieDay) {
+                      VEGGIE_DAY_YES -> R.string.enrol_send_yes
+                      VEGGIE_DAY_NO -> R.string.enrol_send_no
+                      else -> R.string.enrol_send_eating_habit_no_meat
+                    }
+                )
             )
             emailIntent.putExtra(Intent.EXTRA_TEXT, body)
 
