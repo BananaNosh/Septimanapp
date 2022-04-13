@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -20,18 +19,15 @@ import androidx.fragment.app.Fragment
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.dialog.ConfirmEnrolmentDialogFragment
 import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
-import com.nobodysapps.septimanapp.model.EatingHabit
-import com.nobodysapps.septimanapp.model.Vegan
-import com.nobodysapps.septimanapp.model.Vegetarian
-import com.nobodysapps.septimanapp.model.create
+import com.nobodysapps.septimanapp.model.*
+import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_NO
+import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_NONE
+import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_YES
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_ENROLLED
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_IN_PROGRESS
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_NOT_ASK_AGAIN
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_REMIND
-import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.VEGGIE_DAY_NO
-import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.VEGGIE_DAY_NONE
-import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.VEGGIE_DAY_YES
 import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.model.storage.SeptimanaLocation
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
@@ -41,7 +37,6 @@ import kotlinx.android.synthetic.main.fragment_enrolment.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 
 /**
@@ -114,7 +109,7 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun loadForm() {
-        val (name, firstname, street, postal, city, country, phone, mail, stayInJohannesHaus, yearsOfLatin, eatingHabit, instrument, veggieDay) = informationStorage.loadEnrolInformation()
+        val (name, firstname, street, postal, city, country, phone, mail, stayInJohannesHaus, yearsOfLatin, eatingHabit, instrument, veggieDay, addressConsent) = informationStorage.loadEnrolInformation()
         enrolNameEdit.setText(name)
         enrolFirstameEdit.setText(firstname)
         enrolStreetEdit.setText(street)
@@ -125,7 +120,10 @@ class EnrolmentFragment : Fragment() {
         enrolInstrumentEdit.setText(instrument)
 
         enrolJohanneshausCB.isChecked = stayInJohannesHaus
-        enrolVeggiedayCB.isChecked = veggieDay
+        enrolVeggiedayYesCB.isChecked = veggieDay == ACCEPT_STATE_YES
+        enrolVeggiedayNoCB.isChecked = veggieDay == ACCEPT_STATE_NO
+        enrolAddressConsentYesRB.isChecked = addressConsent == ACCEPT_STATE_YES
+        enrolAddressConsentNoRB.isChecked = addressConsent == ACCEPT_STATE_NO
 
         if (yearsOfLatin > 0) {
             enrolYearsLatinEdit.setText(
@@ -158,7 +156,7 @@ class EnrolmentFragment : Fragment() {
                 enrolGlutenfreeCB.isChecked = true
                 allergens.remove(glutenStr)
             }
-            enrolAllergensEdit.setText(allergens.joinToString { it })
+            enrolAllergensEdit.setText(allergens.map { it.trim().replace(",", "") }.joinToString { it })
             enrolAllergensCB.isChecked = allergens.any { it.isNotEmpty() }
         }
     }
@@ -231,13 +229,13 @@ class EnrolmentFragment : Fragment() {
                     val yes = btn == enrolVeggiedayYesCB
                     if (yes) {
                         enrolVeggiedayNoCB.isChecked = false
-                        informationStorage.saveVeggieDay(VEGGIE_DAY_YES)
+                        informationStorage.saveVeggieDay(ACCEPT_STATE_YES)
                     } else {
                         enrolVeggiedayYesCB.isChecked = false
-                        informationStorage.saveVeggieDay(VEGGIE_DAY_NO)
+                        informationStorage.saveVeggieDay(ACCEPT_STATE_NO)
                     }
                 } else {
-                    informationStorage.saveVeggieDay(VEGGIE_DAY_NONE)
+                    informationStorage.saveVeggieDay(EnrolInformation.ACCEPT_STATE_NONE)
                 }
             }
 
@@ -245,6 +243,21 @@ class EnrolmentFragment : Fragment() {
         enrolVeggiedayYesCB.setOnCheckedChangeListener(onVeggieDayChangedLambda)
         enrolVeggiedayNoCB.setOnCheckedChangeListener(onVeggieDayChangedLambda)
         setupEatingHabitListeners()
+
+        val onAddressConsentChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, isChecked ->
+            if (btn.isPressed) {
+                when (btn) {
+                    enrolAddressConsentYesRB -> informationStorage.saveAddressConsent(
+                        ACCEPT_STATE_YES)
+                    enrolAddressConsentNoRB -> informationStorage.saveAddressConsent(
+                        ACCEPT_STATE_NO)
+                    else -> informationStorage.saveAddressConsent(
+                    ACCEPT_STATE_NONE)
+                }
+            }
+        }
+        enrolAddressConsentYesRB.setOnCheckedChangeListener(onAddressConsentChangedLambda)
+        enrolAddressConsentNoRB.setOnCheckedChangeListener(onAddressConsentChangedLambda)
 
         enrolInstrumentEdit.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEND
@@ -281,11 +294,11 @@ class EnrolmentFragment : Fragment() {
                     R.id.enrolVeganCB -> {
                         enrolEverythingCB.isChecked = false
                         enrolVegetarianCB.isChecked = true
-                        enrolVeggiedayCB.isChecked = true
+                        enrolVeggiedayYesCB.isChecked = false
                     }
                     R.id.enrolVegetarianCB -> {
                         enrolEverythingCB.isChecked = false
-                        enrolVeggiedayCB.isChecked = true
+                        enrolVeggiedayYesCB.isChecked = false
                     }
                     R.id.enrolGlutenfreeCB -> enrolEverythingCB.isChecked = false
                     R.id.enrolAllergensCB -> enrolEverythingCB.isChecked = false
@@ -347,7 +360,7 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun sendEnrolment() {
-        val (name, firstname, street, postal, city, country, phone, mail, stayInMainBuilding, yearsOfLatin, eatingHabit, instrument, veggieDay) = informationStorage.loadEnrolInformation()
+        val (name, firstname, street, postal, city, country, phone, mail, stayInMainBuilding, yearsOfLatin, eatingHabit, instrument, veggieDay, addressConsent) = informationStorage.loadEnrolInformation()
 
         val emailIntent = Intent(Intent.ACTION_SEND)
         val aEmailList = arrayOf(getString(R.string.enrol_send_email_address))
@@ -390,11 +403,18 @@ class EnrolmentFragment : Fragment() {
                 instrument,
                 getString(
                     when (veggieDay) {
-                      VEGGIE_DAY_YES -> R.string.enrol_send_yes
-                      VEGGIE_DAY_NO -> R.string.enrol_send_no
+                        ACCEPT_STATE_YES -> R.string.enrol_send_yes
+                        ACCEPT_STATE_NO -> R.string.enrol_send_no
                       else -> R.string.enrol_send_eating_habit_no_meat
                     }
+                ),
+                getString(
+                    when (addressConsent) {
+                        ACCEPT_STATE_YES -> R.string.enrol_send_yes
+                        else -> R.string.enrol_send_no
+                    }
                 )
+
             )
             emailIntent.putExtra(Intent.EXTRA_TEXT, body)
 

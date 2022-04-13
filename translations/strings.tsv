@@ -76,7 +76,8 @@ enrol_send_email_hoehenblick	Haus Höhenblick	not-translatable	not-translatable	
 enrol_send_email_johanneshaus	Johanneshaus	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_email_address	thomas@septimanalatina.org	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_email_subject	Anmeldung Lateinwoche %s - %s, %s	not-translatable	not-translatable	not-translatable	not-translatable	
-enrol_send_email_template	%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm %s wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s	not-translatable	not-translatable	not-translatable	not-translatable	
+enrol_send_email_template	%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm %s wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s\nAdresse auf Liste ok: %s	not-translatable	not-translatable	not-translatable	not-translatable	
+enrol_send_eating_habit_no_meat	Nein, da Veganer*in oder Vegetarier*in	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_yes	Ja	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_no	Nein	not-translatable	not-translatable	not-translatable	not-translatable	
 
