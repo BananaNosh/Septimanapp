@@ -1,11 +1,11 @@
 package com.nobodysapps.septimanapp.model.storage
 
 import android.content.SharedPreferences
-import android.os.Debug
 import com.google.gson.reflect.TypeToken
 import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.model.EatingHabit
 import com.nobodysapps.septimanapp.model.EnrolInformation
+import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_NONE
 import com.nobodysapps.septimanapp.model.fromSerializablePair
 import com.nobodysapps.septimanapp.model.toSerializablePair
 import javax.inject.Inject
@@ -78,6 +78,19 @@ class EnrolInformationStorage @Inject constructor(
         }
     }
 
+    fun saveAddressConsent(consent: Int) {
+        when (consent) {
+            in 0..2-> {
+                prefs.edit().putInt(ADDRESS_CONSENT_KEY, consent).apply()
+            }
+            else -> {
+                if (BuildConfig.DEBUG) {
+                    throw IllegalArgumentException("Illegal address consent")
+                }
+            }
+        }
+    }
+
     fun loadEnrolInformation(): EnrolInformation {
         val name = prefs.getString(NAME_KEY, null) ?: ""
         val firstname = prefs.getString(FIRSTNAME_KEY, null) ?: ""
@@ -95,7 +108,8 @@ class EnrolInformationStorage @Inject constructor(
             object : TypeToken<Pair<Int, List<String>>>() {}.type
         )
         val instrument = prefs.getString(INSTRUMENT_KEY, null) ?: ""
-        val veggieDay = prefs.getInt(VEGGIE_DAY_KEY, VEGGIE_DAY_NONE)
+        val veggieDay = prefs.getInt(VEGGIE_DAY_KEY, ACCEPT_STATE_NONE)
+        val addressConsent = prefs.getInt(ADDRESS_CONSENT_KEY, ACCEPT_STATE_NONE)
         return EnrolInformation(
             name,
             firstname,
@@ -109,7 +123,8 @@ class EnrolInformationStorage @Inject constructor(
             yearsOfLatin,
             if (eatingHabitPair != null) EatingHabit.fromSerializablePair(eatingHabitPair) else null,
             instrument,
-            veggieDay
+            veggieDay,
+            addressConsent
         )
     }
 
@@ -143,6 +158,7 @@ class EnrolInformationStorage @Inject constructor(
         private const val EATING_HABIT_KEY = "eating_habit"
         private const val INSTRUMENT_KEY = "instrument"
         private const val VEGGIE_DAY_KEY = "veggie_day_v2"
+        private const val ADDRESS_CONSENT_KEY = "address_consent"
 
         private const val ENROLLED_STATE_KEY = "enrolled_state"
 
@@ -150,9 +166,5 @@ class EnrolInformationStorage @Inject constructor(
         const val ENROLLED_STATE_ENROLLED = 1
         const val ENROLLED_STATE_IN_PROGRESS = 2
         const val ENROLLED_STATE_NOT_ASK_AGAIN = 3
-
-        const val VEGGIE_DAY_NONE = 0
-        const val VEGGIE_DAY_YES = 1
-        const val VEGGIE_DAY_NO = 2
     }
 }

@@ -17,9 +17,14 @@ data class EnrolInformation(
     val yearsOfLatin: Float,
     val eatingHabit: EatingHabit?,
     val instrument: String,
-    val veggieDay: Int
+    val veggieDay: Int,
+    val addressConsent: Int
 ) {
-
+    companion object {
+        const val ACCEPT_STATE_NONE = 0
+        const val ACCEPT_STATE_YES = 1
+        const val ACCEPT_STATE_NO = 2
+    }
 }
 
 open class EatingHabit(val allergens: List<String>) {
