@@ -6,16 +6,19 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.CompoundButton
 import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.dialog.ConfirmEnrolmentDialogFragment
 import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
@@ -224,7 +227,7 @@ class EnrolmentFragment : Fragment() {
             informationStorage.saveStayInJohanneshaus(isChecked)
         }
         val onVeggieDayChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, isChecked ->
-            if(btn.isPressed) {
+            if (btn.isPressed) {
                 if (isChecked) {
                     val yes = btn == enrolVeggiedayYesCB
                     if (yes) {
@@ -248,11 +251,14 @@ class EnrolmentFragment : Fragment() {
             if (btn.isPressed) {
                 when (btn) {
                     enrolAddressConsentYesRB -> informationStorage.saveAddressConsent(
-                        ACCEPT_STATE_YES)
+                        ACCEPT_STATE_YES
+                    )
                     enrolAddressConsentNoRB -> informationStorage.saveAddressConsent(
-                        ACCEPT_STATE_NO)
+                        ACCEPT_STATE_NO
+                    )
                     else -> informationStorage.saveAddressConsent(
-                    ACCEPT_STATE_NONE)
+                        ACCEPT_STATE_NONE
+                    )
                 }
             }
         }
@@ -347,6 +353,16 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun showConfirmDialog() {
+        this.activity?.currentFocus?.let { view ->
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            imm?.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+        if (!checkAllDataGiven()) {
+            view?.let {
+                Snackbar.make(it, getString(R.string.enrol_not_all_data_given), Snackbar.LENGTH_LONG).show()
+            }
+            return
+        }
         activity?.supportFragmentManager?.let {
             val confirmDialog = ConfirmEnrolmentDialogFragment()
             confirmDialog.listener = object : MessageAndCheckboxDialogFragment.Listener {
@@ -357,6 +373,23 @@ class EnrolmentFragment : Fragment() {
             }
             confirmDialog.show(it, "Confirm")
         }
+    }
+
+    private fun checkAllDataGiven(): Boolean {
+        val enrolInformation = informationStorage.loadEnrolInformation()
+        for (property in enrolInformation.javaClass.declaredFields) {
+            if (property.type == String::class.java) {
+                if (property.name != EnrolInformation::instrument.name) {
+                    Log.d(TAG, property.type.name + " " + property.toString())
+                    property.isAccessible = true
+                    if (property.get(enrolInformation)?.toString().isNullOrBlank()) {
+                        return false
+                    }
+                    property.isAccessible = false
+                }
+            }
+        }
+        return enrolInformation.addressConsent != ACCEPT_STATE_NONE
     }
 
     private fun sendEnrolment() {
@@ -405,7 +438,7 @@ class EnrolmentFragment : Fragment() {
                     when (veggieDay) {
                         ACCEPT_STATE_YES -> R.string.enrol_send_yes
                         ACCEPT_STATE_NO -> R.string.enrol_send_no
-                      else -> R.string.enrol_send_eating_habit_no_meat
+                        else -> R.string.enrol_send_eating_habit_no_meat
                     }
                 ),
                 getString(

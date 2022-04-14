@@ -58,6 +58,7 @@
     <string name="enrol_veggieday_no">Je mange de la viande et prefere pas des \"Veggiedays\".</string>
     <string name="enrol_address_data_allow">Je suis d\'accord, que mes données d\'adresse paraissent sur une liste distribuée a tous les participants.</string>
     <string name="enrol_address_data_not_allow">Je refuse.</string>
+    <string name="enrol_not_all_data_given">Veuillez fournir toutes les informations nécessaires!</string>
     <string name="dialog_confirm_enrolment_title">inscription contraignante</string>
     <string name="dialog_confirm_enrolment">Par les présentes je confirme que je suis majeur et que j\'ai vérifier mes données aussi que je contraignantement registre pour la semain latin en envoyant la mail crée dans ce qui suit.</string>
 
