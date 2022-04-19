@@ -377,19 +377,7 @@ class EnrolmentFragment : Fragment() {
 
     private fun checkAllDataGiven(): Boolean {
         val enrolInformation = informationStorage.loadEnrolInformation()
-        for (property in enrolInformation.javaClass.declaredFields) {
-            if (property.type == String::class.java) {
-                if (property.name != EnrolInformation::instrument.name) {
-                    Log.d(TAG, property.type.name + " " + property.toString())
-                    property.isAccessible = true
-                    if (property.get(enrolInformation)?.toString().isNullOrBlank()) {
-                        return false
-                    }
-                    property.isAccessible = false
-                }
-            }
-        }
-        return enrolInformation.addressConsent != ACCEPT_STATE_NONE
+        return enrolInformation.isValid()
     }
 
     private fun sendEnrolment() {

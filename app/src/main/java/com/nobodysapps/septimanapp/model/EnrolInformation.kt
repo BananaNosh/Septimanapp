@@ -1,7 +1,9 @@
 package com.nobodysapps.septimanapp.model
 
 import android.content.Context
+import android.util.Log
 import com.nobodysapps.septimanapp.R
+import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import kotlinx.android.synthetic.main.fragment_enrolment.*
 
 data class EnrolInformation(
@@ -20,6 +22,15 @@ data class EnrolInformation(
     val veggieDay: Int,
     val addressConsent: Int
 ) {
+
+    fun isValid(): Boolean {
+        if (name.isBlank() || firstname.isBlank() || street.isBlank() || postal.isBlank() || city.isBlank() || country.isBlank() || phone.isBlank() || mail.isBlank()) {
+            return false
+        }
+        return addressConsent != ACCEPT_STATE_NONE
+    }
+
+
     companion object {
         const val ACCEPT_STATE_NONE = 0
         const val ACCEPT_STATE_YES = 1
