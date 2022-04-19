@@ -247,7 +247,7 @@ class EnrolmentFragment : Fragment() {
         enrolVeggiedayNoCB.setOnCheckedChangeListener(onVeggieDayChangedLambda)
         setupEatingHabitListeners()
 
-        val onAddressConsentChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, isChecked ->
+        val onAddressConsentChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, _ ->
             if (btn.isPressed) {
                 when (btn) {
                     enrolAddressConsentYesRB -> informationStorage.saveAddressConsent(
