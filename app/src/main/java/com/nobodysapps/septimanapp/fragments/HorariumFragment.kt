@@ -62,13 +62,13 @@ class HorariumFragment : Fragment() {
     private fun setupHorariumView(landscape: Boolean) {
         // Get a reference for the week view in the layout.
         horariumView.changeOrientation(landscape)
-        viewModel.horarium.observe(viewLifecycleOwner, androidx.lifecycle.Observer { horarium ->
+        viewModel.horarium.observe(viewLifecycleOwner) { horarium ->
             if (horarium != null) {
                 horariumView.setHorarium(horarium)
             } else {
                 onNoHorariumFound()
             }
-        })
+        }
     }
 
     @SuppressLint("WrongConstant")
