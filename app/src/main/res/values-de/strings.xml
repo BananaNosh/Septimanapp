@@ -89,4 +89,5 @@
     <string name="notification_action_title_already_enrolled">Schon passiert</string>
     <string name="notification_action_title_remind_later">Später</string>
     <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
+    <string name="settings_summary_version">Version: %s</string>
 </resources>

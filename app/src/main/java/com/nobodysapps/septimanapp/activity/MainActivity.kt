@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.view_impressum.view.*
 import java.util.*
 import javax.inject.Inject
 
@@ -65,6 +67,10 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
+
+        if (BuildConfig.DEBUG) {
+            navView.debugTV.visibility = View.VISIBLE
+        }
     }
 
     private fun setupDrawerListenerForCountDown(drawerLayout: DrawerLayout) {

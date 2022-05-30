@@ -92,4 +92,5 @@
     <string name="notification_action_title_already_enrolled">iam confectum</string>
     <string name="notification_action_title_remind_later">serius</string>
     <string name="notification_continue_enrol_text">Nolli oblivisci finire nomen dare!</string>
+    <string name="settings_summary_version">versio: %s</string>
 </resources>

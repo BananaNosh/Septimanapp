@@ -13,6 +13,11 @@
             app:key="licenses"
             app:title="@string/settings_open_source"
             app:summary="@string/settings_summary_open_source"/>
+        <Preference
+            app:key="version"
+            app:summary=""
+            app:title=""
+            app:enabled="false"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

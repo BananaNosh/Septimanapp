@@ -41,6 +41,7 @@ class SettingsActivity : SeptimanappActivity() {
         SharedPreferences.OnSharedPreferenceChangeListener {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
+            preferenceScreen.findPreference<Preference>(KEY_VERSION)?.summary = getString(R.string.settings_summary_version, BuildConfig.VERSION_NAME)
         }
 
         override fun onSharedPreferenceChanged(
@@ -98,6 +99,7 @@ class SettingsActivity : SeptimanappActivity() {
             const val KEY_USE_LATIN = "use_latin"
             const val KEY_PREF_LANGUAGE = "language"
             const val KEY_LICENSES = "licenses"
+            const val KEY_VERSION = "version"
         }
     }
 }

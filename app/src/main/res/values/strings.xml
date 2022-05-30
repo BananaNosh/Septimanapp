@@ -96,6 +96,7 @@
     <string name="settings_summary_open_source">Zeigt die Lizenzen benutzter Software</string>
     <string name="dialog_licenses_title">Open Source Lizenzen</string>
     <string name="action_horarium_language">Show timetable in %s</string>
+    <string name="settings_summary_version">Version: %s</string>
 
     <!-- Language stuff-->
     <string name="language" tools:ignore="ExtraTranslation,MissingTranslation">language %s</string>
@@ -118,4 +119,5 @@
     <string name="notification_action_title_already_enrolled">Schon passiert</string>
     <string name="notification_action_title_remind_later">Später</string>
     <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
+
 </resources>
