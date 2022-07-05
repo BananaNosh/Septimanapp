@@ -41,8 +41,8 @@ def time_dict_from_date_hour_and_minute(date, hour, minute):
 
 
 def combine_items_for_same_time(column):
-    time_regex = re.compile(r"(h[:.][ \t]*(\d{1,2}:\d{2} ?-? ?){1,2})"
-                            r"|([ \t]*(\d{1,2}:\d{2} ?(Uhr)? ?-? ?){1,2})[ \t]?Uhr")
+    time_regex = re.compile(r"(h[:.][ \t]*(\d{1,2}:\d{2} ?[-—–‒―]? ?){1,2})"
+                            r"|([ \t]*(\d{1,2}:\d{2} ?(Uhr)? ?[-—–‒―]? ?){1,2})[ \t]?Uhr")
     indices_with_time = [i for i, txt in enumerate(column) if re.search(time_regex, txt)] + [len(column)]
     column = ["\n".join(column[index:next_index]) for index, next_index in
               zip(indices_with_time[:-1], indices_with_time[1:])]
@@ -85,8 +85,8 @@ if __name__ == '__main__':
     start_date = datetime.date(*reversed(date))
 
     locale = args.language
-    time_pattern = re.compile(r"h[.:]?[ \t]*(\d{1,2}):(\d{2})[ ]*(-[ ]*(\d{1,2}):(\d{2}))?\W*\n"
-                              r"|[ \t]*(\d{1,2}):(\d{2})( ?[-–] ?(\d{1,2}):(\d{2}))? [Uu]hr\W*\n")
+    time_pattern = re.compile(r"h[.:]?[ \t]*(\d{1,2}):(\d{2})[ ]*([-—–‒―][ ]*(\d{1,2}):(\d{2}))?\W*\n"
+                              r"|[ \t]*(\d{1,2}):(\d{2})( ?[-—–‒―] ?(\d{1,2}):(\d{2}))? [Uu]hr\W*\n")
     for i, column in enumerate(text_table):
         date = start_date + datetime.timedelta(i)
         cell_content = ""
