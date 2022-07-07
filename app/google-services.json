@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "812160494847",
+    "project_id": "septimanapp",
+    "storage_bucket": "septimanapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812160494847:android:96fb29f25bd7afe726f0ca",
+        "android_client_info": {
+          "package_name": "com.nobodysapps.septimanapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "812160494847-v7lclv4kfspl5886oq52ca7vb126ei07.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0fwsMrbcaRSlPzo0bvsliaEx6--cLU5U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "812160494847-v7lclv4kfspl5886oq52ca7vb126ei07.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,11 +1,10 @@
 package com.nobodysapps.septimanapp.application
 
-import android.app.Application
 import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationManagerCompat
-import com.nobodysapps.septimanapp.BuildConfig
+import androidx.multidex.MultiDexApplication
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.dependencyInjection.ContextModule
 import com.nobodysapps.septimanapp.dependencyInjection.DaggerSeptimanappApplicationComponent
@@ -13,7 +12,6 @@ import com.nobodysapps.septimanapp.dependencyInjection.SharedPreferencesModule
 import com.nobodysapps.septimanapp.model.storage.*
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
-import com.testfairy.TestFairy
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -23,7 +21,7 @@ import javax.inject.Inject
 const val VERSION_ALREADY_RUN_ON = "run_version"
 val ALLOWED_HORARIUM_LOCALES = listOf("la", "de")
 
-class SeptimanappApplication : Application(), HasAndroidInjector {
+class SeptimanappApplication : MultiDexApplication(), HasAndroidInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
@@ -44,10 +42,6 @@ class SeptimanappApplication : Application(), HasAndroidInjector {
 
     override fun onCreate() {
         super.onCreate()
-
-        if (BuildConfig.DEBUG) {
-            TestFairy.begin(this, "SDK-wiO2TKkT")
-        }
 
         val sharedPreferencesModule = SharedPreferencesModule()
         val contextModule = ContextModule(applicationContext)
