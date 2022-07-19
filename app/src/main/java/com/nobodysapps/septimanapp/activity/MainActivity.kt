@@ -28,7 +28,6 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.view_impressum.view.*
-import java.util.*
 import javax.inject.Inject
 
 

@@ -10,12 +10,10 @@ import com.alamkanak.weekview.DateTimeInterpreter
 import com.alamkanak.weekview.WeekView
 import com.alamkanak.weekview.WeekViewEvent
 import com.alamkanak.weekview.WeekViewLoader
-import com.nobodysapps.septimanapp.localization.dateFormatSymbolsForLatin
 import com.nobodysapps.septimanapp.localization.simpleDateFormat
 import com.nobodysapps.septimanapp.model.Horarium
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.max
 
 class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :

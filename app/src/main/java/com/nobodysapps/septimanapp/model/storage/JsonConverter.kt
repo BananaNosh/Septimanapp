@@ -1,7 +1,6 @@
 package com.nobodysapps.septimanapp.model.storage
 
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import java.lang.reflect.Type
 import javax.inject.Inject
 import javax.inject.Singleton

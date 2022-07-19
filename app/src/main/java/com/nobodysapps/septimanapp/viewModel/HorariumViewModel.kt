@@ -3,7 +3,6 @@ package com.nobodysapps.septimanapp.viewModel
 import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.model.Horarium
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import java.util.*

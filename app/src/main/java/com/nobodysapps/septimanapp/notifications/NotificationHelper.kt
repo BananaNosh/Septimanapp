@@ -81,9 +81,21 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             NotificationActionReceiver::class.java
         )
         notificationBuilder
-            .addAction(R.drawable.ic_clear, context.getString(R.string.notification_action_title_do_not_ask_again), doNotAskAgainIntent)
-            .addAction(R.drawable.ic_check, context.getString(R.string.notification_action_title_already_enrolled), alreadyEnrolledIntent)
-            .addAction(R.drawable.ic_clock, context.getString(R.string.notification_action_title_remind_later), remindLaterIntent)
+            .addAction(
+                R.drawable.ic_clear,
+                context.getString(R.string.notification_action_title_do_not_ask_again),
+                doNotAskAgainIntent
+            )
+            .addAction(
+                R.drawable.ic_check,
+                context.getString(R.string.notification_action_title_already_enrolled),
+                alreadyEnrolledIntent
+            )
+            .addAction(
+                R.drawable.ic_clock,
+                context.getString(R.string.notification_action_title_remind_later),
+                remindLaterIntent
+            )
 
         // call notify for both the group and the pet notification
 //        notificationManager.notify(reminderData.type.ordinal, groupBuilder.build())
@@ -104,13 +116,14 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             setContentText(context.getString(R.string.notification_enrol_text))
 
 
+            val flag = mutableUpdateCurrentFlag()
             // Launches the app to open the MainActivity with EnrolFragment
             val pendingIntent =
                 PendingIntent.getActivity(
                     context,
                     0,
                     createEnrolFragmentIntent(),
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    flag
                 )
             setContentIntent(pendingIntent)
         }
@@ -147,15 +160,24 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_assignment))
             setContentText(context.getString(R.string.notification_continue_enrol_text))
 
+            val flag = mutableUpdateCurrentFlag()
             // Launches the app to open the MainActivity with EnrolFragment
             val pendingIntent =
                 PendingIntent.getActivity(
                     context,
                     0,
                     createEnrolFragmentIntent(),
-                    PendingIntent.FLAG_UPDATE_CURRENT
+                    flag
                 )
             setContentIntent(pendingIntent)
+        }
+    }
+
+    private fun mutableUpdateCurrentFlag(): Int {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
         }
     }
 
@@ -183,7 +205,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
         val intent = Intent(context.applicationContext, receiverClass).apply {
             this.action = action
         }
-        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getBroadcast(context, 0, intent, mutableUpdateCurrentFlag())
     }
 
     companion object {
@@ -193,7 +215,9 @@ class NotificationHelper @Inject constructor(private val context: Context) {
         /*
         The points in time to send notification in (month, day) before the start of the Septimana
          */
-        val ENROL_REMINDER_TIMES = listOf(Pair(3, 0), Pair(2, 0), Pair(1, 0), Pair(0, 7)) //listOf(Pair(0, 147))
+        val ENROL_REMINDER_TIMES =
+            listOf(Pair(3, 0), Pair(2, 0), Pair(1, 0), Pair(0, 7)) //listOf(Pair(0, 147))
+
         /*
         The offset between last enrol action and notification (days, hours, minutes)
          */

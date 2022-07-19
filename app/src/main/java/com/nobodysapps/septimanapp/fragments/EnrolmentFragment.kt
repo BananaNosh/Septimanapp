@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -22,10 +21,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.dialog.ConfirmEnrolmentDialogFragment
 import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
-import com.nobodysapps.septimanapp.model.*
+import com.nobodysapps.septimanapp.model.EatingHabit
 import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_NO
 import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_NONE
 import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_YES
+import com.nobodysapps.septimanapp.model.Vegan
+import com.nobodysapps.septimanapp.model.Vegetarian
+import com.nobodysapps.septimanapp.model.create
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_ENROLLED
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_IN_PROGRESS
@@ -238,7 +240,7 @@ class EnrolmentFragment : Fragment() {
                         informationStorage.saveVeggieDay(ACCEPT_STATE_NO)
                     }
                 } else {
-                    informationStorage.saveVeggieDay(EnrolInformation.ACCEPT_STATE_NONE)
+                    informationStorage.saveVeggieDay(ACCEPT_STATE_NONE)
                 }
             }
 

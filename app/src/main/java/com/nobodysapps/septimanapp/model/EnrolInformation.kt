@@ -1,10 +1,7 @@
 package com.nobodysapps.septimanapp.model
 
 import android.content.Context
-import android.util.Log
 import com.nobodysapps.septimanapp.R
-import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
-import kotlinx.android.synthetic.main.fragment_enrolment.*
 
 data class EnrolInformation(
     val name: String,
