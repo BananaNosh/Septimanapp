@@ -65,23 +65,23 @@ class EnrolInformationStorage @Inject constructor(
         prefs.edit().putString(INSTRUMENT_KEY, instrument).apply()
     }
 
-    fun saveVeggieDay(veggieDay: Int) {
-        when (veggieDay) {
+    fun saveAddressConsent(consent: Int) {
+        when (consent) {
             in 0..2-> {
-                prefs.edit().putInt(VEGGIE_DAY_KEY, veggieDay).apply()
+                prefs.edit().putInt(ADDRESS_CONSENT_KEY, consent).apply()
             }
             else -> {
                 if (BuildConfig.DEBUG) {
-                    throw IllegalArgumentException("Illegal veggieday")
+                    throw IllegalArgumentException("Illegal address consent")
                 }
             }
         }
     }
 
-    fun saveAddressConsent(consent: Int) {
+    fun saveImageConsent(consent: Int) {
         when (consent) {
             in 0..2-> {
-                prefs.edit().putInt(ADDRESS_CONSENT_KEY, consent).apply()
+                prefs.edit().putInt(IMAGE_CONSENT_KEY, consent).apply()
             }
             else -> {
                 if (BuildConfig.DEBUG) {
@@ -108,7 +108,7 @@ class EnrolInformationStorage @Inject constructor(
             object : TypeToken<Pair<Int, List<String>>>() {}.type
         )
         val instrument = prefs.getString(INSTRUMENT_KEY, null) ?: ""
-        val veggieDay = prefs.getInt(VEGGIE_DAY_KEY, ACCEPT_STATE_NONE)
+        val imageConsent = prefs.getInt(IMAGE_CONSENT_KEY, ACCEPT_STATE_NONE)
         val addressConsent = prefs.getInt(ADDRESS_CONSENT_KEY, ACCEPT_STATE_NONE)
         return EnrolInformation(
             name,
@@ -123,7 +123,7 @@ class EnrolInformationStorage @Inject constructor(
             yearsOfLatin,
             if (eatingHabitPair != null) EatingHabit.fromSerializablePair(eatingHabitPair) else null,
             instrument,
-            veggieDay,
+            imageConsent,
             addressConsent
         )
     }
@@ -157,8 +157,8 @@ class EnrolInformationStorage @Inject constructor(
         private const val YEARS_LATIN_KEY = "years_latin"
         private const val EATING_HABIT_KEY = "eating_habit"
         private const val INSTRUMENT_KEY = "instrument"
-        private const val VEGGIE_DAY_KEY = "veggie_day_v2"
         private const val ADDRESS_CONSENT_KEY = "address_consent"
+        private const val IMAGE_CONSENT_KEY = "image_consent"
 
         private const val ENROLLED_STATE_KEY = "enrolled_state"
 

@@ -13,18 +13,18 @@ menu_map	Karte	Karte	Tabula geographica	Map	Carte
 menu_communicate	Communicate		Communicare	Communicate		
 menu_horarium	Programm	Programm	Horarium	Timetable	Horaire	
 menu_enrol	Anmelden	Anmelden	Nomen dare	Enrol	S‘inscrire	
-
-%% Impressum %%
+						
+%% Impressum %%						
 menu_impressum	Impressum	Impressum	Vestigium	Imprint	Empreinte	
 impressum_name	Jonathan Loos	not-translatable	not-translatable	not-translatable	not-translatable	
 impressum_address	Mefferdatisstraße 8\n52062 Aachen	not-translatable	not-translatable	not-translatable	not-translatable	
 impressum_mail	noshsapps@gmail.com	not-translatable	not-translatable	not-translatable	not-translatable	
-
-%% General dialog %%
+						
+%% General dialog %%						
 ok	OK	OK	Licet	OK	D‘accord	
 cancel	Abbrechen	Abbrechen	Non licet	Cancel	Annuler	
-
-%% Horarium %%
+						
+%% Horarium %%						
 action_day_view_day	%d Tag	%d Tag	%d dies	%d day	%d jour	
 action_day_view_days	%d Tage	%d Tage	%d dies	%d days	%d jours	
 dialog_outdated_horarium	Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.	Es gibt noch kein aktuelles Programm.\nDas von letztem Jahr wird angezeigt.	Nondum exstat horarium huius anni. Cuius loco monstratur horarium anni proximi.	There is no current timetable. The one of the last latin week is shown.	Il n‘y a pas encore l‘horaire actuel. Celui de l‘année dernière est affiché.	
@@ -32,12 +32,12 @@ dialog_outdated_horarium_title	Kein Programm gefunden	Kein Programm gefunden	Non
 dialog_do_not_show_again	Nicht mehr anzeigen	Nicht mehr anzeigen	Ne monstraveris iterum	Do not show again	Ne montrer pas à nouveau	
 snackbar_horarium_not_found	Kein Programm für die ausgewählte Sprache gefunden	Kein Programm für die ausgewählte Sprache gefunden	Non invenitur horarium in lingua selecta	No horarium found in the specified language	Aucun horaire trouvé pour la langue sélectionée	
 snackbar_previous_horarium	vergangenen	vergangenen	proximum	past	dernière	
-
-%% Maps %%
+						
+%% Maps %%						
 explication_map_permission	Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte	Berechtigung für Gerätespeicher notwendig für das Anzeigen der Karte	Licetne Septimanapp uti huius instrumenti memoria ad monstrandam tabulam geographicam?	Map needs storage permission to cache the map!	Autorisation á accéder aux fichiers nécesseaire pour montrer la carte!	
 snackbar_to_septimana	Bring mich zur Septimana!	Bring mich zur Septimana!	Adducas me ad Septimanam!	Take me to the Septimana!	Emmène-moi à la Septimana!	
-
-%% Enrol %%
+						
+%% Enrol %%						
 enrol_last_name_hint	Nachname	Nachname	Cognomen	Surname	Nom de famille	
 enrol_first_name_hint	Vorname	Vorname	Praenomen	First name	Prénom	
 enrol_checkbox_johannes_haus	Ich möchte im Johanneshaus wohnen.	Ich möchte im Johanneshaus wohnen.	Velim in Johanneshaus deversari.	I want to stay in Johanneshaus.	Je veux loger à Johanneshaus.	
@@ -68,8 +68,10 @@ enrol_instrument_back_1	mit.	mit.	.	.	.
 enrol_instrument_back_2	(falls möglich)	(falls möglich)	(si fieri potest)	(if possible)	(si possible)	
 enrol_veggieday_yes	Ich esse Fleisch, finde aber \"Veggietage\" (zwei Tage mit vegetarischem Mittagessen) richtig.	Ich esse Fleisch, finde aber \"Veggietage\" (zwei Tage mit vegetarischem Mittagessen) richtig.	Carnem edo, sed mihi placent \"Veggiedays\"(duo dies, quo non editur carnem).	I eat meat, but like \"Veggiedays\" (two days of vegetarian food).	Je mange de la viande, mais je suis en faveur de deux \"Veggiedays\" (jours vegetariens).	tools:ignore=Typos
 enrol_veggieday_no	Ich esse Fleisch und finde es besser, wenn es keine \"Veggietage\" gibt.	Ich esse Fleisch und finde es besser, wenn es keine \"Veggietage\" gibt.	Carnem comedo et nullos  \"Veggiedays\" esse praefero.	I eat meat and prefer to have no  \"Veggiedays\".	Je mange de la viande et prefere pas des \"Veggiedays\".	
-enrol_address_data_allow	Ich bin damit einverstanden, dass meine Adressdaten auf einer Teilnehmerliste erscheinen, die an die Teilnehmer verteilt wird.	Ich bin damit einverstanden, dass meine Adressdaten auf einer Teilnehmerliste erscheinen, die an die Teilnehmer verteilt wird.	Licet data inscriptionis cursualis scripta participantibus distribuere.	I agree, that my address data appears on a list, which is going to be distributed to the participants.	Je suis d\'accord, que mes données d\'adresse paraissent sur une liste distribuée a tous les participants.	
+enrol_address_data_allow	Ich bin damit einverstanden, dass meine Adressdaten auf einer Teilnehmerliste erscheinen, die an die Teilnehmer verteilt wird.	Ich bin damit einverstanden, dass meine Adressdaten auf einer Teilnehmerliste erscheinen, die an die Teilnehmer verteilt wird.	Licet data inscriptionis cursualis scripta participantibus distribuere.	I agree that my address data appears on a list, which is going to be distributed to the participants.	Je suis d\'accord, que mes données d\'adresse paraissent sur une liste distribuée a tous les participants.	
 enrol_address_data_not_allow	Ich bin damit NICHT einverstanden.	Ich bin damit NICHT einverstanden.	Non licet.	I disagree.	Je refuse.	
+enrol_image_allow	Ich bin damit einverstanden, dass auf der Lateinwoche aufgenommene Fotos von mir auf der Homepage oder in Artikeln zur Lateinwoche erscheinen.	Ich bin damit einverstanden, dass auf der Lateinwoche aufgenommene Fotos von mir auf der Homepage oder in Artikeln zur Lateinwoche erscheinen	Licet photographemata sumpta in septimana Latina in rete aut actis diurnis monstrari.	I agree that pictures taken during the Latinweek maybe posted on the Latinweek\'s website or shown in newspapers.	Je suis d\'accord, que des photos de moi prises pendant la Semaine latine puissent apparaître sur la page d\'accueil ou dans les articles de la Semaine latine.	
+enrol_image_not_allow	Ich bin damit NICHT einverstanden.	Ich bin damit NICHT einverstanden.	Non licet.	I disagree.	Je refuse.	
 enrol_not_all_data_given	Bitte alle notwendigen Informationen angeben!	Bitte alle notwendigen Informationen angeben!	Quaeso dare omnia data quibus opus est!	Please provide all necessary information!	Veuillez fournir toutes les informations nécessaires!	
 dialog_confirm_enrolment_title	Verbindlich Anmelden	Verbindlich Anmelden	Firme nomen do	Enrol bindingly	inscription contraignante	
 dialog_confirm_enrolment	Hiermit bestätige ich, dass ich volljährig bin und mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde, sowie, dass ich meine Angaben überprüft habe.	Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.	Confirmo me epistulam, quae erit creata, mittendo mei potentem esse et nomen Septimanae Latinae firme dare et me data diligenter probavisse.	Hereby I confirm that I am full-aged and that I am bindingly register for the latin week by sending the email created in the following as well as having checked my data.	Par les présentes je confirme que je suis majeur et que j\'ai vérifier mes données aussi que je contraignantement registre pour la semain latin en envoyant la mail crée dans ce qui suit.	
@@ -77,12 +79,12 @@ enrol_send_email_hoehenblick	Haus Höhenblick	not-translatable	not-translatable	
 enrol_send_email_johanneshaus	Johanneshaus	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_email_address	thomas@septimanalatina.org	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_email_subject	Anmeldung Lateinwoche %s - %s, %s	not-translatable	not-translatable	not-translatable	not-translatable	
-enrol_send_email_template	%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm %s wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s\nAdresse auf Liste ok: %s	not-translatable	not-translatable	not-translatable	not-translatable	
+enrol_send_email_template	%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm %s wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nBilder ok: %s\nAdresse auf Liste ok: %s	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_eating_habit_no_meat	Nein, da Veganer*in oder Vegetarier*in	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_yes	Ja	not-translatable	not-translatable	not-translatable	not-translatable	
 enrol_send_no	Nein	not-translatable	not-translatable	not-translatable	not-translatable	
-
-%% Settings %%
+						
+%% Settings %%						
 signature_title	Your signature					
 reply_title	Default reply action					
 settings_title_language	Sprache	Sprache	Lingua	Language	Langue	
@@ -94,8 +96,9 @@ settings_open_source	Open Source Lizenzen	Open Source Lizenzen	Open Source Licen
 settings_summary_open_source	Zeigt die Lizenzen benutzter Software	Zeigt die Lizensen benutzter Software	Monstrat licentias programmaton usorum	Shows the licences of used software	Montre les licences des logiciels utilisés	
 dialog_licenses_title	Open Source Lizenzen	Open Source Linzenzen	Open Source Licentiae	Open Source Licences	Open Source Licences	
 action_horarium_language	Show timetable in %s	Programm auf %s	Videatur horarium in %s	Show timetable in %s	Horaire en %s	
-
-%% Language stuff%%
+settings_summary_version	Version: %s	Version: %s	versio: %s	version: %s	version: %s	
+						
+%% Language stuff%%						
 language	language %s	-	lingua %s	-	-	tools:ignore=ExtraTranslation,MissingTranslation
 language_latin	-	-	Latina	-	-	tools:ignore=ExtraTranslation,MissingTranslation
 language_english	-	-	Anglica	-	-	tools:ignore=ExtraTranslation,MissingTranslation
@@ -103,8 +106,8 @@ language_german	-	-	Theodisca	-	-	tools:ignore=ExtraTranslation,MissingTranslati
 language_french	-	-	Francogallica	-	-	tools:ignore=ExtraTranslation,MissingTranslation
 language_unknown	-	-	ignota	-	-	tools:ignore=ExtraTranslation,MissingTranslation
 dialog_choose_language	Should Septimanapp be displayed in Latin or German?%s	Soll die Septimanapp in Latein angezeigt werden oder auf Deutsch?	-	Should Septimanapp be displayed in Latin or English?	Est-ce que vous voulez regarder Septimanapp en latin ou français?	
-
-%% Notifications%%
+						
+%% Notifications%%						
 action_notify_enrol_reminder	com.nobodysapps.septimanapp.action.ENROL_REMINDER	not-translatable	not-translatable	not-translatable	not-translatable	
 action_notify_continue_enrol_reminder	com.nobodysapps.septimanapp.action.CONTINUE_ENROL_REMINDER	not-translatable	not-translatable	not-translatable	not-translatable	
 action_mark_already_enrolled	com.nobodysapps.septimanapp.action.ALREADY_ENROLLED	not-translatable	not-translatable	not-translatable	not-translatable	

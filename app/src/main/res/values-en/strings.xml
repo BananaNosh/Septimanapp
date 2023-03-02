@@ -57,8 +57,10 @@
     <string name="enrol_instrument_back_2">(if possible)</string>
     <string name="enrol_veggieday_yes">I eat meat, but like \"Veggiedays\" (two days of vegetarian food).</string>
     <string name="enrol_veggieday_no">I eat meat and prefer to have no  \"Veggiedays\".</string>
-    <string name="enrol_address_data_allow">I agree, that my address data appears on a list, which is going to be distributed to the participants.</string>
+    <string name="enrol_address_data_allow">I agree that my address data appears on a list, which is going to be distributed to the participants.</string>
     <string name="enrol_address_data_not_allow">I disagree.</string>
+    <string name="enrol_image_allow">I agree that pictures taken during the Latinweek maybe posted on the Latinweek\'s website or shown in newspapers.</string>
+    <string name="enrol_image_not_allow">I disagree.</string>
     <string name="enrol_not_all_data_given">Please provide all necessary information!</string>
     <string name="dialog_confirm_enrolment_title">Enrol bindingly</string>
     <string name="dialog_confirm_enrolment">Hereby I confirm that I am full-aged and that I am bindingly register for the latin week by sending the email created in the following as well as having checked my data.</string>
@@ -73,6 +75,7 @@
     <string name="settings_summary_open_source">Shows the licences of used software</string>
     <string name="dialog_licenses_title">Open Source Licences</string>
     <string name="action_horarium_language">Show timetable in %s</string>
+    <string name="settings_summary_version">version: %s</string>
 
     <!-- Language stuff-->
     <string name="language">-</string>
@@ -90,5 +93,4 @@
     <string name="notification_action_title_already_enrolled">already done</string>
     <string name="notification_action_title_remind_later">later</string>
     <string name="notification_continue_enrol_text">Do‘nt forget to finish your registration!</string>
-    <string name="settings_summary_version">version: %s</string>
 </resources>

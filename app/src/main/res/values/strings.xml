@@ -72,6 +72,8 @@
     <string name="enrol_veggieday_no">Ich esse Fleisch und finde es besser, wenn es keine \"Veggietage\" gibt.</string>
     <string name="enrol_address_data_allow">Ich bin damit einverstanden, dass meine Adressdaten auf einer Teilnehmerliste erscheinen, die an die Teilnehmer verteilt wird.</string>
     <string name="enrol_address_data_not_allow">Ich bin damit NICHT einverstanden.</string>
+    <string name="enrol_image_allow">Ich bin damit einverstanden, dass auf der Lateinwoche aufgenommene Fotos von mir auf der Homepage oder in Artikeln zur Lateinwoche erscheinen.</string>
+    <string name="enrol_image_not_allow">Ich bin damit NICHT einverstanden.</string>
     <string name="enrol_not_all_data_given">Bitte alle notwendigen Informationen angeben!</string>
     <string name="dialog_confirm_enrolment_title">Verbindlich Anmelden</string>
     <string name="dialog_confirm_enrolment">Hiermit bestätige ich, dass ich volljährig bin und mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde, sowie, dass ich meine Angaben überprüft habe.</string>
@@ -79,7 +81,7 @@
     <string name="enrol_send_email_johanneshaus" translatable="false">Johanneshaus</string>
     <string name="enrol_send_email_address" translatable="false">thomas@septimanalatina.org</string>
     <string name="enrol_send_email_subject" translatable="false">Anmeldung Lateinwoche %s - %s, %s</string>
-    <string name="enrol_send_email_template" translatable="false">%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm %s wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nVeggiedays ok: %s\nAdresse auf Liste ok: %s</string>
+    <string name="enrol_send_email_template" translatable="false">%s %s\n%s\n%s\n%s\n%s\n\n%s\n\%s\nIm %s wohnen: %s\nJahre Latein: %.1f\n%s\nInstrument: %s\nBilder ok: %s\nAdresse auf Liste ok: %s</string>
     <string name="enrol_send_eating_habit_no_meat" translatable="false">Nein, da Veganer*in oder Vegetarier*in</string>
     <string name="enrol_send_yes" translatable="false">Ja</string>
     <string name="enrol_send_no" translatable="false">Nein</string>

@@ -58,6 +58,8 @@
     <string name="enrol_veggieday_no">Ich esse Fleisch und finde es besser, wenn es keine \"Veggietage\" gibt.</string>
     <string name="enrol_address_data_allow">Ich bin damit einverstanden, dass meine Adressdaten auf einer Teilnehmerliste erscheinen, die an die Teilnehmer verteilt wird.</string>
     <string name="enrol_address_data_not_allow">Ich bin damit NICHT einverstanden.</string>
+    <string name="enrol_image_allow">Ich bin damit einverstanden, dass auf der Lateinwoche aufgenommene Fotos von mir auf der Homepage oder in Artikeln zur Lateinwoche erscheinen</string>
+    <string name="enrol_image_not_allow">Ich bin damit NICHT einverstanden.</string>
     <string name="enrol_not_all_data_given">Bitte alle notwendigen Informationen angeben!</string>
     <string name="dialog_confirm_enrolment_title">Verbindlich Anmelden</string>
     <string name="dialog_confirm_enrolment">Hiermit bestätige ich, dass ich mich mit dem Senden der in Folge erstellten Email verbindlich zur Lateinwoche anmelde und meine Angaben überprüft habe.</string>
@@ -72,6 +74,7 @@
     <string name="settings_summary_open_source">Zeigt die Lizensen benutzter Software</string>
     <string name="dialog_licenses_title">Open Source Linzenzen</string>
     <string name="action_horarium_language">Programm auf %s</string>
+    <string name="settings_summary_version">Version: %s</string>
 
     <!-- Language stuff-->
     <string name="language">-</string>
@@ -89,5 +92,4 @@
     <string name="notification_action_title_already_enrolled">Schon passiert</string>
     <string name="notification_action_title_remind_later">Später</string>
     <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
-    <string name="settings_summary_version">Version: %s</string>
 </resources>

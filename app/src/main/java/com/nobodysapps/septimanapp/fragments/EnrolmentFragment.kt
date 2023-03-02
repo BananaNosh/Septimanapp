@@ -114,7 +114,7 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun loadForm() {
-        val (name, firstname, street, postal, city, country, phone, mail, stayInJohannesHaus, yearsOfLatin, eatingHabit, instrument, veggieDay, addressConsent) = informationStorage.loadEnrolInformation()
+        val (name, firstname, street, postal, city, country, phone, mail, stayInJohannesHaus, yearsOfLatin, eatingHabit, instrument, imageConsent, addressConsent) = informationStorage.loadEnrolInformation()
         enrolNameEdit.setText(name)
         enrolFirstameEdit.setText(firstname)
         enrolStreetEdit.setText(street)
@@ -125,8 +125,8 @@ class EnrolmentFragment : Fragment() {
         enrolInstrumentEdit.setText(instrument)
 
         enrolJohanneshausCB.isChecked = stayInJohannesHaus
-        enrolVeggiedayYesCB.isChecked = veggieDay == ACCEPT_STATE_YES
-        enrolVeggiedayNoCB.isChecked = veggieDay == ACCEPT_STATE_NO
+        enrolImageConsentYesRB.isChecked = imageConsent == ACCEPT_STATE_YES
+        enrolImageConsentNoRB.isChecked = imageConsent == ACCEPT_STATE_NO
         enrolAddressConsentYesRB.isChecked = addressConsent == ACCEPT_STATE_YES
         enrolAddressConsentNoRB.isChecked = addressConsent == ACCEPT_STATE_NO
 
@@ -228,26 +228,25 @@ class EnrolmentFragment : Fragment() {
         enrolJohanneshausCB.setOnCheckedChangeListener { _, isChecked ->
             informationStorage.saveStayInJohanneshaus(isChecked)
         }
-        val onVeggieDayChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, isChecked ->
+
+        setupEatingHabitListeners()
+        val onImageConsentChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, _ ->
             if (btn.isPressed) {
-                if (isChecked) {
-                    val yes = btn == enrolVeggiedayYesCB
-                    if (yes) {
-                        enrolVeggiedayNoCB.isChecked = false
-                        informationStorage.saveVeggieDay(ACCEPT_STATE_YES)
-                    } else {
-                        enrolVeggiedayYesCB.isChecked = false
-                        informationStorage.saveVeggieDay(ACCEPT_STATE_NO)
-                    }
-                } else {
-                    informationStorage.saveVeggieDay(ACCEPT_STATE_NONE)
+                when (btn) {
+                    enrolImageConsentYesRB -> informationStorage.saveImageConsent(
+                        ACCEPT_STATE_YES
+                    )
+                    enrolImageConsentNoRB -> informationStorage.saveImageConsent(
+                        ACCEPT_STATE_NO
+                    )
+                    else -> informationStorage.saveImageConsent(
+                        ACCEPT_STATE_NONE
+                    )
                 }
             }
-
         }
-        enrolVeggiedayYesCB.setOnCheckedChangeListener(onVeggieDayChangedLambda)
-        enrolVeggiedayNoCB.setOnCheckedChangeListener(onVeggieDayChangedLambda)
-        setupEatingHabitListeners()
+        enrolAddressConsentYesRB.setOnCheckedChangeListener(onImageConsentChangedLambda)
+        enrolAddressConsentNoRB.setOnCheckedChangeListener(onImageConsentChangedLambda)
 
         val onAddressConsentChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, _ ->
             if (btn.isPressed) {
@@ -302,11 +301,9 @@ class EnrolmentFragment : Fragment() {
                     R.id.enrolVeganCB -> {
                         enrolEverythingCB.isChecked = false
                         enrolVegetarianCB.isChecked = true
-                        enrolVeggiedayYesCB.isChecked = false
                     }
                     R.id.enrolVegetarianCB -> {
                         enrolEverythingCB.isChecked = false
-                        enrolVeggiedayYesCB.isChecked = false
                     }
                     R.id.enrolGlutenfreeCB -> enrolEverythingCB.isChecked = false
                     R.id.enrolAllergensCB -> enrolEverythingCB.isChecked = false
@@ -383,7 +380,7 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun sendEnrolment() {
-        val (name, firstname, street, postal, city, country, phone, mail, stayInMainBuilding, yearsOfLatin, eatingHabit, instrument, veggieDay, addressConsent) = informationStorage.loadEnrolInformation()
+        val (name, firstname, street, postal, city, country, phone, mail, stayInMainBuilding, yearsOfLatin, eatingHabit, instrument, imageConsent, addressConsent) = informationStorage.loadEnrolInformation()
 
         val emailIntent = Intent(Intent.ACTION_SEND)
         val aEmailList = arrayOf(getString(R.string.enrol_send_email_address))
@@ -425,10 +422,9 @@ class EnrolmentFragment : Fragment() {
                 )).information(requireContext()),
                 instrument,
                 getString(
-                    when (veggieDay) {
+                    when (imageConsent) {
                         ACCEPT_STATE_YES -> R.string.enrol_send_yes
-                        ACCEPT_STATE_NO -> R.string.enrol_send_no
-                        else -> R.string.enrol_send_eating_habit_no_meat
+                        else -> R.string.enrol_send_no
                     }
                 ),
                 getString(

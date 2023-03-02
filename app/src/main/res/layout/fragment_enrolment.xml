@@ -95,7 +95,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_gap"
-                android:layout_marginBottom="@dimen/small_gap" />
+                android:layout_marginBottom="@dimen/small_gap"
+                tools:text="Velim versari..."/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -195,30 +196,6 @@
             <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:alignContent="center"
-                app:alignItems="center"
-                app:flexWrap="wrap">
-
-                <CheckBox
-                    android:id="@+id/enrolVeggiedayYesCB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/small_gap"
-                    android:layout_marginBottom="@dimen/small_gap"
-                    android:text="@string/enrol_veggieday_yes" />
-
-                <CheckBox
-                    android:id="@+id/enrolVeggiedayNoCB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/small_gap"
-                    android:layout_marginBottom="@dimen/small_gap"
-                    android:text="@string/enrol_veggieday_no" />
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_margin_text"
                 android:layout_marginLeft="5dp"
                 app:alignContent="center"
@@ -268,6 +245,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/enrol_address_data_not_allow" />
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_gap">
+
+                <RadioButton
+                    android:id="@+id/enrolImageConsentYesRB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enrol_image_allow" />
+
+                <RadioButton
+                    android:id="@+id/enrolImageConsentNoRB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enrol_image_not_allow" />
 
             </RadioGroup>
 

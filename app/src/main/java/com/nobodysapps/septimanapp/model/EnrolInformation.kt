@@ -16,7 +16,7 @@ data class EnrolInformation(
     val yearsOfLatin: Float,
     val eatingHabit: EatingHabit?,
     val instrument: String,
-    val veggieDay: Int,
+    val imageConsent: Int,
     val addressConsent: Int
 ) {
 
@@ -24,7 +24,7 @@ data class EnrolInformation(
         if (name.isBlank() || firstname.isBlank() || street.isBlank() || postal.isBlank() || city.isBlank() || country.isBlank() || phone.isBlank() || mail.isBlank()) {
             return false
         }
-        return addressConsent != ACCEPT_STATE_NONE
+        return addressConsent != ACCEPT_STATE_NONE && imageConsent != ACCEPT_STATE_NONE
     }
 
 

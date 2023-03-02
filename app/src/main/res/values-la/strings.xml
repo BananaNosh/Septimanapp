@@ -61,6 +61,8 @@
     <string name="enrol_veggieday_no">Carnem comedo et nullos  \"Veggiedays\" esse praefero.</string>
     <string name="enrol_address_data_allow">Licet data inscriptionis cursualis scripta participantibus distribuere.</string>
     <string name="enrol_address_data_not_allow">Non licet.</string>
+    <string name="enrol_image_allow">Licet photographemata sumpta in septimana Latina in rete aut actis diurnis monstrari.</string>
+    <string name="enrol_image_not_allow">Non licet.</string>
     <string name="enrol_not_all_data_given">Quaeso dare omnia data quibus opus est!</string>
     <string name="dialog_confirm_enrolment_title">Firme nomen do</string>
     <string name="dialog_confirm_enrolment">Confirmo me epistulam, quae erit creata, mittendo mei potentem esse et nomen Septimanae Latinae firme dare et me data diligenter probavisse.</string>
@@ -75,6 +77,7 @@
     <string name="settings_summary_open_source">Monstrat licentias programmaton usorum</string>
     <string name="dialog_licenses_title">Open Source Licentiae</string>
     <string name="action_horarium_language">Videatur horarium in %s</string>
+    <string name="settings_summary_version">versio: %s</string>
 
     <!-- Language stuff-->
     <string name="language">lingua %s</string>
@@ -92,5 +95,4 @@
     <string name="notification_action_title_already_enrolled">iam confectum</string>
     <string name="notification_action_title_remind_later">serius</string>
     <string name="notification_continue_enrol_text">Nolli oblivisci finire nomen dare!</string>
-    <string name="settings_summary_version">versio: %s</string>
 </resources>
