@@ -245,8 +245,8 @@ class EnrolmentFragment : Fragment() {
                 }
             }
         }
-        enrolAddressConsentYesRB.setOnCheckedChangeListener(onImageConsentChangedLambda)
-        enrolAddressConsentNoRB.setOnCheckedChangeListener(onImageConsentChangedLambda)
+        enrolImageConsentYesRB.setOnCheckedChangeListener(onImageConsentChangedLambda)
+        enrolImageConsentNoRB.setOnCheckedChangeListener(onImageConsentChangedLambda)
 
         val onAddressConsentChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, _ ->
             if (btn.isPressed) {
