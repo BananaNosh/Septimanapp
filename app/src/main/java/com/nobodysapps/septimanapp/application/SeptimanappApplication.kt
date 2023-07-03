@@ -101,8 +101,8 @@ class SeptimanappApplication : MultiDexApplication(), HasAndroidInjector {
         val isFirstRunForVersion =
             sharedPreferences.getLong(VERSION_ALREADY_RUN_ON, 0) != appVersion
         if (isFirstRunForVersion) {
-            sharedPreferences.edit().putLong(VERSION_ALREADY_RUN_ON, appVersion).apply()
             doOnFirstStartOfVersion()
+            sharedPreferences.edit().putLong(VERSION_ALREADY_RUN_ON, appVersion).apply()
         }
     }
 
