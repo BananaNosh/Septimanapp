@@ -155,9 +155,9 @@ class SeptimanappApplication : MultiDexApplication(), HasAndroidInjector {
 
     private fun storeEventInfo() {
         val startTime = Calendar.getInstance()
-        startTime.set(2023, 6, 29, 16, 0)
+        startTime.set(2024, 6, 27, 16, 0)
         val endTime = startTime.clone() as Calendar
-        endTime.set(2023, 7, 5, 14, 0)
+        endTime.set(2024, 7, 3, 14, 0)
         eventInfoStorage.saveSeptimanaStartEndTime(startTime, endTime)
         eventInfoStorage.saveSeptimanaLocation(SeptimanaLocation.BRAUNFELS)
     }
