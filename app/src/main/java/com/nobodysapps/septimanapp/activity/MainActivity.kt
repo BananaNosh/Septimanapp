@@ -12,9 +12,9 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.multidex.BuildConfig
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
@@ -135,9 +135,9 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             R.id.nav_horarium -> {
                 fragmentClass = HorariumFragment::class.java
             }
-            R.id.nav_map -> {
-                fragmentClass = MapFragment::class.java
-            }
+//            R.id.nav_map -> {
+//                fragmentClass = MapFragment::class.java
+//            }
             R.id.nav_enrol -> {
                 fragmentClass = EnrolmentFragment::class.java
             }
@@ -174,7 +174,6 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             SNACKBAR_ROUTE_DELAY
         )
     }
-
 
     override fun onBackPressed() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)

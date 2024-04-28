@@ -9,10 +9,10 @@
             android:checked="true"
             android:icon="@drawable/ic_timetable"
             android:title="@string/menu_horarium" />
-        <item
-            android:id="@+id/nav_map"
-            android:icon="@drawable/ic_map"
-            android:title="@string/menu_map" />
+<!--        <item-->
+<!--            android:id="@+id/nav_map"-->
+<!--            android:icon="@drawable/ic_map"-->
+<!--            android:title="@string/menu_map" />-->
         <item
             android:id="@+id/nav_enrol"
             android:icon="@drawable/ic_assignment"
