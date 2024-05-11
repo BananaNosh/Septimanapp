@@ -87,24 +87,6 @@ class MapFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        val listener = object : PermissionListener {
-            override fun onPermissionGranted(permission: String) {
-                mapView.onResume()
-            }
-
-            override fun onPermissionDenied(permission: String) {
-                activity?.onBackPressed()
-            }
-        }
-        (activity as SeptimanappActivity).withPermission(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            listener,
-            getString(R.string.explication_map_permission)
-        )
-    }
-
     override fun onPause() {
         super.onPause()
         mapView.onPause()

@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.multidex.BuildConfig
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
@@ -28,6 +29,8 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.view_impressum.view.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -135,9 +138,11 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             R.id.nav_horarium -> {
                 fragmentClass = HorariumFragment::class.java
             }
-//            R.id.nav_map -> {
-//                fragmentClass = MapFragment::class.java
-//            }
+
+            R.id.nav_map -> {
+                fragmentClass = MapFragment::class.java
+            }
+
             R.id.nav_enrol -> {
                 fragmentClass = EnrolmentFragment::class.java
             }
@@ -155,8 +160,9 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
     }
 
     private fun showRouteToLocationSnackbar() {
-        Handler().postDelayed(
-            {
+        lifecycleScope.launch {
+            delay(SNACKBAR_ROUTE_DELAY)
+            runOnUiThread {
                 val snackbar = Snackbar.make(
                     main_layout,
                     getString(R.string.snackbar_to_septimana),
@@ -170,12 +176,12 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
                             startActivity(mapIntent)
                         }
                     }.show()
-            },
-            SNACKBAR_ROUTE_DELAY
-        )
+            }
+        }
     }
 
-    override fun onBackPressed() {
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {  // TODO replace deprecated method
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         when {
             drawerLayout.isDrawerOpen(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)
@@ -187,6 +193,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
                 }
                 supportFragmentManager.popBackStack()
             }
+
             else -> super.onBackPressed()
         }
     }
