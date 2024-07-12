@@ -20,6 +20,7 @@ def read_args():
                       help='First day of the septimana (DD.MM.YY)')
     opts.add_argument('language', metavar='Language', choices=["de", "la"],
                       help='The language the Horarium is in')
+    opts.add_argument("--table_index", type=int, default=0)
     args = opts.parse_args()
     return args
 
@@ -40,8 +41,8 @@ def time_dict_from_date_hour_and_minute(date, hour, minute):
 
 
 def combine_items_for_same_time(column):
-    time_regex = re.compile(r"(h[:.][ \t]*(\d{1,2}:\d{2} ?[-—–‒―]? ?){1,2})"
-                            r"|([ \t]*(\d{1,2}:\d{2} ?(Uhr)? ?[-—–‒―]? ?){1,2})[ \t]?Uhr")
+    time_regex = re.compile(r"(h[:.][ \t]*(\d{1,2}[:.]\d{2} ?[-—–‒―]? ?){1,2})"
+                            r"|([ \t]*(\d{1,2}[:.]\d{2} ?(Uhr)? ?[-—–‒―]? ?){1,2})[ \t]?Uhr")
     indices_with_time = [i for i, txt in enumerate(column) if re.search(time_regex, txt)] + [len(column)]
     column = ["\n".join(column[index:next_index]) for index, next_index in
               zip(indices_with_time[:-1], indices_with_time[1:])]
@@ -70,8 +71,8 @@ if __name__ == '__main__':
             print("WRONG fileformat must be docx, doc or pdf")
             exit(-1)
         document = Document(filename)
-        table = document.tables[0]
-        text_table = [[cell.text for cell in column.cells] for column in table.columns]
+        table = document.tables[args.table_index]
+        text_table = [combine_items_for_same_time([cell.text for cell in column.cells]) for column in table.columns]
 
     try:
         date = [int(d) for d in args.date.split(".")]
@@ -84,8 +85,8 @@ if __name__ == '__main__':
     start_date = datetime.date(*reversed(date))
 
     locale = args.language
-    time_pattern = re.compile(r"h[.:]?[ \t]*(\d{1,2}):(\d{2})[ ]*([-—–‒―][ ]*(\d{1,2}):(\d{2}))?\W*\n"
-                              r"|[ \t]*(\d{1,2}):(\d{2})( ?[-—–‒―] ?(\d{1,2}):(\d{2}))?( [Uu]hr)?\W*\n?")
+    time_pattern = re.compile(r"h[.:]?[ \t]*(\d{1,2})[:.](\d{2})[ ]*([-—–‒―][ ]*(\d{1,2})[:.](\d{2}))?\W*\n"
+                              r"|[ \t]*(\d{1,2})[:.](\d{2})( ?[-—–‒―] ?(\d{1,2})[:.](\d{2}))?( [Uu]hr)?\W*\n?")
     for i, column in enumerate(text_table):
         date = start_date + datetime.timedelta(i)
         cell_content = ""
