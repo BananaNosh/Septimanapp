@@ -13,7 +13,9 @@ class AlarmScheduler @Inject constructor(private val context: Context) {
      */
     fun scheduleAlarm(alarmTime: Calendar, alarmIntent: PendingIntent?) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.set(AlarmManager.RTC, alarmTime.timeInMillis, alarmIntent)
+        alarmIntent?.let {
+            alarmManager.set(AlarmManager.RTC, alarmTime.timeInMillis, alarmIntent)
+        }
     }
 
     fun scheduleAlarmIfNotInPast(alarmTime: Calendar, alarmIntent: PendingIntent?) {
