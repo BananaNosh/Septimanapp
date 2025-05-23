@@ -207,16 +207,16 @@ class HorariumView @JvmOverloads constructor(context: Context, attrs: AttributeS
         }
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        when (numberOfDrawn) {
-            0 -> // workaround as in WeekView in first draw the hourHeight is set
-                setHourHeightAccordingToShortestEvent(events)
-            1 -> // also set hour after the second draw
-                if (isDuringEvents()) goToHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY).toDouble())
-        }
-        numberOfDrawn++
-    }
+//    override fun onDraw(canvas: Canvas?) {
+//        super.onDraw(canvas)
+//        when (numberOfDrawn) {
+//            0 -> // workaround as in WeekView in first draw the hourHeight is set
+//                setHourHeightAccordingToShortestEvent(events)
+//            1 -> // also set hour after the second draw
+//                if (isDuringEvents()) goToHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY).toDouble())
+//        }
+//        numberOfDrawn++
+//    }
 
     fun toggleDayView() {
         val newToggleDays = numberOfVisibleDays

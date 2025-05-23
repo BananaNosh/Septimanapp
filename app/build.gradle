@@ -11,12 +11,12 @@ apply plugin: 'com.google.gms.google-services'
 
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
     defaultConfig {
         applicationId "com.nobodysapps.septimanapp"
         minSdkVersion 19
-        targetSdkVersion 33
-        versionCode 24
+        targetSdkVersion 34
+        versionCode 25
         versionName "1.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
