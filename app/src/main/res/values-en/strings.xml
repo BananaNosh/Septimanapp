@@ -93,4 +93,5 @@
     <string name="notification_action_title_already_enrolled">already done</string>
     <string name="notification_action_title_remind_later">later</string>
     <string name="notification_continue_enrol_text">Do‘nt forget to finish your registration!</string>
+    <string name="privacy_statement"><a href="https://banananosh.github.io/datenschutzerklaerung.html">provacy policy</a></string>
 </resources>

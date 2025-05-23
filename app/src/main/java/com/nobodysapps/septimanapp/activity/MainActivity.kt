@@ -3,7 +3,7 @@ package com.nobodysapps.septimanapp.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
+import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -24,11 +24,14 @@ import com.nobodysapps.septimanapp.view.CountDownView
 import com.nobodysapps.septimanapp.viewModel.MainViewModel
 import com.nobodysapps.septimanapp.viewModel.ViewModelFactory
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.android.synthetic.main.nav_header_main.*
-import kotlinx.android.synthetic.main.view_impressum.view.*
+import kotlinx.android.synthetic.main.activity_main.drawer_layout
+import kotlinx.android.synthetic.main.activity_main.nav_view
+import kotlinx.android.synthetic.main.app_bar_main.toolbar
+import kotlinx.android.synthetic.main.content_main.main_layout
+import kotlinx.android.synthetic.main.nav_header_main.countDownSubTV
+import kotlinx.android.synthetic.main.nav_header_main.countDownTV
+import kotlinx.android.synthetic.main.view_impressum.view.debugTV
+import kotlinx.android.synthetic.main.view_impressum.view.privacyTV
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -69,6 +72,8 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
+
+        navView.privacyTV.movementMethod = LinkMovementMethod.getInstance()
 
         if (BuildConfig.DEBUG) {
             navView.debugTV.visibility = View.VISIBLE
