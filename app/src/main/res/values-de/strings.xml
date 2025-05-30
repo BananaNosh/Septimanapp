@@ -93,4 +93,5 @@
     <string name="notification_action_title_remind_later">Später</string>
     <string name="notification_continue_enrol_text">Vergiss nicht deine Anmeldung abzuschließen.</string>
     <string name="privacy_statement"><a href="https://banananosh.github.io/datenschutzerklaerung.html">Datenschutzerklärung</a></string>
+    <string name="dialog_confirm_enrolment_data_privacy">Hiermit bestätige ich, dass ich die <a href="https://banananosh.github.io/datenschutzerklaerung.html">Datenschutzerklärung</a> gelesen und zur Kenntnis genommen habe.</string>
 </resources>

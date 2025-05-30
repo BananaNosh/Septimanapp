@@ -96,4 +96,5 @@
     <string name="notification_action_title_remind_later">serius</string>
     <string name="notification_continue_enrol_text">Nolli oblivisci finire nomen dare!</string>
     <string name="privacy_statement"><a href="https://banananosh.github.io/datenschutzerklaerung.html">declaratio protectionis datorum</a></string>
+    <string name="dialog_confirm_enrolment_data_privacy">Hoc signo me <a href="https://banananosh.github.io/datenschutzerklaerung.html">declarationem de protectione datorum</a> legisse et intellexisse confirmo.</string>
 </resources>

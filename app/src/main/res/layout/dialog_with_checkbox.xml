@@ -23,4 +23,12 @@
         tools:text="@string/dialog_do_not_show_again"
         android:textSize="@dimen/small_text_size"/>
 
+    <CheckBox
+        android:id="@+id/dialogCB2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/dialog_do_not_show_again"
+        android:textSize="@dimen/small_text_size"
+        android:visibility="gone"/>
+
 </LinearLayout>
