@@ -59,7 +59,7 @@ if __name__ == '__main__':
     temp_files = []
     if ext == ".pdf":
         # noinspection PyTypeChecker
-        df = read_pdf(filename, stream=True)[0].replace("\r", "\n").replace(np.nan, "")
+        df = read_pdf(filename, stream=True)[args.table_index].replace("\r", "\n").replace(np.nan, "")
         text_table = [combine_items_for_same_time([text for text in column if len(text) > 0])
                       for column in df.transpose().values]
     else:
