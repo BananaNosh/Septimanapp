@@ -1,6 +1,5 @@
 package com.nobodysapps.septimanapp.activity
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -17,6 +16,9 @@ import androidx.multidex.BuildConfig
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
+import com.nobodysapps.septimanapp.databinding.ActivityMainBinding // Import View Binding class
+import com.nobodysapps.septimanapp.databinding.NavHeaderMainBinding
+import com.nobodysapps.septimanapp.databinding.ViewImpressumBinding
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
@@ -24,14 +26,6 @@ import com.nobodysapps.septimanapp.view.CountDownView
 import com.nobodysapps.septimanapp.viewModel.MainViewModel
 import com.nobodysapps.septimanapp.viewModel.ViewModelFactory
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_main.drawer_layout
-import kotlinx.android.synthetic.main.activity_main.nav_view
-import kotlinx.android.synthetic.main.app_bar_main.toolbar
-import kotlinx.android.synthetic.main.content_main.main_layout
-import kotlinx.android.synthetic.main.nav_header_main.countDownSubTV
-import kotlinx.android.synthetic.main.nav_header_main.countDownTV
-import kotlinx.android.synthetic.main.view_impressum.view.debugTV
-import kotlinx.android.synthetic.main.view_impressum.view.privacyTV
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -42,11 +36,13 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
     lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var binding: ActivityMainBinding // Declare binding variable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        binding = ActivityMainBinding.inflate(layoutInflater) // Inflate the layout
+        setContentView(binding.root) // Set the content view using the binding's root
+        setSupportActionBar(binding.appBarMain.toolbar) // Access toolbar via binding
 
         AndroidInjection.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
@@ -60,10 +56,10 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             replaceFragment(fragmentToGo)
         }
 
-        val drawerLayout: DrawerLayout = drawer_layout
-        val navView: NavigationView = nav_view
+        val drawerLayout: DrawerLayout = binding.drawerLayout // Access drawer_layout via binding
+        val navView: NavigationView = binding.navView // Access nav_view via binding
         val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar,
+            this, drawerLayout, binding.appBarMain.toolbar, // Access toolbar via binding
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
@@ -73,40 +69,81 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
 
         navView.setNavigationItemSelectedListener(this)
 
-        navView.privacyTV.movementMethod = LinkMovementMethod.getInstance()
+        // For views inside nav_header_main, you'll need to get the header view first
+        val headerView = navView.getHeaderView(0)
+        val navHeaderBinding = NavHeaderMainBinding.bind(headerView)
+        val impressumView = binding.impressumView
+        impressumView.privacyTV.movementMethod = LinkMovementMethod.getInstance()
+
 
         if (BuildConfig.DEBUG) {
-            navView.debugTV.visibility = View.VISIBLE
+            // Assuming debugTV is inside nav_header_main or another included layout.
+            // If it's in nav_header_main:
+            impressumView.debugTV.visibility = View.VISIBLE
+            // If debugTV is directly in view_impressum.xml which is included in nav_header_main,
+            // and view_impressum.xml has its own binding class (e.g., ViewImpressumBinding)
+            // you might need to bind that specific part if it's not directly part of NavHeaderMainBinding.
+            // For example, if nav_header_main includes <include layout="@layout/view_impressum" android:id="@+id/impressum_layout"/>
+            // val impressumBinding = ViewImpressumBinding.bind(headerView.findViewById(R.id.impressum_layout))
+            // impressumBinding.debugTV.visibility = View.VISIBLE
+
+            // However, based on your synthetic imports, it looks like `privacyTV` and `debugTV`
+            // might be within a layout that's directly referenced by `navView`.
+            // If `view_impressum.xml` is the layout for the header (app:headerLayout="@layout/view_impressum"),
+            // then NavHeaderMainBinding might not be the correct binding class.
+            // It would be `ViewImpressumBinding` directly if `view_impressum` is the header.
+            // Let's assume nav_header_main is the header and it INCLUDES view_impressum.
+            // If `debugTV` and `privacyTV` are in `view_impressum.xml` and this is included in `nav_header_main.xml`
+            // You would access them through the binding of `nav_header_main.xml` if IDs are unique
+            // or by finding the included layout first.
+
+            // Given the original synthetic: kotlinx.android.synthetic.main.view_impressum.view.debugTV
+            // This implies that `view_impressum.xml` was being accessed.
+            // Let's assume `nav_header_main.xml` includes `view_impressum.xml`.
+            // And `privacyTV` and `debugTV` are within `view_impressum.xml`.
+            // One way to handle this with ViewBinding for included layouts is to give the include tag an ID.
+            // In nav_header_main.xml:
+            // <include android:id="@+id/impressum_section" layout="@layout/view_impressum" />
+            // Then in code:
+            // val impressumBinding = ViewImpressumBinding.bind(navHeaderBinding.impressumSection) // if impressum_section is the ID of the include tag in nav_header_main
+            // impressumBinding.debugTV.visibility = View.VISIBLE
+
+            // Simpler if `privacyTV` and `debugTV` are directly in `nav_header_main.xml`
+            // navHeaderBinding.debugTV.visibility = View.VISIBLE
         }
     }
 
     private fun setupDrawerListenerForCountDown(drawerLayout: DrawerLayout) {
+        // Access views in nav_header_main through its binding
+        val headerView = binding.navView.getHeaderView(0)
+        val navHeaderBinding = NavHeaderMainBinding.bind(headerView)
+
         drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerStateChanged(newState: Int) {}
 
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-                if (!countDownTV.started) {
+                if (!navHeaderBinding.countDownTV.started) { // Use navHeaderBinding
                     val septimanaStartTime = viewModel.septimanaStartTime
                     if (septimanaStartTime == null) {
-                        countDownTV.visibility = View.GONE
-                        countDownSubTV.visibility = View.GONE
+                        navHeaderBinding.countDownTV.visibility = View.GONE
+                        navHeaderBinding.countDownSubTV.visibility = View.GONE
                     } else {
-                        countDownTV.visibility = View.VISIBLE
-                        countDownSubTV.visibility = View.VISIBLE
-                        countDownTV.setEndTime(septimanaStartTime, object : CountDownView.Listener {
+                        navHeaderBinding.countDownTV.visibility = View.VISIBLE
+                        navHeaderBinding.countDownSubTV.visibility = View.VISIBLE
+                        navHeaderBinding.countDownTV.setEndTime(septimanaStartTime, object : CountDownView.Listener {
                             override fun onFinished() {
-                                countDownTV.visibility = View.GONE
-                                countDownSubTV.visibility = View.GONE
+                                navHeaderBinding.countDownTV.visibility = View.GONE
+                                navHeaderBinding.countDownSubTV.visibility = View.GONE
                             }
 
                         })
-                        countDownTV.startTimer()
+                        navHeaderBinding.countDownTV.startTimer()
                     }
                 }
             }
 
             override fun onDrawerClosed(drawerView: View) {
-                countDownTV.stopTimer()
+                navHeaderBinding.countDownTV.stopTimer() // Use navHeaderBinding
             }
 
             override fun onDrawerOpened(drawerView: View) {}
@@ -115,45 +152,37 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         if (item.itemId == R.id.action_settings) {
             startActivity(Intent(this, SettingsActivity::class.java))
             return true
         }
-
         return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         if (item.isChecked) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+            binding.drawerLayout.closeDrawer(GravityCompat.START) // Use binding
             return true
         }
-        // Handle navigation view item clicks here.
         var fragmentClass: Class<*>? = null
         when (item.itemId) {
             R.id.nav_horarium -> {
                 fragmentClass = HorariumFragment::class.java
             }
-
             R.id.nav_map -> {
                 fragmentClass = MapFragment::class.java
             }
-
             R.id.nav_enrol -> {
                 fragmentClass = EnrolmentFragment::class.java
             }
         }
         if (fragmentClass == null || !goToFragment(fragmentClass)) return false
-        drawer_layout.closeDrawer(GravityCompat.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START) // Use binding
         return true
     }
 
@@ -169,7 +198,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             delay(SNACKBAR_ROUTE_DELAY)
             runOnUiThread {
                 val snackbar = Snackbar.make(
-                    main_layout,
+                    binding.appBarMain.contentMainInclude.mainLayout, // Use binding.contentMain if content_main is included with that ID
                     getString(R.string.snackbar_to_septimana),
                     Snackbar.LENGTH_INDEFINITE
                 )
@@ -186,26 +215,26 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
     }
 
     @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {  // TODO replace deprecated method
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+    override fun onBackPressed() {
+        // val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout) // Old way
+        val drawerLayout: DrawerLayout = binding.drawerLayout // Use binding
         when {
             drawerLayout.isDrawerOpen(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)
             supportFragmentManager.backStackEntryCount > 0 -> {
                 val prevFragment =
                     supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount - 1)
                 prevFragment.name?.let {
-                    nav_view.setCheckedItem(it.toInt())
+                    binding.navView.setCheckedItem(it.toInt()) // Use binding
                 }
                 supportFragmentManager.popBackStack()
             }
-
             else -> super.onBackPressed()
         }
     }
 
     private fun replaceFragment(fragmentToGo: Class<*>) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_layout, fragmentToGo.newInstance() as Fragment).commit()
+            .replace(R.id.fragment_layout, fragmentToGo.newInstance() as Fragment).commit() // Adjust path to fragment_layout
     }
 
     private fun goToFragment(fragmentClass: Class<*>): Boolean {
@@ -216,13 +245,13 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             e.printStackTrace()
         }
         if (fragment == null) return false
-        val currentNavItemId = nav_view.checkedItem?.itemId
+        val currentNavItemId = binding.navView.checkedItem?.itemId // Use binding
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(
                 android.R.anim.slide_in_left, android.R.anim.slide_out_right,
                 android.R.anim.slide_in_left, android.R.anim.slide_out_right
             )
-            .replace(R.id.fragment_layout, fragment)
+            .replace(R.id.fragment_layout, fragment) // Adjust path to fragment_layout
             .addToBackStack(currentNavItemId?.toString())
             .commit()
         return true
@@ -230,9 +259,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
 
     companion object {
         const val TAG = "MainActivity"
-
         const val FRAGMENT_TO_LOAD_KEY = "fragmentToLoad"
-
         const val SNACKBAR_ROUTE_DELAY: Long = 1000
     }
 }

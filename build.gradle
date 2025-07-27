@@ -1,21 +1,23 @@
     // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-buildscript {
-    ext.kotlin_version = '1.7.0'
-    repositories {
-        google()
-        mavenCentral()
 
+    buildscript {
+        ext {
+            kotlin_version = '1.9.24'
+            lifecycle_version = '2.5.1'
+        }
+        repositories {
+            google()
+            mavenCentral()
+        }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:8.10.0' // Use your actual AGP version
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            classpath 'com.google.gms:google-services:4.3.13'
+            classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.1'
+            classpath "com.google.devtools.ksp:com.google.devtools.ksp.gradle.plugin:1.9.24-1.0.20"
+        }
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.gms:google-services:4.3.13'  // Google Services plugin
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.1'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
 
 allprojects {
     repositories {
@@ -34,6 +36,13 @@ allprojects {
             url 'https://repo.jenkins-ci.org/public/'
         }
         maven { url 'https://jitpack.io' }
+    }
+    configurations.configureEach {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'androidx.lifecycle') {
+                details.useVersion "$lifecycle_version"
+            }
+        }
     }
 }
 

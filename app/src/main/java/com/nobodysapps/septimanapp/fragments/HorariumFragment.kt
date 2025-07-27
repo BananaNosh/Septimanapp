@@ -8,15 +8,14 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.nobodysapps.septimanapp.R
+import com.nobodysapps.septimanapp.databinding.FragmentHorariumBinding
 import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
 import com.nobodysapps.septimanapp.dialog.OutdatedHorariumDialogFragment
 import com.nobodysapps.septimanapp.localization.localizedDisplayLanguage
 import com.nobodysapps.septimanapp.viewModel.HorariumViewModel
 import com.nobodysapps.septimanapp.viewModel.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_horarium.*
 import javax.inject.Inject
-
 
 /**
  * A simple [Fragment] subclass.
@@ -29,10 +28,11 @@ class HorariumFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var viewModel: HorariumViewModel
+    private var _binding: FragmentHorariumBinding? = null
+    private val binding get() = _binding!!
 
     private var actionDayViewId = -1
     private var actionToggleHorariumLanguageId = -1
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -48,9 +48,15 @@ class HorariumFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_horarium, container, false)
+        _binding = FragmentHorariumBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,10 +67,10 @@ class HorariumFragment : Fragment() {
 
     private fun setupHorariumView(landscape: Boolean) {
         // Get a reference for the week view in the layout.
-        horariumView.changeOrientation(landscape)
+        binding.horariumView.changeOrientation(landscape)
         viewModel.horarium.observe(viewLifecycleOwner) { horarium ->
             if (horarium != null) {
-                horariumView.setHorarium(horarium)
+                binding.horariumView.setHorarium(horarium)
             } else {
                 onNoHorariumFound()
             }
@@ -134,12 +140,12 @@ class HorariumFragment : Fragment() {
     private fun getToggleDayViewActionStringFromView() =
         resources.getQuantityString(
             R.plurals.action_day_view,
-            horariumView.daysToShowOnToggleDayView,
-            horariumView.daysToShowOnToggleDayView
+            binding.horariumView.daysToShowOnToggleDayView,
+            binding.horariumView.daysToShowOnToggleDayView
         )
 
     private fun getToggleDayViewActionIconResFromView() =
-        when (horariumView.daysToShowOnToggleDayView) {
+        when (binding.horariumView.daysToShowOnToggleDayView) {
             1 -> R.drawable.ic_view_day
             else -> R.drawable.ic_view_multiple_days
         }
@@ -147,7 +153,7 @@ class HorariumFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             actionDayViewId -> {
-                horariumView.toggleDayView()
+                binding.horariumView.toggleDayView()
                 item.title = getToggleDayViewActionStringFromView()
                 item.setIcon(getToggleDayViewActionIconResFromView())
             }
@@ -160,7 +166,6 @@ class HorariumFragment : Fragment() {
     }
 
     companion object {
-
         /**
          * Use this factory method to create a new instance of
          * this fragment.

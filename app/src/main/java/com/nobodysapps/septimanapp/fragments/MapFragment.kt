@@ -11,15 +11,14 @@ import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.PermissionListener
 import com.nobodysapps.septimanapp.activity.SeptimanappActivity
+import com.nobodysapps.septimanapp.databinding.FragmentMapBinding
 import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.model.storage.LocationStorage
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_map.*
 import org.osmdroid.config.Configuration
 import org.osmdroid.views.overlay.CopyrightOverlay
 import org.osmdroid.views.overlay.Marker
 import javax.inject.Inject
-
 
 /**
  * A simple [Fragment] subclass.
@@ -34,6 +33,9 @@ class MapFragment : Fragment() {
     @Inject
     lateinit var eventInfoStorage: EventInfoStorage
 
+    private var _binding: FragmentMapBinding? = null
+    private val binding get() = _binding!!
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
@@ -47,24 +49,30 @@ class MapFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val provider = Configuration.getInstance()
         provider.userAgentValue = BuildConfig.APPLICATION_ID
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map, container, false)
+        _binding = FragmentMapBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapController = mapView.controller
+        val mapController = binding.mapView.controller
         mapController.setZoom(17.0)
-        mapView.setMultiTouchControls(true)
+        binding.mapView.setMultiTouchControls(true)
 
         //Attribution
         val attribution = CopyrightOverlay(context).apply {
             setAlignRight(true)
         }
-        mapView.overlays.add(attribution)
+        binding.mapView.overlays.add(attribution)
 
         addLocationOverlays()
     }
@@ -72,26 +80,25 @@ class MapFragment : Fragment() {
     private fun addLocationOverlays() {
         val locations = locationStorage.loadLocations(eventInfoStorage.loadSeptimanaLocation())
         val mainLocation = locations?.firstOrNull { it.isMain }
-        mainLocation?.let {
-            mapView.controller.animateTo(it.coordinates)
+        mainLocation?.let { location ->
+            binding.mapView.controller.animateTo(location.coordinates)
         }
-        val markers = locations?.map {
-            Marker(mapView).apply {
-                position = it.coordinates
-                title = it.title
-                subDescription = it.description
+        val markers = locations?.map { location ->
+            Marker(binding.mapView).apply {
+                position = location.coordinates
+                title = location.title
+                subDescription = location.description
             }
         }
-        markers?.forEach {
-            mapView.overlays.add(it)
+        markers?.forEach { marker ->
+            binding.mapView.overlays.add(marker)
         }
     }
 
     override fun onPause() {
         super.onPause()
-        mapView.onPause()
+        binding.mapView.onPause()
     }
-
 
     companion object {
         /**

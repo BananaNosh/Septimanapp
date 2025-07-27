@@ -19,6 +19,7 @@ import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
+import com.nobodysapps.septimanapp.databinding.FragmentEnrolmentBinding
 import com.nobodysapps.septimanapp.dialog.ConfirmEnrolmentDialogFragment
 import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
 import com.nobodysapps.septimanapp.model.EatingHabit
@@ -38,11 +39,9 @@ import com.nobodysapps.septimanapp.model.storage.SeptimanaLocation
 import com.nobodysapps.septimanapp.notifications.AlarmScheduler
 import com.nobodysapps.septimanapp.notifications.NotificationHelper
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_enrolment.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
-
 
 /**
  * A simple [Fragment] subclass.
@@ -65,6 +64,9 @@ class EnrolmentFragment : Fragment() {
     @Inject
     lateinit var eventInfoStorage: EventInfoStorage
 
+    private var _binding: FragmentEnrolmentBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -73,15 +75,21 @@ class EnrolmentFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_enrolment, container, false)
+        _binding = FragmentEnrolmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        enrolJohanneshausCB.setText(
+        binding.enrolJohanneshausCB.setText(
             when (eventInfoStorage.loadSeptimanaLocation()) {
                 SeptimanaLocation.AMOENEBURG -> R.string.enrol_checkbox_johannes_haus
                 SeptimanaLocation.BRAUNFELS -> R.string.enrol_checkbox_hoehenblick
@@ -107,41 +115,41 @@ class EnrolmentFragment : Fragment() {
                 // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 // Apply the adapter to the spinner
-                enrolCountrySpinner.adapter = adapter
-                enrolCountrySpinner.setSelection(adapter.getPosition(Locale.GERMANY.displayCountry))
+                binding.enrolCountrySpinner.adapter = adapter
+                binding.enrolCountrySpinner.setSelection(adapter.getPosition(Locale.GERMANY.displayCountry))
             }
         }
     }
 
     private fun loadForm() {
         val (name, firstname, street, postal, city, country, phone, mail, stayInJohannesHaus, yearsOfLatin, eatingHabit, instrument, imageConsent, addressConsent) = informationStorage.loadEnrolInformation()
-        enrolNameEdit.setText(name)
-        enrolFirstameEdit.setText(firstname)
-        enrolStreetEdit.setText(street)
-        enrolPostalEdit.setText(postal)
-        enrolCityEdit.setText(city)
-        enrolPhoneEdit.setText(phone)
-        enrolMailEdit.setText(mail)
-        enrolInstrumentEdit.setText(instrument)
+        binding.enrolNameEdit.setText(name)
+        binding.enrolFirstameEdit.setText(firstname)
+        binding.enrolStreetEdit.setText(street)
+        binding.enrolPostalEdit.setText(postal)
+        binding.enrolCityEdit.setText(city)
+        binding.enrolPhoneEdit.setText(phone)
+        binding.enrolMailEdit.setText(mail)
+        binding.enrolInstrumentEdit.setText(instrument)
 
-        enrolJohanneshausCB.isChecked = stayInJohannesHaus
-        enrolImageConsentYesRB.isChecked = imageConsent == ACCEPT_STATE_YES
-        enrolImageConsentNoRB.isChecked = imageConsent == ACCEPT_STATE_NO
-        enrolAddressConsentYesRB.isChecked = addressConsent == ACCEPT_STATE_YES
-        enrolAddressConsentNoRB.isChecked = addressConsent == ACCEPT_STATE_NO
+        binding.enrolJohanneshausCB.isChecked = stayInJohannesHaus
+        binding.enrolImageConsentYesRB.isChecked = imageConsent == ACCEPT_STATE_YES
+        binding.enrolImageConsentNoRB.isChecked = imageConsent == ACCEPT_STATE_NO
+        binding.enrolAddressConsentYesRB.isChecked = addressConsent == ACCEPT_STATE_YES
+        binding.enrolAddressConsentNoRB.isChecked = addressConsent == ACCEPT_STATE_NO
 
         if (yearsOfLatin > 0) {
-            enrolYearsLatinEdit.setText(
+            binding.enrolYearsLatinEdit.setText(
                 if (yearsOfLatin.toInt().toFloat() == yearsOfLatin) yearsOfLatin.toInt()
                     .toString() else yearsOfLatin.toString()
             )
         }
 
         @Suppress("UNCHECKED_CAST") val adapter =
-            enrolCountrySpinner.adapter as? ArrayAdapter<String>
+            binding.enrolCountrySpinner.adapter as? ArrayAdapter<String>
         if (adapter != null) {
             val selectedCountry = if (country.isEmpty()) Locale.GERMANY.displayCountry else country
-            enrolCountrySpinner.setSelection(adapter.getPosition(selectedCountry))
+            binding.enrolCountrySpinner.setSelection(adapter.getPosition(selectedCountry))
         }
 
         fillCheckboxesFromEatingHabit(eatingHabit)
@@ -150,43 +158,43 @@ class EnrolmentFragment : Fragment() {
     private fun fillCheckboxesFromEatingHabit(eatingHabit: EatingHabit?) {
         if (eatingHabit != null && context != null) {
             if (eatingHabit is Vegan) {
-                enrolVeganCB.isChecked = true
+                binding.enrolVeganCB.isChecked = true
             }
             if (eatingHabit is Vegetarian) {
-                enrolVegetarianCB.isChecked = true
+                binding.enrolVegetarianCB.isChecked = true
             }
             val allergens = eatingHabit.allergens.toMutableList()
             val glutenStr = requireContext().getString(R.string.eating_habit_gluten)
             if (glutenStr in allergens) {
-                enrolGlutenfreeCB.isChecked = true
+                binding.enrolGlutenfreeCB.isChecked = true
                 allergens.remove(glutenStr)
             }
-            enrolAllergensEdit.setText(allergens.map { it.trim().replace(",", "") }.joinToString { it })
-            enrolAllergensCB.isChecked = allergens.any { it.isNotEmpty() }
+            binding.enrolAllergensEdit.setText(allergens.map { it.trim().replace(",", "") }.joinToString { it })
+            binding.enrolAllergensCB.isChecked = allergens.any { it.isNotEmpty() }
         }
     }
 
     private fun setupListeners() {
         val nameEditTextListener = EditTextListener(FIELD_NAME)
-        enrolNameEdit.addTextChangedListener(nameEditTextListener)
+        binding.enrolNameEdit.addTextChangedListener(nameEditTextListener)
         val firstnameEditTextListener = EditTextListener(FIELD_FIRSTNAME)
-        enrolFirstameEdit.addTextChangedListener(firstnameEditTextListener)
+        binding.enrolFirstameEdit.addTextChangedListener(firstnameEditTextListener)
         val streetAddressEditTextListener = EditTextListener(FIELD_STREET_ADDRESS)
-        enrolStreetEdit.addTextChangedListener(streetAddressEditTextListener)
+        binding.enrolStreetEdit.addTextChangedListener(streetAddressEditTextListener)
         val postalEditTextListener = EditTextListener(FIELD_POSTAL)
-        enrolPostalEdit.addTextChangedListener(postalEditTextListener)
+        binding.enrolPostalEdit.addTextChangedListener(postalEditTextListener)
         val cityEditTextListener = EditTextListener(FIELD_CITY)
-        enrolCityEdit.addTextChangedListener(cityEditTextListener)
+        binding.enrolCityEdit.addTextChangedListener(cityEditTextListener)
         val phoneEditTextListener = EditTextListener(FIELD_PHONE)
-        enrolPhoneEdit.addTextChangedListener(phoneEditTextListener)
+        binding.enrolPhoneEdit.addTextChangedListener(phoneEditTextListener)
         val mailEditTextListener = EditTextListener(FIELD_MAIL)
-        enrolMailEdit.addTextChangedListener(mailEditTextListener)
+        binding.enrolMailEdit.addTextChangedListener(mailEditTextListener)
         val yearsOfLatinEditTextListener = EditTextListener(FIELD_YEARS_LATIN)
-        enrolYearsLatinEdit.addTextChangedListener(yearsOfLatinEditTextListener)
+        binding.enrolYearsLatinEdit.addTextChangedListener(yearsOfLatinEditTextListener)
         val instrumentEditTextListener = EditTextListener(FIELD_INSTRUMENT)
-        enrolInstrumentEdit.addTextChangedListener(instrumentEditTextListener)
+        binding.enrolInstrumentEdit.addTextChangedListener(instrumentEditTextListener)
 
-        enrolYearsLatinEdit.addTextChangedListener(object : TextWatcher {
+        binding.enrolYearsLatinEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val yearsBackString = try {
                     val yearsOfLatin = s.toString().toFloat()
@@ -197,19 +205,16 @@ class EnrolmentFragment : Fragment() {
                 } catch (e: NumberFormatException) {
                     resources.getQuantityString(R.plurals.enrol_years_of_latin_back, 0)
                 }
-                enrolYearsLatinBackTV.text = yearsBackString
+                binding.enrolYearsLatinBackTV.text = yearsBackString
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
         })
 
-
-        enrolCountrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.enrolCountrySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
-
             }
 
             override fun onItemSelected(
@@ -222,10 +227,9 @@ class EnrolmentFragment : Fragment() {
                 val country = item.toString()
                 informationStorage.saveCountry(country)
             }
-
         }
 
-        enrolJohanneshausCB.setOnCheckedChangeListener { _, isChecked ->
+        binding.enrolJohanneshausCB.setOnCheckedChangeListener { _, isChecked ->
             informationStorage.saveStayInJohanneshaus(isChecked)
         }
 
@@ -233,10 +237,10 @@ class EnrolmentFragment : Fragment() {
         val onImageConsentChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, _ ->
             if (btn.isPressed) {
                 when (btn) {
-                    enrolImageConsentYesRB -> informationStorage.saveImageConsent(
+                    binding.enrolImageConsentYesRB -> informationStorage.saveImageConsent(
                         ACCEPT_STATE_YES
                     )
-                    enrolImageConsentNoRB -> informationStorage.saveImageConsent(
+                    binding.enrolImageConsentNoRB -> informationStorage.saveImageConsent(
                         ACCEPT_STATE_NO
                     )
                     else -> informationStorage.saveImageConsent(
@@ -245,16 +249,16 @@ class EnrolmentFragment : Fragment() {
                 }
             }
         }
-        enrolImageConsentYesRB.setOnCheckedChangeListener(onImageConsentChangedLambda)
-        enrolImageConsentNoRB.setOnCheckedChangeListener(onImageConsentChangedLambda)
+        binding.enrolImageConsentYesRB.setOnCheckedChangeListener(onImageConsentChangedLambda)
+        binding.enrolImageConsentNoRB.setOnCheckedChangeListener(onImageConsentChangedLambda)
 
         val onAddressConsentChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, _ ->
             if (btn.isPressed) {
                 when (btn) {
-                    enrolAddressConsentYesRB -> informationStorage.saveAddressConsent(
+                    binding.enrolAddressConsentYesRB -> informationStorage.saveAddressConsent(
                         ACCEPT_STATE_YES
                     )
-                    enrolAddressConsentNoRB -> informationStorage.saveAddressConsent(
+                    binding.enrolAddressConsentNoRB -> informationStorage.saveAddressConsent(
                         ACCEPT_STATE_NO
                     )
                     else -> informationStorage.saveAddressConsent(
@@ -263,10 +267,10 @@ class EnrolmentFragment : Fragment() {
                 }
             }
         }
-        enrolAddressConsentYesRB.setOnCheckedChangeListener(onAddressConsentChangedLambda)
-        enrolAddressConsentNoRB.setOnCheckedChangeListener(onAddressConsentChangedLambda)
+        binding.enrolAddressConsentYesRB.setOnCheckedChangeListener(onAddressConsentChangedLambda)
+        binding.enrolAddressConsentNoRB.setOnCheckedChangeListener(onAddressConsentChangedLambda)
 
-        enrolInstrumentEdit.setOnEditorActionListener { _, actionId, event ->
+        binding.enrolInstrumentEdit.setOnEditorActionListener { _, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEND
                 || actionId == EditorInfo.IME_NULL && event.keyCode == KeyEvent.KEYCODE_ENTER
             ) {
@@ -275,7 +279,7 @@ class EnrolmentFragment : Fragment() {
             true
         }
 
-        fabEnrolSend.setOnClickListener {
+        binding.fabEnrolSend.setOnClickListener {
             showConfirmDialog()
         }
     }
@@ -283,11 +287,11 @@ class EnrolmentFragment : Fragment() {
     private fun setupEatingHabitListeners() {
         val onEatingHabitChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, isChecked ->
             val allBtns = listOf<CompoundButton>(
-                enrolEverythingCB,
-                enrolGlutenfreeCB,
-                enrolVegetarianCB,
-                enrolVeganCB,
-                enrolAllergensCB
+                binding.enrolEverythingCB,
+                binding.enrolGlutenfreeCB,
+                binding.enrolVegetarianCB,
+                binding.enrolVeganCB,
+                binding.enrolAllergensCB
             )
             if (isChecked) {
                 when (btn.id) {
@@ -299,43 +303,43 @@ class EnrolmentFragment : Fragment() {
                         }
                     }
                     R.id.enrolVeganCB -> {
-                        enrolEverythingCB.isChecked = false
-                        enrolVegetarianCB.isChecked = true
+                        binding.enrolEverythingCB.isChecked = false
+                        binding.enrolVegetarianCB.isChecked = true
                     }
                     R.id.enrolVegetarianCB -> {
-                        enrolEverythingCB.isChecked = false
+                        binding.enrolEverythingCB.isChecked = false
                     }
-                    R.id.enrolGlutenfreeCB -> enrolEverythingCB.isChecked = false
-                    R.id.enrolAllergensCB -> enrolEverythingCB.isChecked = false
+                    R.id.enrolGlutenfreeCB -> binding.enrolEverythingCB.isChecked = false
+                    R.id.enrolAllergensCB -> binding.enrolEverythingCB.isChecked = false
                 }
             } else if (btn.id == R.id.enrolVegetarianCB) {
-                enrolVeganCB.isChecked = false
+                binding.enrolVeganCB.isChecked = false
             }
             val allergens = ArrayList<String>()
-            if (enrolGlutenfreeCB.isChecked && context != null) {
+            if (binding.enrolGlutenfreeCB.isChecked && context != null) {
                 allergens.add(requireContext().getString(R.string.eating_habit_gluten))
             }
-            if (enrolAllergensCB.isChecked) {
-                allergens.addAll(enrolAllergensEdit.text.split(" "))
+            if (binding.enrolAllergensCB.isChecked) {
+                allergens.addAll(binding.enrolAllergensEdit.text.split(" "))
             }
             informationStorage.saveEatingHabit(
                 EatingHabit.create(
-                    enrolVeganCB.isChecked,
-                    enrolVegetarianCB.isChecked,
+                    binding.enrolVeganCB.isChecked,
+                    binding.enrolVegetarianCB.isChecked,
                     allergens
                 )
             )
         }
-        enrolVeganCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
-        enrolVegetarianCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
-        enrolGlutenfreeCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
-        enrolEverythingCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
-        enrolAllergensCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
-        enrolAllergensEdit.addTextChangedListener(object : TextWatcher {
+        binding.enrolVeganCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
+        binding.enrolVegetarianCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
+        binding.enrolGlutenfreeCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
+        binding.enrolEverythingCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
+        binding.enrolAllergensCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
+        binding.enrolAllergensEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                enrolAllergensCB.isChecked = true
+                binding.enrolAllergensCB.isChecked = true
                 onEatingHabitChangedLambda(
-                    enrolAllergensCB,
+                    binding.enrolAllergensCB,
                     true
                 )  // needed as otherwise only for the first letter the onCheckedChange is called
             }
@@ -368,7 +372,6 @@ class EnrolmentFragment : Fragment() {
                 override fun onOkClicked(isChecked: Boolean) {
                     sendEnrolment()
                 }
-
             }
             confirmDialog.show(it, "Confirm")
         }
@@ -433,7 +436,6 @@ class EnrolmentFragment : Fragment() {
                         else -> R.string.enrol_send_no
                     }
                 )
-
             )
             emailIntent.putExtra(Intent.EXTRA_TEXT, body)
 
@@ -518,6 +520,5 @@ class EnrolmentFragment : Fragment() {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
     }
 }
