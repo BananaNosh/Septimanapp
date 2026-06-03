@@ -49,3 +49,9 @@ captures/
 # macOS
 .DS_Store
 **/.DS_Store
+
+# Release artifacts
+app/release/
+
+# Python venv
+scripts/venv/

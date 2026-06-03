@@ -1,0 +1,9 @@
+<changelist name="Try_to_move_to_libstoml" date="1747076103380" recycled="false">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Try_to_move_to_libstoml/shelved.patch" />
+  <option name="DESCRIPTION" value="Try to move to libstoml" />
+  <binary>
+    <option name="BEFORE_PATH" value="gradle/wrapper/gradle-wrapper.jar" />
+    <option name="AFTER_PATH" value="gradle/wrapper/gradle-wrapper.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Try_to_move_to_libstoml/gradle-wrapper.jar" />
+  </binary>
+</changelist>
