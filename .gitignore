@@ -39,7 +39,13 @@ captures/
 *.iws
 .idea/tasks.xml
 .idea/libraries/
-.idea/
+.idea/*
+!.idea/shelf
+!.idea/shelf/**
 
 # Keystore files
 *.jks
+
+# macOS
+.DS_Store
+**/.DS_Store
