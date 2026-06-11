@@ -1,0 +1,8 @@
+Apache License 2.0:
+    Android Open Source Project
+    Android-Week-View Quivr
+    Osmdroid
+    gson
+    dagger
+    flexbox layout
+Junit ?? : Eclipse Public License 1.0
