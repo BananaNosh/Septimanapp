@@ -36,6 +36,23 @@
     <string name="enrol_first_name_hint">First name</string>
     <string name="enrol_checkbox_johannes_haus">I want to stay in Johanneshaus.</string>
     <string name="enrol_checkbox_hoehenblick">I want to stay in house Höhenblick.</string>
+    <string name="enrol_room_occupancy_label">Room</string>
+    <string name="enrol_room_bathroom_label">Bathroom</string>
+    <string name="enrol_room_remarks_hint">Further wishes regarding amenities</string>
+    <string name="enrol_age_label">Age at the start of the Latin week</string>
+    <string name="enrol_student_checkbox">I am a student during the Latin week.</string>
+    <string-array name="enrol_room_occupancy_options">
+        <item>(no preference)</item>
+        <item>Single room</item>
+        <item>Double room</item>
+        <item>Four-bed room</item>
+    </string-array>
+    <string-array name="enrol_room_bathroom_options">
+        <item>(no preference)</item>
+        <item>No bathroom</item>
+        <item>Toilet only</item>
+        <item>With shower</item>
+    </string-array>
     <string name="enrol_street_hint">Street address</string>
     <string name="enrol_postal_code_hint">Postal code</string>
     <string name="enrol_city_hint">City</string>
@@ -62,6 +79,9 @@
     <string name="enrol_image_allow">I agree that pictures taken during the Latinweek maybe posted on the Latinweek\'s website or shown in newspapers.</string>
     <string name="enrol_image_not_allow">I disagree.</string>
     <string name="enrol_not_all_data_given">Please provide all necessary information!</string>
+    <string name="enrol_missing_fields">Please fill in the following fields: %s</string>
+    <string name="enrol_field_address_consent">Consent to the participant list</string>
+    <string name="enrol_field_image_consent">Consent to photos</string>
     <string name="dialog_confirm_enrolment_title">Enrol bindingly</string>
     <string name="dialog_confirm_enrolment">Hereby I confirm that I am full-aged and that I am bindingly register for the latin week by sending the email created in the following as well as having checked my data.</string>
 

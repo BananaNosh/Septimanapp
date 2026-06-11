@@ -38,6 +38,23 @@
     <string name="enrol_first_name_hint">Praenomen</string>
     <string name="enrol_checkbox_johannes_haus">Velim in Johanneshaus deversari.</string>
     <string name="enrol_checkbox_hoehenblick">Velim in domo Höhenblick deversari.</string>
+    <string name="enrol_room_occupancy_label">Conclave</string>
+    <string name="enrol_room_bathroom_label">Balneum</string>
+    <string name="enrol_room_remarks_hint">Alia desideria de instructu conclavis</string>
+    <string name="enrol_age_label">Aetas septimana ineunte</string>
+    <string name="enrol_student_checkbox">Studiosus vel studiosa ero septimana Latina procedente.</string>
+    <string-array name="enrol_room_occupancy_options">
+        <item>(sine indicatione)</item>
+        <item>unius lecti</item>
+        <item>duorum lectorum</item>
+        <item>quattuor lectorum</item>
+    </string-array>
+    <string-array name="enrol_room_bathroom_options">
+        <item>(sine indicatione)</item>
+        <item>Sine balneo</item>
+        <item>Latrina tantum</item>
+        <item>Cum imbri</item>
+    </string-array>
     <string name="enrol_street_hint">Inscriptio cursualis: Via et numerus domicilii</string>
     <string name="enrol_postal_code_hint">Numerus cursualis (PLZ)</string>
     <string name="enrol_city_hint">Oppidum, in quo habito</string>
@@ -64,6 +81,9 @@
     <string name="enrol_image_allow">Licet photographemata sumpta in septimana Latina in rete aut actis diurnis monstrari.</string>
     <string name="enrol_image_not_allow">Non licet.</string>
     <string name="enrol_not_all_data_given">Quaeso dare omnia data quibus opus est!</string>
+    <string name="enrol_missing_fields">Quaeso has partes comple: %s</string>
+    <string name="enrol_field_address_consent">Consensus de indice nominum</string>
+    <string name="enrol_field_image_consent">Consensus de photographiis</string>
     <string name="dialog_confirm_enrolment_title">Firme nomen do</string>
     <string name="dialog_confirm_enrolment">Confirmo me epistulam, quae erit creata, mittendo mei potentem esse et nomen Septimanae Latinae firme dare et me data diligenter probavisse.</string>
 

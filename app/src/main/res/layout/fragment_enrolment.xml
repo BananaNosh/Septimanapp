@@ -100,6 +100,87 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_margin_text"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="@string/enrol_room_occupancy_label" />
+
+                <Spinner
+                    android:id="@+id/enrolRoomOccupancySpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_gap"
+                    android:layout_marginLeft="@dimen/small_gap"
+                    android:entries="@array/enrol_room_occupancy_options" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_margin_text"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="@string/enrol_room_bathroom_label" />
+
+                <Spinner
+                    android:id="@+id/enrolRoomBathroomSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_gap"
+                    android:layout_marginLeft="@dimen/small_gap"
+                    android:entries="@array/enrol_room_bathroom_options" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/enrolRoomRemarksEdit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enrol_room_remarks_hint"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_margin_text"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="@string/enrol_age_label" />
+
+                <EditText
+                    android:id="@+id/enrolAgeEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/small_gap"
+                    android:layout_marginLeft="@dimen/small_gap"
+                    android:ems="4"
+                    android:imeOptions="actionNext"
+                    android:importantForAutofill="no"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
@@ -126,6 +207,14 @@
                     android:gravity="center"
                     android:text="@string/enrol_years_of_latin_back_pl" />
             </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/enrolStudentCB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_gap"
+                android:layout_marginBottom="@dimen/small_gap"
+                android:text="@string/enrol_student_checkbox" />
 
             <LinearLayout
                 android:layout_width="match_parent"

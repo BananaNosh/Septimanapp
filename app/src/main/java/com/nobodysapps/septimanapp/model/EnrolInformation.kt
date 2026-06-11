@@ -17,11 +17,19 @@ data class EnrolInformation(
     val eatingHabit: EatingHabit?,
     val instrument: String,
     val imageConsent: Int,
-    val addressConsent: Int
+    val addressConsent: Int,
+    val roomOccupancy: Int = 0,   // 0 = keine Angabe; index into the room-occupancy arrays
+    val roomBathroom: Int = 0,    // 0 = keine Angabe; index into the room-bathroom arrays
+    val roomRemarks: String = "",
+    val age: Int = 0,
+    val isStudent: Boolean = false
 ) {
 
     fun isValid(): Boolean {
         if (name.isBlank() || firstname.isBlank() || street.isBlank() || postal.isBlank() || city.isBlank() || country.isBlank() || phone.isBlank() || mail.isBlank()) {
+            return false
+        }
+        if (age <= 0) {
             return false
         }
         return addressConsent != ACCEPT_STATE_NONE && imageConsent != ACCEPT_STATE_NONE

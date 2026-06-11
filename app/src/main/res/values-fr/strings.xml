@@ -35,6 +35,23 @@
     <string name="enrol_first_name_hint">Prénom</string>
     <string name="enrol_checkbox_johannes_haus">Je veux loger à Johanneshaus.</string>
     <string name="enrol_checkbox_hoehenblick">Je veux loger à maison Höhenblick.</string>
+    <string name="enrol_room_occupancy_label">Chambre</string>
+    <string name="enrol_room_bathroom_label">Salle de bain</string>
+    <string name="enrol_room_remarks_hint">Autres souhaits concernant l\'équipement</string>
+    <string name="enrol_age_label">Âge au début de la semaine latine</string>
+    <string name="enrol_student_checkbox">Je suis étudiant(e) pendant la semaine latine.</string>
+    <string-array name="enrol_room_occupancy_options">
+        <item>(sans préférence)</item>
+        <item>Chambre simple</item>
+        <item>Chambre double</item>
+        <item>Chambre à quatre lits</item>
+    </string-array>
+    <string-array name="enrol_room_bathroom_options">
+        <item>(sans préférence)</item>
+        <item>Sans salle de bain</item>
+        <item>WC seulement</item>
+        <item>Avec douche</item>
+    </string-array>
     <string name="enrol_street_hint">Adresse de rue</string>
     <string name="enrol_postal_code_hint">Code postale</string>
     <string name="enrol_city_hint">Ville</string>
@@ -61,6 +78,9 @@
     <string name="enrol_image_allow">Je suis d\'accord, que des photos de moi prises pendant la Semaine latine puissent apparaître sur la page d\'accueil ou dans les articles de la Semaine latine.</string>
     <string name="enrol_image_not_allow">Je refuse.</string>
     <string name="enrol_not_all_data_given">Veuillez fournir toutes les informations nécessaires!</string>
+    <string name="enrol_missing_fields">Veuillez remplir les champs suivants : %s</string>
+    <string name="enrol_field_address_consent">Consentement à la liste des participants</string>
+    <string name="enrol_field_image_consent">Consentement aux photos</string>
     <string name="dialog_confirm_enrolment_title">inscription contraignante</string>
     <string name="dialog_confirm_enrolment">Par les présentes je confirme que je suis majeur et que j\'ai vérifier mes données aussi que je contraignantement registre pour la semain latin en envoyant la mail crée dans ce qui suit.</string>
 
