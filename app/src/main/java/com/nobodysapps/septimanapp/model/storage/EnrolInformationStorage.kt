@@ -65,6 +65,26 @@ class EnrolInformationStorage @Inject constructor(
         prefs.edit().putString(INSTRUMENT_KEY, instrument).apply()
     }
 
+    fun saveRoomOccupancy(occupancy: Int) {
+        prefs.edit().putInt(ROOM_OCCUPANCY_KEY, occupancy).apply()
+    }
+
+    fun saveRoomBathroom(bathroom: Int) {
+        prefs.edit().putInt(ROOM_BATHROOM_KEY, bathroom).apply()
+    }
+
+    fun saveRoomRemarks(remarks: String) {
+        prefs.edit().putString(ROOM_REMARKS_KEY, remarks).apply()
+    }
+
+    fun saveAge(age: Int) {
+        prefs.edit().putInt(AGE_KEY, age).apply()
+    }
+
+    fun saveIsStudent(isStudent: Boolean) {
+        prefs.edit().putBoolean(STUDENT_KEY, isStudent).apply()
+    }
+
     fun saveAddressConsent(consent: Int) {
         when (consent) {
             in 0..2-> {
@@ -110,6 +130,11 @@ class EnrolInformationStorage @Inject constructor(
         val instrument = prefs.getString(INSTRUMENT_KEY, null) ?: ""
         val imageConsent = prefs.getInt(IMAGE_CONSENT_KEY, ACCEPT_STATE_NONE)
         val addressConsent = prefs.getInt(ADDRESS_CONSENT_KEY, ACCEPT_STATE_NONE)
+        val roomOccupancy = prefs.getInt(ROOM_OCCUPANCY_KEY, 0)
+        val roomBathroom = prefs.getInt(ROOM_BATHROOM_KEY, 0)
+        val roomRemarks = prefs.getString(ROOM_REMARKS_KEY, null) ?: ""
+        val age = prefs.getInt(AGE_KEY, 0)
+        val isStudent = prefs.getBoolean(STUDENT_KEY, false)
         return EnrolInformation(
             name,
             firstname,
@@ -124,7 +149,12 @@ class EnrolInformationStorage @Inject constructor(
             if (eatingHabitPair != null) EatingHabit.fromSerializablePair(eatingHabitPair) else null,
             instrument,
             imageConsent,
-            addressConsent
+            addressConsent,
+            roomOccupancy,
+            roomBathroom,
+            roomRemarks,
+            age,
+            isStudent
         )
     }
 
@@ -159,6 +189,11 @@ class EnrolInformationStorage @Inject constructor(
         private const val INSTRUMENT_KEY = "instrument"
         private const val ADDRESS_CONSENT_KEY = "address_consent"
         private const val IMAGE_CONSENT_KEY = "image_consent"
+        private const val ROOM_OCCUPANCY_KEY = "room_occupancy"
+        private const val ROOM_BATHROOM_KEY = "room_bathroom"
+        private const val ROOM_REMARKS_KEY = "room_remarks"
+        private const val AGE_KEY = "age"
+        private const val STUDENT_KEY = "is_student"
 
         private const val ENROLLED_STATE_KEY = "enrolled_state"
 

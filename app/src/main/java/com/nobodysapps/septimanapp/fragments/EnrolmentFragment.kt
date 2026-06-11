@@ -22,6 +22,7 @@ import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.dialog.ConfirmEnrolmentDialogFragment
 import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
 import com.nobodysapps.septimanapp.model.EatingHabit
+import com.nobodysapps.septimanapp.model.EnrolInformation
 import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_NO
 import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_NONE
 import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_YES
@@ -114,7 +115,8 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun loadForm() {
-        val (name, firstname, street, postal, city, country, phone, mail, stayInJohannesHaus, yearsOfLatin, eatingHabit, instrument, imageConsent, addressConsent) = informationStorage.loadEnrolInformation()
+        val info = informationStorage.loadEnrolInformation()
+        val (name, firstname, street, postal, city, country, phone, mail, stayInJohannesHaus, yearsOfLatin, eatingHabit, instrument, imageConsent, addressConsent) = info
         enrolNameEdit.setText(name)
         enrolFirstameEdit.setText(firstname)
         enrolStreetEdit.setText(street)
@@ -123,6 +125,14 @@ class EnrolmentFragment : Fragment() {
         enrolPhoneEdit.setText(phone)
         enrolMailEdit.setText(mail)
         enrolInstrumentEdit.setText(instrument)
+
+        enrolRoomOccupancySpinner.setSelection(info.roomOccupancy)
+        enrolRoomBathroomSpinner.setSelection(info.roomBathroom)
+        enrolRoomRemarksEdit.setText(info.roomRemarks)
+        if (info.age > 0) {
+            enrolAgeEdit.setText(info.age.toString())
+        }
+        enrolStudentCB.isChecked = info.isStudent
 
         enrolJohanneshausCB.isChecked = stayInJohannesHaus
         enrolImageConsentYesRB.isChecked = imageConsent == ACCEPT_STATE_YES
@@ -185,6 +195,10 @@ class EnrolmentFragment : Fragment() {
         enrolYearsLatinEdit.addTextChangedListener(yearsOfLatinEditTextListener)
         val instrumentEditTextListener = EditTextListener(FIELD_INSTRUMENT)
         enrolInstrumentEdit.addTextChangedListener(instrumentEditTextListener)
+        val roomRemarksEditTextListener = EditTextListener(FIELD_ROOM_REMARKS)
+        enrolRoomRemarksEdit.addTextChangedListener(roomRemarksEditTextListener)
+        val ageEditTextListener = EditTextListener(FIELD_AGE)
+        enrolAgeEdit.addTextChangedListener(ageEditTextListener)
 
         enrolYearsLatinEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -227,6 +241,32 @@ class EnrolmentFragment : Fragment() {
 
         enrolJohanneshausCB.setOnCheckedChangeListener { _, isChecked ->
             informationStorage.saveStayInJohanneshaus(isChecked)
+        }
+
+        enrolRoomOccupancySpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
+                ) {
+                    informationStorage.saveRoomOccupancy(position)
+                }
+            }
+
+        enrolRoomBathroomSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?, view: View?, position: Int, id: Long
+                ) {
+                    informationStorage.saveRoomBathroom(position)
+                }
+            }
+
+        enrolStudentCB.setOnCheckedChangeListener { _, isChecked ->
+            informationStorage.saveIsStudent(isChecked)
         }
 
         setupEatingHabitListeners()
@@ -356,9 +396,16 @@ class EnrolmentFragment : Fragment() {
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
-        if (!checkAllDataGiven()) {
+        val enrolInformation = informationStorage.loadEnrolInformation()
+        if (!enrolInformation.isValid()) {
+            val missingFields = missingFieldLabels(enrolInformation)
             view?.let {
-                Snackbar.make(it, getString(R.string.enrol_not_all_data_given), Snackbar.LENGTH_LONG).show()
+                val message = if (missingFields.isEmpty()) {
+                    getString(R.string.enrol_not_all_data_given)
+                } else {
+                    getString(R.string.enrol_missing_fields, missingFields.joinToString(", "))
+                }
+                Snackbar.make(it, message, Snackbar.LENGTH_LONG).show()
             }
             return
         }
@@ -374,13 +421,34 @@ class EnrolmentFragment : Fragment() {
         }
     }
 
-    private fun checkAllDataGiven(): Boolean {
-        val enrolInformation = informationStorage.loadEnrolInformation()
-        return enrolInformation.isValid()
+    /**
+     * Returns the localized labels of the required fields that are still missing, so the
+     * snackbar can tell the user exactly what to complete. Kept in sync with
+     * [EnrolInformation.isValid].
+     */
+    private fun missingFieldLabels(info: EnrolInformation): List<String> {
+        val missing = mutableListOf<String>()
+        if (info.name.isBlank()) missing.add(getString(R.string.enrol_last_name_hint))
+        if (info.firstname.isBlank()) missing.add(getString(R.string.enrol_first_name_hint))
+        if (info.street.isBlank()) missing.add(getString(R.string.enrol_street_hint))
+        if (info.postal.isBlank()) missing.add(getString(R.string.enrol_postal_code_hint))
+        if (info.city.isBlank()) missing.add(getString(R.string.enrol_city_hint))
+        if (info.country.isBlank()) missing.add(getString(R.string.enrol_country_hint))
+        if (info.phone.isBlank()) missing.add(getString(R.string.enrol_phone_hint))
+        if (info.mail.isBlank()) missing.add(getString(R.string.enrol_mail_hint))
+        if (info.age <= 0) missing.add(getString(R.string.enrol_age_label))
+        if (info.addressConsent == ACCEPT_STATE_NONE) {
+            missing.add(getString(R.string.enrol_field_address_consent))
+        }
+        if (info.imageConsent == ACCEPT_STATE_NONE) {
+            missing.add(getString(R.string.enrol_field_image_consent))
+        }
+        return missing
     }
 
     private fun sendEnrolment() {
-        val (name, firstname, street, postal, city, country, phone, mail, stayInMainBuilding, yearsOfLatin, eatingHabit, instrument, imageConsent, addressConsent) = informationStorage.loadEnrolInformation()
+        val info = informationStorage.loadEnrolInformation()
+        val (name, firstname, street, postal, city, country, phone, mail, stayInMainBuilding, yearsOfLatin, eatingHabit, instrument, imageConsent, addressConsent) = info
 
         val emailIntent = Intent(Intent.ACTION_SEND)
         val aEmailList = arrayOf(getString(R.string.enrol_send_email_address))
@@ -414,7 +482,10 @@ class EnrolmentFragment : Fragment() {
                 mail,
                 getString(if (septimanaLocation == SeptimanaLocation.BRAUNFELS) R.string.enrol_send_email_hoehenblick else R.string.enrol_send_email_johanneshaus),
                 getString(if (stayInMainBuilding) R.string.enrol_send_yes else R.string.enrol_send_no),
+                buildRoomString(info),
+                info.age,
                 yearsOfLatin,
+                getString(if (info.isStudent) R.string.enrol_send_yes else R.string.enrol_send_no),
                 (eatingHabit ?: EatingHabit.create(
                     isVegan = false,
                     isVegetarian = false,
@@ -442,6 +513,28 @@ class EnrolmentFragment : Fragment() {
         }
     }
 
+    /**
+     * Builds the German room-category line for the enrolment email from the
+     * (always German) email arrays. The "keine Angabe" entry at index 0 is dropped;
+     * free-text remarks are appended in parentheses. Falls back to "keine Angabe" if
+     * nothing is selected and no remarks are given.
+     */
+    private fun buildRoomString(info: EnrolInformation): String {
+        val occupancyOptions = resources.getStringArray(R.array.enrol_room_occupancy_email)
+        val bathroomOptions = resources.getStringArray(R.array.enrol_room_bathroom_email)
+        val parts = mutableListOf<String>()
+        if (info.roomOccupancy in 1 until occupancyOptions.size) {
+            parts.add(occupancyOptions[info.roomOccupancy])
+        }
+        if (info.roomBathroom in 1 until bathroomOptions.size) {
+            parts.add(bathroomOptions[info.roomBathroom])
+        }
+        if (info.roomRemarks.isNotBlank()) {
+            parts.add("(${info.roomRemarks.trim()})")
+        }
+        return if (parts.isEmpty()) occupancyOptions[0] else parts.joinToString(", ")
+    }
+
     private fun resetReminderNotifications() {
         informationStorage.saveEnrolState(ENROLLED_STATE_ENROLLED)
     }
@@ -458,6 +551,8 @@ class EnrolmentFragment : Fragment() {
         private const val FIELD_MAIL = "mail"
         private const val FIELD_YEARS_LATIN = "years_latin"
         private const val FIELD_INSTRUMENT = "instrument"
+        private const val FIELD_ROOM_REMARKS = "room_remarks"
+        private const val FIELD_AGE = "age"
 
         /**
          * Use this factory method to create a new instance of
@@ -489,6 +584,8 @@ class EnrolmentFragment : Fragment() {
                     }
                 }
                 FIELD_INSTRUMENT -> informationStorage.saveInstrument(inputText)
+                FIELD_ROOM_REMARKS -> informationStorage.saveRoomRemarks(inputText)
+                FIELD_AGE -> informationStorage.saveAge(inputText.toIntOrNull() ?: 0)
             }
             if (inputText.isNotEmpty()) {
                 val currentState = informationStorage.loadEnrolState()
