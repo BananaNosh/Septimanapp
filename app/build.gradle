@@ -71,9 +71,11 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference-ktx:1.2.0'
 
-    androidTestImplementation 'androidx.test:runner:1.4.0'
-    androidTestImplementation 'androidx.test:rules:1.4.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    // runner/rules bumped to 1.6.x so ActivityTestRule launches on Android 14+ devices.
+    // Espresso is intentionally not used: its input-injection (and onView) crash on Android 16,
+    // so these tests drive the views directly on the UI thread instead.
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test:rules:1.6.1'
     androidTestImplementation 'org.mockito:mockito-android:4.6.1'
 
     implementation platform('com.google.firebase:firebase-bom:30.2.0') // for importing all correct firebase libs
