@@ -45,6 +45,9 @@ android {
             enableSplit = false
         }
     }
+//    buildFeatures {
+//        viewBinding true
+//    }
     namespace 'com.nobodysapps.septimanapp'
     buildFeatures {
         viewBinding = true
