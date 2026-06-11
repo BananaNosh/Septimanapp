@@ -3,6 +3,13 @@
 *.ap_
 output.json
 
+# Release build outputs (.aab/.apk, mapping, metadata)
+/app/release/
+
+# Word documents (source material kept outside git)
+*.doc
+*.docx
+
 # Files for the ART/Dalvik VM
 *.dex
 
