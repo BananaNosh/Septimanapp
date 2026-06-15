@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <plurals name="action_day_view">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- The quantity items reference per-locale-translated strings, so the plurals
+         themselves don't need a per-locale copy. -->
+    <plurals name="action_day_view" tools:ignore="MissingTranslation">
         <item quantity="one">@string/action_day_view_day</item>
         <item quantity="other">@string/action_day_view_days</item>
     </plurals>
-    <plurals name="enrol_years_of_latin_back">
+    <plurals name="enrol_years_of_latin_back" tools:ignore="MissingTranslation">
         <item quantity="one">@string/enrol_years_of_latin_back_sg</item>
         <item quantity="other">@string/enrol_years_of_latin_back_pl</item>
     </plurals>

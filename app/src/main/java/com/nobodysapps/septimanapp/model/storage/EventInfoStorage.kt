@@ -1,5 +1,6 @@
 package com.nobodysapps.septimanapp.model.storage
 
+import androidx.core.content.edit
 import android.content.SharedPreferences
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -7,10 +8,10 @@ import javax.inject.Inject
 
 class EventInfoStorage @Inject constructor(private val prefs: SharedPreferences) {
     fun saveSeptimanaStartEndTime(start: Calendar, end: Calendar) {
-        prefs.edit()
-            .putLong(START_TIME_SEPTIMANA_KEY, start.timeInMillis)
-            .putLong(END_TIME_SEPTIMANA_KEY, end.timeInMillis)
-            .apply()
+        prefs.edit {
+            putLong(START_TIME_SEPTIMANA_KEY, start.timeInMillis)
+            putLong(END_TIME_SEPTIMANA_KEY, end.timeInMillis)
+        }
     }
 
     fun loadSeptimanaStartEndTime(): Pair<Calendar, Calendar>? {
@@ -26,7 +27,7 @@ class EventInfoStorage @Inject constructor(private val prefs: SharedPreferences)
     }
 
     fun saveSeptimanaLocation(location: SeptimanaLocation) {
-        prefs.edit().putString(LOCATION_KEY, location.key).apply()
+        prefs.edit {putString(LOCATION_KEY, location.key)}
     }
 
     fun loadSeptimanaLocation(): SeptimanaLocation {

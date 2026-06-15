@@ -5,9 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:ignore="RtlSymmetry"
+    tools:ignore="RtlSymmetry,Overdraw"
     android:background="@color/light_grey"
-    android:paddingLeft="18dp"
     android:paddingStart="18dp"
     android:paddingTop="7dp">
 
@@ -22,7 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/navigation_drawer_item_text_padding"
         android:paddingStart="@dimen/navigation_drawer_item_text_padding">
 
 
@@ -63,7 +61,7 @@
             android:visibility="gone"
             tools:visibility="visible"
             android:layout_marginBottom="10dp"
-            />
+            tools:ignore="HardcodedText,SmallSp" />
     </LinearLayout>
 
 </LinearLayout>

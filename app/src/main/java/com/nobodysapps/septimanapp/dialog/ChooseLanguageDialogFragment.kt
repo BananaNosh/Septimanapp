@@ -1,8 +1,10 @@
 package com.nobodysapps.septimanapp.dialog
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import androidx.core.content.edit
 import androidx.fragment.app.DialogFragment
 import androidx.preference.PreferenceManager
 import com.nobodysapps.septimanapp.R
@@ -11,6 +13,9 @@ import com.nobodysapps.septimanapp.localization.LocaleHelper
 import java.util.*
 
 class ChooseLanguageDialogFragment : DialogFragment() {
+    // dialog_choose_language carries a trailing "%s" sentinel in the default locale to flag
+    // the German fallback; the String.format below intentionally strips it (see usesDefault).
+    @SuppressLint("StringFormatInvalid")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         isCancelable = false
         return activity?.let {
@@ -44,10 +49,10 @@ class ChooseLanguageDialogFragment : DialogFragment() {
 
     private fun saveLanguageUse(useLatin: Boolean) {
         val preferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        preferences.edit()
-            .putBoolean(SettingsActivity.SettingsFragment.KEY_USE_LATIN, useLatin)
-            .putString(SettingsActivity.SettingsFragment.KEY_PREF_LANGUAGE, if (useLatin) "la" else "system")
-            .apply()
+        preferences.edit {
+            putBoolean(SettingsActivity.SettingsFragment.KEY_USE_LATIN, useLatin)
+            putString(SettingsActivity.SettingsFragment.KEY_PREF_LANGUAGE, if (useLatin) "la" else "system")
+        }
         if (useLatin) {
             context?.let {
                 LocaleHelper.setLocale(it, "la")

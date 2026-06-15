@@ -108,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/small_margin_text"
-                    android:layout_marginLeft="5dp"
+                    
                     android:gravity="center"
                     android:text="@string/enrol_room_occupancy_label" />
 
@@ -117,7 +117,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/small_gap"
-                    android:layout_marginLeft="@dimen/small_gap"
+                    
                     android:entries="@array/enrol_room_occupancy_options" />
             </LinearLayout>
 
@@ -131,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/small_margin_text"
-                    android:layout_marginLeft="5dp"
+                    
                     android:gravity="center"
                     android:text="@string/enrol_room_bathroom_label" />
 
@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/small_gap"
-                    android:layout_marginLeft="@dimen/small_gap"
+                    
                     android:entries="@array/enrol_room_bathroom_options" />
             </LinearLayout>
 
@@ -163,7 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/small_margin_text"
-                    android:layout_marginLeft="5dp"
+                    
                     android:gravity="center"
                     android:text="@string/enrol_age_label" />
 
@@ -172,7 +172,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/small_gap"
-                    android:layout_marginLeft="@dimen/small_gap"
+                    
                     android:ems="4"
                     android:imeOptions="actionNext"
                     android:importantForAutofill="no"
@@ -187,7 +187,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/small_margin_text"
-                    android:layout_marginLeft="5dp"
+                    
                     android:gravity="center"
                     android:text="@string/enrol_years_of_latin_front" />
 
@@ -225,7 +225,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/small_margin_text"
-                    android:layout_marginLeft="5dp"
+                    
                     android:gravity="center"
                     android:text="@string/enrol_eating_habit_front" />
 
@@ -286,7 +286,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_margin_text"
-                android:layout_marginLeft="5dp"
+                
                 app:alignContent="center"
                 app:alignItems="center"
                 app:flexWrap="wrap">
@@ -368,5 +368,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/menu_enrol"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 </FrameLayout>

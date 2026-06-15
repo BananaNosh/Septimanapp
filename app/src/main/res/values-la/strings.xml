@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation_drawer_open">Aperire regulam gubernationis</string>
     <string name="navigation_drawer_close">Claudere regulam gubernationis</string>
     <string name="nav_header_desc">caput regulae gubernationis</string>
     <string name="settings">Accommodare</string>
-    <string name="nav_drawer_count_down_pattern">%1$s d %2$d h %3$d min</string>
+    <string name="nav_drawer_count_down_pattern">%1$d d %2$d h %3$d min</string>
     <string name="nav_header_count_down_subtext">usque ad Septimanam</string>
-    <string name="menu_share">Distribuere</string>
-    <string name="menu_send">Mittere</string>
     <string name="menu_map">Tabula geographica</string>
-    <string name="menu_communicate">Communicare</string>
     <string name="menu_horarium">Horarium</string>
     <string name="menu_enrol">Nomen dare</string>
 
@@ -26,11 +23,8 @@
     <string name="dialog_outdated_horarium">Nondum exstat horarium huius anni. Cuius loco monstratur horarium anni proximi.</string>
     <string name="dialog_outdated_horarium_title">Non invenitur horarium hornum</string>
     <string name="dialog_do_not_show_again">Ne monstraveris iterum</string>
-    <string name="snackbar_horarium_not_found">Non invenitur horarium in lingua selecta</string>
-    <string name="snackbar_previous_horarium">proximum</string>
 
     <!-- Maps -->
-    <string name="explication_map_permission">Licetne Septimanapp uti huius instrumenti memoria ad monstrandam tabulam geographicam?</string>
     <string name="snackbar_to_septimana">Adducas me ad Septimanam!</string>
 
     <!-- Enrol -->
@@ -74,8 +68,6 @@
     <string name="enrol_instrument_hint">instrumentum musicum</string>
     <string name="enrol_instrument_back_1">.</string>
     <string name="enrol_instrument_back_2">(si fieri potest)</string>
-    <string name="enrol_veggieday_yes">Carnem edo, sed mihi placent \"Veggiedays\"(duo dies, quo non editur carnem).</string>
-    <string name="enrol_veggieday_no">Carnem comedo et nullos  \"Veggiedays\" esse praefero.</string>
     <string name="enrol_address_data_allow">Licet data inscriptionis cursualis scripta participantibus distribuere.</string>
     <string name="enrol_address_data_not_allow">Non licet.</string>
     <string name="enrol_image_allow">Licet photographemata sumpta in septimana Latina in rete aut actis diurnis monstrari.</string>
@@ -106,7 +98,7 @@
     <string name="language_german">Theodisca</string>
     <string name="language_french">Francogallica</string>
     <string name="language_unknown">ignota</string>
-    <string name="dialog_choose_language">-</string>
+    <string name="dialog_choose_language" tools:ignore="StringFormatCount">-</string>
 
     <!-- Notifications-->
     <string name="notification_enrol_title">Nomen dare Septimanae</string>

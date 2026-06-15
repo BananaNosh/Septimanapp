@@ -108,7 +108,7 @@ class HorariumFragment : Fragment() {
         val actionDayTitle = getToggleDayViewActionStringFromView()
         val itemDay = menu.add(Menu.NONE, actionDayViewId, 10, actionDayTitle)
         itemDay?.setIcon(getToggleDayViewActionIconResFromView())
-        itemDay?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        itemDay?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
         actionToggleHorariumLanguageId = getActionId(menu, actionToggleHorariumLanguageId)
         val actionLanguageTitle = getToggleHorariumLanguageActionTitle()

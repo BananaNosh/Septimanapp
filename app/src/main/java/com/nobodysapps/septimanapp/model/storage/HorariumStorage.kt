@@ -1,5 +1,6 @@
 package com.nobodysapps.septimanapp.model.storage
 
+import androidx.core.content.edit
 import android.content.SharedPreferences
 import com.nobodysapps.septimanapp.model.Horarium
 import javax.inject.Inject
@@ -13,7 +14,7 @@ class HorariumStorage @Inject constructor(private val prefs: SharedPreferences, 
 
     fun saveHorarium(horariumJson: String, year: Int, locale: String) {
         val key = keyFromYearAndLocale(year, locale)
-        prefs.edit().putString(key, horariumJson).apply()
+        prefs.edit {putString(key, horariumJson)}
     }
 
     fun loadHorarium(year: Int, locale: String): Horarium? {

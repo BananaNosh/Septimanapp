@@ -1,5 +1,6 @@
 package com.nobodysapps.septimanapp.activity
 
+import androidx.core.content.edit
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -109,7 +110,7 @@ abstract class SeptimanappActivity: AppCompatActivity() {
                 KEY_CHOOSE_LANGUAGE_DIALOG_SHOWN, false
             )
         ) {
-            preferences.edit().putBoolean(KEY_CHOOSE_LANGUAGE_DIALOG_SHOWN, true).apply()
+            preferences.edit {putBoolean(KEY_CHOOSE_LANGUAGE_DIALOG_SHOWN, true)}
             Log.d("SeptimanappActivity", "wants to show chooseLanguage")
             ChooseLanguageDialogFragment().show(supportFragmentManager, "")
         }

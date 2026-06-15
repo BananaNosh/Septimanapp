@@ -1,5 +1,6 @@
 package com.nobodysapps.septimanapp.model.storage
 
+import androidx.core.content.edit
 import android.content.SharedPreferences
 import com.google.gson.reflect.TypeToken
 import com.nobodysapps.septimanapp.BuildConfig
@@ -17,78 +18,78 @@ class EnrolInformationStorage @Inject constructor(
 ) {
 
     fun saveName(name: String) {
-        prefs.edit().putString(NAME_KEY, name).apply()
+        prefs.edit {putString(NAME_KEY, name)}
     }
 
     fun saveFirstName(firstName: String) {
-        prefs.edit().putString(FIRSTNAME_KEY, firstName).apply()
+        prefs.edit {putString(FIRSTNAME_KEY, firstName)}
     }
 
     fun saveStreet(street: String) {
-        prefs.edit().putString(STREET_KEY, street).apply()
+        prefs.edit {putString(STREET_KEY, street)}
     }
 
     fun savePostal(postal: String) {
-        prefs.edit().putString(POSTAL_KEY, postal).apply()
+        prefs.edit {putString(POSTAL_KEY, postal)}
     }
 
     fun saveCity(city: String) {
-        prefs.edit().putString(CITY_KEY, city).apply()
+        prefs.edit {putString(CITY_KEY, city)}
     }
 
     fun saveCountry(country: String) {
-        prefs.edit().putString(COUNTRY_KEY, country).apply()
+        prefs.edit {putString(COUNTRY_KEY, country)}
     }
 
     fun savePhone(phone: String) {
-        prefs.edit().putString(PHONE_KEY, phone).apply()
+        prefs.edit {putString(PHONE_KEY, phone)}
     }
 
     fun saveMail(mail: String) {
-        prefs.edit().putString(MAIL_KEY, mail).apply()
+        prefs.edit {putString(MAIL_KEY, mail)}
     }
 
     fun saveStayInJohanneshaus(stay: Boolean) {
-        prefs.edit().putBoolean(JOHANNESHAUS_KEY, stay).apply()
+        prefs.edit {putBoolean(JOHANNESHAUS_KEY, stay)}
     }
 
     fun saveYearsOfLatin(yearsOfLatin: Float) {
-        prefs.edit().putFloat(YEARS_LATIN_KEY, yearsOfLatin).apply()
+        prefs.edit {putFloat(YEARS_LATIN_KEY, yearsOfLatin)}
     }
 
     fun saveEatingHabit(eatingHabit: EatingHabit) {
         val json = jsonConverter.toJson(eatingHabit.toSerializablePair())
-        prefs.edit().putString(EATING_HABIT_KEY, json).apply()
+        prefs.edit {putString(EATING_HABIT_KEY, json)}
     }
 
     fun saveInstrument(instrument: String) {
-        prefs.edit().putString(INSTRUMENT_KEY, instrument).apply()
+        prefs.edit {putString(INSTRUMENT_KEY, instrument)}
     }
 
     fun saveRoomOccupancy(occupancy: Int) {
-        prefs.edit().putInt(ROOM_OCCUPANCY_KEY, occupancy).apply()
+        prefs.edit {putInt(ROOM_OCCUPANCY_KEY, occupancy)}
     }
 
     fun saveRoomBathroom(bathroom: Int) {
-        prefs.edit().putInt(ROOM_BATHROOM_KEY, bathroom).apply()
+        prefs.edit {putInt(ROOM_BATHROOM_KEY, bathroom)}
     }
 
     fun saveRoomRemarks(remarks: String) {
-        prefs.edit().putString(ROOM_REMARKS_KEY, remarks).apply()
+        prefs.edit {putString(ROOM_REMARKS_KEY, remarks)}
     }
 
     fun saveAge(age: Int) {
-        prefs.edit().putInt(AGE_KEY, age).apply()
+        prefs.edit {putInt(AGE_KEY, age)}
     }
 
     fun saveIsStudent(isStudent: Boolean) {
-        prefs.edit().putBoolean(STUDENT_KEY, isStudent).apply()
+        prefs.edit {putBoolean(STUDENT_KEY, isStudent)}
     }
 
     fun saveAddressConsent(consent: Int) {
         when (consent) {
             in 0..2-> {
-                prefs.edit().putInt(ADDRESS_CONSENT_KEY, consent).apply()
+                prefs.edit {putInt(ADDRESS_CONSENT_KEY, consent)}
             }
             else -> {
                 if (BuildConfig.DEBUG) {
@@ -101,7 +102,7 @@ class EnrolInformationStorage @Inject constructor(
     fun saveImageConsent(consent: Int) {
         when (consent) {
             in 0..2-> {
-                prefs.edit().putInt(IMAGE_CONSENT_KEY, consent).apply()
+                prefs.edit {putInt(IMAGE_CONSENT_KEY, consent)}
             }
             else -> {
                 if (BuildConfig.DEBUG) {
@@ -159,7 +160,7 @@ class EnrolInformationStorage @Inject constructor(
     }
 
     fun saveEnrolState(state: Int) {
-        prefs.edit().putInt(ENROLLED_STATE_KEY, state).apply()
+        prefs.edit {putInt(ENROLLED_STATE_KEY, state)}
     }
 
     fun loadEnrolState(): Int {

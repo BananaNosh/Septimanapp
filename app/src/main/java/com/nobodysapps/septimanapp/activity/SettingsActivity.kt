@@ -1,5 +1,6 @@
 package com.nobodysapps.septimanapp.activity
 
+import androidx.core.content.edit
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.SharedPreferences
@@ -56,9 +57,9 @@ class SettingsActivity : SeptimanappActivity() {
                 KEY_USE_LATIN -> {
                     val useLatin = PreferenceManager.getDefaultSharedPreferences(requireContext())
                         .getBoolean(key, false)
-                    PreferenceManager.getDefaultSharedPreferences(requireContext()).edit().putString(
-                        KEY_PREF_LANGUAGE, if (useLatin) "la" else "system"
-                    ).apply()
+                    PreferenceManager.getDefaultSharedPreferences(requireContext()).edit {putString(
+                            KEY_PREF_LANGUAGE, if (useLatin) "la" else "system"
+                    )}
                 }
                 KEY_PREF_LANGUAGE -> {
                     LocaleHelper.setLocale(

@@ -1,5 +1,6 @@
 package com.nobodysapps.septimanapp.model.storage
 
+import androidx.core.content.edit
 import android.content.SharedPreferences
 import com.nobodysapps.septimanapp.viewModel.HorariumViewModel
 import java.util.*
@@ -13,10 +14,10 @@ class StorageManager @Inject constructor(private val sharedPreferences: SharedPr
         val currentSavedYear = sharedPreferences.getInt(CURRENT_SEPTIMANA_YEAR_KEY, 0)
         val septimanaYear = eventInfoStorage.loadSeptimanaStartEndTime()?.first?.get(Calendar.YEAR) ?: 0
         if (currentSavedYear != septimanaYear) {
-            sharedPreferences.edit().putInt(CURRENT_SEPTIMANA_YEAR_KEY, septimanaYear).apply()
+            sharedPreferences.edit { putInt(CURRENT_SEPTIMANA_YEAR_KEY, septimanaYear) }
 
             enrolInformationStorage.saveEnrolState(EnrolInformationStorage.ENROLLED_STATE_REMIND)
-            sharedPreferences.edit().putBoolean(HorariumViewModel.SHOW_AGAIN_KEY, true).apply()
+            sharedPreferences.edit {putBoolean(HorariumViewModel.SHOW_AGAIN_KEY, true)}
         }
     }
 

@@ -25,10 +25,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        
         android:layout_above="@id/countDownSubTV"
         android:layout_marginEnd="@dimen/small_gap"
-        android:layout_marginRight="@dimen/small_gap"
+        
         android:layout_marginBottom="-4dp"
         android:gravity="center"
         android:textSize="@dimen/big_text_size"
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/appIconIV"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        
         android:text="@string/nav_header_count_down_subtext" />
 
     <TextView

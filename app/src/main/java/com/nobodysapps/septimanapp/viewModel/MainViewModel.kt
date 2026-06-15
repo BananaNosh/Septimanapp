@@ -1,6 +1,7 @@
 package com.nobodysapps.septimanapp.viewModel
 
 import android.net.Uri
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.model.storage.LocationStorage
@@ -37,7 +38,7 @@ class MainViewModel(private val eventInfoStorage: EventInfoStorage, private val 
                 "geo:${it.coordinates.longitude},${it.coordinates.latitude}?q=${it.titleForLocale(
                     Locale.GERMAN
                 )}"
-            Uri.parse(uri)
+            uri.toUri()
         }
     }
 

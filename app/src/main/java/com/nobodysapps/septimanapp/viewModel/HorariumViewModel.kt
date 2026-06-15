@@ -1,5 +1,6 @@
 package com.nobodysapps.septimanapp.viewModel
 
+import androidx.core.content.edit
 import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,8 +29,8 @@ class HorariumViewModel(val horariumStorage: HorariumStorage, val sharedPreferen
             return sharedPreferences.getBoolean(SHOW_AGAIN_KEY, true)
         }
         set(value) {
-            sharedPreferences.edit().putBoolean(SHOW_AGAIN_KEY, value)
-                .apply()
+            sharedPreferences.edit {putBoolean(SHOW_AGAIN_KEY, value)
+                }
         }
 
     fun hasPreviousHorarium(): Boolean {

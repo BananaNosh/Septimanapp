@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation_drawer_open">Ouvrir tiroir de la navigation</string>
     <string name="navigation_drawer_close">Fermer tiroir de la navigation</string>
     <string name="nav_header_desc">tête de la navigation</string>
@@ -23,11 +23,8 @@
     <string name="dialog_outdated_horarium">Il n‘y a pas encore l‘horaire actuel. Celui de l‘année dernière est affiché.</string>
     <string name="dialog_outdated_horarium_title">Aucun horaire trouvé</string>
     <string name="dialog_do_not_show_again">Ne montrer pas à nouveau</string>
-    <string name="snackbar_horarium_not_found">Aucun horaire trouvé pour la langue sélectionée</string>
-    <string name="snackbar_previous_horarium">dernière</string>
 
     <!-- Maps -->
-    <string name="explication_map_permission">Autorisation á accéder aux fichiers nécesseaire pour montrer la carte!</string>
     <string name="snackbar_to_septimana">Emmène-moi à la Septimana!</string>
 
     <!-- Enrol -->
@@ -71,8 +68,6 @@
     <string name="enrol_instrument_hint">instrument de musique</string>
     <string name="enrol_instrument_back_1">.</string>
     <string name="enrol_instrument_back_2">(si possible)</string>
-    <string name="enrol_veggieday_yes">Je mange de la viande, mais je suis en faveur de deux \"Veggiedays\" (jours vegetariens).</string>
-    <string name="enrol_veggieday_no">Je mange de la viande et prefere pas des \"Veggiedays\".</string>
     <string name="enrol_address_data_allow">Je suis d\'accord, que mes données d\'adresse paraissent sur une liste distribuée a tous les participants.</string>
     <string name="enrol_address_data_not_allow">Je refuse.</string>
     <string name="enrol_image_allow">Je suis d\'accord, que des photos de moi prises pendant la Semaine latine puissent apparaître sur la page d\'accueil ou dans les articles de la Semaine latine.</string>
@@ -97,13 +92,13 @@
     <string name="settings_summary_version">version: %s</string>
 
     <!-- Language stuff-->
-    <string name="language">-</string>
+    <string name="language" tools:ignore="StringFormatCount">-</string>
     <string name="language_latin">-</string>
     <string name="language_english">-</string>
     <string name="language_german">-</string>
     <string name="language_french">-</string>
     <string name="language_unknown">-</string>
-    <string name="dialog_choose_language">Est-ce que vous voulez regarder Septimanapp en latin ou français?</string>
+    <string name="dialog_choose_language" tools:ignore="StringFormatCount">Est-ce que vous voulez regarder Septimanapp en latin ou français?</string>
 
     <!-- Notifications-->
     <string name="notification_enrol_title">Registrer pour la semain latin</string>

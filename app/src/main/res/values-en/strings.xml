@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -7,7 +7,6 @@
     <string name="nav_drawer_count_down_pattern">%d d %d h %d min</string>
     <string name="nav_header_count_down_subtext">till the Latin Week</string>
     <string name="menu_map">Map</string>
-    <string name="menu_communicate">Communicate</string>
     <string name="menu_horarium">Timetable</string>
     <string name="menu_enrol">Enrol</string>
 
@@ -19,16 +18,13 @@
     <string name="cancel">Cancel</string>
 
     <!-- Horarium -->
-    <string name="action_day_view_day">%d day</string>
-    <string name="action_day_view_days">%d days</string>
+    <string name="action_day_view_day" tools:ignore="PluralsCandidate">%d day</string>
+    <string name="action_day_view_days" tools:ignore="PluralsCandidate">%d days</string>
     <string name="dialog_outdated_horarium">There is no current timetable. The one of the last latin week is shown.</string>
     <string name="dialog_outdated_horarium_title">No timetable found</string>
     <string name="dialog_do_not_show_again">Do not show again</string>
-    <string name="snackbar_horarium_not_found">No horarium found in the specified language</string>
-    <string name="snackbar_previous_horarium">past</string>
 
     <!-- Maps -->
-    <string name="explication_map_permission">Map needs storage permission to cache the map!</string>
     <string name="snackbar_to_septimana">Take me to the Septimana!</string>
 
     <!-- Enrol -->
@@ -72,8 +68,6 @@
     <string name="enrol_instrument_hint">music instrument</string>
     <string name="enrol_instrument_back_1">.</string>
     <string name="enrol_instrument_back_2">(if possible)</string>
-    <string name="enrol_veggieday_yes">I eat meat, but like \"Veggiedays\" (two days of vegetarian food).</string>
-    <string name="enrol_veggieday_no">I eat meat and prefer to have no  \"Veggiedays\".</string>
     <string name="enrol_address_data_allow">I agree that my address data appears on a list, which is going to be distributed to the participants.</string>
     <string name="enrol_address_data_not_allow">I disagree.</string>
     <string name="enrol_image_allow">I agree that pictures taken during the Latinweek maybe posted on the Latinweek\'s website or shown in newspapers.</string>
@@ -98,13 +92,13 @@
     <string name="settings_summary_version">version: %s</string>
 
     <!-- Language stuff-->
-    <string name="language">-</string>
+    <string name="language" tools:ignore="StringFormatCount">-</string>
     <string name="language_latin">-</string>
     <string name="language_english">-</string>
     <string name="language_german">-</string>
     <string name="language_french">-</string>
     <string name="language_unknown">-</string>
-    <string name="dialog_choose_language">Should Septimanapp be displayed in Latin or English?</string>
+    <string name="dialog_choose_language" tools:ignore="StringFormatCount">Should Septimanapp be displayed in Latin or English?</string>
 
     <!-- Notifications-->
     <string name="notification_enrol_title">Register for the latin week</string>

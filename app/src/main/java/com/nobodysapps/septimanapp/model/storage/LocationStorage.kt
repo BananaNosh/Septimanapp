@@ -1,5 +1,6 @@
 package com.nobodysapps.septimanapp.model.storage
 
+import androidx.core.content.edit
 import android.content.SharedPreferences
 import com.nobodysapps.septimanapp.model.Location
 import javax.inject.Inject
@@ -16,7 +17,7 @@ class LocationStorage @Inject constructor(
 
     fun saveLocations(locationsJson: String, overallLocation: SeptimanaLocation) {
         val key = keyForLocation(overallLocation)
-        prefs.edit().putString(key, locationsJson).apply()
+        prefs.edit {putString(key, locationsJson)}
     }
 
     fun loadLocations(overallLocation: SeptimanaLocation): List<Location>? {

@@ -1,5 +1,6 @@
 package com.nobodysapps.septimanapp.application
 
+import androidx.core.content.edit
 import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
@@ -102,7 +103,7 @@ class SeptimanappApplication : MultiDexApplication(), HasAndroidInjector {
             sharedPreferences.getLong(VERSION_ALREADY_RUN_ON, 0) != appVersion
         if (isFirstRunForVersion) {
             doOnFirstStartOfVersion()
-            sharedPreferences.edit().putLong(VERSION_ALREADY_RUN_ON, appVersion).apply()
+            sharedPreferences.edit {putLong(VERSION_ALREADY_RUN_ON, appVersion)}
         }
     }
 

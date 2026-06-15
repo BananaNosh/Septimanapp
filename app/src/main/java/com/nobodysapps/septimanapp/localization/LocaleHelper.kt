@@ -55,9 +55,7 @@ object LocaleHelper {
             configuration.setLocale(locale)
         } else{
             configuration.locale=locale
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                configuration.setLayoutDirection(locale)
-            }
+            configuration.setLayoutDirection(locale)
         }
 
         return if (Build.VERSION.SDK_INT >= 24){
