@@ -1,13 +1,17 @@
 package com.nobodysapps.septimanapp.notifications
 
+import android.Manifest
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.activity.MainActivity
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
@@ -99,7 +103,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
 
         // call notify for both the group and the pet notification
 //        notificationManager.notify(reminderData.type.ordinal, groupBuilder.build())
-        notificationManager.notify(ENROL_REMINDER_NOTIFICATION_ID, notificationBuilder.build())
+        notifyIfPermitted(ENROL_REMINDER_NOTIFICATION_ID, notificationBuilder.build())
     }
 
     /**
@@ -141,10 +145,25 @@ class NotificationHelper @Inject constructor(private val context: Context) {
 
         // call notify for both the group and the pet notification
 //        notificationManager.notify(reminderData.type.ordinal, groupBuilder.build())
-        notificationManager.notify(
+        notifyIfPermitted(
             CONTINUE_ENROL_REMINDER_NOTIFICATION_ID,
             notificationBuilder.build()
         )
+    }
+
+    /**
+     * Posts [notification] only when allowed to. Since Android 13 (targetSdk 35) posting a
+     * notification requires the runtime POST_NOTIFICATIONS permission; without it [notify]
+     * is silently dropped by the platform, so we guard the call to make that explicit.
+     */
+    private fun notifyIfPermitted(id: Int, notification: Notification) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
+            ContextCompat.checkSelfPermission(
+                context, Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            notificationManager.notify(id, notification)
+        }
     }
 
     /**

@@ -23,6 +23,7 @@ import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
 import com.nobodysapps.septimanapp.view.CountDownView
+import com.nobodysapps.septimanapp.view.applySystemBarInsetsAsPadding
 import com.nobodysapps.septimanapp.viewModel.MainViewModel
 import com.nobodysapps.septimanapp.viewModel.ViewModelFactory
 import dagger.android.AndroidInjection
@@ -43,6 +44,11 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         binding = ActivityMainBinding.inflate(layoutInflater) // Inflate the layout
         setContentView(binding.root) // Set the content view using the binding's root
         setSupportActionBar(binding.appBarMain.toolbar) // Access toolbar via binding
+
+        // Android 15 (targetSdk 35) forces edge-to-edge: the DrawerLayout/AppBarLayout
+        // handle the status-bar (top) inset, but fragment content (enrol form + FAB, map,
+        // horarium) must avoid the navigation bar and any landscape display cutout.
+        binding.appBarMain.contentMainInclude.mainLayout.applySystemBarInsetsAsPadding()
 
         AndroidInjection.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)

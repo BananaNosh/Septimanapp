@@ -29,7 +29,20 @@ Unit tests use **Robolectric** + Mockito and run on the JVM (`includeAndroidReso
 "Android" logic is testable without a device. Note `kapt.incremental.apt=true` and the `--add-opens`
 JVM args in `gradle.properties` are required for Dagger annotation processing on modern JDKs.
 
-`google-services.json` (Firebase) is required for the build to succeed.
+`google-services.json` (Firebase) is required for the build to succeed. It is checked into git, so
+it is present automatically in fresh clones and `git worktree` checkouts.
+
+### Git worktrees
+`local.properties` is **gitignored** and does not propagate to a new `git worktree`. It holds the
+Android SDK path (`sdk.dir`), so without it Gradle fails with `SDK location not found`. After creating
+a worktree, copy it from the main checkout before building:
+
+```bash
+git worktree add /tmp/septimana-wt HEAD
+cp local.properties /tmp/septimana-wt/local.properties   # only gitignored file the build needs
+```
+
+(`google-services.json` is tracked, so it carries over and does **not** need copying.)
 
 ## Architecture
 
