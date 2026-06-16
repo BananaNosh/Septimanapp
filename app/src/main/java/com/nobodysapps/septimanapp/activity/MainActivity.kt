@@ -8,6 +8,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -23,7 +26,6 @@ import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
 import com.nobodysapps.septimanapp.view.CountDownView
-import com.nobodysapps.septimanapp.view.applySystemBarInsetsAsPadding
 import com.nobodysapps.septimanapp.viewModel.MainViewModel
 import com.nobodysapps.septimanapp.viewModel.ViewModelFactory
 import dagger.android.AndroidInjection
@@ -39,6 +41,10 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding // Declare binding variable
 
+    // Whether the toolbar content (nav icon / title) is inset clear of the cutout and side
+    // nav bar. Only the enrolment screen does so; map and horarium let it bleed to the edge.
+    private var insetToolbarContentHorizontally = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater) // Inflate the layout
@@ -49,18 +55,38 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         // fitsSystemWindows on the DrawerLayout: its legacy behaviour consumes the
         // system-window insets and turns them into content margins, which both adds a
         // spurious side margin and stops fragments from bleeding to the edge. Instead the
-        // insets propagate untouched, and each view pads itself. The toolbar background
-        // bleeds full-width (incl. the status bar and the landscape cutout) while its
-        // content (nav icon / title) is padded clear of them. We pad the AppBarLayout
-        // (not the fixed-height toolbar, whose content would otherwise be clipped); its
-        // ?attr/colorPrimary background fills the full bounds incl. padding, so the bar
-        // still bleeds while the toolbar sits below the status bar / clear of the cutout.
-        // Fragments manage their own insets: map and horarium bleed to the edges, the
-        // enrolment form insets itself (see EnrolmentFragment). The drawer's NavigationView
-        // keeps fitsSystemWindows so its header still clears the status bar.
-        binding.appBarMain.appBarLayout.applySystemBarInsetsAsPadding(
-            top = true, bottom = false, horizontal = true
-        )
+        // insets propagate untouched, and each view pads itself.
+        //
+        // We pad the AppBarLayout (not the fixed-height toolbar, whose content would
+        // otherwise be clipped); its ?attr/colorPrimary background fills the full bounds
+        // incl. padding, so the bar always bleeds full-width while the toolbar sits below
+        // the status bar (top padding). Horizontal padding — which keeps the nav icon /
+        // title clear of the landscape cutout and side nav bar — is only applied on the
+        // enrolment screen, whose form is inset to match; map and horarium bleed fully, so
+        // the nav icon sits flush at the edge like their content (see
+        // updateToolbarInsetsForFragment). The drawer's NavigationView keeps
+        // fitsSystemWindows so its header still clears the status bar.
+        val appBarLayout = binding.appBarMain.appBarLayout
+        val initialAppBarLeft = appBarLayout.paddingLeft
+        val initialAppBarRight = appBarLayout.paddingRight
+        ViewCompat.setOnApplyWindowInsetsListener(appBarLayout) { view, windowInsets ->
+            val bars = windowInsets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            view.updatePadding(
+                top = bars.top,
+                left = initialAppBarLeft + if (insetToolbarContentHorizontally) bars.left else 0,
+                right = initialAppBarRight + if (insetToolbarContentHorizontally) bars.right else 0
+            )
+            windowInsets
+        }
+        // goToFragment() / back press change the visible fragment via the back stack;
+        // keep the toolbar inset in sync with whichever fragment is now shown.
+        supportFragmentManager.addOnBackStackChangedListener {
+            updateToolbarInsetsForFragment(
+                supportFragmentManager.findFragmentById(R.id.fragment_layout) is EnrolmentFragment
+            )
+        }
 
         AndroidInjection.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
@@ -251,8 +277,15 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
     }
 
     private fun replaceFragment(fragmentToGo: Class<*>) {
+        // These transactions don't go through the back stack, so update the inset directly.
+        updateToolbarInsetsForFragment(fragmentToGo == EnrolmentFragment::class.java)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_layout, fragmentToGo.newInstance() as Fragment).commit() // Adjust path to fragment_layout
+    }
+
+    private fun updateToolbarInsetsForFragment(isEnrolment: Boolean) {
+        insetToolbarContentHorizontally = isEnrolment
+        ViewCompat.requestApplyInsets(binding.appBarMain.appBarLayout)
     }
 
     private fun goToFragment(fragmentClass: Class<*>): Boolean {
