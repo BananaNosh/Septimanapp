@@ -3,8 +3,10 @@ package com.nobodysapps.septimanapp.activity
 import androidx.core.content.edit
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -25,6 +27,12 @@ abstract class SeptimanappActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initialLocale = LocaleHelper.getPersistedLocale(this)
+        // Let content draw into the display cutout (e.g. the landscape camera notch)
+        // instead of being letterboxed, so edge-to-edge screens reach the screen edge.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            window.attributes.layoutInDisplayCutoutMode =
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
     }
 
     override fun attachBaseContext(base: Context) {

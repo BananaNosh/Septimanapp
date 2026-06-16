@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.databinding.FragmentEnrolmentBinding
+import com.nobodysapps.septimanapp.view.applySystemBarInsetsAsPadding
 import com.nobodysapps.septimanapp.dialog.ConfirmEnrolmentDialogFragment
 import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
 import com.nobodysapps.septimanapp.model.EatingHabit
@@ -89,6 +90,10 @@ class EnrolmentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Unlike the map/horarium (which bleed to the edges), keep the form fields and
+        // the Send FAB clear of the bottom nav bar and the landscape camera / side nav bar.
+        binding.root.applySystemBarInsetsAsPadding(bottom = true, horizontal = true)
 
         binding.enrolJohanneshausCB.setText(
             when (eventInfoStorage.loadSeptimanaLocation()) {

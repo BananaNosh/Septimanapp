@@ -6,7 +6,6 @@ import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.webkit.WebView
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -14,7 +13,6 @@ import androidx.preference.PreferenceManager
 import com.nobodysapps.septimanapp.BuildConfig
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.localization.LocaleHelper
-import com.nobodysapps.septimanapp.view.applySystemBarInsetsAsPadding
 
 
 class SettingsActivity : SeptimanappActivity() {
@@ -22,8 +20,8 @@ class SettingsActivity : SeptimanappActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
-        // Edge-to-edge (targetSdk 35): keep the preference list clear of the navigation bar.
-        findViewById<View>(R.id.settings).applySystemBarInsetsAsPadding()
+        // Edge-to-edge (targetSdk 35): fitsSystemWindows on the root lets AppCompat offset
+        // the action bar below the status bar and inset the list from the system bars/cutout.
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.settings, SettingsFragment())

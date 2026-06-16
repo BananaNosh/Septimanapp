@@ -144,10 +144,14 @@ class HorariumFragment : Fragment() {
             binding.horariumView.daysToShowOnToggleDayView
         )
 
+    // Icon reflects the view the toggle will switch to (daysToShowOnToggleDayView).
+    // Three buckets so the icon changes in landscape (4 <-> 8) too, not just portrait
+    // (1 <-> 3): single day, a few days, or the full week.
     private fun getToggleDayViewActionIconResFromView() =
         when (binding.horariumView.daysToShowOnToggleDayView) {
             1 -> R.drawable.ic_view_day
-            else -> R.drawable.ic_view_multiple_days
+            in 2..5 -> R.drawable.ic_view_multiple_days
+            else -> R.drawable.ic_view_week
         }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -45,10 +45,22 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         setContentView(binding.root) // Set the content view using the binding's root
         setSupportActionBar(binding.appBarMain.toolbar) // Access toolbar via binding
 
-        // Android 15 (targetSdk 35) forces edge-to-edge: the DrawerLayout/AppBarLayout
-        // handle the status-bar (top) inset, but fragment content (enrol form + FAB, map,
-        // horarium) must avoid the navigation bar and any landscape display cutout.
-        binding.appBarMain.contentMainInclude.mainLayout.applySystemBarInsetsAsPadding()
+        // Android 15 (targetSdk 35) forces edge-to-edge. We intentionally do NOT use
+        // fitsSystemWindows on the DrawerLayout: its legacy behaviour consumes the
+        // system-window insets and turns them into content margins, which both adds a
+        // spurious side margin and stops fragments from bleeding to the edge. Instead the
+        // insets propagate untouched, and each view pads itself. The toolbar background
+        // bleeds full-width (incl. the status bar and the landscape cutout) while its
+        // content (nav icon / title) is padded clear of them. We pad the AppBarLayout
+        // (not the fixed-height toolbar, whose content would otherwise be clipped); its
+        // ?attr/colorPrimary background fills the full bounds incl. padding, so the bar
+        // still bleeds while the toolbar sits below the status bar / clear of the cutout.
+        // Fragments manage their own insets: map and horarium bleed to the edges, the
+        // enrolment form insets itself (see EnrolmentFragment). The drawer's NavigationView
+        // keeps fitsSystemWindows so its header still clears the status bar.
+        binding.appBarMain.appBarLayout.applySystemBarInsetsAsPadding(
+            top = true, bottom = false, horizontal = true
+        )
 
         AndroidInjection.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)

@@ -21,7 +21,9 @@ fun View.applySystemBarInsetsAsPadding(
     val initialRight = paddingRight
     val initialBottom = paddingBottom
     ViewCompat.setOnApplyWindowInsetsListener(this) { view, windowInsets ->
-        val bars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+        val bars = windowInsets.getInsets(
+            WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+        )
         view.updatePadding(
             left = initialLeft + if (horizontal) bars.left else 0,
             top = initialTop + if (top) bars.top else 0,
