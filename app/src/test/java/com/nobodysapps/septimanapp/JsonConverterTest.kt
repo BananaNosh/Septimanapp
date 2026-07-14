@@ -3,10 +3,13 @@ package com.nobodysapps.septimanapp
 import com.alamkanak.weekview.WeekViewEvent
 import com.nobodysapps.septimanapp.model.Horarium
 import com.nobodysapps.septimanapp.model.Location
+import com.nobodysapps.septimanapp.model.Proposita
+import com.nobodysapps.septimanapp.model.Propositum
 import com.nobodysapps.septimanapp.model.storage.JsonConverter
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import org.osmdroid.util.GeoPoint
+import java.util.Locale
 
 
 class JsonConverterTest {
@@ -48,5 +51,28 @@ class JsonConverterTest {
         json = jsonConverter.toJson(location)
         val loadedLocation = jsonConverter.fromJson<Location>(json, Location::class.java)
         assertEquals(location, loadedLocation)
+    }
+
+    @Test
+    fun testPropositaRoundTrip() {
+        val proposita = Proposita(
+            listOf(
+                Propositum(
+                    "arcarius",
+                    "Marcellus Arcarius",
+                    mapOf("la" to "Plautus, Mostellaria", "de" to "Plautus, Mostellaria"),
+                    mapOf("la" to "In hoc coetu…", "de" to "In diesem Kurs…")
+                )
+            )
+        )
+        val json = jsonConverter.toJson(proposita)
+        val loaded = jsonConverter.fromJson<Proposita>(json, Proposita::class.java)
+        assertEquals(proposita, loaded)
+
+        val first = loaded.proposita.first()
+        assertEquals("In hoc coetu…", first.descriptionForLocale(Locale("la")))
+        assertEquals("In diesem Kurs…", first.descriptionForLocale(Locale.GERMAN))
+        // Falls back to the first available entry for locales without content (e.g. app UI en/fr).
+        assertEquals("Plautus, Mostellaria", first.subjectForLocale(Locale.ENGLISH))
     }
 }
