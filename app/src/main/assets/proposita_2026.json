@@ -1,0 +1,76 @@
+{
+  "proposita": [
+    {
+      "id": "heimann",
+      "author": "Gabriela Heimann",
+      "subjectMap": {
+        "la": "Latine loqui (incipientes)",
+        "de": "Latein sprechen (Anfänger)"
+      },
+      "descriptionMap": {
+        "la": "Aude Latine loqui! Dialogis brevibus de rebus cottidianis, de oblectamentis, de vita ipsa colloquentes nos cognoscemus. Ludis ludendis numeros, horologium, calendarium exploremus, chartulas postales scribamus, fabulas iocosas et fingamus et narremus imagines spectantes. Omnes, qui linguam Latinam numquam vel raro adhuc loquebantur, invitantur!",
+        "de": "Wage, lateinisch zu sprechen! In kurzen Dialogen über unseren Alltag, unsere Hobbys und unser Leben werden wir uns im persönlichen Austausch miteinander kennenlernen. Spielerisch wollen wir die Welt der Zahlen (mit Zeit- und Datumsangaben) erkunden, Postkarten schreiben und zu Bildern unterhaltsame Geschichten erfinden und erzählen. Alle, die noch keine oder wenig Erfahrung im Lateinsprechen haben, sind herzlich eingeladen!"
+      }
+    },
+    {
+      "id": "knapp",
+      "author": "Robert Knapp",
+      "subjectMap": {
+        "la": "Commentarii Gregorii Heffley",
+        "de": "Gregs Tagebuch"
+      },
+      "descriptionMap": {
+        "la": "Visne fabulam iocosam de Gregorio Heffley („Gregs Tagebuch“ – „Diary of a Wimpy Kid“) Latine legere? Dialogos exercere, copiam verborum et eloquentiam augere (imprimis de rebus cottidianis, ludos Latinos ludere, fabulas breviores scribere et narrare? In coetu meo non solum lectiones ipsae, sed etiam iussa et colloquia inter lectiones (omnia fere) Latine gerentur. Idcirco postulandum est, ut Latinam vocem partim quidem intellegas (fortasse quia iam Septimanae Latinae interfueris) et non minus quam duos vel tres annos linguam Latinam didiceris. Noli autem timere! Si quod celerius visum erit, libentissime lentius et verbis simplicioribus redicemus. Et nos omnes discentes sumus, qua de causa nemo reprehendetur, cuius Latinitas haud immaculata sit!",
+        "de": "Hast du Lust, Gregs Tagebuch („Diary of a Wimpy Kid“) auf Latein zu lesen? Dialoge einzuüben, deinen aktiven Wortschatz und deine Sprechfähigkeit zu erweitern (insbesondere mit Alltagsvokabular), lateinische Spiele zu spielen, kürzere Geschichten auf Latein zu schreiben und zu erzählen? In meinem Kurs werden nicht nur die Lesetexte, sondern auch die Anweisungen und Zwischengespräche (fast ausschließlich) auf Latein stattfinden. Deshalb ist es erforderlich, dass du schon ein bisschen gesprochenes Latein verstehst (z.B. weil du schon einmal bei der Lateinwoche warst) und mindestens ca. 2-3 Jahre Latein gelernt hast. Aber keine Angst! Wenn etwas zu schnell geht, werden wir es jederzeit gerne langsamer und in einfacheren Worten wiederholen. Außerdem sind wir alle Lernende, deshalb wird niemand für Grammatikfehler beim eigenen Latein getadelt!"
+      }
+    },
+    {
+      "id": "arcarius",
+      "author": "Marcellus Arcarius",
+      "subjectMap": {
+        "la": "Plautus, Mostellaria",
+        "de": "Plautus, Mostellaria"
+      },
+      "descriptionMap": {
+        "la": "In hoc coetu Plauti Mostellariam legemus. Dum pater eius abest, Philolaches totam rem familiarem absumit: Amicam meretricem liberat, domi convivia continenter celebrat, prorsus luxuriose vivit. Cum pater subito revertitur, Philolaches desperat, nam patris iram timet. Adiuvat eum callidissimus servus Tranio, qui patrem domum intrare prohibere conatur: Fingit enim ibi phantasma habitare. Num patrem usque deludere poterit? Plauti comoediae facetiis plenae sunt et etiam a lectoribus minus peritis intellegi possunt. Vobiscum multum legere, sed non minus colloqui volo. Venite crebri! Cavete: Primo die nondum adesse potero. Accipietis schidas et exercitia, quibus sine me initium faciatis.",
+        "de": "In diesem Kurs werden wir die Gespensterkomödie des Plautus lesen: Während sein Vater abwesend ist, verschwendet Philolaches das gesamte Familienvermögen: Er kauft seine Freundin, eine Prostituierte, frei, veranstaltet ständig Hauspartys und lebt im Luxus. Als sein Vater plötzlich zurückkehrt, gerät Philolaches in Verzweiflung, denn er fürchtet den Zorn des Vaters. Ihm hilft der äußerst listige Sklave Tranio, der versucht, den Vater am Betreten des Hauses zu hindern: Dazu behauptet er, dort wohne ein Gespenst. Wird er den Vater bis zum Ende hinters Licht führen können? Die Komödien des Plautus sind sehr witzig und sprachlich auch für weniger erfahrene Leser verständlich. Ich möchte viel mit euch lesen, aber nicht weniger sprechen. Kommt zahlreich! Achtung: Am ersten Kurstag kann ich noch nicht da sein. Ihr bekommt Arbeitsblätter und Aufgaben, mit denen ihr schon ohne mich anfangen könnt."
+      }
+    },
+    {
+      "id": "bohmhammel",
+      "author": "Wolfram Bohmhammel",
+      "subjectMap": {
+        "la": "Minucius Felix, Octavius",
+        "de": "Minucius Felix, Octavius"
+      },
+      "descriptionMap": {
+        "la": "Hoc anno in animo habeo vobiscum Minucii Felicis Octavium legere. In eo opusculo satis facili sermone scripto cognoscimus praeiudicia, quae Romani in Christianos habebant eorumque refutationem. In eo cognoscimus, quomodo Romani mundum interpretarentur, et cum nostra aspectione naturae conferre poterimus. Praeterea cum auctoris sermo partim synonymis abundet, lectura proderit ad varie loquendum. Quod volumus (fortasse partim scribentes) exercere. Aptus est coetus iis, qui sat bene Latine (legentes) intellegant et facultatem loquendi augere optent.",
+        "de": "Dieses Jahr habe ich vor, mit euch den Octavius des Minucius Felix zu lesen. In diesem kleinen, in recht einfacher Sprache geschriebenen Werke lernen wir Vorurteile kennen, die die Römer gegenüber den Christen hatten, und deren Widerlegung. Dabei erkennen wir auch, wie die Römer die Welt auffassten, und können es mit unserer Weltsicht vergleichen. Da außerdem die Schreibweise des Verfassers teilweise vor Synonymen überfließt, nützt die Lektüre auch, um abwechslungsreich(er) zu reden. Was wir dann (vielleicht teilweise schriftlich) üben möchten. Der Kurs ist geeignet für die, die recht gut Latein (lesend) verstehen und ihre Sprechfähigkeit vergrößern möchten."
+      }
+    },
+    {
+      "id": "hecht",
+      "author": "Florian Hecht",
+      "subjectMap": {
+        "la": "Liber Ionae",
+        "de": "Das Buch Jona"
+      },
+      "descriptionMap": {
+        "la": "Quis nescit illam omnium notissimam fabulam de ballaena? (nisi forte cogitemus vel de capitaneo Ahab vel de miserrima Timmy…) Dubium non est, quin libellus propheticus „Ionae“ inter clarissimas Bibliorum scripturas habeatur. Propter autem brevitatem vix nobis aptam materiem praeberet, qua per totam Septimanam occuparemur, nisi ingenia tot hominum doctissimorum iam provocavisset ad varias litteras scribendas. Surgamus ergo, vadamus Nineven, ubi inopes consilii tamen multa nova discamus!",
+        "de": "Wer kennt sie nicht – die wohl berühmteste Geschichte vom Walfisch? (Wenn man Kapitän Ahab oder die Walkuh Timmy einmal außen vor lässt…) Das kleine prophetische Büchlein Jona zählt zwar zu den bekanntesten biblischen Geschichten, würde aber mit seiner Gesamtlesedauer von etwa einer Viertelstunde in der lateinischen Vulgataübersetzung wohl kaum Anlass für einen einwöchigen Lektürekurs bieten, hätte es nicht eine reiche Rezeptionsgeschichte angezettelt. Begeben wir uns daher auf eine Entdeckungsreise bis nach Ninive, an deren Ende wir hoffentlich ratlos glücklich dastehen werden!"
+      }
+    },
+    {
+      "id": "weiser",
+      "author": "Lucas Weiser",
+      "subjectMap": {
+        "la": "Cicero, Lucullus",
+        "de": "Cicero, Lucullus"
+      },
+      "descriptionMap": {
+        "la": "M. Tullius Cicero, ille senator orator scriptor, multos libros scripsit et eos notissimos, e quibus etiam numerus ingens nostris temporibus superest. Inter quos libros dialogus quidam, qui inscribitur Lucullus, certe non est notissimus, sed meā sententiā tamen lectu dignissimus. Inter sectas philosophicas Cicero ipse fautor erat Academiae Platonicae, sed illius partis Academiae, quae postea „Academia sceptica“ est appellata. Haec pars Academiae Platonicae praecipue secutus est dictum Socraticum scire se nihil scire (quomodo Cicero ipse hoc dictum in Latinum convertit). Mira ratio philosophandi: Philosophi~ae docti~aeque cum dicant se veritates invenire velle, isti philosophi sceptici negant hoc fieri posse! Sequimini me, amici~ae, et inspiciamus, quomodo Cicero illam philosophandi rationem miram defenderit et contra ‚dogmata‘ sectarum aliarum pugnaverit. Hoc dialogo Lucullo Cicero nos, ut inter colloquia quam commodissime nos habeamus, etiam ad locos iucundissimos, ad villas divitum in Neapolitano sitas invitat.",
+        "de": "Marcus Tullius Cicero, der berühmte Senator, Redner und Schrifsteller hat ja viele bekannte Bücher geschrieben, von denen auch eine große Menge erhalten ist. Darunter gibt es einen Dialog Lucullus, der zwar sicher nicht zu den bekanntesten dieser Schriften gehört, in meinen Augen aber dennoch eine sehr lohnende Lektüre darstellt. Unter den ‚Philosophenschulen‘ war Cicero ja Anhänger der platonischen Akademie, und zwar dem Strang der Akademie, der später die ‚akademische Skepsis‘ genannt wurde. Dieser Strang der platonischen Akademie ist vor allem dem „Ich weiß, dass ich nichts weiß“ des Sokrates verpflichtet. Hierbei handelt es sich um eine seltsame Art zu philosophieren: Während Philosoph~innen und Gelehrte ja sonst Wahrheiten herausfinden wollen, meinen diese Anhänger der skeptischen Philosophie, dass das gar nicht möglich sei. Folgt mir, amici~ae, und schauen wir uns doch an, wie Cicero diese seltsame Art zu philosophieren verteidigt hat und gegen die ‚Dogmata‘ der anderen Philosophenschulen gekämpft hat. In diesem Dialog Lucullus lädt Cicero uns auch, dass wir es uns unter gelehrten Gesprächen auch möglichst gut gehen lassen, an recht erquickliche Orte ein, nämlich in die vornehmen Villengegenden bei Neapel."
+      }
+    }
+  ]
+}

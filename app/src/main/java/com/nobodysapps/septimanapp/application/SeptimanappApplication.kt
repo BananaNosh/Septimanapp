@@ -37,6 +37,8 @@ class SeptimanappApplication : MultiDexApplication(), HasAndroidInjector {
     @Inject
     lateinit var locationStorage: LocationStorage
     @Inject
+    lateinit var propositaStorage: PropositaStorage
+    @Inject
     lateinit var eventInfoStorage: EventInfoStorage
     @Inject
     lateinit var storageManager: StorageManager
@@ -111,6 +113,7 @@ class SeptimanappApplication : MultiDexApplication(), HasAndroidInjector {
         Log.d(TAG, "First run")
         loadHoraria()
         loadLocations()
+        loadProposita()
         storeEventInfo()
     }
 
@@ -149,6 +152,25 @@ class SeptimanappApplication : MultiDexApplication(), HasAndroidInjector {
                     septimanaLocation?.let {
                         locationStorage.saveLocations(locationJson, septimanaLocation)
                     }
+                }
+            }
+        }
+    }
+
+    private fun loadProposita() {
+        val fileList = assets.list("")
+        fileList?.forEach {
+            if (it.startsWith("proposita_") && it.endsWith(".json")) {
+                val yearString = it.substringAfter("_").substringBefore(".")
+                val year: Int = try {
+                    yearString.toInt()
+                } catch (e: NumberFormatException) {
+                    Log.d(TAG, "Wrong filename $it")
+                    0
+                }
+                assets.open(it).bufferedReader().use { reader ->
+                    val propositaJson = reader.readText()
+                    propositaStorage.saveProposita(propositaJson, year)
                 }
             }
         }
