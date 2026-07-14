@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel
 import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import com.nobodysapps.septimanapp.model.storage.LocationStorage
+import com.nobodysapps.septimanapp.model.storage.PropositaStorage
 import com.nobodysapps.septimanapp.utils.CalendarUtils
 import com.nobodysapps.septimanapp.viewModel.HorariumViewModel
 import com.nobodysapps.septimanapp.viewModel.MainViewModel
+import com.nobodysapps.septimanapp.viewModel.PropositaViewModel
 import com.nobodysapps.septimanapp.viewModel.ViewModelFactory
 import dagger.MapKey
 import dagger.Module
@@ -40,5 +42,12 @@ class ViewModelModule {
     @ViewModelKey(HorariumViewModel::class)
     fun provideHorariumViewModel(horariumStorage: HorariumStorage, sharedPreferences: SharedPreferences): ViewModel {
         return HorariumViewModel(horariumStorage, sharedPreferences)
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(PropositaViewModel::class)
+    fun providePropositaViewModel(propositaStorage: PropositaStorage): ViewModel {
+        return PropositaViewModel(propositaStorage)
     }
 }
