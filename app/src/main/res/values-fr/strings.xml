@@ -8,6 +8,7 @@
     <string name="nav_header_count_down_subtext">jusqu\'à la semaine latin</string>
     <string name="menu_map">Carte</string>
     <string name="menu_horarium">Horaire</string>
+    <string name="menu_proposita">Sujets des cours</string>
     <string name="menu_enrol">S‘inscrire</string>
 
     <!-- Impressum -->
@@ -89,6 +90,7 @@
     <string name="settings_summary_open_source">Montre les licences des logiciels utilisés</string>
     <string name="dialog_licenses_title">Open Source Licences</string>
     <string name="action_horarium_language">Horaire en %s</string>
+    <string name="action_proposita_language">Sujets des cours en %s</string>
     <string name="settings_summary_version">version: %s</string>
 
     <!-- Language stuff-->

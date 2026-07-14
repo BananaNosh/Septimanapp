@@ -8,6 +8,7 @@
     <string name="nav_header_count_down_subtext">usque ad Septimanam</string>
     <string name="menu_map">Tabula geographica</string>
     <string name="menu_horarium">Horarium</string>
+    <string name="menu_proposita">Proposita</string>
     <string name="menu_enrol">Nomen dare</string>
 
     <!-- Impressum -->
@@ -89,6 +90,7 @@
     <string name="settings_summary_open_source">Monstrat licentias programmaton usorum</string>
     <string name="dialog_licenses_title">Open Source Licentiae</string>
     <string name="action_horarium_language">Videatur horarium in %s</string>
+    <string name="action_proposita_language">Videantur proposita in %s</string>
     <string name="settings_summary_version">versio: %s</string>
 
     <!-- Language stuff-->

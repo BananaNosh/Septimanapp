@@ -25,6 +25,7 @@ import com.nobodysapps.septimanapp.databinding.ViewImpressumBinding
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
+import com.nobodysapps.septimanapp.fragments.PropositaFragment
 import com.nobodysapps.septimanapp.view.CountDownView
 import com.nobodysapps.septimanapp.viewModel.MainViewModel
 import com.nobodysapps.septimanapp.viewModel.ViewModelFactory
@@ -217,6 +218,9 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         when (item.itemId) {
             R.id.nav_horarium -> {
                 fragmentClass = HorariumFragment::class.java
+            }
+            R.id.nav_proposita -> {
+                fragmentClass = PropositaFragment::class.java
             }
             R.id.nav_map -> {
                 fragmentClass = MapFragment::class.java

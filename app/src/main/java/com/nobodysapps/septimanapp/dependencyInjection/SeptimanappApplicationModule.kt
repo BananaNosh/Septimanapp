@@ -5,6 +5,7 @@ import com.nobodysapps.septimanapp.activity.MainActivity
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import com.nobodysapps.septimanapp.fragments.HorariumFragment
 import com.nobodysapps.septimanapp.fragments.MapFragment
+import com.nobodysapps.septimanapp.fragments.PropositaFragment
 import com.nobodysapps.septimanapp.notifications.AlarmReceiver
 import com.nobodysapps.septimanapp.notifications.NotificationActionReceiver
 import com.nobodysapps.septimanapp.utils.CalendarUtils
@@ -46,6 +47,12 @@ abstract class EnrolFragmentModule {
 abstract class MapFragmentModule {
     @ContributesAndroidInjector
     abstract fun contributeMapFragmentInjector(): MapFragment
+}
+
+@Module
+abstract class PropositaFragmentModule {
+    @ContributesAndroidInjector
+    abstract fun contributePropositaFragmentInjector(): PropositaFragment
 }
 
 @Module

@@ -13,6 +13,7 @@ import javax.inject.Singleton
         HorariumFragmentModule::class,
         EnrolFragmentModule::class,
         MapFragmentModule::class,
+        PropositaFragmentModule::class,
         BroadcastReceiverModule::class,
         ContextModule::class,
         SharedPreferencesModule::class,

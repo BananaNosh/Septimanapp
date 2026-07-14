@@ -8,6 +8,7 @@
     <string name="nav_header_count_down_subtext">till the Latin Week</string>
     <string name="menu_map">Map</string>
     <string name="menu_horarium">Timetable</string>
+    <string name="menu_proposita">Course topics</string>
     <string name="menu_enrol">Enrol</string>
 
     <!-- Impressum -->
@@ -89,6 +90,7 @@
     <string name="settings_summary_open_source">Shows the licences of used software</string>
     <string name="dialog_licenses_title">Open Source Licences</string>
     <string name="action_horarium_language">Show timetable in %s</string>
+    <string name="action_proposita_language">Show course topics in %s</string>
     <string name="settings_summary_version">version: %s</string>
 
     <!-- Language stuff-->

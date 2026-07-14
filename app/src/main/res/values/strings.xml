@@ -11,6 +11,7 @@
     <string name="nav_header_count_down_subtext">bis zur Lateinwoche</string>
     <string name="menu_map">Karte</string>
     <string name="menu_horarium">Programm</string>
+    <string name="menu_proposita">Wahlgruppen</string>
     <string name="menu_enrol">Anmelden</string>
 
     <!-- Impressum -->
@@ -120,6 +121,7 @@
     <string name="settings_summary_open_source">Zeigt die Lizenzen benutzter Software</string>
     <string name="dialog_licenses_title">Open Source Lizenzen</string>
     <string name="action_horarium_language">Show timetable in %s</string>
+    <string name="action_proposita_language">Show course topics in %s</string>
     <string name="settings_summary_version">Version: %s</string>
 
     <!-- Language stuff-->
