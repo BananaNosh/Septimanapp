@@ -122,39 +122,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
 
 
         if (BuildConfig.DEBUG) {
-            // Assuming debugTV is inside nav_header_main or another included layout.
-            // If it's in nav_header_main:
             impressumView.debugTV.visibility = View.VISIBLE
-            // If debugTV is directly in view_impressum.xml which is included in nav_header_main,
-            // and view_impressum.xml has its own binding class (e.g., ViewImpressumBinding)
-            // you might need to bind that specific part if it's not directly part of NavHeaderMainBinding.
-            // For example, if nav_header_main includes <include layout="@layout/view_impressum" android:id="@+id/impressum_layout"/>
-            // val impressumBinding = ViewImpressumBinding.bind(headerView.findViewById(R.id.impressum_layout))
-            // impressumBinding.debugTV.visibility = View.VISIBLE
-
-            // However, based on your synthetic imports, it looks like `privacyTV` and `debugTV`
-            // might be within a layout that's directly referenced by `navView`.
-            // If `view_impressum.xml` is the layout for the header (app:headerLayout="@layout/view_impressum"),
-            // then NavHeaderMainBinding might not be the correct binding class.
-            // It would be `ViewImpressumBinding` directly if `view_impressum` is the header.
-            // Let's assume nav_header_main is the header and it INCLUDES view_impressum.
-            // If `debugTV` and `privacyTV` are in `view_impressum.xml` and this is included in `nav_header_main.xml`
-            // You would access them through the binding of `nav_header_main.xml` if IDs are unique
-            // or by finding the included layout first.
-
-            // Given the original synthetic: kotlinx.android.synthetic.main.view_impressum.view.debugTV
-            // This implies that `view_impressum.xml` was being accessed.
-            // Let's assume `nav_header_main.xml` includes `view_impressum.xml`.
-            // And `privacyTV` and `debugTV` are within `view_impressum.xml`.
-            // One way to handle this with ViewBinding for included layouts is to give the include tag an ID.
-            // In nav_header_main.xml:
-            // <include android:id="@+id/impressum_section" layout="@layout/view_impressum" />
-            // Then in code:
-            // val impressumBinding = ViewImpressumBinding.bind(navHeaderBinding.impressumSection) // if impressum_section is the ID of the include tag in nav_header_main
-            // impressumBinding.debugTV.visibility = View.VISIBLE
-
-            // Simpler if `privacyTV` and `debugTV` are directly in `nav_header_main.xml`
-            // navHeaderBinding.debugTV.visibility = View.VISIBLE
         }
     }
 
