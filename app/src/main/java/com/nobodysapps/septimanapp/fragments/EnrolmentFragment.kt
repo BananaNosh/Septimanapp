@@ -476,7 +476,7 @@ class EnrolmentFragment : Fragment() {
 
         val septimanaLocation = eventInfoStorage.loadSeptimanaLocation()
 
-        emailIntent.type = "plain/text"
+        emailIntent.type = "text/plain"
         if (context != null) {
             val body = getString(
                 R.string.enrol_send_email_template,

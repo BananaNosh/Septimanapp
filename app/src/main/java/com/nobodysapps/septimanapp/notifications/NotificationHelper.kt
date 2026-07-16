@@ -120,7 +120,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             setContentText(context.getString(R.string.notification_enrol_text))
 
 
-            val flag = mutableUpdateCurrentFlag()
+            val flag = immutableUpdateCurrentFlag()
             // Launches the app to open the MainActivity with EnrolFragment
             val pendingIntent =
                 PendingIntent.getActivity(
@@ -179,7 +179,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.ic_assignment))
             setContentText(context.getString(R.string.notification_continue_enrol_text))
 
-            val flag = mutableUpdateCurrentFlag()
+            val flag = immutableUpdateCurrentFlag()
             // Launches the app to open the MainActivity with EnrolFragment
             val pendingIntent =
                 PendingIntent.getActivity(
@@ -192,12 +192,8 @@ class NotificationHelper @Inject constructor(private val context: Context) {
         }
     }
 
-    private fun mutableUpdateCurrentFlag(): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        } else {
-            PendingIntent.FLAG_UPDATE_CURRENT
-        }
+    private fun immutableUpdateCurrentFlag(): Int {
+        return PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
     }
 
     private fun createEnrolFragmentIntent() = Intent(context, MainActivity::class.java).apply {
@@ -224,7 +220,7 @@ class NotificationHelper @Inject constructor(private val context: Context) {
         val intent = Intent(context.applicationContext, receiverClass).apply {
             this.action = action
         }
-        return PendingIntent.getBroadcast(context, 0, intent, mutableUpdateCurrentFlag())
+        return PendingIntent.getBroadcast(context, 0, intent, immutableUpdateCurrentFlag())
     }
 
     companion object {
