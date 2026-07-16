@@ -114,7 +114,7 @@ class SeptimanappApplication : MultiDexApplication(), HasAndroidInjector {
         loadHoraria()
         loadLocations()
         loadProposita()
-        storeEventInfo()
+        loadEventInfo()
     }
 
     private fun loadHoraria() {
@@ -176,16 +176,18 @@ class SeptimanappApplication : MultiDexApplication(), HasAndroidInjector {
         }
     }
 
-    private fun storeEventInfo() {
-        val startTime = Calendar.getInstance()
-        startTime.set(2026, 7, 1, 16, 0)
-        val endTime = startTime.clone() as Calendar
-        endTime.set(2026, 7, 8, 14, 0)
-        eventInfoStorage.saveSeptimanaStartEndTime(startTime, endTime)
-        eventInfoStorage.saveSeptimanaLocation(SeptimanaLocation.BRAUNFELS)
+    private fun loadEventInfo() {
+        try {
+            assets.open(EVENT_INFO_ASSET).bufferedReader().use { reader ->
+                eventInfoStorage.saveEventInfoFromJson(reader.readText())
+            }
+        } catch (e: java.io.IOException) {
+            Log.w(TAG, "No $EVENT_INFO_ASSET asset found")
+        }
     }
 
     companion object {
         const val TAG = "SeptimanappApplication"
+        const val EVENT_INFO_ASSET = "event_info.json"
     }
 }

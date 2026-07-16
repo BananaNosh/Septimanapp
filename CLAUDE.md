@@ -74,9 +74,11 @@ Horaria and locations are bundled as JSON in `app/src/main/assets/` and imported
   `ALLOWED_HORARIUM_LOCALES` = `la`, `de` are imported). The `.doc`/`.docx`/`.pdf` source documents
   live in `docs/horarium-sources/` (kept out of `assets/` so they don't ship in the APK).
 - Location files follow `locations_<septimanaLocation>.json`, matched to a `SeptimanaLocation` enum key.
-- **The event date and location are hardcoded** in `SeptimanappApplication.storeEventInfo()`. Updating to a
-  new year means adding `horarium_<year>_*.json` assets, bumping `versionCode`/`versionName` in
-  `app/build.gradle` (so the first-run import re-triggers), and editing `storeEventInfo()`.
+- **The event date and location come from `assets/event_info.json`** (start/end as
+  `yyyy-MM-dd'T'HH:mm`, location as a `SeptimanaLocation` key), parsed by
+  `EventInfoStorage.saveEventInfoFromJson()`. Updating to a new year means adding
+  `horarium_<year>_*.json` assets, editing `event_info.json`, and bumping
+  `versionCode`/`versionName` in `app/build.gradle` (so the first-run import re-triggers).
 
 ### UI
 - `SeptimanappActivity` is the base `AppCompatActivity`: it applies the persisted locale via `LocaleHelper`
