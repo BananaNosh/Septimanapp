@@ -15,7 +15,7 @@ android {
     compileSdkVersion 35
     defaultConfig {
         applicationId "com.nobodysapps.septimanapp"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 35
         versionCode 30
         versionName "1.14"
@@ -67,6 +67,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.preference:preference-ktx:1.2.0'
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
 
     // runner/rules bumped to 1.6.x so ActivityTestRule launches on Android 14+ devices.
     // Espresso is intentionally not used: its input-injection (and onView) crash on Android 16,

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    The encrypted enrolment prefs must never leave the device: they contain PII and their
+    Keystore master key cannot be restored on another device anyway.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude
+            domain="sharedpref"
+            path="enrol_prefs.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <exclude
+            domain="sharedpref"
+            path="enrol_prefs.xml" />
+    </device-transfer>
+</data-extraction-rules>

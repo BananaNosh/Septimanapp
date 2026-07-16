@@ -8,6 +8,7 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import com.nobodysapps.septimanapp.activity.MainActivity
+import com.nobodysapps.septimanapp.dependencyInjection.SharedPreferencesModule
 import com.nobodysapps.septimanapp.fragments.EnrolmentFragment
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -37,13 +38,18 @@ class EnrolmentValidationTest {
 
     @Before
     fun startFromEmptyForm() {
-        // The whole app stores its state in the "pref" SharedPreferences (see SharedPreferencesModule).
-        // Clear it so every test starts from a blank form, and pre-set the "language dialog shown"
-        // flag so the first-run ChooseLanguageDialog does not cover the form.
-        context.getSharedPreferences("pref", Context.MODE_PRIVATE).edit()
+        // General app state lives in the "pref" SharedPreferences, the enrolment data in the
+        // encrypted "enrol_prefs" file (see SharedPreferencesModule). Clear both so every test
+        // starts from a blank form — the enrolment prefs through the encrypted instance, so the
+        // Tink keysets survive. Pre-set the "language dialog shown" flag so the first-run
+        // ChooseLanguageDialog does not cover the form.
+        val plainPrefs = context.getSharedPreferences("pref", Context.MODE_PRIVATE)
+        plainPrefs.edit()
             .clear()
             .putBoolean("language_dialog_shown", true)
             .commit()
+        SharedPreferencesModule().provideEnrolSharedPreferences(context, plainPrefs)
+            .edit().clear().commit()
     }
 
     private fun launchEnrolmentForm(): MainActivity {

@@ -63,15 +63,16 @@ All app state lives in **SharedPreferences**, serialized to JSON with Gson via `
   each own a set of preference keys and read/write JSON blobs. Keys are namespaced by year and/or locale
   (e.g. `horarium_2025_la`, `locations_braunfels`).
 - `StorageManager.resetAfterSeptimana()` clears per-event state when the stored event year changes.
-- Gson has trouble with the third-party `WeekViewEvent` and polymorphic types, hence the custom
-  `RuntimeTypeAdapterFactory` / `HanabiTypeAdapterFactory` helpers under `model/storage/`.
+- Enrolment data (PII) lives in a separate **EncryptedSharedPreferences** file (`enrol_prefs`,
+  provided via the `@EnrolPrefs` Dagger qualifier and excluded from backups); `EnrolPrefsMigration`
+  moves legacy plaintext values over on first start.
 
 ### Content loading from assets
 Horaria and locations are bundled as JSON in `app/src/main/assets/` and imported into SharedPreferences
 **once per app version** (`SeptimanappApplication.doOnFirstStartOfVersion()`, gated by `VERSION_ALREADY_RUN_ON`).
 - Horarium files follow the naming convention `horarium_<year>_<locale>.json` (only locales in
-  `ALLOWED_HORARIUM_LOCALES` = `la`, `de` are imported). The `.doc`/`.docx`/`.pdf` files in `assets/` are
-  source documents, not loaded at runtime.
+  `ALLOWED_HORARIUM_LOCALES` = `la`, `de` are imported). The `.doc`/`.docx`/`.pdf` source documents
+  live in `docs/horarium-sources/` (kept out of `assets/` so they don't ship in the APK).
 - Location files follow `locations_<septimanaLocation>.json`, matched to a `SeptimanaLocation` enum key.
 - **The event date and location are hardcoded** in `SeptimanappApplication.storeEventInfo()`. Updating to a
   new year means adding `horarium_<year>_*.json` assets, bumping `versionCode`/`versionName` in
@@ -100,6 +101,6 @@ are scheduled in `SeptimanappApplication.setupReminder()` at offsets defined by
 
 ## Conventions
 - Kotlin official code style (`kotlin.code.style=official`).
-- `minSdkVersion 19`, `targetSdkVersion 34`; multidex is enabled.
+- `minSdkVersion 23`, `targetSdkVersion 35`; multidex is enabled.
 - The third-party `Android-Week-View` fork and `osmdroid` come from JitPack/extra Maven repos declared in
   the root `build.gradle`.

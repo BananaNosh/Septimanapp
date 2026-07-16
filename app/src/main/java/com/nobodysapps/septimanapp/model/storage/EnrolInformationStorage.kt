@@ -9,11 +9,12 @@ import com.nobodysapps.septimanapp.model.EnrolInformation
 import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_NONE
 import com.nobodysapps.septimanapp.model.fromSerializablePair
 import com.nobodysapps.septimanapp.model.toSerializablePair
+import com.nobodysapps.septimanapp.dependencyInjection.EnrolPrefs
 import javax.inject.Inject
 
 
 class EnrolInformationStorage @Inject constructor(
-    private val prefs: SharedPreferences,
+    @EnrolPrefs private val prefs: SharedPreferences,
     private val jsonConverter: JsonConverter
 ) {
 
@@ -202,5 +203,13 @@ class EnrolInformationStorage @Inject constructor(
         const val ENROLLED_STATE_ENROLLED = 1
         const val ENROLLED_STATE_IN_PROGRESS = 2
         const val ENROLLED_STATE_NOT_ASK_AGAIN = 3
+
+        /** All keys this storage owns; used by [EnrolPrefsMigration]. */
+        internal val ALL_KEYS = setOf(
+            NAME_KEY, FIRSTNAME_KEY, STREET_KEY, POSTAL_KEY, CITY_KEY, COUNTRY_KEY,
+            PHONE_KEY, MAIL_KEY, JOHANNESHAUS_KEY, YEARS_LATIN_KEY, EATING_HABIT_KEY,
+            INSTRUMENT_KEY, ADDRESS_CONSENT_KEY, IMAGE_CONSENT_KEY, ROOM_OCCUPANCY_KEY,
+            ROOM_BATHROOM_KEY, ROOM_REMARKS_KEY, AGE_KEY, STUDENT_KEY, ENROLLED_STATE_KEY
+        )
     }
 }
