@@ -2,7 +2,6 @@ package com.nobodysapps.septimanapp.fragments
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,8 +14,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.CompoundButton
-import androidx.core.text.isDigitsOnly
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.databinding.FragmentEnrolmentBinding
@@ -24,24 +23,15 @@ import com.nobodysapps.septimanapp.view.applySystemBarInsetsAsPadding
 import com.nobodysapps.septimanapp.dialog.ConfirmEnrolmentDialogFragment
 import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
 import com.nobodysapps.septimanapp.model.EatingHabit
-import com.nobodysapps.septimanapp.model.EnrolInformation
 import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_NO
 import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_NONE
 import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_YES
 import com.nobodysapps.septimanapp.model.Vegan
 import com.nobodysapps.septimanapp.model.Vegetarian
-import com.nobodysapps.septimanapp.model.create
-import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage
-import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_ENROLLED
-import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_IN_PROGRESS
-import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_NOT_ASK_AGAIN
-import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage.Companion.ENROLLED_STATE_REMIND
-import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.model.storage.SeptimanaLocation
-import com.nobodysapps.septimanapp.notifications.AlarmScheduler
-import com.nobodysapps.septimanapp.notifications.NotificationHelper
+import com.nobodysapps.septimanapp.viewModel.EnrolmentViewModel
+import com.nobodysapps.septimanapp.viewModel.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -52,19 +42,9 @@ import javax.inject.Inject
  */
 class EnrolmentFragment : Fragment() {
     @Inject
-    lateinit var informationStorage: EnrolInformationStorage
+    lateinit var viewModelFactory: ViewModelFactory
 
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
-
-    @Inject
-    lateinit var notificationHelper: NotificationHelper
-
-    @Inject
-    lateinit var alarmScheduler: AlarmScheduler
-
-    @Inject
-    lateinit var eventInfoStorage: EventInfoStorage
+    private lateinit var viewModel: EnrolmentViewModel
 
     private var _binding: FragmentEnrolmentBinding? = null
     private val binding get() = _binding!!
@@ -72,6 +52,7 @@ class EnrolmentFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        viewModel = ViewModelProvider(this, viewModelFactory)[EnrolmentViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -96,7 +77,7 @@ class EnrolmentFragment : Fragment() {
         binding.root.applySystemBarInsetsAsPadding(bottom = true, horizontal = true)
 
         binding.enrolJohanneshausCB.setText(
-            when (eventInfoStorage.loadSeptimanaLocation()) {
+            when (viewModel.septimanaLocation) {
                 SeptimanaLocation.AMOENEBURG -> R.string.enrol_checkbox_johannes_haus
                 SeptimanaLocation.BRAUNFELS -> R.string.enrol_checkbox_hoehenblick
             }
@@ -109,15 +90,7 @@ class EnrolmentFragment : Fragment() {
     private fun fillSpinner() {
         context?.let { context ->
             ArrayAdapter<String>(context, android.R.layout.simple_spinner_item).also { adapter ->
-                val locales: Array<Locale> = Locale.getAvailableLocales()
-                val localCountries = ArrayList<String>()
-                for (l in locales) {
-                    localCountries.add(l.displayCountry)
-                }
-                adapter.addAll(
-                    localCountries.distinct().filter { it.isNotEmpty() && !it.isDigitsOnly() }
-                        .sorted()
-                )
+                adapter.addAll(viewModel.countryList())
                 // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 // Apply the adapter to the spinner
@@ -128,7 +101,7 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun loadForm() {
-        val info = informationStorage.loadEnrolInformation()
+        val info = viewModel.loadEnrolInformation()
         val (name, firstname, street, postal, city, country, phone, mail, stayInJohannesHaus, yearsOfLatin, eatingHabit, instrument, imageConsent, addressConsent) = info
         binding.enrolNameEdit.setText(name)
         binding.enrolFirstameEdit.setText(firstname)
@@ -190,28 +163,17 @@ class EnrolmentFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        val nameEditTextListener = EditTextListener(FIELD_NAME)
-        binding.enrolNameEdit.addTextChangedListener(nameEditTextListener)
-        val firstnameEditTextListener = EditTextListener(FIELD_FIRSTNAME)
-        binding.enrolFirstameEdit.addTextChangedListener(firstnameEditTextListener)
-        val streetAddressEditTextListener = EditTextListener(FIELD_STREET_ADDRESS)
-        binding.enrolStreetEdit.addTextChangedListener(streetAddressEditTextListener)
-        val postalEditTextListener = EditTextListener(FIELD_POSTAL)
-        binding.enrolPostalEdit.addTextChangedListener(postalEditTextListener)
-        val cityEditTextListener = EditTextListener(FIELD_CITY)
-        binding.enrolCityEdit.addTextChangedListener(cityEditTextListener)
-        val phoneEditTextListener = EditTextListener(FIELD_PHONE)
-        binding.enrolPhoneEdit.addTextChangedListener(phoneEditTextListener)
-        val mailEditTextListener = EditTextListener(FIELD_MAIL)
-        binding.enrolMailEdit.addTextChangedListener(mailEditTextListener)
-        val yearsOfLatinEditTextListener = EditTextListener(FIELD_YEARS_LATIN)
-        binding.enrolYearsLatinEdit.addTextChangedListener(yearsOfLatinEditTextListener)
-        val instrumentEditTextListener = EditTextListener(FIELD_INSTRUMENT)
-        binding.enrolInstrumentEdit.addTextChangedListener(instrumentEditTextListener)
-        val roomRemarksEditTextListener = EditTextListener(FIELD_ROOM_REMARKS)
-        binding.enrolRoomRemarksEdit.addTextChangedListener(roomRemarksEditTextListener)
-        val ageEditTextListener = EditTextListener(FIELD_AGE)
-        binding.enrolAgeEdit.addTextChangedListener(ageEditTextListener)
+        binding.enrolNameEdit.addTextChangedListener(EditTextListener(EnrolmentViewModel.FIELD_NAME))
+        binding.enrolFirstameEdit.addTextChangedListener(EditTextListener(EnrolmentViewModel.FIELD_FIRSTNAME))
+        binding.enrolStreetEdit.addTextChangedListener(EditTextListener(EnrolmentViewModel.FIELD_STREET_ADDRESS))
+        binding.enrolPostalEdit.addTextChangedListener(EditTextListener(EnrolmentViewModel.FIELD_POSTAL))
+        binding.enrolCityEdit.addTextChangedListener(EditTextListener(EnrolmentViewModel.FIELD_CITY))
+        binding.enrolPhoneEdit.addTextChangedListener(EditTextListener(EnrolmentViewModel.FIELD_PHONE))
+        binding.enrolMailEdit.addTextChangedListener(EditTextListener(EnrolmentViewModel.FIELD_MAIL))
+        binding.enrolYearsLatinEdit.addTextChangedListener(EditTextListener(EnrolmentViewModel.FIELD_YEARS_LATIN))
+        binding.enrolInstrumentEdit.addTextChangedListener(EditTextListener(EnrolmentViewModel.FIELD_INSTRUMENT))
+        binding.enrolRoomRemarksEdit.addTextChangedListener(EditTextListener(EnrolmentViewModel.FIELD_ROOM_REMARKS))
+        binding.enrolAgeEdit.addTextChangedListener(EditTextListener(EnrolmentViewModel.FIELD_AGE))
 
         binding.enrolYearsLatinEdit.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -244,12 +206,12 @@ class EnrolmentFragment : Fragment() {
             ) {
                 val item = parent?.getItemAtPosition(position)
                 val country = item.toString()
-                informationStorage.saveCountry(country)
+                viewModel.saveCountry(country)
             }
         }
 
         binding.enrolJohanneshausCB.setOnCheckedChangeListener { _, isChecked ->
-            informationStorage.saveStayInJohanneshaus(isChecked)
+            viewModel.saveStayInMainBuilding(isChecked)
         }
 
         binding.enrolRoomOccupancySpinner.onItemSelectedListener =
@@ -259,7 +221,7 @@ class EnrolmentFragment : Fragment() {
                 override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
-                    informationStorage.saveRoomOccupancy(position)
+                    viewModel.saveRoomOccupancy(position)
                 }
             }
 
@@ -270,25 +232,25 @@ class EnrolmentFragment : Fragment() {
                 override fun onItemSelected(
                     parent: AdapterView<*>?, view: View?, position: Int, id: Long
                 ) {
-                    informationStorage.saveRoomBathroom(position)
+                    viewModel.saveRoomBathroom(position)
                 }
             }
 
         binding.enrolStudentCB.setOnCheckedChangeListener { _, isChecked ->
-            informationStorage.saveIsStudent(isChecked)
+            viewModel.saveIsStudent(isChecked)
         }
 
         setupEatingHabitListeners()
         val onImageConsentChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, _ ->
             if (btn.isPressed) {
                 when (btn) {
-                    binding.enrolImageConsentYesRB -> informationStorage.saveImageConsent(
+                    binding.enrolImageConsentYesRB -> viewModel.saveImageConsent(
                         ACCEPT_STATE_YES
                     )
-                    binding.enrolImageConsentNoRB -> informationStorage.saveImageConsent(
+                    binding.enrolImageConsentNoRB -> viewModel.saveImageConsent(
                         ACCEPT_STATE_NO
                     )
-                    else -> informationStorage.saveImageConsent(
+                    else -> viewModel.saveImageConsent(
                         ACCEPT_STATE_NONE
                     )
                 }
@@ -300,13 +262,13 @@ class EnrolmentFragment : Fragment() {
         val onAddressConsentChangedLambda: (CompoundButton, Boolean) -> Unit = { btn, _ ->
             if (btn.isPressed) {
                 when (btn) {
-                    binding.enrolAddressConsentYesRB -> informationStorage.saveAddressConsent(
+                    binding.enrolAddressConsentYesRB -> viewModel.saveAddressConsent(
                         ACCEPT_STATE_YES
                     )
-                    binding.enrolAddressConsentNoRB -> informationStorage.saveAddressConsent(
+                    binding.enrolAddressConsentNoRB -> viewModel.saveAddressConsent(
                         ACCEPT_STATE_NO
                     )
-                    else -> informationStorage.saveAddressConsent(
+                    else -> viewModel.saveAddressConsent(
                         ACCEPT_STATE_NONE
                     )
                 }
@@ -367,12 +329,10 @@ class EnrolmentFragment : Fragment() {
             if (binding.enrolAllergensCB.isChecked) {
                 allergens.addAll(binding.enrolAllergensEdit.text.split(" "))
             }
-            informationStorage.saveEatingHabit(
-                EatingHabit.create(
-                    binding.enrolVeganCB.isChecked,
-                    binding.enrolVegetarianCB.isChecked,
-                    allergens
-                )
+            viewModel.saveEatingHabit(
+                binding.enrolVeganCB.isChecked,
+                binding.enrolVegetarianCB.isChecked,
+                allergens
             )
         }
         binding.enrolVeganCB.setOnCheckedChangeListener(onEatingHabitChangedLambda)
@@ -405,9 +365,9 @@ class EnrolmentFragment : Fragment() {
             val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.hideSoftInputFromWindow(view.windowToken, 0)
         }
-        val enrolInformation = informationStorage.loadEnrolInformation()
+        val enrolInformation = viewModel.loadEnrolInformation()
         if (!enrolInformation.isValid()) {
-            val missingFields = missingFieldLabels(enrolInformation)
+            val missingFields = enrolInformation.missingFields().map { getString(it.labelRes) }
             view?.let {
                 val message = if (missingFields.isEmpty()) {
                     getString(R.string.enrol_not_all_data_given)
@@ -429,137 +389,21 @@ class EnrolmentFragment : Fragment() {
         }
     }
 
-    /**
-     * Returns the localized labels of the required fields that are still missing, so the
-     * snackbar can tell the user exactly what to complete. Kept in sync with
-     * [EnrolInformation.isValid].
-     */
-    private fun missingFieldLabels(info: EnrolInformation): List<String> {
-        val missing = mutableListOf<String>()
-        if (info.name.isBlank()) missing.add(getString(R.string.enrol_last_name_hint))
-        if (info.firstname.isBlank()) missing.add(getString(R.string.enrol_first_name_hint))
-        if (info.street.isBlank()) missing.add(getString(R.string.enrol_street_hint))
-        if (info.postal.isBlank()) missing.add(getString(R.string.enrol_postal_code_hint))
-        if (info.city.isBlank()) missing.add(getString(R.string.enrol_city_hint))
-        if (info.country.isBlank()) missing.add(getString(R.string.enrol_country_hint))
-        if (info.phone.isBlank()) missing.add(getString(R.string.enrol_phone_hint))
-        if (info.mail.isBlank()) missing.add(getString(R.string.enrol_mail_hint))
-        if (info.age <= 0) missing.add(getString(R.string.enrol_age_label))
-        if (info.addressConsent == ACCEPT_STATE_NONE) {
-            missing.add(getString(R.string.enrol_field_address_consent))
-        }
-        if (info.imageConsent == ACCEPT_STATE_NONE) {
-            missing.add(getString(R.string.enrol_field_image_consent))
-        }
-        return missing
-    }
-
     private fun sendEnrolment() {
-        val info = informationStorage.loadEnrolInformation()
-        val (name, firstname, street, postal, city, country, phone, mail, stayInMainBuilding, yearsOfLatin, eatingHabit, instrument, imageConsent, addressConsent) = info
-
-        val emailIntent = Intent(Intent.ACTION_SEND)
-        val aEmailList = arrayOf(getString(R.string.enrol_send_email_address))
-
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, aEmailList)
-
-        val year = eventInfoStorage.loadSeptimanaStartEndTime()?.first?.let {
-            SimpleDateFormat(
-                "yyyy",
-                Locale.GERMAN
-            ).format(it.time)
-        } ?: ""
-        emailIntent.putExtra(
-            Intent.EXTRA_SUBJECT,
-            getString(R.string.enrol_send_email_subject, year, name, firstname)
-        )
-
-        val septimanaLocation = eventInfoStorage.loadSeptimanaLocation()
-
-        emailIntent.type = "text/plain"
-        if (context != null) {
-            val body = getString(
-                R.string.enrol_send_email_template,
-                firstname,
-                name,
-                street,
-                postal,
-                city,
-                country,
-                phone,
-                mail,
-                getString(if (septimanaLocation == SeptimanaLocation.BRAUNFELS) R.string.enrol_send_email_hoehenblick else R.string.enrol_send_email_johanneshaus),
-                getString(if (stayInMainBuilding) R.string.enrol_send_yes else R.string.enrol_send_no),
-                buildRoomString(info),
-                info.age,
-                yearsOfLatin,
-                getString(if (info.isStudent) R.string.enrol_send_yes else R.string.enrol_send_no),
-                (eatingHabit ?: EatingHabit.create(
-                    isVegan = false,
-                    isVegetarian = false,
-                    allergens = Collections.emptyList()
-                )).information(requireContext()),
-                instrument,
-                getString(
-                    when (imageConsent) {
-                        ACCEPT_STATE_YES -> R.string.enrol_send_yes
-                        else -> R.string.enrol_send_no
-                    }
-                ),
-                getString(
-                    when (addressConsent) {
-                        ACCEPT_STATE_YES -> R.string.enrol_send_yes
-                        else -> R.string.enrol_send_no
-                    }
-                )
-            )
-            emailIntent.putExtra(Intent.EXTRA_TEXT, body)
-
-            startActivity(emailIntent)
-            resetReminderNotifications()
+        val context = context ?: return
+        val email = viewModel.buildEnrolmentEmail(context)
+        val emailIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(email.address))
+            putExtra(Intent.EXTRA_SUBJECT, email.subject)
+            putExtra(Intent.EXTRA_TEXT, email.body)
         }
-    }
-
-    /**
-     * Builds the German room-category line for the enrolment email from the
-     * (always German) email arrays. The "keine Angabe" entry at index 0 is dropped;
-     * free-text remarks are appended in parentheses. Falls back to "keine Angabe" if
-     * nothing is selected and no remarks are given.
-     */
-    private fun buildRoomString(info: EnrolInformation): String {
-        val occupancyOptions = resources.getStringArray(R.array.enrol_room_occupancy_email)
-        val bathroomOptions = resources.getStringArray(R.array.enrol_room_bathroom_email)
-        val parts = mutableListOf<String>()
-        if (info.roomOccupancy in 1 until occupancyOptions.size) {
-            parts.add(occupancyOptions[info.roomOccupancy])
-        }
-        if (info.roomBathroom in 1 until bathroomOptions.size) {
-            parts.add(bathroomOptions[info.roomBathroom])
-        }
-        if (info.roomRemarks.isNotBlank()) {
-            parts.add("(${info.roomRemarks.trim()})")
-        }
-        return if (parts.isEmpty()) occupancyOptions[0] else parts.joinToString(", ")
-    }
-
-    private fun resetReminderNotifications() {
-        informationStorage.saveEnrolState(ENROLLED_STATE_ENROLLED)
+        startActivity(emailIntent)
+        viewModel.onEnrolmentSent()
     }
 
     companion object {
         const val TAG = "EnrolmentFragment"
-
-        private const val FIELD_NAME = "name"
-        private const val FIELD_FIRSTNAME = "firstname"
-        private const val FIELD_STREET_ADDRESS = "street"
-        private const val FIELD_POSTAL = "postal"
-        private const val FIELD_CITY = "city"
-        private const val FIELD_PHONE = "phone"
-        private const val FIELD_MAIL = "mail"
-        private const val FIELD_YEARS_LATIN = "years_latin"
-        private const val FIELD_INSTRUMENT = "instrument"
-        private const val FIELD_ROOM_REMARKS = "room_remarks"
-        private const val FIELD_AGE = "age"
 
         /**
          * Use this factory method to create a new instance of
@@ -574,49 +418,7 @@ class EnrolmentFragment : Fragment() {
     private inner class EditTextListener(private val fieldKey: String) : TextWatcher {
 
         override fun afterTextChanged(s: Editable?) {
-            val inputText = s.toString()
-            when (fieldKey) {
-                FIELD_NAME -> informationStorage.saveName(inputText)
-                FIELD_FIRSTNAME -> informationStorage.saveFirstName(inputText)
-                FIELD_STREET_ADDRESS -> informationStorage.saveStreet(inputText)
-                FIELD_POSTAL -> informationStorage.savePostal(inputText)
-                FIELD_CITY -> informationStorage.saveCity(inputText)
-                FIELD_PHONE -> informationStorage.savePhone(inputText)
-                FIELD_MAIL -> informationStorage.saveMail(inputText)
-                FIELD_YEARS_LATIN -> {
-                    try {
-                        val years = inputText.toFloat()
-                        informationStorage.saveYearsOfLatin(years)
-                    } catch (e: NumberFormatException) {
-                    }
-                }
-                FIELD_INSTRUMENT -> informationStorage.saveInstrument(inputText)
-                FIELD_ROOM_REMARKS -> informationStorage.saveRoomRemarks(inputText)
-                FIELD_AGE -> informationStorage.saveAge(inputText.toIntOrNull() ?: 0)
-            }
-            if (inputText.isNotEmpty()) {
-                val currentState = informationStorage.loadEnrolState()
-                informationStorage.saveEnrolState(ENROLLED_STATE_REMIND)  // TODO why??
-                if (currentState != ENROLLED_STATE_IN_PROGRESS) {
-                    informationStorage.saveEnrolState(ENROLLED_STATE_IN_PROGRESS)
-                    if (currentState != ENROLLED_STATE_NOT_ASK_AGAIN) {
-                        alarmScheduler.scheduleAlarm(Calendar.getInstance().also {
-                            it.add(
-                                Calendar.DAY_OF_MONTH,
-                                NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.first
-                            )
-                            it.add(
-                                Calendar.HOUR_OF_DAY,
-                                NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.second
-                            )
-                            it.add(
-                                Calendar.MINUTE,
-                                NotificationHelper.ENROL_CONTINUE_REMINDER_OFFSET.third
-                            )
-                        }, notificationHelper.pendingIntentForContinueEnrolReminder())
-                    }
-                }
-            }
+            viewModel.onTextFieldChanged(fieldKey, s.toString())
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

@@ -25,16 +25,41 @@ data class EnrolInformation(
     val isStudent: Boolean = false
 ) {
 
-    fun isValid(): Boolean {
-        if (name.isBlank() || firstname.isBlank() || street.isBlank() || postal.isBlank() || city.isBlank() || country.isBlank() || phone.isBlank() || mail.isBlank()) {
-            return false
-        }
-        if (age <= 0) {
-            return false
-        }
-        return addressConsent != ACCEPT_STATE_NONE && imageConsent != ACCEPT_STATE_NONE
+    /**
+     * The required fields that are not filled in yet. Single source of truth for
+     * [isValid] and for the "missing fields" snackbar in the enrolment form.
+     */
+    fun missingFields(): List<RequiredField> {
+        val missing = mutableListOf<RequiredField>()
+        if (name.isBlank()) missing.add(RequiredField.NAME)
+        if (firstname.isBlank()) missing.add(RequiredField.FIRSTNAME)
+        if (street.isBlank()) missing.add(RequiredField.STREET)
+        if (postal.isBlank()) missing.add(RequiredField.POSTAL)
+        if (city.isBlank()) missing.add(RequiredField.CITY)
+        if (country.isBlank()) missing.add(RequiredField.COUNTRY)
+        if (phone.isBlank()) missing.add(RequiredField.PHONE)
+        if (mail.isBlank()) missing.add(RequiredField.MAIL)
+        if (age <= 0) missing.add(RequiredField.AGE)
+        if (addressConsent == ACCEPT_STATE_NONE) missing.add(RequiredField.ADDRESS_CONSENT)
+        if (imageConsent == ACCEPT_STATE_NONE) missing.add(RequiredField.IMAGE_CONSENT)
+        return missing
     }
 
+    fun isValid(): Boolean = missingFields().isEmpty()
+
+    enum class RequiredField(val labelRes: Int) {
+        NAME(R.string.enrol_last_name_hint),
+        FIRSTNAME(R.string.enrol_first_name_hint),
+        STREET(R.string.enrol_street_hint),
+        POSTAL(R.string.enrol_postal_code_hint),
+        CITY(R.string.enrol_city_hint),
+        COUNTRY(R.string.enrol_country_hint),
+        PHONE(R.string.enrol_phone_hint),
+        MAIL(R.string.enrol_mail_hint),
+        AGE(R.string.enrol_age_label),
+        ADDRESS_CONSENT(R.string.enrol_field_address_consent),
+        IMAGE_CONSENT(R.string.enrol_field_image_consent)
+    }
 
     companion object {
         const val ACCEPT_STATE_NONE = 0

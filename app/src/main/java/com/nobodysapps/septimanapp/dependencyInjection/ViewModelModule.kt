@@ -2,11 +2,15 @@ package com.nobodysapps.septimanapp.dependencyInjection
 
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
+import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage
 import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
 import com.nobodysapps.septimanapp.model.storage.LocationStorage
 import com.nobodysapps.septimanapp.model.storage.PropositaStorage
+import com.nobodysapps.septimanapp.notifications.AlarmScheduler
+import com.nobodysapps.septimanapp.notifications.NotificationHelper
 import com.nobodysapps.septimanapp.utils.CalendarUtils
+import com.nobodysapps.septimanapp.viewModel.EnrolmentViewModel
 import com.nobodysapps.septimanapp.viewModel.HorariumViewModel
 import com.nobodysapps.septimanapp.viewModel.MainViewModel
 import com.nobodysapps.septimanapp.viewModel.PropositaViewModel
@@ -49,5 +53,19 @@ class ViewModelModule {
     @ViewModelKey(PropositaViewModel::class)
     fun providePropositaViewModel(propositaStorage: PropositaStorage): ViewModel {
         return PropositaViewModel(propositaStorage)
+    }
+
+    @Provides
+    @IntoMap
+    @ViewModelKey(EnrolmentViewModel::class)
+    fun provideEnrolmentViewModel(
+        enrolInformationStorage: EnrolInformationStorage,
+        eventInfoStorage: EventInfoStorage,
+        alarmScheduler: AlarmScheduler,
+        notificationHelper: NotificationHelper
+    ): ViewModel {
+        return EnrolmentViewModel(
+            enrolInformationStorage, eventInfoStorage, alarmScheduler, notificationHelper
+        )
     }
 }
