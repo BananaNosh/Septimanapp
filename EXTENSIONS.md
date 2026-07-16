@@ -6,13 +6,11 @@ impact within each section.
 ## Feature extensions
 
 ### Remote content updates (highest impact)
-Fetch `horarium_<year>_<locale>.json`, `proposita_<year>.json`, and the event info (dates,
-location) from a static HTTPS URL — even GitHub Pages suffices — with the bundled assets as
-offline fallback. This removes the biggest maintenance burden: today every content change
-requires editing `SeptimanappApplication.storeEventInfo()`, bumping `versionCode`, and shipping
-a release (see CLAUDE.md "Content loading from assets"). With remote content, schedule fixes
-during the event week become possible. A minimal first step without any server logic: move the
-hardcoded event dates/location into an `event_info.json` asset so a new year is data-only.
+Fetch `horarium_<year>_<locale>.json`, `proposita_<year>.json`, and `event_info.json` from a
+static HTTPS URL — even GitHub Pages suffices — with the bundled assets as offline fallback.
+With remote content, schedule fixes during the event week become possible without shipping a
+release. (The first step is done: the event dates/location live in `assets/event_info.json`
+since July 2026, so a new year is already a data-only edit.)
 
 ### Personal schedule
 Let users star horarium events and their chosen proposita, with an optional notification before
@@ -51,9 +49,6 @@ including allergen/health data), an R8-shrunk release build, and CI-built releas
 - **Decouple storage JSON from the WeekView fork**: introduce an app-owned event DTO mapped to
   `WeekViewEvent` at the view boundary. Unblocks R8 and any future calendar-widget replacement;
   the JitPack fork (`BananaNosh:Android-Week-View`) is unmaintained.
-- **Extract an `EnrolmentViewModel`**: `EnrolmentFragment` (~600 lines) is the only screen
-  without one; validation logic exists twice (`EnrolInformation.isValid()` vs.
-  `missingFieldLabels()`) and must be kept in sync by hand — derive both from one field list.
 - **Migrate `LocaleHelper` to `AppCompatDelegate.setApplicationLocales`** (appcompat ≥ 1.6),
   replacing the custom `attachBaseContext`/`recreate()` machinery. Latin ("la") is a valid
   language tag; the custom Latin `DateFormatSymbols` in `LocalizationHelper` stays.
