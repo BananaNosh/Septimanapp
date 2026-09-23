@@ -2,6 +2,7 @@ package com.nobodysapps.septimanapp.dependencyInjection
 
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
+import com.nobodysapps.septimanapp.export.HorariumIcsExporter
 import com.nobodysapps.septimanapp.model.storage.EnrolInformationStorage
 import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
@@ -44,8 +45,16 @@ class ViewModelModule {
     @Provides
     @IntoMap
     @ViewModelKey(HorariumViewModel::class)
-    fun provideHorariumViewModel(horariumStorage: HorariumStorage, sharedPreferences: SharedPreferences): ViewModel {
-        return HorariumViewModel(horariumStorage, sharedPreferences)
+    fun provideHorariumViewModel(
+        horariumStorage: HorariumStorage,
+        sharedPreferences: SharedPreferences,
+        eventInfoStorage: EventInfoStorage,
+        locationStorage: LocationStorage,
+        icsExporter: HorariumIcsExporter
+    ): ViewModel {
+        return HorariumViewModel(
+            horariumStorage, sharedPreferences, eventInfoStorage, locationStorage, icsExporter
+        )
     }
 
     @Provides

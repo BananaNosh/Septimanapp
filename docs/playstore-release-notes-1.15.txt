@@ -1,0 +1,21 @@
+Play Store release notes — version 1.15 (versionCode 31)
+
+<en-GB>
+Updated horarium for the 2026 Latin Week in Braunfels, now available in Latin and German. Added this year's proposita (workshop topics) to browse ahead of the event.
+New: export the horarium to your calendar, optionally with reminders.
+</en-GB>
+
+<de-DE>
+Aktualisiertes Horarium für die Lateinwoche 2026 in Braunfels, jetzt auf Latein und Deutsch verfügbar. Die Proposita (Themenvorschläge für Arbeitsgruppen) für dieses Jahr wurden ergänzt.
+Neu: Das Programm lässt sich in deinen Kalender exportieren, auf Wunsch mit Erinnerungen.
+</de-DE>
+
+<fr-CA>
+Horaire mis à jour pour la Semaine du latin 2026 à Braunfels, désormais disponible en latin et en allemand. Ajout des proposita (sujets d'ateliers) de cette année.
+Nouveau : exportez l'horaire vers votre agenda, avec des rappels si vous le souhaitez.
+</fr-CA>
+
+<fr-FR>
+Horaire mis à jour pour la Semaine du latin 2026 à Braunfels, désormais disponible en latin et en allemand. Ajout des proposita (thèmes des ateliers) de cette année.
+Nouveau : exportez l'horaire vers votre agenda, avec des rappels si vous le souhaitez.
+</fr-FR>

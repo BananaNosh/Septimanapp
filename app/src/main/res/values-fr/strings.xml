@@ -91,6 +91,12 @@
     <string name="dialog_licenses_title">Open Source Licences</string>
     <string name="action_horarium_language">Horaire en %s</string>
     <string name="action_proposita_language">Sujets des cours en %s</string>
+    <string name="action_export_horarium">Exporter l\'horaire</string>
+    <string name="dialog_export_horarium_title">Exporter l\'horaire</string>
+    <string name="dialog_export_horarium">L\'horaire sera exporté vers votre agenda. Ajouter des rappels (5 minutes avant s\'il y a une pause, sinon au début) ?</string>
+    <string name="dialog_export_horarium_with_reminders">Oui</string>
+    <string name="dialog_export_horarium_without_reminders">Pas nécessaire</string>
+    <string name="export_horarium_failed">Impossible d\'exporter l\'horaire</string>
     <string name="settings_summary_version">version: %s</string>
 
     <!-- Language stuff-->

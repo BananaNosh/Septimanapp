@@ -4,11 +4,24 @@ import androidx.core.content.edit
 import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.nobodysapps.septimanapp.export.HorariumIcsExporter
 import com.nobodysapps.septimanapp.model.Horarium
+import com.nobodysapps.septimanapp.model.storage.EventInfoStorage
 import com.nobodysapps.septimanapp.model.storage.HorariumStorage
+import com.nobodysapps.septimanapp.model.storage.LocationStorage
 import java.util.*
 
-class HorariumViewModel(val horariumStorage: HorariumStorage, val sharedPreferences: SharedPreferences) : ViewModel() {
+class HorariumViewModel(
+    val horariumStorage: HorariumStorage,
+    val sharedPreferences: SharedPreferences,
+    private val eventInfoStorage: EventInfoStorage,
+    private val locationStorage: LocationStorage,
+    private val icsExporter: HorariumIcsExporter
+) : ViewModel() {
+
+    /** The year of the horarium currently shown, which is not the current year after [usePreviousHorarium]. */
+    var shownYear: Int = Calendar.getInstance().get(Calendar.YEAR)
+        private set
 
     var horariumLanguage: Locale = when (Locale.getDefault()) {
         Locale.GERMAN -> Locale.GERMAN
@@ -61,7 +74,32 @@ class HorariumViewModel(val horariumStorage: HorariumStorage, val sharedPreferen
 
     private fun loadHorariumInCorrectLanguage(year: Int? = null): Horarium? {
         val currentYear = year ?: Calendar.getInstance().get(Calendar.YEAR)
-        return horariumStorage.loadHorarium(currentYear, horariumLanguage.language)
+        val loaded = horariumStorage.loadHorarium(currentYear, horariumLanguage.language)
+        if (loaded != null) {
+            shownYear = currentYear
+        }
+        return loaded
+    }
+
+    /**
+     * Builds the iCalendar document for the currently shown horarium, or null if there is nothing
+     * to export.
+     */
+    fun buildIcs(calendarName: String, withReminders: Boolean): String? {
+        val currentHorarium = horarium.value ?: return null
+        if (currentHorarium.events.isEmpty()) return null
+        return icsExporter.export(
+            currentHorarium,
+            calendarName,
+            uidPrefix = "horarium_${shownYear}_${horariumLanguage.language}",
+            location = mainLocationTitle(),
+            withReminders = withReminders
+        )
+    }
+
+    private fun mainLocationTitle(): String? {
+        val locations = locationStorage.loadLocations(eventInfoStorage.loadSeptimanaLocation())
+        return locations?.firstOrNull { it.isMain }?.titleForLocale(horariumLanguage)
     }
 
     companion object {

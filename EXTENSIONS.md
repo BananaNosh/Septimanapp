@@ -37,6 +37,15 @@ or pre-downloading tiles for the venue area would make the map reliable on site.
 The app UI supports `la`, `de`, `en`, `fr`, but horarium content exists only for `la`/`de`
 (`ALLOWED_HORARIUM_LOCALES`). An English horarium would widen the audience.
 
+### Calendar export: reminders on Android
+The horarium export (`export/HorariumIcsExporter`) writes a `VALARM` per event when the user
+chooses reminders, but **Android's calendar import drops them** and applies the target calendar's
+default notifications instead (verified August 2026; importing the same file at
+calendar.google.com keeps them). The `.ics` itself is correct. So on the phone the
+"add reminders?" choice currently has no visible effect. Reliable reminders on the device would
+need the events written directly through `CalendarContract.Events` + `CalendarContract.Reminders`
+with the `WRITE_CALENDAR` runtime permission (plumbing: `SeptimanappActivity.withPermission`).
+
 ### Play Store readiness
 A privacy policy and an accurate Data Safety declaration (the enrolment form collects PII
 including allergen/health data), an R8-shrunk release build, and CI-built release artifacts.

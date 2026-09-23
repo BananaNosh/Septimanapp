@@ -91,6 +91,12 @@
     <string name="dialog_licenses_title">Open Source Linzenzen</string>
     <string name="action_horarium_language">Programm auf %s</string>
     <string name="action_proposita_language">Wahlgruppen auf %s</string>
+    <string name="action_export_horarium">Programm exportieren</string>
+    <string name="dialog_export_horarium_title">Programm exportieren</string>
+    <string name="dialog_export_horarium">Das Programm wird in deinen Kalender exportiert. Sollen Erinnerungen hinzugefügt werden (5 Minuten vorher, wenn eine Pause davor liegt, sonst zu Beginn)?</string>
+    <string name="dialog_export_horarium_with_reminders">Ja</string>
+    <string name="dialog_export_horarium_without_reminders">Nicht nötig</string>
+    <string name="export_horarium_failed">Programm konnte nicht exportiert werden</string>
     <string name="settings_summary_version">Version: %s</string>
 
     <!-- Language stuff-->

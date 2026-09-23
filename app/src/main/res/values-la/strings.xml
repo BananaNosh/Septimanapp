@@ -91,6 +91,12 @@
     <string name="dialog_licenses_title">Open Source Licentiae</string>
     <string name="action_horarium_language">Videatur horarium in %s</string>
     <string name="action_proposita_language">Videantur proposita in %s</string>
+    <string name="action_export_horarium">Horarium exportare</string>
+    <string name="dialog_export_horarium_title">Horarium exportare</string>
+    <string name="dialog_export_horarium">Horarium in calendarium tuum exportabitur. Visne admonitiones addi (quinque minutis ante, si intervallum praecedit, alioquin ipso initio)?</string>
+    <string name="dialog_export_horarium_with_reminders">Ita</string>
+    <string name="dialog_export_horarium_without_reminders">Non necesse</string>
+    <string name="export_horarium_failed">Horarium exportari non potuit</string>
     <string name="settings_summary_version">versio: %s</string>
 
     <!-- Language stuff-->

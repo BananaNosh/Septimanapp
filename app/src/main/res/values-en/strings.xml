@@ -91,6 +91,12 @@
     <string name="dialog_licenses_title">Open Source Licences</string>
     <string name="action_horarium_language">Show timetable in %s</string>
     <string name="action_proposita_language">Show course topics in %s</string>
+    <string name="action_export_horarium">Export timetable</string>
+    <string name="dialog_export_horarium_title">Export timetable</string>
+    <string name="dialog_export_horarium">The timetable will be exported to your calendar. Add reminders (5 minutes early after a break, otherwise at the start)?</string>
+    <string name="dialog_export_horarium_with_reminders">Yes</string>
+    <string name="dialog_export_horarium_without_reminders">Not necessary</string>
+    <string name="export_horarium_failed">Could not export the timetable</string>
     <string name="settings_summary_version">version: %s</string>
 
     <!-- Language stuff-->
