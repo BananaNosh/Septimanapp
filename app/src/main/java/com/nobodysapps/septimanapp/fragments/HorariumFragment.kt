@@ -54,6 +54,11 @@ class HorariumFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this, viewModelFactory).get(HorariumViewModel::class.java)
+        childFragmentManager.setFragmentResultListener(
+            ExportHorariumDialogFragment.REQUEST_KEY, this
+        ) { _, result ->
+            exportHorarium(ExportHorariumDialogFragment.withReminders(result))
+        }
     }
 
     override fun onCreateView(
@@ -190,18 +195,13 @@ class HorariumFragment : Fragment() {
     }
 
     private fun showExportDialog() {
-        val manager = activity?.supportFragmentManager ?: return
-        val prevDialog = manager.findFragmentByTag(EXPORT_DIALOG_TAG)
+        // A child fragment is restored together with this fragment, so after a rotation its result
+        // still reaches the listener registered in onCreate.
+        val prevDialog = childFragmentManager.findFragmentByTag(EXPORT_DIALOG_TAG)
         if (prevDialog != null && (prevDialog as ExportHorariumDialogFragment).showsDialog) {
             prevDialog.dismiss()
         }
-        val dialog = ExportHorariumDialogFragment()
-        dialog.listener = object : ExportHorariumDialogFragment.Listener {
-            override fun onExportChosen(withReminders: Boolean) {
-                exportHorarium(withReminders)
-            }
-        }
-        dialog.show(manager, EXPORT_DIALOG_TAG)
+        ExportHorariumDialogFragment().show(childFragmentManager, EXPORT_DIALOG_TAG)
     }
 
     private fun exportHorarium(withReminders: Boolean) {
