@@ -21,7 +21,6 @@ import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.databinding.FragmentEnrolmentBinding
 import com.nobodysapps.septimanapp.view.applySystemBarInsetsAsPadding
 import com.nobodysapps.septimanapp.dialog.ConfirmEnrolmentDialogFragment
-import com.nobodysapps.septimanapp.dialog.MessageAndCheckboxDialogFragment
 import com.nobodysapps.septimanapp.model.EatingHabit
 import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_NO
 import com.nobodysapps.septimanapp.model.EnrolInformation.Companion.ACCEPT_STATE_NONE
@@ -53,6 +52,13 @@ class EnrolmentFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this, viewModelFactory)[EnrolmentViewModel::class.java]
+        // The confirm dialog is a child fragment, restored together with this fragment, so after a
+        // rotation its result still reaches this listener.
+        childFragmentManager.setFragmentResultListener(
+            ConfirmEnrolmentDialogFragment.REQUEST_KEY, this
+        ) { _, _ ->
+            sendEnrolment()
+        }
     }
 
     override fun onCreateView(
@@ -378,15 +384,7 @@ class EnrolmentFragment : Fragment() {
             }
             return
         }
-        activity?.supportFragmentManager?.let {
-            val confirmDialog = ConfirmEnrolmentDialogFragment()
-            confirmDialog.listener = object : MessageAndCheckboxDialogFragment.Listener {
-                override fun onOkClicked(isChecked: Boolean) {
-                    sendEnrolment()
-                }
-            }
-            confirmDialog.show(it, "Confirm")
-        }
+        ConfirmEnrolmentDialogFragment().show(childFragmentManager, CONFIRM_DIALOG_TAG)
     }
 
     private fun sendEnrolment() {
@@ -404,6 +402,7 @@ class EnrolmentFragment : Fragment() {
 
     companion object {
         const val TAG = "EnrolmentFragment"
+        private const val CONFIRM_DIALOG_TAG = "Confirm"
 
         /**
          * Use this factory method to create a new instance of

@@ -54,10 +54,17 @@ class HorariumFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         viewModel = ViewModelProvider(this, viewModelFactory).get(HorariumViewModel::class.java)
+        // The dialogs are shown as child fragments, which are restored together with this fragment,
+        // so after a rotation their results still reach these listeners.
         childFragmentManager.setFragmentResultListener(
             ExportHorariumDialogFragment.REQUEST_KEY, this
         ) { _, result ->
             exportHorarium(ExportHorariumDialogFragment.withReminders(result))
+        }
+        childFragmentManager.setFragmentResultListener(
+            OutdatedHorariumDialogFragment.REQUEST_KEY, this
+        ) { _, result ->
+            viewModel.shouldShowWarning = !MessageAndCheckboxDialogFragment.isChecked(result)
         }
     }
 
@@ -99,21 +106,11 @@ class HorariumFragment : Fragment() {
             if (viewModel.hasPreviousHorarium()) {
                 viewModel.usePreviousHorarium()
                 if (viewModel.shouldShowWarning) {
-                    val dialog = OutdatedHorariumDialogFragment()
-                    dialog.listener = object : MessageAndCheckboxDialogFragment.Listener {
-                        override fun onOkClicked(isChecked: Boolean) {
-                            viewModel.shouldShowWarning = !isChecked
-                        }
+                    val prevDialog = childFragmentManager.findFragmentByTag(OUTDATED_DIALOG_TAG)
+                    if (prevDialog != null && (prevDialog as OutdatedHorariumDialogFragment).showsDialog) {
+                        prevDialog.dismiss()
                     }
-                    dialog.setTargetFragment(this, 0)
-                    activity?.supportFragmentManager?.let { manager ->
-                        val dialogTag = "NoHorarium"
-                        val prevDialog = manager.findFragmentByTag(dialogTag)
-                        if (prevDialog != null && (prevDialog as OutdatedHorariumDialogFragment).showsDialog) {
-                            prevDialog.dismiss()
-                        }
-                        dialog.show(manager, dialogTag)
-                    }
+                    OutdatedHorariumDialogFragment().show(childFragmentManager, OUTDATED_DIALOG_TAG)
                 }
             }
         }
@@ -195,8 +192,6 @@ class HorariumFragment : Fragment() {
     }
 
     private fun showExportDialog() {
-        // A child fragment is restored together with this fragment, so after a rotation its result
-        // still reaches the listener registered in onCreate.
         val prevDialog = childFragmentManager.findFragmentByTag(EXPORT_DIALOG_TAG)
         if (prevDialog != null && (prevDialog as ExportHorariumDialogFragment).showsDialog) {
             prevDialog.dismiss()
@@ -266,6 +261,7 @@ class HorariumFragment : Fragment() {
     companion object {
         private const val TAG = "HorariumFragment"
         private const val EXPORT_DIALOG_TAG = "ExportHorarium"
+        private const val OUTDATED_DIALOG_TAG = "NoHorarium"
         private const val EXPORT_DIRECTORY = "export"
 
         /**

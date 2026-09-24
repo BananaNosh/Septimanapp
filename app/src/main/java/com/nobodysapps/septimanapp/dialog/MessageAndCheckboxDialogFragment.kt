@@ -9,8 +9,14 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.nobodysapps.septimanapp.R
 
-open class MessageAndCheckboxDialogFragment: DialogFragment() {
-    var listener: Listener? = null
+/**
+ * A message with one or two checkboxes and an OK button. OK is delivered as a fragment result under
+ * the subclass' [requestKey] (read the first checkbox with [isChecked]) instead of via a listener
+ * field, so it still arrives after the dialog was recreated, e.g. on rotation.
+ */
+abstract class MessageAndCheckboxDialogFragment: DialogFragment() {
+    /** Key the OK result is delivered under, in the fragment manager the dialog was shown in. */
+    protected abstract val requestKey: String
     private var textView: TextView? = null
     protected var checkBox: CheckBox? = null
     protected var checkBox2: CheckBox? = null
@@ -29,7 +35,10 @@ open class MessageAndCheckboxDialogFragment: DialogFragment() {
                 .setPositiveButton(
                     R.string.ok
                 ) { _, _ ->
-                    listener?.onOkClicked(checkBox?.isChecked ?: false)
+                    parentFragmentManager.setFragmentResult(
+                        requestKey,
+                        Bundle().apply { putBoolean(KEY_IS_CHECKED, checkBox?.isChecked ?: false) }
+                    )
                 }
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
@@ -64,7 +73,10 @@ open class MessageAndCheckboxDialogFragment: DialogFragment() {
         checkBox2?.text = text
     }
 
-    interface Listener {
-        fun onOkClicked(isChecked: Boolean)
+    companion object {
+        private const val KEY_IS_CHECKED = "isChecked"
+
+        /** Reads from an OK result whether the first checkbox was checked. */
+        fun isChecked(result: Bundle) = result.getBoolean(KEY_IS_CHECKED)
     }
 }

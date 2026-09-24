@@ -8,6 +8,8 @@ import com.nobodysapps.septimanapp.R
 
 
 class ConfirmEnrolmentDialogFragment: MessageAndCheckboxDialogFragment() {
+    override val requestKey = REQUEST_KEY
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val dialog: AlertDialog = super.onCreateDialog(savedInstanceState) as AlertDialog
@@ -18,7 +20,9 @@ class ConfirmEnrolmentDialogFragment: MessageAndCheckboxDialogFragment() {
             dialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel)) { _, _ ->}
             dialog.setOnShowListener {
                 val positiveBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                positiveBtn.isEnabled = false
+                // Not simply false: after a rotation the checkboxes come back already checked.
+                positiveBtn.isEnabled =
+                    (checkBox?.isChecked ?: false) && (checkBox2?.isChecked ?: false)
                 checkBox?.setOnCheckedChangeListener { _, isChecked ->
                     positiveBtn.isEnabled = isChecked && (checkBox2?.isChecked ?: false)
                 }
@@ -28,5 +32,9 @@ class ConfirmEnrolmentDialogFragment: MessageAndCheckboxDialogFragment() {
             }
             dialog
         } ?: throw IllegalStateException("Activity cannot be null")
+    }
+
+    companion object {
+        const val REQUEST_KEY = "ConfirmEnrolmentDialogFragment.request"
     }
 }
