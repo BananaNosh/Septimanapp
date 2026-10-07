@@ -26,8 +26,13 @@ The project uses the Gradle wrapper (`./gradlew`). It is Java/Kotlin Android, **
 ```
 
 Unit tests use **Robolectric** + Mockito and run on the JVM (`includeAndroidResources = true`), so most
-"Android" logic is testable without a device. Note `kapt.incremental.apt=true` and the `--add-opens`
-JVM args in `gradle.properties` are required for Dagger annotation processing on modern JDKs.
+"Android" logic is testable without a device. Robolectric runs them against the targetSdk (37), whose
+framework jar needs **Java 21**: the build itself runs on JDK 17+, but `app/build.gradle` launches the test
+JVM on a Java 21 toolchain (auto-downloaded via the foojay resolver in `settings.gradle` if none is
+installed) with the `--add-opens` flags Robolectric needs.
+
+Toolchain: AGP 9 with its built-in Kotlin support (there is no `kotlin-android` plugin), Gradle 9, KSP for
+Dagger. AGP 9.1.1+ is required for compileSdk 37.
 
 `google-services.json` (Firebase) is required for the build to succeed. It is checked into git, so
 it is present automatically in fresh clones and `git worktree` checkouts.
@@ -86,8 +91,8 @@ Horaria and locations are bundled as JSON in `app/src/main/assets/` and imported
   and shows the language-choice dialog on first run.
 - `MainActivity` hosts the navigation drawer and swaps fragments (`HorariumFragment`, `EnrolmentFragment`,
   `MapFragment`). The map uses **osmdroid** (OpenStreetMap), not Google Maps.
-- View binding is via the legacy **kotlin-android-extensions synthetics** (`import kotlinx.android.synthetic...`),
-  not ViewBinding/Compose. Match this pattern when editing existing screens.
+- Views are accessed via **ViewBinding** (`buildFeatures.viewBinding`), not Compose. Match this pattern when
+  editing existing screens.
 
 ### Localization
 `LocaleHelper` (an `object`) persists and applies the chosen language independently of system settings;
@@ -103,6 +108,8 @@ are scheduled in `SeptimanappApplication.setupReminder()` at offsets defined by
 
 ## Conventions
 - Kotlin official code style (`kotlin.code.style=official`).
-- `minSdkVersion 23`, `targetSdkVersion 35`; multidex is enabled.
+- `minSdk 23`, `targetSdk 37` (no multidex needed above minSdk 21).
+- Back navigation goes through the `OnBackPressedDispatcher` (predictive back, targetSdk 36+): never
+  override `onBackPressed()` — gestures bypass it. See `MainActivity.closeDrawerOnBack`.
 - The third-party `Android-Week-View` fork and `osmdroid` come from JitPack/extra Maven repos declared in
   the root `build.gradle`.

@@ -1,9 +1,12 @@
-
 pluginManagement {
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
     }
+}
+plugins {
+    // Lets Gradle download the JDK 21 that the unit tests need (see app/build.gradle).
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
 }
 include ':app'

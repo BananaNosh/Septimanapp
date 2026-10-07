@@ -6,6 +6,7 @@ import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
@@ -15,7 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.multidex.BuildConfig
+import com.nobodysapps.septimanapp.BuildConfig
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.nobodysapps.septimanapp.R
@@ -45,6 +46,16 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
     // Whether the toolbar content (nav icon / title) is inset clear of the cutout and side
     // nav bar. Only the enrolment screen does so; map and horarium let it bleed to the edge.
     private var insetToolbarContentHorizontally = false
+
+    // Since targetSdk 36 a back gesture no longer calls onBackPressed(); back goes through
+    // the OnBackPressedDispatcher instead. This callback closes the open drawer and is only
+    // enabled while the drawer is open. Popping the fragment back stack is handled by the
+    // FragmentManager's own callback, and with neither enabled the activity finishes.
+    private val closeDrawerOnBack = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,11 +93,12 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             windowInsets
         }
         // goToFragment() / back press change the visible fragment via the back stack;
-        // keep the toolbar inset in sync with whichever fragment is now shown.
+        // keep the toolbar inset and the checked drawer item in sync with whichever
+        // fragment is now shown.
         supportFragmentManager.addOnBackStackChangedListener {
-            updateToolbarInsetsForFragment(
-                supportFragmentManager.findFragmentById(R.id.fragment_layout) is EnrolmentFragment
-            )
+            val shownFragment = supportFragmentManager.findFragmentById(R.id.fragment_layout)
+            updateToolbarInsetsForFragment(shownFragment is EnrolmentFragment)
+            navItemForFragment(shownFragment)?.let { binding.navView.setCheckedItem(it) }
         }
 
         AndroidInjection.inject(this)
@@ -112,6 +124,19 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         setupDrawerListenerForCountDown(drawerLayout)
         toggle.syncState()
 
+        // Registered after the FragmentManager's callback, so it takes precedence: back
+        // first closes the drawer before it pops the back stack.
+        onBackPressedDispatcher.addCallback(this, closeDrawerOnBack)
+        drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+            override fun onDrawerOpened(drawerView: View) {
+                closeDrawerOnBack.isEnabled = true
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+                closeDrawerOnBack.isEnabled = false
+            }
+        })
+
         navView.setNavigationItemSelectedListener(this)
 
         // For views inside nav_header_main, you'll need to get the header view first
@@ -124,6 +149,13 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         if (BuildConfig.DEBUG) {
             impressumView.debugTV.visibility = View.VISIBLE
         }
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        // A drawer left open before a configuration change is restored without the
+        // listener's onDrawerOpened, so sync the callback with the restored state.
+        closeDrawerOnBack.isEnabled = binding.drawerLayout.isDrawerOpen(GravityCompat.START)
     }
 
     private fun setupDrawerListenerForCountDown(drawerLayout: DrawerLayout) {
@@ -182,21 +214,7 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             binding.drawerLayout.closeDrawer(GravityCompat.START) // Use binding
             return true
         }
-        var fragmentClass: Class<*>? = null
-        when (item.itemId) {
-            R.id.nav_horarium -> {
-                fragmentClass = HorariumFragment::class.java
-            }
-            R.id.nav_proposita -> {
-                fragmentClass = PropositaFragment::class.java
-            }
-            R.id.nav_map -> {
-                fragmentClass = MapFragment::class.java
-            }
-            R.id.nav_enrol -> {
-                fragmentClass = EnrolmentFragment::class.java
-            }
-        }
+        val fragmentClass = NAV_ITEM_FRAGMENTS[item.itemId]
         if (fragmentClass == null || !goToFragment(fragmentClass)) return false
         binding.drawerLayout.closeDrawer(GravityCompat.START) // Use binding
         return true
@@ -230,24 +248,6 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         }
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        // val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout) // Old way
-        val drawerLayout: DrawerLayout = binding.drawerLayout // Use binding
-        when {
-            drawerLayout.isDrawerOpen(GravityCompat.START) -> drawerLayout.closeDrawer(GravityCompat.START)
-            supportFragmentManager.backStackEntryCount > 0 -> {
-                val prevFragment =
-                    supportFragmentManager.getBackStackEntryAt(supportFragmentManager.backStackEntryCount - 1)
-                prevFragment.name?.let {
-                    binding.navView.setCheckedItem(it.toInt()) // Use binding
-                }
-                supportFragmentManager.popBackStack()
-            }
-            else -> super.onBackPressed()
-        }
-    }
-
     private fun replaceFragment(fragmentToGo: Class<*>) {
         // These transactions don't go through the back stack, so update the inset directly.
         updateToolbarInsetsForFragment(fragmentToGo == EnrolmentFragment::class.java)
@@ -268,14 +268,13 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
             e.printStackTrace()
         }
         if (fragment == null) return false
-        val currentNavItemId = binding.navView.checkedItem?.itemId // Use binding
         supportFragmentManager.beginTransaction()
             .setCustomAnimations(
                 android.R.anim.slide_in_left, android.R.anim.slide_out_right,
                 android.R.anim.slide_in_left, android.R.anim.slide_out_right
             )
             .replace(R.id.fragment_layout, fragment) // Adjust path to fragment_layout
-            .addToBackStack(currentNavItemId?.toString())
+            .addToBackStack(null)
             .commit()
         return true
     }
@@ -284,5 +283,15 @@ class MainActivity : SeptimanappActivity(), NavigationView.OnNavigationItemSelec
         const val TAG = "MainActivity"
         const val FRAGMENT_TO_LOAD_KEY = "fragmentToLoad"
         const val SNACKBAR_ROUTE_DELAY: Long = 1000
+
+        private val NAV_ITEM_FRAGMENTS = mapOf(
+            R.id.nav_horarium to HorariumFragment::class.java,
+            R.id.nav_proposita to PropositaFragment::class.java,
+            R.id.nav_map to MapFragment::class.java,
+            R.id.nav_enrol to EnrolmentFragment::class.java
+        )
+
+        private fun navItemForFragment(fragment: Fragment?): Int? =
+            NAV_ITEM_FRAGMENTS.entries.firstOrNull { it.value == fragment?.javaClass }?.key
     }
 }

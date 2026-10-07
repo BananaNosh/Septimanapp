@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationManagerCompat
-import androidx.multidex.MultiDexApplication
+import android.app.Application
 import com.nobodysapps.septimanapp.R
 import com.nobodysapps.septimanapp.dependencyInjection.ContextModule
 import com.nobodysapps.septimanapp.dependencyInjection.DaggerSeptimanappApplicationComponent
@@ -22,7 +22,7 @@ import javax.inject.Inject
 const val VERSION_ALREADY_RUN_ON = "run_version"
 val ALLOWED_HORARIUM_LOCALES = listOf("la", "de")
 
-class SeptimanappApplication : MultiDexApplication(), HasAndroidInjector {
+class SeptimanappApplication : Application(), HasAndroidInjector {
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
